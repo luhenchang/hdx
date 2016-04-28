@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="CircleTextView">
+        <attr name="text" format="string"></attr>
+    </declare-styleable>
+
+    <attr name="autoScaleTextViewStyle" format="reference" />
+
+    <declare-styleable name="AutoScaleTextView">
+        <attr name="minTextSize" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SwipeBackLayout">
+        <attr name="edge_size" format="dimension" />
+        <attr name="edge_flag">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+        <attr name="shadow_left" format="reference" />
+        <attr name="shadow_right" format="reference" />
+        <attr name="shadow_bottom" format="reference" />
+    </declare-styleable>
+
+    <attr name="SwipeBackLayoutStyle" format="reference" />
+
+    <declare-styleable name="RoundAngleImageView">
+        <attr name="roundWidth" format="dimension" />
+        <attr name="roundHeight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ViewFlow">
+        <attr name="sidebuffer" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="EasyGridView">
+        <attr name="imagewidth" format="dimension" />
+        <attr name="imageheight" format="dimension" />
+        <attr name="columncount" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="SlidingMenu">
+        <attr name="mode">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="viewAbove" format="reference" />
+        <attr name="viewBehind" format="reference" />
+        <attr name="behindOffset" format="dimension" />
+        <attr name="behindWidth" format="dimension" />
+        <attr name="behindScrollScale" format="float" />
+        <attr name="touchModeAbove">
+            <enum name="margin" value="0" />
+            <enum name="fullscreen" value="1" />
+            <enum name="none" value="2" />
+        </attr>
+        <attr name="touchModeBehind">
+            <enum name="margin" value="0" />
+            <enum name="fullscreen" value="1" />
+            <enum name="none" value="2" />
+        </attr>
+        <attr name="shadowDrawable" format="reference" />
+        <attr name="shadowWidth" format="dimension" />
+        <attr name="fadeEnabled" format="boolean" />
+        <attr name="fadeDegree" format="float" />
+        <attr name="selectorEnabled" format="boolean" />
+        <attr name="selectorDrawable" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="ViewPagerIndicator">
+
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference" />
+        <!-- Style of the icon indicator's views. -->
+        <attr name="vpiIconPageIndicatorStyle" format="reference" />
+        <!-- Style of the line indicator. -->
+        <attr name="vpiLinePageIndicatorStyle" format="reference" />
+        <!-- Style of the title indicator. -->
+        <attr name="vpiTitlePageIndicatorStyle" format="reference" />
+        <!-- Style of the tab indicator's tabs. -->
+        <attr name="vpiTabPageIndicatorStyle" format="reference" />
+        <!-- Style of the underline indicator. -->
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="AccuSlidingDrawer">
+
+        <!-- Identifier for the child that represents the drawer's handle. -->
+        <attr name="handle" format="reference" />
+        <!-- Identifier for the child that represents the drawer's content. -->
+        <attr name="content" format="reference" />
+        <!-- Orientation of the SlidingDrawer. -->
+        <attr name="orientation" format="enum">
+            <enum name="topDown" value="1" />
+            <enum name="bottomUp" value="2" />
+            <enum name="leftToRight" value="4" />
+            <enum name="rightToLeft" value="8" />
+        </attr>
+        <!--
+             Indicates whether the drawer can be opened/closed by a single tap
+             on the handle.  (If false, the user must drag or fling, or click
+             using the trackball, to open/close the drawer.)  Default is true.
+        -->
+        <attr name="collapsedOffset" format="dimension" />
+        <attr name="expandedOffset" format="dimension" />
+        <attr name="allowSingleTap" format="boolean" />
+        <!--
+             Indicates whether the drawer should be opened/closed with an animation
+             when the user clicks the handle. Default is true.
+        -->
+        <attr name="animateOnClick" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CircleFlowIndicator">
+        <attr name="activeColor" format="color" />
+        <attr name="inactiveColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="centered" format="boolean" />
+        <attr name="fadeOut" format="integer" />
+        <attr name="inactiveType">
+            <flag name="stroke" value="0" />
+            <flag name="fill" value="1" />
+        </attr>
+        <attr name="activeType">
+            <flag name="stroke" value="0" />
+            <flag name="fill" value="1" />
+        </attr>
+        <attr name="isRect" format="boolean" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="15dp" >
+
+    <com.accuvally.hdtui.ui.CircleImageView
+        android:id="@+id/ivMemberLogo"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/default_square_image"
+        app:border_color="@color/txt_green" />
+
+    <TextView
+        android:id="@+id/tvMemberNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="小月亮琳琳"
+        android:textColor="#a0a0a0"
+        android:textSize="11sp" />
+
+</LinearLayout>

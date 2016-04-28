@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/tvCityName"
+        android:layout_width="81dp"
+        android:layout_height="36dp"
+        android:background="@drawable/grid_view_city_bg"
+        android:gravity="center"
+        android:text="北京"
+        android:textColor="#484848"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

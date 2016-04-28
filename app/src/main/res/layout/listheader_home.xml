@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="116.5dp" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.accuvally.hdtui.ui.CirclePageIndicator
+            android:id="@+id/cicleIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp" />
+    </RelativeLayout>
+
+    <include layout="@layout/include_home_type" />
+
+    <include layout="@layout/include_home_robticket" />
+
+    <include layout="@layout/include_home_topic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp" >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/homeicon_recommend" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="强力推荐"
+                android:textColor="#3c3c3c"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#edeced" />
+    </LinearLayout>
+
+</LinearLayout>

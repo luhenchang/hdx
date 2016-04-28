@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivFriendAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_square_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="title"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:gravity="center" >
+
+                <com.accuvally.hdtui.ui.EmoteTextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="活动行"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_14" />
+
+                <Button
+                    android:id="@+id/btAccept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_wane_green"
+                    android:padding="10dp"
+                    android:text="同意"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

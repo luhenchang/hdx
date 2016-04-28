@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_unfinished_ticket_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/unfinished_ticket_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:textSize="@dimen/little_16" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.accuvally.hdtui.ui.XListView
+            android:id="@+id/lv_valid_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:cacheColorHint="@color/transparent"
+            android:choiceMode="singleChoice"
+            android:divider="@color/transparent"
+            android:listSelector="@color/transparent" />
+
+        <TextView
+            android:id="@+id/no_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:textColor="@color/topic_date"
+            android:textSize="@dimen/little_16" />
+
+        <include layout="@layout/loading_progress" />
+
+        <include layout="@layout/loading_failure" />
+    </RelativeLayout>
+
+</LinearLayout>

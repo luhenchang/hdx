@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivIconPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/update_pass_icon_phone_bg" />
+
+        <EditText
+            android:id="@+id/edBindPhone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/personal_update_password_phone_hint"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textSize="@dimen/little_16" />
+
+        <TextView
+            android:id="@+id/sendBindCodeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/request_verification_code"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/details_dialog2_text3"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_14" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/details_icon_line2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/update_pass_icon_verification_code_bg" />
+
+        <EditText
+            android:id="@+id/edBindCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/personal_update_password_verification_hint"
+            android:inputType="number"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textSize="@dimen/little_16" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/details_icon_line2" />
+
+    <TextView
+        android:id="@+id/tvPrompts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/personal_bind_promt1"
+        android:textColor="@color/gary_content"
+        android:textSize="@dimen/little_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_wane_green" >
+
+        <Button
+            android:id="@+id/bindBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_onclick_btn"
+            android:padding="10dp"
+            android:text="@string/personal_bind"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_16" />
+    </LinearLayout>
+
+</LinearLayout>

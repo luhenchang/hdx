@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/child_line_two"
+        android:layout_width="2dp"
+        android:layout_height="15dip"
+        android:layout_marginLeft="21dp"
+        android:background="@drawable/message_vertical_line" />
+
+    <RelativeLayout
+        android:id="@+id/history_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="15dip"
+            android:src="@drawable/message_item_top_circle" />
+
+        <View
+            android:id="@+id/child_line"
+            android:layout_width="2dp"
+            android:layout_height="21dip"
+            android:layout_below="@+id/image"
+            android:layout_marginLeft="21dp"
+            android:background="@drawable/message_vertical_line" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_marginLeft="3dip"
+            android:layout_marginTop="-15dip"
+            android:layout_toRightOf="@+id/image"
+            android:paddingRight="15dp" >
+
+            <TextView
+                android:id="@+id/history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/message_item_child_bg"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="今天"
+                android:textColor="@color/gary_content"
+                android:textSize="@dimen/little_16" />
+
+            <Button
+                android:id="@+id/all_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/select_all_button"
+                android:gravity="center"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

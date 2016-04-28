@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/llHomeTypeNews"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/fragment_type_news_bg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="最新"
+                android:textColor="#737373"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHomeTypeHots"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/fragment_type_hots_bg" />
+
+            <TextView
+                android:id="@+id/tvHomeTypeNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="热门"
+                android:textColor="#737373"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHomeTypeNear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/fragment_type_near_bg" />
+
+            <TextView
+                android:id="@+id/tvHomeTypeNear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="附近"
+                android:textColor="#737373"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHomeTypeCalender"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/fragment_type_calendar_bg" />
+
+            <TextView
+                android:id="@+id/tvHomeTypeCalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="日历"
+                android:textColor="#737373"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d8d8d8" />
+
+</LinearLayout>

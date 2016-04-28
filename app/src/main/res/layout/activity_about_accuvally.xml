@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ScrollView
+            android:id="@id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/txt_green"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:id="@+id/rlVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/abouthuodongxing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/biglogo" />
+
+                        <TextView
+                            android:id="@+id/tvVersionName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/abouthuodongxing"
+                            android:background="@drawable/about_icon_version_name_bg"
+                            android:gravity="center"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingTop="2dp"
+                            android:textColor="#258b11" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyQQ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="13dp"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/about_icon_qq_bg"
+                        android:drawablePadding="7dp"
+                        android:gravity="center|left"
+                        android:text="@string/about_icon_qq"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+
+                    <TextView
+                        android:id="@+id/tvQQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="@string/about_qq_content"
+                        android:textColor="@color/txt_green"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <LinearLayout
+                    android:id="@+id/lyWeixin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="13dp" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/about_icon_weixin_bg"
+                        android:drawablePadding="6dp"
+                        android:gravity="center|left"
+                        android:text="@string/about_icon_weixin"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+
+                    <TextView
+                        android:id="@+id/tvWeixin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="@string/about_weixin_content"
+                        android:textColor="@color/txt_green"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <LinearLayout
+                    android:id="@+id/lyPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="13dp"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/about_icon_tel_bg"
+                        android:drawablePadding="7dp"
+                        android:gravity="center|left"
+                        android:text="@string/about_icon_customer"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="@string/about_tel_content"
+                        android:textColor="@color/txt_green"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lySina"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="13dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/about_icon_weibo_bg"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/details_jiantou_bg"
+                        android:gravity="center|left"
+                        android:text="@string/about_icon_weibo"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <LinearLayout
+                    android:id="@+id/lyGuide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="13dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/about_icon_guide_bg"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/details_jiantou_bg"
+                        android:gravity="center|left"
+                        android:text="@string/about_icon_guide"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ly_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:padding="15dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_back" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

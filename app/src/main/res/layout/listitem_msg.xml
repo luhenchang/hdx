@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <LinearLayout
+        android:id="@+id/msg_session_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_msg_name_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/gary_content"
+            android:textSize="@dimen/little_13" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- 头像 -->
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/iv_msg_icon_left"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/default_square_image"
+                app:border_color="@color/txt_green"
+                app:border_width="0dp" />
+            <!-- 文字 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_nick_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:alpha="0.6"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_13" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <com.accuvally.hdtui.ui.EmoteTextView
+                        android:id="@+id/tv_msg_content_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_margin="10dp"
+                        android:autoLink="web"
+                        android:background="@drawable/msg_bg_left"
+                        android:textColor="#484848"
+                        android:textSize="15sp" />
+
+                    <!-- 图片 -->
+
+                    <ImageView
+                        android:id="@+id/img_pic_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/msg_bg_left" />
+                    <!-- 语音 -->
+
+                    <RelativeLayout
+                        android:id="@+id/img_record_layout_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp" >
+
+                        <TextView
+                            android:id="@+id/record_img_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/msg_bg_left"
+                            android:drawableRight="@drawable/chatfrom_voice_playing" />
+
+                        <TextView
+                            android:id="@+id/record_len_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/record_img_left"
+                            android:text="2&apos;&apos;" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/msg_session_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_msg_name_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:gravity="center_horizontal"
+            android:textColor="@color/gary_content"
+            android:textSize="@dimen/little_13" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal" >
+
+            <!-- 头像 -->
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/iv_msg_icon_right"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/default_square_image"
+                app:border_color="@color/txt_green"
+                app:border_width="0dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_msg_icon_right"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_nick_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:alpha="0.6"
+                    android:gravity="right"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_13"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <!-- 发送的文字 -->
+
+                    <com.accuvally.hdtui.ui.EmoteTextView
+                        android:id="@+id/tv_msg_content_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoLink="web"
+                        android:background="@drawable/msg_bg_right"
+                        android:textColor="#ffffff"
+                        android:textSize="15sp" />
+                    <!-- 图片 -->
+
+                    <ImageView
+                        android:id="@+id/img_pic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_toLeftOf="@id/iv_msg_icon_right"
+                        android:background="@drawable/msg_bg_right" />
+                    <!-- 录音 -->
+
+                    <RelativeLayout
+                        android:id="@+id/img_record_layout_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toLeftOf="@id/tv_msg_content_right"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            android:id="@+id/record_len_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="2&apos;&apos;" />
+
+                        <TextView
+                            android:id="@+id/record_img_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/record_len_right"
+                            android:background="@drawable/msg_bg_right"
+                            android:drawableLeft="@drawable/chatto_voice_playing" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <!-- 日期 -->
+
+    </LinearLayout>
+
+</LinearLayout>

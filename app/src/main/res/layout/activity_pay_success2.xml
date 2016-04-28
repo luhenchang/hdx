@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <include layout="@layout/activity_header_new" />
+
+        <ScrollView
+            android:id="@id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:id="@+id/accu_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="#3c3c3c"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/accu_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/details_time_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:padding="10dp"
+                    android:textColor="#737373"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/accu_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/details_address_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:padding="10dp"
+                    android:textColor="#737373"
+                    android:textSize="@dimen/little_16" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/accu_ticket_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/details_ticket_icon_bg"
+                        android:drawablePadding="5dp"
+                        android:padding="10dp"
+                        android:textColor="#61b754"
+                        android:textSize="@dimen/little_16" />
+
+                    <TextView
+                        android:id="@+id/accu_ticket_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:padding="10dp"
+                        android:textColor="#afafaf"
+                        android:textSize="@dimen/little_16"  />
+                </LinearLayout>
+
+                <com.accuvally.hdtui.ui.ScrollGridView
+                    android:id="@+id/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:listSelector="#00000000"
+                    android:numColumns="4"
+                    android:scrollbars="none" 
+                    android:background="#ecedec"/>
+ 
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom" >
+
+        <Button
+            android:id="@+id/circle_enter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#61b754"
+            android:padding="10dp"
+            android:text="参与热聊"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_16" />
+
+        <Button
+            android:id="@+id/circle_enter_attion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/circle_enter"
+            android:background="@drawable/circle_enter_attion"
+            android:padding="10dp"
+            android:text="去活动圈里和其他参与者一起聊聊吧"
+            android:textColor="#3c3c3c"
+            android:textSize="@dimen/little_16"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginBottom="-10dp" />
+    </RelativeLayout>
+
+</FrameLayout>

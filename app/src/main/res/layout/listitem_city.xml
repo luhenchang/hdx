@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_home_dialog_btn" >
+
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/home_org_bg"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dip"
+        android:paddingTop="5dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/topic_date"
+        android:textSize="@dimen/little_16" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/alpha"
+        android:layout_marginRight="5.0dip"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/image_view"
+        android:layout_below="@id/alpha"
+        android:background="@color/white"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:singleLine="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/little_16" />
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/name"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@id/name"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="number"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="#AAAAAA"
+        android:visibility="gone" />
+
+</RelativeLayout>

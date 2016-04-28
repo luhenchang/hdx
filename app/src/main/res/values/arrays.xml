@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="default_smiley_texts">
+        <item>[新]</item>
+        <item>[精]</item>
+        <item>[火]</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/details_icon_line2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="使用合作账号登录"
+            android:textColor="@color/gary_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvLoginQQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/login_qq_icon_bg"
+            android:gravity="center"
+            android:text="QQ"
+            android:textColor="@color/gary_title" />
+
+        <TextView
+            android:id="@+id/tvLoginSina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/login_weibo_icon_bg"
+            android:gravity="center"
+            android:text="微博"
+            android:textColor="@color/gary_title" />
+
+        <TextView
+            android:id="@+id/tvLoginAli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/login_ali_icon_bg"
+            android:gravity="center"
+            android:text="支付宝"
+            android:visibility="gone"
+            android:textColor="@color/gary_title" />
+
+        <TextView
+            android:id="@+id/tvLoginWx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/login_weixin_icon_bg"
+            android:gravity="center"
+            android:text="微信"
+            android:textColor="@color/gary_title" />
+    </LinearLayout>
+
+</LinearLayout>

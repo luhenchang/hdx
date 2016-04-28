@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <include 
+        android:id="@+id/incAttend"
+        layout="@layout/include_attend"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.accuvally.hdtui.ui.XListView
+            android:id="@id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:cacheColorHint="@color/transparent"
+            android:choiceMode="singleChoice"
+            android:divider="@color/transparent"
+            android:listSelector="@color/transparent"
+            android:visibility="gone" />
+
+        <include layout="@layout/loading_progress" />
+
+        <include layout="@layout/loading_failure" />
+    </RelativeLayout>
+
+</LinearLayout>

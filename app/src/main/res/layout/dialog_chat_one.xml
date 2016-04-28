@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="275dp"
+    android:layout_height="245dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog_down"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="73.5dp"
+                android:background="@drawable/shape_dialog_up" />
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-32dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_square_image" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivAvatar"
+                android:layout_marginTop="10dp"
+                android:text="小太阳的天空"
+                android:textColor="#484848"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvSignature"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22.5dp"
+                android:layout_marginRight="22.5dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="彩虹总在风雨后"
+                android:textColor="#a0a0a0"
+                android:textSize="13sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btSend"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/shape_dialogbt_bg"
+                android:text="发消息"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivCloseDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/guanbi" />
+
+</RelativeLayout>

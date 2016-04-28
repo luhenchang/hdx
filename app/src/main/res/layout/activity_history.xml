@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <RelativeLayout
+        android:id="@+id/limited_rl"
+        android:layout_width="match_parent"
+        
+        android:layout_height="match_parent" >
+
+        <com.accuvally.hdtui.ui.CustomerScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:scrollX="0dip"
+            android:scrollY="0dip"
+            android:scrollbars="none"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <com.accuvally.hdtui.ui.ScrolListView
+                    android:id="@+id/history_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="@color/transparent"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@color/transparent"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="none"
+                    android:scrollingCache="false" />
+
+                <View
+                    android:id="@+id/xxx_two"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="21dp"
+                    android:background="@drawable/message_vertical_line" />
+            </LinearLayout>
+        </com.accuvally.hdtui.ui.CustomerScrollView>
+
+        <include layout="@layout/loading_failure" />
+    </RelativeLayout>
+
+</LinearLayout>

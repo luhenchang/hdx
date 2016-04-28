@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@drawable/selector_click_btn"
+    android:orientation="vertical"
+    android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/ivTopic"
+        android:layout_width="160dp"
+        android:layout_height="74dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_details_image" />
+
+    <TextView
+        android:id="@+id/tvTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.5"
+        android:text="周末去哪儿周末去哪儿"
+        android:textColor="#a0a0a0"
+        android:textSize="12sp" />
+
+</LinearLayout>

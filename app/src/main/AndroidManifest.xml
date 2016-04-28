@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.accuvally.hdtui"
+    android:versionCode="50"
+    android:versionName="5.6.1">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 个推SDK权限配置===============开始 -->
+    <uses-permission android:name="getui.permission.GetuiService.com.accuvally.hdtui" />
+
+    <permission
+        android:name="getui.permission.GetuiService.com.accuvally.hdtui"
+        android:protectionLevel="normal"></permission>
+
+    <!-- 个推SDK权限配置===============结束 -->
+    <application
+        android:name=".AccuApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="53df535efd98c5bd5e00d3ac"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="stkGUbeonYDtqAwKFGLjRGGg" />
+        <!-- test:8gfW40QbVc6ZYybNIWzZFLkW ,stkGUbeonYDtqAwKFGLjRGGg -->
+
+
+        <!-- 个推配置的第三方参数属性===================================================================start -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="ZZu8NGNjTg6vzdWMIiIgw" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="FFXbKRGtISA9tBnSEzu209" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="ueTDcGt2lU5i7Jjrcw4Fw8" />
+        <meta-data
+            android:name="PUSH_GROUPID"
+            android:value="" />
+        <!-- 个推配置的第三方参数属性===================================================================end -->
+
+
+        <!-- *************************  Activity开始  **************************** -->
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.accuvally.hdtui"
+                    android:scheme="hdx" />
+            </intent-filter>
+        </activity>
+        <!-- 引导页 -->
+        <activity
+            android:name=".activity.GuideActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 首页 -->
+        <activity
+            android:name=".activity.MainActivityNew"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.HomeTypeActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CalenderTypeActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 搜索 -->
+        <activity
+            android:name=".activity.SearchActivityNew"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 搜索结果 -->
+        <activity
+            android:name=".activity.SearchResultActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.UnfinishedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- web活动详情 -->
+        <activity
+            android:name=".activity.AccuvallyWebDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 报名 -->
+        <activity
+            android:name=".activity.RegAccuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.HomeTagActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 活动详情 -->
+        <activity
+            android:name=".activity.AccuvallyDetailsActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <!-- 我的活动行 -->
+        <activity
+            android:name=".activity.AttendActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 意见反馈 -->
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 关于活动行 -->
+        <activity
+            android:name=".activity.AboutAccuvallyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 浏览历史 -->
+        <activity
+            android:name=".activity.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 票券详情 -->
+        <activity
+            android:name=".activity.TicketVolumeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 订单确认 -->
+        <activity
+            android:name=".activity.SureOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.PaySuccessActivity2"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 活动主办方 -->
+        <activity
+            android:name=".activity.SponsorDetailActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 个人资料 -->
+        <activity
+            android:name=".activity.PersonalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 选择图像 -->
+        <activity
+            android:name=".activity.ChoosePhotoActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ClipActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <!-- 修改个人资料 -->
+        <activity
+            android:name=".activity.UpdatePersonalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 修改密码 -->
+        <activity
+            android:name=".activity.UpdataPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 选择城市 -->
+        <activity
+            android:name=".activity.ChooseCityActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 绑定手机邮箱 -->
+        <activity
+            android:name=".activity.BindPhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 登陆 -->
+        <activity
+            android:name=".activity.LoginActivityNew"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!-- 注册页面 -->
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!-- 找回密码 -->
+        <activity
+            android:name=".activity.FindPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 专题详情 -->
+        <activity
+            android:name=".activity.ProjectDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ClassifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 应用推荐 -->
+        <activity
+            android:name=".activity.RecommendActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.RemindActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.IntroductPushActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 会话列表 -->
+        <activity
+            android:name=".activity.SessionTabActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 通知列表 -->
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 地图 -->
+        <activity
+            android:name=".activity.MapsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 聊天图片浏览 -->
+        <activity
+            android:name=".activity.ImageBrowserActivity"
+            android:screenOrientation="portrait" />
+        <!-- 支付网页 -->
+        <activity
+            android:name=".activity.PayWebActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 报名注册 -->
+        <activity
+            android:name=".activity.BuyTicketFirstActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 报名填写 -->
+        <activity
+            android:name=".activity.BuyTicketThreeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 常见疑问 -->
+        <activity
+            android:name=".activity.QuestionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 常见疑问详情 -->
+        <activity
+            android:name=".activity.QuestionDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 抢票 -->
+        <activity
+            android:name=".activity.RobTicketActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.HowHandleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 我的关注的主办方列表 -->
+        <activity
+            android:name=".activity.OrgListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 我的收藏列表 -->
+        <activity
+            android:name=".activity.CollectActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 我的票券 -->
+        <activity
+            android:name=".activity.TicketTabActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.AtActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 圈子成员 -->
+        <activity
+            android:name=".activity.GroupMemberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateUnchanged" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".activity.CircleSessionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.GeTuiWapActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.UserDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserOrgListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserAccuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ApplyFriendActivity"
+            android:screenOrientation="portrait" />
+        <!-- 举报 -->
+        <activity
+            android:name=".activity.ReportActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.GroupAnnounceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AllMemberActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".push.NotifyMessageReceiver">
+            <intent-filter>
+                <action android:name="com.accuvally.hdtui.NotifyMessageReceiver"></action>
+            </intent-filter>
+        </receiver>
+
+        <!-- *************************    分享相关的注册START **************************** -->
+
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1101327725" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <!-- *************************    分享相关的注册END **************************** -->
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:permission="android.permission.BAIDU_LOCATION_SERVICE"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" />
+            </intent-filter>
+        </service>
+
+        <!-- 友盟更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService"></service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <!-- 友盟更新END -->
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <!-- alipay sdk end -->
+
+
+        <!-- 个推配置SDK核心服务======================================================start -->
+        <!-- 配置活动行用来上传个推IDReceiver -->
+        <receiver
+            android:name=".push.GetuiPushMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.ZZu8NGNjTg6vzdWMIiIgw" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice"></service>
+        <service
+            android:name="com.igexin.sdk.PushServiceUser"
+            android:exported="true"
+            android:label="NotificationCenterUser"></service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity
+            android:name="com.igexin.getuiext.activity.GetuiExtActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="android.task.myServicetask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name="com.igexin.getuiext.service.GetuiExtService"
+            android:process=":pushservice" />
+
+        <!-- ======================leancloud配置========================== -->
+        <service android:name="com.avos.avoscloud.PushService" />
+
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <!-- ======================leancloud配置========================== -->
+        <service android:name=".MsgServices" />
+
+    </application>
+
+</manifest>

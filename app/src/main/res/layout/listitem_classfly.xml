@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_home_dialog_btn"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/ivClassImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:id="@+id/tvClassTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="聚会"
+            android:textSize="@dimen/little_16" />
+
+        <TextView
+            android:id="@+id/tvClassContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="最好的技术"
+            android:textColor="@color/gary_title"
+            android:textSize="@dimen/little_14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyclass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/classfly_icon_add_normal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/tvClassAddImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/classfly_icon_add_selected"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

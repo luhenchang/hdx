@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/details_summary_icon_bg" />
+
+        <TextView
+            android:id="@+id/tv_accu_brief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:padding="10dp"
+            android:textColor="@color/gary_title"
+            android:textSize="@dimen/little_16" />
+
+        <TextView
+            android:id="@+id/tvIntroduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/details_icon_jiantou2_green"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/look_accu_details"
+            android:textColor="@color/txt_green"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <com.accuvally.hdtui.ui.ScrolListView
+        android:id="@+id/descListview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/transparent"
+        android:dividerHeight="5dp"
+        android:listSelector="@color/transparent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/iv_org_logo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:scaleType="centerCrop" />
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/iv_org_user_logo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/not_lgin_head_bg"
+                android:visibility="gone"
+                app:border_color="@color/transparent_white"
+                app:border_width="2dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center|left"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvDetailsOrgName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|left|top"
+                    android:singleLine="true"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvDetailsOrgDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center|left"
+                    android:lines="2"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_14" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lydetails2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/user_header"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/not_lgin_head_bg"
+                app:border_color="@color/transparent_white"
+                app:border_width="2dp" />
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/comment_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:text="@string/details_comment_edit"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <ImageView
+                android:id="@+id/ivDelContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="-25dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/input_edittext_detele_bg"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <com.accuvally.hdtui.ui.ScrolListView
+            android:id="@+id/commentlistview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/details_icon_line2"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@color/transparent"
+            android:padding="5dp"
+            android:visibility="gone" >
+        </com.accuvally.hdtui.ui.ScrolListView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="继续拖动，查看更多详情"
+        android:textColor="@color/gary_title"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

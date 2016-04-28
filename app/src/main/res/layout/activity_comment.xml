@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tvComSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center|left"
+            android:text="讨论"
+            android:textColor="@color/gary_content"
+            android:textSize="@dimen/little_18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_message" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/details_icon_line3" />
+
+    <com.accuvally.hdtui.ui.XListView
+        android:id="@id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:choiceMode="singleChoice"
+        android:divider="@color/transparent"
+        android:listSelector="@color/transparent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/edCommContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/comment_content_hint"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:textColor="@color/txt_gray"
+                android:textColorHint="@color/gary_title"
+                android:textSize="@dimen/little_16" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/upCommBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_comment_btn"
+            android:text="@string/upload_comment"
+            android:textColor="@color/gary_title" />
+    </LinearLayout>
+
+</LinearLayout>

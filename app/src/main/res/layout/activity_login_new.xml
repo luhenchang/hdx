@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:id="@+id/ll_login_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/login_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/login_title"
+                android:textColor="#b1b0b0"
+                android:textSize="@dimen/little_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/user_name" />
+
+                <com.accuvally.hdtui.ui.EditTextWithDel
+                    android:id="@+id/login_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="center|left"
+                    android:hint="@string/login_name"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/login_first_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/password" />
+
+                <com.accuvally.hdtui.ui.EditTextWithDel
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="center|left"
+                    android:hint="@string/login_pass"
+                    android:inputType="textPassword"
+                    android:longClickable="false"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/login_second_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyLoginBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_wane_gray2" >
+
+                <Button
+                    android:id="@+id/login_submit_botton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/login_btn"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/login_forget_pass"
+                android:textColor="#b1b0b0"
+                android:textSize="@dimen/little_14" />
+
+            <include layout="@layout/include_three_login" />
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+</LinearLayout>

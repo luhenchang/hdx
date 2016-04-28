@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="275dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_sharesuccess_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="15dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="亲,恭喜你成功参与抢票"
+            android:textColor="#ffbc1a"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvPublish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="公布名单时间: 5月12日"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/sharp_sharesuccess_normal"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="我们会以系统告知形式通知您"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/selector_dialog_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="你需要发送验证申请，等对方通过"
+                android:textColor="#484848"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etReason"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@drawable/shurukuang"
+            android:gravity="left"
+            android:textColor="#484848"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btOk"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_dialogbg_bottom"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivGuanbi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/guanbi" />
+
+</RelativeLayout>

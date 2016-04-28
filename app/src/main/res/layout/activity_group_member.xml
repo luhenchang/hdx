@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedec"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white" >
+
+            <ImageView
+                android:id="@+id/iv_datails_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_click_btn"
+                android:onClick="onBack"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:src="@drawable/back_arrows" />
+
+            <TextView
+                android:id="@+id/tvHeadTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="群信息"
+                android:textColor="#484848"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/activity_header_progressbar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/tvHeadTitle"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/ivDND"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tvHeadTitle"
+                android:src="@drawable/do_not_disturb"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#bcbcbc" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="群名称"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:lineSpacingExtra="6dp"
+            android:maxEms="9"
+            android:maxLines="2"
+            android:text="活动行交流"
+            android:textColor="#484848"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ecedec" />
+
+    <LinearLayout
+        android:id="@+id/rlGroupAnnounce"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_click_btn"
+            android:drawableRight="@drawable/details_jiantou_bg"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="群公告"
+            android:textColor="#484848"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ecedec" />
+
+    <LinearLayout
+        android:id="@+id/linAccDetail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_click_btn"
+            android:drawableRight="@drawable/details_jiantou_bg"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="活动详情"
+            android:textColor="#484848"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:visibility="visible" >
+
+                <com.accuvally.hdtui.ui.ScrollGridView
+                    android:id="@+id/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:listSelector="#00000000"
+                    android:numColumns="4"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ecedec" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="#ffffff"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvAllMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/selector_click_btn"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="全部群成员"
+                    android:textColor="#484848"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:visibility="visible" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="消息免打扰"
+                    android:textColor="#484848"
+                    android:textSize="15sp" />
+
+                <CheckBox
+                    android:id="@+id/cbDND"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/selector_toggle" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="visible" >
+
+                <Button
+                    android:id="@+id/btQuitCircle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/shape_delete"
+                    android:text="删除并退出"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+</LinearLayout>

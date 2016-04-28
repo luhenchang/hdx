@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e0e0df"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:text="活动显示"
+        android:textColor="@color/gary_title"
+        android:textSize="@dimen/little_14" />
+
+    <CheckBox
+        android:id="@+id/cbExpire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_click_btn"
+        android:button="@null"
+        android:checked="true"
+        android:drawableRight="@drawable/selector_check_remind"
+        android:padding="10dp"
+        android:text="仅显示未过期"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/little_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+    <CheckBox
+        android:id="@+id/cbFilled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_click_btn"
+        android:button="@null"
+        android:drawableRight="@drawable/selector_check_remind"
+        android:padding="10dp"
+        android:text="仅显示未额满"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/little_16" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#e0e0df"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:text="活动提醒"
+        android:textColor="@color/gary_title"
+        android:textSize="@dimen/little_14" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/radioButton11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:button="@null"
+            android:checked="true"
+            android:drawableRight="@drawable/selector_check_remind"
+            android:padding="10dp"
+            android:text="@string/remind1"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <RadioButton
+            android:id="@+id/radioButton22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_check_remind"
+            android:padding="10dp"
+            android:text="@string/remind2"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <RadioButton
+            android:id="@+id/radioButton33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_check_remind"
+            android:padding="10dp"
+            android:text="@string/remind3"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <RadioButton
+            android:id="@+id/radioButton44"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_check_remind"
+            android:padding="10dp"
+            android:text="@string/remind4"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:text="@string/remind_title3"
+        android:textColor="@color/gary_title"
+        android:textSize="@dimen/little_14" />
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/shape_noticebg"
+        android:orientation="vertical"
+        android:paddingTop="13dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/notice_icon"
+            android:text="群公告"
+            android:textColor="@color/main_color"
+            android:textSize="15sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:id="@+id/tvNoticeContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:lineSpacingExtra="5dp"
+                android:textColor="#484848"
+                android:textSize="15sp" />
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

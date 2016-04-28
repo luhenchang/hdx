@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_click_btn"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivSponsorLogo"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:background="@drawable/default_home_image"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvSponsorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="主办方名称"
+                android:textColor="@color/txt_gray"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvSponsorBrief"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawablePadding="5dp"
+                android:gravity="center|left"
+                android:text="主办方简介"
+                android:textColor="#737373"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvFollowNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:text="3461人关注"
+                android:textColor="#737373"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivAddFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_attention"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ecedec" />
+
+</LinearLayout>

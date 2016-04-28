@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="little_10">8sp</dimen>
+    <dimen name="little_11">9sp</dimen>
+    <dimen name="little_12">10sp</dimen>
+    <dimen name="little_13">11sp</dimen>
+    <dimen name="little_14">12sp</dimen>
+    <dimen name="little_15">13sp</dimen>
+    <dimen name="little_16">14sp</dimen>
+    <dimen name="little_17">15sp</dimen>
+    <dimen name="little_18">16sp</dimen>
+    <dimen name="little_19">17sp</dimen>
+    <dimen name="little_20">18sp</dimen>
+    <dimen name="little_21">19sp</dimen>
+    <dimen name="little_22">20sp</dimen>
+    <dimen name="little_23">21sp</dimen>
+    <dimen name="little_24">22sp</dimen>
+    <dimen name="little_25">23sp</dimen>
+    <dimen name="padding_10">5dp</dimen>
+    <dimen name="padding_15">10dp</dimen>
+    <dimen name="height_90">80dp</dimen>
+</resources>

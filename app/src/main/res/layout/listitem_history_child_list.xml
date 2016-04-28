@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/history_child_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <View
+            android:id="@+id/xxx"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="21dp"
+            android:background="@drawable/message_vertical_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/selector_click_btn"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center|left|top"
+                    android:lineSpacingExtra="3dp"
+                    android:lines="2"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="72dip"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dip"
+                    android:background="@drawable/default_rectangle_image"
+                    android:scaleType="fitXY" />
+
+                <CheckBox
+                    android:id="@+id/item_checkbox"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/checkbox_message_item_select"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:background="#d2d2d2" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

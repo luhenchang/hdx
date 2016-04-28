@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingRight="5dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <com.accuvally.hdtui.ui.CircleImageView
+            android:id="@+id/tvCommentLogoUrl"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/tab_setting_head"
+            app:border_color="@color/transparent_white"
+            app:border_width="2dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvCommentNick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center|left"
+                android:singleLine="true"
+                android:text="舍我其谁"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvCommentContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center|left"
+                android:text="舍我其谁"
+                android:textColor="@color/gary_content"
+                android:textSize="@dimen/little_16" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCommentTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingBottom="5dp"
+        android:text="2014-5-30"
+        android:textColor="@color/gary_content"
+        android:textSize="@dimen/little_14" />
+
+</LinearLayout>

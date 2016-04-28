@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/welcome_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="亲~"
+            android:textColor="#fd9b4b"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:text="还差您一小步，我们就可以为您提供全套的活动服务了唷~ ,包含收藏活动、报名活动、了解追踪主办方。量身打造的活动空间，一次到位!"
+            android:textColor="#353330"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/sel_item_status_icon_bg"
+            android:padding="6dp"
+            android:text="立即登陆"
+            android:textColor="#fcf883"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

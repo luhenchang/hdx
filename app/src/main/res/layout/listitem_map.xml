@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width_40_80"
+    android:layout_height="wrap_content"
+    android:background="@drawable/location_tip_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="@dimen/width_40_80"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/little_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/locationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/map_btn_location_bg"
+            android:padding="5dp"
+            android:text="到这里去"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_16" />
+    </LinearLayout>
+
+</LinearLayout>

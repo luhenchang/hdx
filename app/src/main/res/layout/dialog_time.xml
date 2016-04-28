@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_explain"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/titleTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add_accuvally_text16"
+            android:textColor="@color/gary_title"
+            android:textSize="@dimen/little_18"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivCloseDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/dialog_close_bg"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txt_green" />
+
+    <LinearLayout
+        android:id="@+id/timePicker1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <com.accuvally.hdtui.utils.timepicker.WheelView
+            android:id="@+id/year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.accuvally.hdtui.utils.timepicker.WheelView
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.accuvally.hdtui.utils.timepicker.WheelView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.accuvally.hdtui.utils.timepicker.WheelView
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.accuvally.hdtui.utils.timepicker.WheelView
+            android:id="@+id/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/red_bg"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/add_accuvally_text18"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_16" />
+
+        <Button
+            android:id="@id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/detaile_btn_registration_bg"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/add_accuvally_text15"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_16" />
+    </LinearLayout>
+
+</LinearLayout>

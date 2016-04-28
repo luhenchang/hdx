@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ticket_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/ticket_bg_up" >
+
+        <LinearLayout
+            android:id="@+id/person_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/ticket_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="李峰"
+                android:textColor="@color/txt_green"
+                android:textSize="@dimen/little_20" />
+
+            <ImageView
+                android:id="@+id/two_dimensional_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/two_dimensional_code" />
+
+            <TextView
+                android:id="@+id/ticket_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="免费"
+                android:textColor="#62b651"
+                android:textSize="@dimen/little_18" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ticket_middle_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/person_info"
+            android:background="@drawable/repeat_ticket_middle_gray" />
+
+        <RelativeLayout
+            android:id="@+id/accu_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ticket_middle_bg"
+            android:background="@drawable/ticket_bg_gray_bottom" >
+
+            <TextView
+                android:id="@+id/ticket_accu_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/accu_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ticket_accu_name"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_14" />
+
+            <TextView
+                android:id="@+id/ticket_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/ticket_accu_name"
+                android:background="@drawable/ticket_count_bg"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:textColor="@color/txt_green"
+                android:textSize="@dimen/little_14"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/invalid_ticketes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="20dp"
+            android:src="@drawable/ticket_invalid" >
+        </ImageView>
+    </RelativeLayout>
+
+</RelativeLayout>

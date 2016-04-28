@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <Button
+        android:id="@+id/btQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/selector_click_btn"
+        android:drawableRight="@drawable/details_jiantou_bg"
+        android:gravity="left"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:text="常见疑问"
+        android:textSize="@dimen/little_18"
+        android:textColor="#62b651"
+        android:layout_marginRight="10dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/details_icon_line2" />
+
+    <ScrollView
+        android:id="@id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center|top"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/feedback_content_icon_bg" />
+
+                <EditText
+                    android:id="@+id/edContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="@string/feedback_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvMaxLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:text="@string/feedback_max_length"
+                android:textColor="@color/gary_content"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/feedback_email_icon_bg" />
+
+                <EditText
+                    android:id="@+id/edEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="center_vertical"
+                    android:hint="@string/feedback_email"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/selector_wane_green" >
+
+                <Button
+                    android:id="@+id/addAccuvallyBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_onclick_btn"
+                    android:padding="10dp"
+                    android:text="@string/feedback_submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

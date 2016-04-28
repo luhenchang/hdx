@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical">
+
+    <com.accuvally.hdtui.ui.PullToRefreshView
+        android:id="@+id/pullToRefreshView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:orientation="vertical"
+        android:scrollX="0dip"
+        android:scrollY="0dip"
+        android:scrollbars="none" >
+
+        <com.accuvally.hdtui.ui.ScrollViewExtend
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="20dp" >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_19_80"
+                            android:background="@drawable/accu_attend_bg" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/arc_opacity_bg2" />
+                    </RelativeLayout>
+
+                    <com.accuvally.hdtui.ui.CircleImageView
+                        android:id="@+id/ivHead"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginTop="20dp"
+                        app:border_color="@color/txt_green"
+                        app:border_width="2dp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/setting_no_login"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_18" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tvUserCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:drawableLeft="@drawable/accu_addr_bg"
+                        android:drawablePadding="5dp"
+                        android:text="@string/setting_no_login"
+                        android:textColor="@color/gary4"
+                        android:textSize="@dimen/little_14" />
+
+                    <TextView
+                        android:id="@+id/tvUserSex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:drawableLeft="@drawable/accu_sex_bg"
+                        android:drawablePadding="5dp"
+                        android:text="@string/setting_no_login"
+                        android:textColor="@color/gary4"
+                        android:textSize="@dimen/little_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_unfinished_ticket_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/unfinished_ticket_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="0个未完成订单"
+                        android:textSize="@dimen/little_16" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/details_icon_line2" />
+
+                    <com.accuvally.hdtui.ui.ScrolListView
+                        android:id="@+id/lv_valid_ticket"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:cacheColorHint="@color/transparent"
+                        android:choiceMode="singleChoice"
+                        android:divider="@null"
+                        android:listSelector="@color/transparent" />
+
+                    <TextView
+                        android:id="@+id/openValidTicket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="展开其他未完成订单"
+                        android:textColor="@color/gary4"
+                        android:textSize="@dimen/little_14"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/openTicketLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@drawable/details_icon_line2"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAttend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/selector_about_btn"
+                    android:drawableLeft="@drawable/myaccu_attend_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:gravity="center|left"
+                    android:padding="13dp"
+                    android:text="@string/my_accuvally_attend"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="45dp"
+                    android:background="@drawable/details_icon_line2"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvUpLoads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:drawableLeft="@drawable/myaccu_upload_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:gravity="center|left"
+                    android:padding="13dp"
+                    android:text="@string/my_accuvally_upload"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvOrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/selector_about_btn"
+                    android:drawableLeft="@drawable/myaccu_org_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:gravity="center|left"
+                    android:padding="13dp"
+                    android:text="@string/setting_icon_follow"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="45dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_about_btn"
+                    android:drawableLeft="@drawable/myaccu_browing_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:gravity="center|left"
+                    android:padding="13dp"
+                    android:text="@string/setting_tab_history"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvRecommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/selector_about_btn"
+                    android:drawableLeft="@drawable/myaccu_recommend_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:gravity="center|left"
+                    android:padding="13dp"
+                    android:text="@string/my_accuvally_recommend"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+
+                <View
+                    android:id="@+id/iv_recommend_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/details_icon_line2" />
+            </LinearLayout>
+        </com.accuvally.hdtui.ui.ScrollViewExtend>
+    </com.accuvally.hdtui.ui.PullToRefreshView>
+
+</LinearLayout>

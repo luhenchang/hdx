@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <RelativeLayout
+        android:id="@+id/rlSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.accuvally.hdtui.ui.XListView
+            android:id="@id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:cacheColorHint="@color/transparent"
+            android:choiceMode="singleChoice"
+            android:divider="@color/transparent"
+            android:listSelector="@color/transparent" />
+
+        <include layout="@layout/loading_progress" />
+
+        <include layout="@layout/loading_failure" />
+    </RelativeLayout>
+
+</LinearLayout>

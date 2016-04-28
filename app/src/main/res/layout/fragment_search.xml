@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlHeader"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:id="@+id/ly_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_click_btn"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/back_arrows" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lySelSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/ly_back"
+            android:background="@drawable/selector_wane_gray"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <EditText
+                android:id="@+id/search_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="活动"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textColorHint="#ababab"
+                android:textSize="@dimen/little_16" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/sel_header_search" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/lyHot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <com.accuvally.hdtui.ui.ScrollGridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/all_backgroud"
+                    android:cacheColorHint="@color/bule"
+                    android:gravity="center"
+                    android:horizontalSpacing="1px"
+                    android:listSelector="@color/bule"
+                    android:numColumns="3"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="none"
+                    android:scrollingCache="false"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="1px" />
+
+                <include layout="@layout/loading_progress" />
+
+                <include layout="@layout/loading_failure" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_history_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <com.accuvally.hdtui.ui.ScrolListView
+                    android:id="@id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:choiceMode="singleChoice"
+                    android:divider="@drawable/halving_line"
+                    android:dividerHeight="0.1dp"
+                    android:listSelector="@color/transparent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@drawable/halving_line" />
+
+                <LinearLayout
+                    android:id="@+id/deleteHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tvDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left"
+                        android:padding="10dp"
+                        android:text="@string/search_delete_history"
+                        android:textColor="@color/topic_date"
+                        android:textSize="@dimen/little_16" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@drawable/halving_line" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

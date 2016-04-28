@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_about_btn"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivMyOrgLogo"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/default_square_image"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvMyOrgTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:gravity="center|left|top"
+                android:lines="2"
+                android:text="环球托业英语"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:text="最近发布:"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_14" />
+
+                <TextView
+                    android:id="@+id/tvOrgActTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:singleLine="true"
+                    android:text="AFCP-Chine外初夏户外运动---金山城市..."
+                    android:textColor="@color/bule"
+                    android:textSize="@dimen/little_14" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

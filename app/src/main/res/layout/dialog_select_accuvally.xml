@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/home_tab_time"
+            android:textColor="@color/topic_date"
+            android:textSize="@dimen/little_18" >
+        </TextView>
+
+        <com.accuvally.hdtui.ui.MyRadioGroup
+            android:id="@+id/my_radio_group_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_all_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/all"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+
+                <RadioButton
+                    android:id="@+id/rb_start"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/select_activity_start"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+
+                <RadioButton
+                    android:id="@+id/rb_latest_week"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/select_activity_latest_week"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="15dp" >
+
+                <RadioButton
+                    android:id="@+id/rb_today"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/select_activity_today"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+
+                <RadioButton
+                    android:id="@+id/rb_tomorrow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/select_activity_tomorrow"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+
+                <RadioButton
+                    android:id="@+id/rb_weeked"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                    android:button="@color/transparent"
+                    android:gravity="center"
+                    android:text="@string/select_activity_weekend"
+                    android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                    android:textSize="@dimen/little_18" />
+            </LinearLayout>
+        </com.accuvally.hdtui.ui.MyRadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/select_activity_cost"
+            android:textColor="@color/topic_date"
+            android:textSize="@dimen/little_18" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/rg_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <RadioButton
+                android:id="@+id/rb_all_play_method"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/all"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+
+            <RadioButton
+                android:id="@+id/rb_free"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:gravity="center"
+                android:text="@string/select_activity_free"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+
+            <RadioButton
+                android:id="@+id/rb_fee"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:gravity="center"
+                android:text="@string/select_activity_fee"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/select_activity_condition"
+            android:textColor="@color/topic_date"
+            android:textSize="@dimen/little_18" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/rg_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <RadioButton
+                android:id="@+id/rb_default"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/all"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+
+            <RadioButton
+                android:id="@+id/rb_nearly_accuvally"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:gravity="center"
+                android:text="@string/select_activity_nearly_accuvally"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+
+            <RadioButton
+                android:id="@+id/rb_hot_accuvally"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_home_dialog_radiobutton_btn4"
+                android:button="@color/transparent"
+                android:gravity="center"
+                android:text="@string/select_activity_hot_accuvally"
+                android:textColor="@drawable/selector_home_dialog_radiobutton_text2"
+                android:textSize="@dimen/little_18" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <TextView
+            android:id="@+id/tv_select_activity_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_onclick_apply_btn"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/select_sure"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_18" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_close_select_accuvally_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/close_select_accuvally_dialog" >
+    </ImageView>
+
+</RelativeLayout>

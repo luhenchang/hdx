@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.CustomerScrollView
+        android:id="@id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/not_ticket_top_bg" >
+
+                <TextView
+                    android:id="@+id/tvAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/personal_head"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/little_16" />
+
+                <com.accuvally.hdtui.ui.CircleImageView
+                    android:id="@+id/ivHead"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/default_square_image"
+                    app:border_color="@color/transparent_white"
+                    app:border_width="2dp" />
+
+                <com.accuvally.hdtui.ui.CircleImageView
+                    android:id="@+id/ivUpLoadHead"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/default_square_image"
+                    android:visibility="gone"
+                    app:border_color="@color/transparent_white"
+                    app:border_width="2dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlNickName"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/personal_nickname"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvNickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:maxEms="10"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/rlName"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_name"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvRealName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <RelativeLayout
+                android:id="@+id/rlSex"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/personal_sex"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvSex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <RelativeLayout
+                android:id="@+id/rlUpdateCity"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/personal_city"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/rlPersonality"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_personality"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvSignature"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <RelativeLayout
+                android:id="@+id/rlBindPhone"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/personal_phonenumber"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvPhoneActivated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/personal_Unbound"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <RelativeLayout
+                android:id="@+id/rlBindEmail"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/personal_email"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvEmailActivated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/details_icon_jiantou2"
+                    android:text="@string/personal_Unbound"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/details_icon_line2"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvUpdatePass"
+                style="@style/personal_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_home_dialog_btn"
+                android:drawableRight="@drawable/details_icon_jiantou2"
+                android:text="@string/personal_update"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/details_icon_line2" />
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.CustomerScrollView>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lyFailure"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <ImageView
+        android:id="@+id/ivFailure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/loading_no_data_bg" />
+
+    <TextView
+        android:id="@id/tvNoData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/loading_no_data"
+        android:textColor="@color/topic_date"
+        android:textSize="@dimen/little_16" />
+
+    <Button
+        android:id="@+id/SquareBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/search_qquare_bg"
+        android:minWidth="100dp"
+        android:text="@string/search_guangchang"
+        android:textColor="@color/gary_title"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="51dp"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/iv_datails_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_click_btn"
+            android:onClick="onBack"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_arrows" />
+
+        <TextView
+            android:id="@+id/tvHeadTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_18" />
+
+        <ImageView
+            android:id="@+id/activity_header_progressbar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tvHeadTitle"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/share_ly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_click_btn"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/two_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/share_bottom" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/save_ly"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_click_btn"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/tvLoginAndReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="@color/txt_green"
+                android:textSize="@dimen/little_14" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

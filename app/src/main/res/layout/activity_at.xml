@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/auto_tv" 
+        android:layout_margin="10dp"
+        android:completionThreshold="1"
+        android:background="@drawable/voice_rcd_btn_nor"
+        android:hint="搜索"
+        android:drawableLeft="@drawable/sorlistview_search_bar_icon_normal"
+        android:drawablePadding="2dp"
+        android:padding="5dp"
+        android:textSize="@dimen/little_14"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.accuvally.hdtui.ui.XListView
+            android:id="@id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:cacheColorHint="@color/transparent"
+            android:choiceMode="singleChoice"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@color/transparent"
+            android:listSelector="@color/transparent"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedec"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/iv_datails_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_click_btn"
+            android:onClick="onBack"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_arrows" />
+
+        <TextView
+            android:id="@+id/tvHeadTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="用户资料"
+            android:textColor="#484848"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/activity_header_progressbar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tvHeadTitle"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/linTopRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <ImageView
+                android:id="@+id/ivChatMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gengduo" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivUserLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/default_square_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/ivGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBrief"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="地区" />
+
+            <TextView
+                android:id="@+id/tvRegion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <LinearLayout
+            android:id="@+id/linFollowOrg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="关注主办方" />
+        </LinearLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <LinearLayout
+            android:id="@+id/linFollows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="关注的活动" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <LinearLayout
+            android:id="@+id/linPublished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="发布的活动" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <Button
+            android:id="@+id/btSend"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_quit_circle"
+            android:text="发消息"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

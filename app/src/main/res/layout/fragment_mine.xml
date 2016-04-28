@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical">
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="@mipmap/mine_top_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.accuvally.hdtui.ui.CircleImageView
+                    android:id="@+id/ivMineLogo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon"
+                    app:border_color="@color/white"
+                    app:border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/tvMineNickName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="我的名字"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvMineSignature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="我的签名"
+                    android:textColor="@color/gary3"
+                    android:textSize="@dimen/little_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyMineTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_about_btn"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/mine_ticket_left_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center|left"
+                    android:text="票券"
+                    android:textColor="@color/details_title"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyMineCollect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_about_btn"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/mine_collection_left_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center|left"
+                    android:text="收藏的活动"
+                    android:textColor="@color/details_title"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyMineOrg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_about_btn"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/mine_org_left_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center|left"
+                    android:text="关注主办方"
+                    android:textColor="@color/details_title"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyMineCircle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_about_btn"
+                android:gravity="center|right"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/mine_peer"
+                    android:drawablePadding="5dp"
+                    android:gravity="center|left"
+                    android:text="同伴"
+                    android:textColor="@color/details_title"
+                    android:textSize="@dimen/little_16" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left">
+
+                    <TextView
+                        android:id="@+id/tvMineUnReadNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/details_jiantou_bg" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+</LinearLayout>

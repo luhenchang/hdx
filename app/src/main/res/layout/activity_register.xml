@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_org_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/resgister_phone"
+                layout="@layout/include_basic_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/password" />
+
+                <com.accuvally.hdtui.ui.EditTextWithDel
+                    android:id="@+id/register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:hint="@string/register_pass"
+                    android:inputType="textPassword"
+                    android:longClickable="false"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/details_icon_line2"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/nick_name" />
+
+                <com.accuvally.hdtui.ui.EditTextWithDel
+                    android:id="@+id/register_nick_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/white"
+                    android:hint="@string/register_nickname"
+                    android:inputType="text"
+                    android:maxLength="12"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyRegBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_wane_gray2" >
+
+                <Button
+                    android:id="@+id/register_submit_botton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/setting_register"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <include layout="@layout/include_three_login" />
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ECEDEC"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ECEDEC"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#61B754"
+                android:gravity="center" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/head_bg" />
+            </LinearLayout>
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/ivHeadPortrait"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="-50dp"
+                android:src="@drawable/head_portrait" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivHeadPortrait"
+                android:background="@drawable/under_head_box"
+                android:gravity="center"
+                android:text="放张大头照,认识更多小伙伴"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#ffffff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/etNick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:drawablePadding="5dp"
+                    android:maxLength="12"
+                    android:drawableLeft="@drawable/nickname"
+                    android:gravity="center"
+                    android:hint="您的昵称"
+                    android:padding="8dp"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/etPersonality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:maxLength="32"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/signature"
+                android:gravity="center"
+                android:hint="您的签名"
+                android:padding="8dp"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llOpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#61B754"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:drawableRight="@drawable/open_the_door"
+            android:gravity="center"
+            android:text="打开这扇门"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+</LinearLayout>

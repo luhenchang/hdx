@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedec"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/iv_datails_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_click_btn"
+            android:onClick="onBack"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_arrows" />
+
+        <TextView
+            android:id="@+id/tvHeadTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="资料设置"
+            android:textColor="#484848"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="加入黑名单"
+                android:textColor="#484848"
+                android:textSize="15sp" />
+
+            <CheckBox
+                android:id="@+id/cbBlacklist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@drawable/selector_toggle" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <LinearLayout
+            android:id="@+id/linReport"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_click_btn"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/details_jiantou_bg"
+                android:text="举报"
+                android:textColor="#484848"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <Button
+            android:id="@+id/btUnfollow"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_delete"
+            android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

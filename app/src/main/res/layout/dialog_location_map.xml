@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_explain"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="请选择地图"
+            android:textColor="@color/txt_green"
+            android:textSize="@dimen/little_18"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivCloseDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/dialog_close_bg"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txt_green" />
+
+    <com.accuvally.hdtui.ui.ScrolListView
+        android:id="@+id/location_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:divider="@drawable/details_icon_line3"
+        android:dividerHeight="0.1dp"
+        android:listSelector="@color/transparent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/details_icon_line3" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/selector_radiobutton_sex_btn"
+        android:drawablePadding="5dp"
+        android:padding="10dp"
+        android:text="记住我的选择"
+        android:textColor="@color/gary4"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

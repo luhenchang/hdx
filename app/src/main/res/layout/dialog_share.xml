@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lydismiss"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/transparent"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRobTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFAE00"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原价1238元,20张免费票"
+            android:visibility="gone"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享活动给小伙伴,即可参与抢票!"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/txt_green"
+            android:gravity="center|left"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/dialog_share_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/dialog_close_bg"
+                android:textColor="@color/white"
+                android:textSize="@dimen/little_16" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/txt_green" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/tvShareSina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_sina_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_sina"
+                android:textColor="@color/share" />
+
+            <TextView
+                android:id="@+id/tvShareQzone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_qzone_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_qq"
+                android:textColor="@color/share" />
+
+            <TextView
+                android:id="@+id/tvSharewx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_wx_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_wx"
+                android:textColor="@color/share" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/tvSharewxpy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_wxpy_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_wx_py"
+                android:textColor="@color/share" />
+
+            <TextView
+                android:id="@+id/tvShareMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_message_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_message"
+                android:textColor="@color/share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_wxpy_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_wx_py"
+                android:textColor="@color/share"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

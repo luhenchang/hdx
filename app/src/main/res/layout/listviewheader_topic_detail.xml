@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:src="@drawable/default_details_image" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="忙碌的工作侵蚀着我们的生活，快节奏的步调让城市变得冷漠。当梦想和未来被涂抹成灰，唯有好电影和好时光不能辜负。和电影有关的小集合在这里哦。"
+        android:textColor="#484848"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bg_special_recommendation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="专题推荐"
+            android:textColor="#64b659"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</LinearLayout>

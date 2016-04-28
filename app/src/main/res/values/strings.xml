@@ -1,0 +1,462 @@
+<resources>
+
+    <string name="app_name">活动行</string>
+    <string name="bottom_home_txt">首页</string>
+    <string name="bottom_home_category">分类</string>
+    <string name="bottom_square_txt">广场</string>
+    <string name="bottom_ticket_txt">票券</string>
+    <string name="bottom_setting_txt">更多</string>
+    <string name="bottom_my_txt">我的</string>
+    <string name="details_top_title">活动详情</string>
+    <string name="home_tab_time">时间</string>
+    <string name="all">全部</string>
+    <string name="defult">默认</string>
+    <string name="home_tab_interest">兴趣</string>
+    <string name="home_tab_address">地址</string>
+    <string name="home_tab_screening">筛选</string>
+    <string name="network_check">网络连接断开，请检查网络</string>
+    <string name="details_start">开始：</string>
+    <string name="details_end">结束：</string>
+    <string name="details_landmarks">发布者：</string>
+    <string name="details_sponsor">主办方：</string>
+    <string name="look_accu_details">更多活动详情</string>
+    <string name="details_Ticket">票种</string>
+    <string name="details_register">我要报名</string>
+    <string name="details_Introduction">活动介绍</string>
+    <string name="details_accu_org_message">场馆信息</string>
+    <string name="details_comment">讨论</string>
+    <string name="details_like">猜你喜欢</string>
+    <string name="details_all_click">查看全部</string>
+    <string name="details_comment_edit">我来说两句!</string>
+    <string name="details_accu_publish_reminder">主办方发布活动请电脑登录</string>
+    <string name="details_accu_publish_address">www.huodongxing.com</string>
+    <string name="setting_tab_history">浏览历史</string>
+    <string name="setting_tab_message">消息</string>
+    <string name="test_details">秦始皇嬴政（前259年—前210年），出生于赵国首都邯郸，秦庄襄王之子，[1]十三岁继承王位，三十九岁称皇帝，在位三十七年。中国历史上著名的政治家、战略家、改革家，首位完成华夏大一统的铁腕政治人物，建造了首个多民族的中央集权国家，曾采用三皇之“皇”、五帝之“帝”构成“皇帝”的称号，是古今中外第一个称皇帝的封建王朝君主。秦始皇在中央创建皇帝制度，实行三公九卿，管理国家大事。地方上废除分封制，代以郡县制，同时又书同文，车同轨，统一度量衡。对外北击匈奴，南征百越，修筑万里长城，修筑灵渠，沟通水系。还把中国推向了大一统时代，为建立专制主义中央集权制度开创了新局面，对中国和世界历史产生了深远影响，奠定中国两千余年政治制度基本格局，他被明代思想家李贽誉为“千古一帝”。[</string>
+    <string name="details_introductions">秦始皇（公元前259年1月27日[3-5]—公元前210年），是秦庄襄王的中子，嬴姓，赵氏，名政，故又称赵政。</string>
+    <string name="details_next">下一步</string>
+    <string name="details_dialog_text1">请选择您要的票种</string>
+    <string name="details_dialog_text2">购票数量</string>
+    <string name="details_dialog1_title">核对并补充您的报名信息</string>
+    <string name="details_dialog1_school_text">学校/单位</string>
+    <string name="details_dialog1_school_text2">职业</string>
+    <string name="details_dialog1_school_text3">爱好(多选)</string>
+    <string name="accuvally_details_title">活动详情</string>
+    <string name="add_accuvally_title">发布活动</string>
+    <string name="add_accuvally_text1">聚会、会议、K歌各类活动轻松发起，尽在活动行</string>
+    <string name="add_accuvally_text2">输入标题</string>
+    <string name="add_accuvally_text3">选择时间</string>
+    <string name="add_accuvally_text_address">输入地点</string>
+    <string name="add_accuvally_text4">输入活动详情，详细说明地点、事件</string>
+    <string name="add_accuvally_text5">添加图片</string>
+    <string name="add_accuvally_text6">添加表情</string>
+    <string name="add_accuvally_text7">提示：发布违法、反动互动信息或冒用他人、组织名义发起互动，将依据记录提交公安机关处理</string>
+    <string name="add_accuvally_text8">展开更多</string>
+    <string name="add_accuvally_text9">收起</string>
+    <string name="add_accuvally_text10">输入人数限制</string>
+    <string name="add_accuvally_text11">选择活动结束时间</string>
+    <string name="add_accuvally_text12">同步发布到广场</string>
+    <string name="add_accuvally_text13">确定发布</string>
+    <string name="add_accuvally_text14">恭喜您!已发布成功</string>
+    <string name="add_accuvally_text15">确定</string>
+    <string name="add_accuvally_text18">取消</string>
+    <string name="add_accuvally_text16">选择开始时间</string>
+    <string name="add_accuvally_text17">选择结束时间</string>
+    <string name="add_accuvally_text19">组织发起一个活动 </string>
+    <string name="add_accuvally_text20">热门活动 </string>
+
+    <!-- 发布活动 -->
+    <string name="publish_accuvally_start_time">选择开始时间</string>
+    <string name="publish_accuvally_end_time">选择结束时间</string>
+    <string name="publish_accuvally_limit_people_count">人数限制</string>
+    <string name="publish_accuvally_people_count">0</string>
+    <string name="publish_accuvally_delete_ticket">您确定要删除该票券吗？</string>
+    <string name="publish_accuvally_statues">发布成功，请您耐心等待审核！</string>
+    <string name="publish_accuvally_open_or_secret">是否私密</string>
+    <string name="publish_accuvally_type">活动类型</string>
+    <string name="publish_accuvally_type_title">类型、人数...</string>
+    <string name="publish_accuvally_table_remider">表单等功能操作请登录网页版进行操作</string>
+    <string name="publish_accuvally_set_reminder">更多票券设置请到网站操作哦！</string>
+    <string name="publish_accuvally_homepage_text">您想发布什么样的活动？\n点击上传活动海报</string>
+    <string name="publish_accuvally_new_ticket">新建票券</string>
+    <string name="publish_accuvally">发布活动</string>
+    <string name="publish_accuvally_edit_ticket">编辑票券</string>
+    <string name="publish_accuvally_adderss">填写详细地址</string>
+    <string name="publish_accuvally_content">活动详情</string>
+    <string name="publish_accuvally_title">活动标题</string>
+    <string name="publish_accuvally_info">基本信息</string>
+    <string name="publish_accuvally_ticket">活动票券</string>
+    <string name="publish_accuvally_text4">填写活动介绍</string>
+    <string name="publish_accuvally_ticket_title">票券名称</string>
+    <string name="publish_accuvally_ticket_price">票券价格</string>
+    <string name="publish_accuvally_ticket_count">票券数量</string>
+    <string name="publish_accuvally_ticket_apply">是否审核</string>
+    <string name="publish_accuvally_ticket_alter_title">修改票券</string>
+    <string name="publish_accuvally_ticket_new_title">新建票券</string>
+    <!-- 筛选条件 -->
+    <string name="select_activity_start">即将开始</string>
+    <string name="select_activity_latest_week">最近一周</string>
+    <string name="select_activity_today">今天</string>
+    <string name="select_activity_tomorrow">明天</string>
+    <string name="select_activity_weekend">周末</string>
+    <string name="select_activity_cost">费用</string>
+    <string name="select_activity_free">免费</string>
+    <string name="select_activity_fee">收费</string>
+    <string name="select_activity_condition">筛选</string>
+    <string name="select_activity_nearly_accuvally">附近活动</string>
+    <string name="select_activity_hot_accuvally">热门活动</string>
+    <string name="select_sure">确定筛选</string>
+    <string name="select_accuvally">筛选好活动</string>
+
+    <!-- 活动分类 -->
+    <string name="accuvally_classfly_all">全部 </string>
+    <string name="accuvally_classfly_business_meet">商务/会议 </string>
+    <string name="accuvally_classfly_carve_out">创业/分享</string>
+    <string name="accuvally_classfly_cultural_salon">文化/沙龙</string>
+    <string name="accuvally_classfly_public_lecture">公益/讲座</string>
+    <string name="accuvally_classfly_parent_children_interaction">亲子/互动</string>
+    <string name="accuvally_classfly_outdoor_gym">户外/健身</string>
+    <string name="accuvally_classfly_life_socail">生活/社交</string>
+    <string name="accuvally_classfly_exhibition_party">展览/展会</string>
+    <string name="accuvally_course_train">课程/培训</string>
+    <string name="accuvally_classfly_show_other">演出其他</string>
+    <string name="details_dialog2_text1">请验证账户信息</string>
+    <string name="details_dialog2_text2">验证手机</string>
+    <string name="details_dialog2_text3">获取验证码</string>
+    <string name="details_dialog2_text4">请输入手机号</string>
+    <string name="details_dialog2_text5">请输入验证码</string>
+    <string name="details_dialog2_text6">姓名</string>
+    <string name="details_dialog2_text7">昵称</string>
+    <string name="details_dialog2_text8">先生</string>
+    <string name="details_dialog2_text9">女士</string>
+    <string name="sure_order_text1">订单确认</string>
+    <string name="sure_order_text2">联系信息</string>
+    <string name="sure_order_text3">(用于接收电子票)</string>
+    <string name="sure_order_text4">姓名：</string>
+    <string name="sure_order_text5">电话：</string>
+    <string name="sure_order_text6">邮箱：</string>
+    <string name="sure_order_text7">订单信息：</string>
+    <string name="sure_order_text8">温馨提示：请尽快完成付款，系统将会自动取消预订2天内尚未完成付款的票券！</string>
+    <string name="sure_order_text9">支付方式</string>
+    <string name="sure_order_text10">付款说明</string>
+    <string name="sure_order_text11">支付宝支付</string>
+    <string name="sure_order_text12">推荐支付宝用户使用</string>
+    <string name="sure_order_text22">推荐微信用户使用</string>
+    <string name="sure_order_text13">温馨提示：如果您没有支付宝账户，同样可以进入支付宝页面选择</string>
+    <string name="sure_order_text14">储蓄卡</string>
+    <string name="sure_order_text15">或者</string>
+    <string name="sure_order_text16">信用卡</string>
+    <string name="sure_order_text17">支付</string>
+    <string name="sure_order_text18">前往付款</string>
+    <string name="sure_order_text19">1.付款完成后您将收到[活动行]的电子票号以及二维码链接,参加活动时请出示二维码凭证(手机开启或打印)或者短信.\n\n2.如果您需要支付电子票的发票,请于参加活动时向活动主办人索取.\n\n3.付款完成后如果没有收到电子票短信,请联系活动行客服(400-0290390)</string>
+    <string name="paysuccess_text1">交易成功</string>
+    <string name="paysuccess_text2">交易失败</string>
+    <string name="paysuccess_text3">恭喜您！报名成功</string>
+    <string name="paysuccess_text4">您的交易失败</string>
+    <string name="paysuccess_text5">点击重试</string>
+    <string name="paysuccess_text_share">分享活动给小伙伴</string>
+    <string name="paysuccess_text6">你可能还喜欢</string>
+    <string name="paysuccess_text7">订单信息</string>
+    <string name="details_ticket_instructions">电子票使用说明:\n
+    1.本活动凭票入场,一人一票一次性,请勿复制或转寄他人;\n
+    2.请下载至手机或打印携带,保持条码清晰完整;\n
+    3.本活动由[活动行]提供票券服务,其拥有最终解释权。 
+</string>
+    <string name="website_url">http://www.huodongxing.com</string>
+    <string name="service_telephone">客服电话:&#160;&#160;4000-290-390</string>
+    <!-- 设置 -->
+    <string name="setting_no_login">点击登录</string>
+    <string name="setting_no_signature">没有留下任何痕迹...</string>
+    <string name="setting_login">登录</string>
+    <string name="login_title">用活动行账号登录</string>
+    <string name="setting_login_out">退出登录</string>
+    <string name="setting_register">注册</string>
+    <string name="setting_password">重设密码</string>
+    <string name="setting_icon_attend">已参加</string>
+    <string name="setting_icon_upload">已发布</string>
+    <string name="setting_icon_like">已喜欢</string>
+    <string name="setting_icon_follow">关注的主办方</string>
+    <string name="setting_my_huodongxing">我的活动行</string>
+    <string name="setting_recommend">精彩推荐</string>
+    <string name="setting_update_city">当前城市</string>
+    <string name="setting_update_classify">我的分类</string>
+    <string name="setting_message">消息设置</string>
+    <string name="setting_accu_remind">活动提醒</string>
+    <string name="setting_synchronous">同步数据</string>
+    <string name="setting_synchronous2">登录后自动同步非登录下的操作数据</string>
+    <string name="setting_about_huodongxing">关于活动行</string>
+    <string name="upload_accu_title">发布</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_clear">清除缓存</string>
+    <string name="feedback_content">请留下您宝贵的意见</string>
+    <string name="dialog_light_remark">备注</string>
+    <string name="feedback_email">手机/邮箱/QQ</string>
+    <string name="feedback_submit">提交</string>
+    <string name="feedback_max_length">140</string>
+    <string name="feedback_max_length2">32</string>
+    <string name="setting_scroe">亲，给个好评</string>
+    <string name="setting_title">设置</string>
+    <string name="remind1">当天提醒</string>
+    <string name="remind2">提前一天提醒</string>
+    <string name="remind3">提前2天提醒</string>
+    <string name="remind4">不提醒</string>
+    <string name="remind_title2">选择提醒时间</string>
+    <string name="remind_title3">请确保您已打开软件的提醒接收功能，我们将会在活动开始前及时的通知你唷！</string>
+    <string name="attend_no_data_remind">您还没有参加任何活动哦 ^_^</string>
+    <!-- 选择活动类型 -->
+    <string name="classify_title">订阅活动类型</string>
+    <string name="classify_prompt">给我一些选择，还你更多惊喜！</string>
+    <string name="classify_skip">跳过</string>
+    <string name="classify_next">去看看</string>
+    <!-- 主办方 -->
+    <string name="organizers_title">主办方</string>
+    <!-- 主办方详情 -->
+    <string name="organizers_details_title">主办方详情</string>
+    <string name="organizers_details_follow">关注</string>
+    <string name="organizers_details_introduction">主办方简介</string>
+    <string name="dialog_light_registration_btn">提交报名</string>
+    <!-- 个人资料 -->
+    <string name="personal_title">个人资料</string>
+    <string name="personal_head">头像</string>
+    <string name="personal_nickname">昵称</string>
+    <string name="personal_name">真实姓名</string>
+    <string name="personal_sex">性别</string>
+    <string name="personal_city">所在地区</string>
+    <string name="personal_personality">个性签名</string>
+    <string name="personal_phonenumber">手机号码</string>
+    <string name="personal_email">电子邮箱</string>
+    <string name="personal_update">修改密码</string>
+    <string name="personal_sina">新浪微博</string>
+    <string name="personal_qq">腾讯QQ</string>
+    <string name="personal_baidu">百度</string>
+    <string name="personal_renren">人人网</string>
+    <string name="personal_douban">豆瓣</string>
+    <string name="personal_Unbound">未绑定</string>
+    <!-- 修改资料 -->
+    <string name="personal_update_prompt1">请务必填写真实姓名，以便接收票券信息。</string>
+    <string name="personal_update_prompt2">好名字会让你的人气更高。</string>
+    <string name="personal_update_prompt3">保存</string>
+    <string name="personal_update_nickname">更改昵称</string>
+    <string name="personal_update_name">更改姓名</string>
+    <string name="personal_update_nickname_hint">请输入昵称</string>
+    <string name="personal_update_realname_hint">请输入真实姓名</string>
+    <string name="personal_update_before_hint">请输入个性签名</string>
+    <!-- 修改密码 -->
+    <string name="personal_update_password_title">修改密码</string>
+    <string name="personal_update_password_phone_hint">请输入您的手机号码</string>
+    <string name="personal_update_password_email_hint">请输入您的邮箱</string>
+    <string name="personal_update_password_phone_and_email_hint">请输入您的手机号码</string>
+    <string name="personal_update_password_verification_hint">请输入验证码</string>
+    <string name="personal_update_password_new_hint">请输入新密码</string>
+    <!-- 修改头像 -->
+    <string name="personal_update_photo_title">选择头像</string>
+    <string name="personal_update_photo_photograph">拍照</string>
+    <string name="personal_update_photo_gallery">选择本地图片</string>
+    <!-- 修改性别 -->
+    <string name="personal_update_sex_man">男</string>
+    <string name="personal_update_sex_women">女</string>
+    <!-- 修改城市 -->
+    <string name="personal_update_city">选择城市</string>
+    <!-- 绑定手机、邮箱 -->
+    <string name="personal_bind_phone_title">绑定手机号码</string>
+    <string name="personal_bind_email_title">绑定邮箱</string>
+    <string name="personal_bind_promt1">绑定成功之后，你可以直接用手机号码登录</string>
+    <string name="personal_bind_promt2">绑定成功之后，你可以直接用邮箱登录</string>
+    <string name="personal_bind">绑定</string>
+
+    <!-- 搜索 -->
+    <string name="search_title">搜索</string>
+    <string name="search_edittext_hint">试试手气，总有你想要的活动</string>
+    <string name="upload_comment">发表</string>
+    <string name="search_history">搜索历史</string>
+    <string name="search_hot">热门搜索</string>
+    <string name="search_delete_history">清空搜索历史</string>
+    <string name="search_accuvally">搜搜看，发现精彩活动</string>
+    <string name="search_prompt">搜索互联网/演出</string>
+    <string name="search_prompt_no_data">哎呀，没有更多了</string>
+
+    <!-- 活动管理 -->
+    <string name="accuvally_manager_tab1">基本信息</string>
+    <string name="accuvally_manager_tab2">报名名单</string>
+    <string name="accuvally_manager_tab1_preview">活动预览</string>
+    <string name="accuvally_manager_tab1_close">活动已关闭</string>
+    <string name="accuvally_manager_tab1_submit">保存修改</string>
+    <string name="accuvally_manager_tab1_max">人数限制</string>
+    <string name="accuvally_manager_tab1_end_time">结束时间</string>
+
+    <!-- 关于活动行 -->
+    <string name="about_icon_qq">加入QQ群:</string>
+    <string name="about_icon_weixin">关注微信:</string>
+    <string name="about_icon_customer">客服电话:</string>
+    <string name="about_icon_email">邮箱地址:</string>
+    <string name="about_qq_content">287935149</string>
+    <string name="about_weixin_content">ihuodongxing</string>
+    <string name="about_tel_content">4000 290 390</string>
+    <string name="about_email_content">service@huodongxing.com</string>
+    <string name="preservation">保存</string>
+    <string name="about_icon_weibo">关于活动行微博</string>
+    <string name="about_icon_guide">新手指导</string>
+    <string name="about_icon_version">版本检测</string>
+    <string name="about_icon_huodongxing_content">国内最好的活动报名及售票平台!</string>
+    <string name="about_icon_huodongxing_content2">全球最大中文活动平台</string>
+    <!-- 登陆 -->
+    <string name="login_title_text">去注册</string>
+    <string name="register_title">已有账号</string>
+    <string name="login_three_login">用第三方账号快速登录</string>
+    <string name="login_name">手机号</string>
+    <string name="login_pass">密码</string>
+    <string name="register_user">注册新用户</string>
+    <string name="login_forget_pass"><u>忘记密码</u></string>
+    <string name="login_btn">登录</string>
+    <string name="register_phone">输入您的手机号</string>
+    <string name="register_phone2">输入您的手机号/邮箱</string>
+    <string name="register_forget">输入验证码</string>
+    <string name="register_pass">设置您的密码</string>
+    <string name="find_pass">设置您的新密码</string>
+    <string name="find_confirm_pass">确认您的新密码</string>
+    <string name="register_confirm_button">确定</string>
+    <string name="register_pass_two">再次输入密码</string>
+    <string name="register_nickname">设置您的昵称</string>
+    <string name="pull_to_refresh_header_last_time">上次更新时间：</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">放开以刷新</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新中</string>
+    <string name="pull_to_refresh_footer_refreshing_label">正在加载中</string>
+    <string name="accuvally_manager_title">活动管理</string>
+    <string name="load_more_comments">加载更多</string>
+    <!-- 首页tab -->
+    <string name="home_tab_radiobutton_all">全部</string>
+    <string name="home_tab_radiobutton_pay">付费</string>
+    <string name="home_tab_radiobutton_gratis">免费</string>
+    <string name="home_tab_checkbox_text">只看最热门</string>
+    <string name="guide_btn">立即体验</string>
+    <!-- title -->
+    <string name="title_comment">讨论</string>
+    <string name="title_hot">热门话题</string>
+    <string name="title_newactivity">最新活动</string>
+    <string name="title_limited">限时优惠</string>
+    <string name="title_message">消息</string>
+    <string name="title_special">专题精选</string>
+    <string name="title_special_details">专题详情</string>
+    <string name="title_ticket">票券</string>
+    <string name="title_passion">激情周末</string>
+    <string name="title_passion2">沙龙论坛</string>
+    <string name="title_free">免费</string>
+    <string name="title_entrepreneurship">创新创业</string>
+    <string name="search_nodata">换个关键词试试\n或者\n去首页看看大家都在做什么？</string>
+    <string name="search_guangchang">去首页</string>
+    <string name="search_history_nodata">暂无搜索历史</string>
+    <string name="home_item_org">推荐主办方</string>
+    <string name="home_item_org_content">来这里发现你喜欢的主办方</string>
+    <string name="home_item_linght">精彩活动</string>
+
+    <!-- 木有内容 -->
+    <string name="loading_no_data">居然木有内容\n快去首页发现有趣的活动吧!</string>
+    <string name="xlistview_upload_accu2">暂只能管理手机发布的活动\n更多活动请在电脑进行管理哦！</string>
+    <string name="loading_no_wifi">网络有点不对劲</string>
+
+    <!-- 新版本 -->
+    <string name="remider_update">软件更新提示</string>
+    <string name="yes_or_not_update">目前有新版本，是否升级？</string>
+    <string name="dialog_new_version_title">亲~有新版本</string>
+    <string name="dialog_new_version_content">亲，发现重大新版本！\n	全新的优雅设计、令人无法抗拒的愉悦操作及更加懂你的易用体验，马上下载尝鲜！ </string>
+    <!-- location -->
+    <string name="location_title">提示</string>
+    <string name="location_content1">活动行要使用你的地理位置，是否允许？</string>
+    <string name="location_content2">系统定位你在深圳，是否切换？</string>
+    <string name="location_sure">是</string>
+    <string name="location_cancel">否</string>
+    <!-- share -->
+    <string name="dialog_share_title">分享到</string>
+    <string name="dialog_share_sina">新浪微博</string>
+    <string name="dialog_share_qq">QQ空间</string>
+    <string name="dialog_share_wx">微信</string>
+    <string name="dialog_share_wx_py">朋友圈</string>
+    <string name="search_city_name">请输入您要搜索的城市</string>
+    <string name="dialog_share_message">短信</string>
+    <string name="dialog_light_name_hint">姓名</string>
+    <string name="dialog_light_phone_hint">手机号</string>
+
+    <string-array name="sel_time">
+        <item id="1">全时段</item>
+        <item id="2">今天</item>
+        <item id="3">明天</item>
+        <item id="4">本周</item>
+        <item id="5">本周末</item>
+        <item id="6">本月</item>
+    </string-array>
+    <string-array name="sel_type">
+        <item id="1">全类型</item>
+        <item id="2">创业</item>
+        <item id="3">商务</item>
+        <item id="4">公益</item>
+        <item id="5">社交</item>
+        <item id="6">亲子</item>
+        <item id="7">电影</item>
+        <item id="8">娱乐</item>
+        <item id="9">生活</item>
+        <item id="10">音乐</item>
+        <item id="11">科技</item>
+        <item id="12">运动</item>
+        <item id="13">课程</item>
+        <item id="14">校园</item>
+        <item id="15">其它</item>
+    </string-array>
+
+    <string name="classfly_title2">给我一些选择，还你更多惊喜</string>
+    <string name="classfly_title3">跳过</string>
+    <string name="classfly_title4">去看看</string>
+    <string name="recommend_title1">360手机助手</string>
+    <string name="recommend_content1">数十万Android软件和游戏供您下载</string>
+    <string name="recommend_url1">http://s.app818.cn/platformskip/689</string>
+    <string name="recommend_title2">爱牙-牙齿健康必备</string>
+    <string name="recommend_content2">爱牙，你的全方位牙齿健康专家！</string>
+    <string name="recommend_url2">http://s.51aiya.com/content/down/aiya14100150.apk</string>
+    <string name="recommend_title3">妈咪掌中宝</string>
+    <string name="recommend_content3">7x24小时有医生陪伴的孕育社区</string>
+    <string name="recommend_url3">http://www.mmzzb.com/download/mmzzb.apk</string>
+    <string name="recommend_title4">飞语网络电话</string>
+    <string name="recommend_content4">活跃好友免费拨打，每日签到最多赠送4次免费拨打次数。</string>
+    <string name="recommend_url4">http://gdown.baidu.com/data/wisegame/498d530481625ed8/feiyu_306100.apk</string>
+    <string name="recommend_title5">下一个</string>
+    <string name="recommend_content5">下一个-智能科技贴身助手</string>
+    <string name="recommend_url5">http://s.app818.cn/platformskip/689</string>
+    <string name="recommend_title6">鱼阅</string>
+    <string name="recommend_content6">鱼阅，愉悦好心情，阅你所看</string>
+    <string name="recommend_url6">http://api.yread.cn/version/downLastVersion/?name=huodongxing </string>
+    <string name="details_accu_phones">电话咨询</string>
+    <string name="accu_push_details_btn">去参加</string>
+
+    <!-- comment -->
+    <string name="comment_title">评论</string>
+    <string name="comment_content_hint">请输入评论内容</string>
+    <string name="dialog_push_details_title">即将进入，数据正在准备中...</string>
+    <string name="dialog_push_details_title2">温馨提示</string>
+    <string name="dialog_push_details_content">活动行仅为您提供活动搜索，展示等服务。您所参加的活动全部信息请以相应的活动站信息为准。</string>
+    <string name="push_details_attend">去参加</string>
+    <string name="map_title">地图</string>
+    <string name="add_firend">邀请好友</string>
+    <string name="xlistview_upload_accu">暂只能管理手机发布的活动，更多活动请在电脑进行管理哦！</string>
+
+    <!-- 验证购票人信息 -->
+    <string name="buy_ticket_first_title">验证购票人信息</string>
+    <string name="buy_ticket_text_title1">手机</string>
+    <string name="buy_ticket_text_title2">收到的验证码</string>
+    <string name="buy_ticket_edit1">您的手机号*</string>
+    <string name="buy_ticket_edit2">请输入您收到的验证码*</string>
+
+    <!-- 填写报名表单 -->
+    <string name="buy_ticket_second_title">填写报名表单</string>
+    <!-- 票卷 -->
+    <string name="valid_ticket_count">已有票券</string>
+    <string name="invalid_ticket_count">未完成订单</string>
+    <!-- 我的活动行 -->
+    <string name="my_accuvally_attend">我参加的</string>
+    <string name="my_accuvally_upload">我发布的</string>
+    <string name="my_accuvally_recommend">精彩推荐</string>
+    <string name="circle_wel">去【 %1$s】的活动圈里，与其他参与者一起聊聊吧！</string>
+
+    <string name="announce_count">每天最多只能发送3次公告,今天已经发送%1$s次公告</string>
+
+</resources>

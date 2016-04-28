@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.accuvally.hdtui.ui.XListView
+            android:id="@+id/not_login_ticket_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:listSelector="@color/transparent"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollingCache="false"
+            android:visibility="gone" />
+
+        <include layout="@layout/loading_failure" />
+
+        <include
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            layout="@layout/loading_progress" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#e5e5e5"
+        android:orientation="horizontal"
+        android:paddingTop="2dip" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/chat_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/recorder"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/chat_softinput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/btn_chat_input"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dip"
+            android:layout_weight="1"
+            android:paddingBottom="7.5dp"
+            android:paddingTop="7.5dp" >
+
+            <Button
+                android:id="@+id/chat_recording"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_send_btn"
+                android:text="按住说话"
+                android:textColor="#484848"
+                android:visibility="gone" />
+
+            <com.accuvally.hdtui.ui.EmoteEditText
+                android:id="@+id/chat_textditor_eet_editer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/voice_rcd_btn_nor"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSend"
+                android:maxLines="4" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dip"
+            android:gravity="center_vertical" >
+
+            <Button
+                android:id="@+id/chat_textditor_biaoqing"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/biaoqing" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="10dip" >
+
+            <Button
+                android:id="@+id/chat_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_send_btn"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="发送"
+                android:textColor="#484848"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/chat_pic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/tianjia" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/chat_pic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f5f5f5"
+            android:minHeight="80dp"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/chat_pic_camero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableTop="@drawable/sendby_camera"
+                    android:gravity="center_horizontal"
+                    android:text="拍照" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/chat_pic_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableTop="@drawable/sendby_pic"
+                    android:gravity="center_horizontal"
+                    android:text="图库" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chat_smile_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f5f5f5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:visibility="gone" >
+
+            <com.accuvally.hdtui.ui.ViewFlow
+                android:id="@+id/common_viewflow"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <com.accuvally.hdtui.ui.CircleFlowIndicator
+                android:id="@+id/common_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dip" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

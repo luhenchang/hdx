@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/guide4_bg"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/what_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_loginout_bg"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="bottom|center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="立即体验"
+        android:textColor="@drawable/selector_text_color"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

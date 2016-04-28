@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:src="@drawable/home_flash_sale"
+                    android:id="@+id/ivHomeTitleIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp" />
+
+                <TextView
+                    android:id="@+id/tvHomeItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:text="周末去哪儿周末去哪儿"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_18" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivHomeImg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_30_80"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_details_image" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivhomeTag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_click_btn" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

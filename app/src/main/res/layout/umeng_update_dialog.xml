@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/transparent_gary" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/header_height2"
+        android:layout_marginLeft="@dimen/update_image_remider_height"
+        android:layout_marginRight="@dimen/update_image_remider_height"
+        android:layout_marginTop="@dimen/header_height2"
+        android:background="@drawable/update_background"
+        android:orientation="vertical" >
+
+        <!-- Title -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/image_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/update_image_margin_height"
+                android:src="@drawable/image_load" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/UMUpdateTitle"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#63C2FF" />
+
+            <Button
+                android:id="@+id/umeng_update_id_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/umeng_update_button_close_bg_selector"
+                android:focusable="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/image_load_define"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/update_image_margin_height"
+                android:src="@drawable/image_load" />
+
+            <TextView
+                android:id="@+id/remider_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_load_define"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/update_image_remider_height"
+                android:text="@string/remider_update"
+                android:textColor="@color/txt_green"
+                android:textSize="@dimen/little_20" />
+
+            <TextView
+                android:id="@+id/yes_or_not_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/remider_update"
+                android:layout_marginLeft="@dimen/update_image_margin_height"
+                android:layout_marginTop="@dimen/update_image_margin_height"
+                android:paddingRight="70dp"
+                android:text="@string/yes_or_not_update"
+                android:textColor="@color/yes_or_not_update_color"
+                android:textSize="@dimen/little_16" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/update_content"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/update_image_margin_height"
+            android:layout_weight="1"
+            android:minHeight="35dp"
+             >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/umeng_update_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/update_will_remider_height"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:maxWidth="180dp"
+                    android:focusable="true"
+                    android:textColor="@color/yes_or_not_update_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/umeng_update_id_check"
+            android:layout_width="fill_parent"
+            android:layout_height="32dp"
+            android:button="@drawable/umeng_update_button_check_selector"
+            android:text="@string/UMIgnore"
+            android:textColor="#AAABAF"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/update_button_bottom_height"
+            android:layout_marginLeft="@dimen/update_button_margin"
+            android:layout_marginRight="@dimen/update_button_margin"
+            android:layout_marginTop="@dimen/update_content_button_height" >
+
+            <Button
+                android:id="@+id/umeng_update_id_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/update_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/selector_comment_btn"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/UMNotNow"
+                android:textColor="@color/txt_gray" />
+
+            <Button
+                android:id="@+id/umeng_update_id_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_onclick_btn"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/UMUpdateNow"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/umeng_update_id_ignore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/umeng_update_button_cancel_bg_selector"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/UMIgnore"
+                android:textColor="#AAABAF"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/home_left_color"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="15dp" >
+
+            <com.accuvally.hdtui.ui.CircleImageView
+                android:id="@+id/ivHomeLeftLogo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon"
+                app:border_color="@color/txt_green"
+                app:border_width="2dp" />
+
+            <TextView
+                android:id="@+id/tvHomeLeftUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="昵称"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvHomeLeftNickName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="签名"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_14" />
+
+            <TextView
+                android:id="@+id/tvHomeLeftLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/left_login_out_icon_bg"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="5dp"
+                android:text="退出"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_16" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_datails_back"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:background="@drawable/selector_click_btn"
+            android:onClick="onBack"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_arrows" />
+    </FrameLayout>
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="15dp" >
+
+            <LinearLayout
+                android:id="@+id/lyVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:orientation="horizontal"
+                android:padding="15dp" >
+
+                <TextView
+                    android:id="@+id/tvVersionName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="版本	3.7.0"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查更新"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyHomeLeftCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:orientation="horizontal"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="我的城市"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvHomeLeftCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深圳"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyHomeLeftRemind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:orientation="horizontal"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="活动设定"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvHomeLeftRemind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提前一天"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvHomeLeftFeedBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:padding="15dp"
+                android:text="疑问与反馈"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvHomeLeftRecommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:padding="15dp"
+                android:text="应用推荐"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvHomeLeftAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:padding="15dp"
+                android:text="关于我们"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_16" />
+
+            <LinearLayout
+                android:id="@+id/lyHomeLeftClean"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:orientation="horizontal"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="清除缓存"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_16" />
+
+                <TextView
+                    android:id="@+id/tvHomeLeftSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="89M"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_16" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/home_left_logo_bg" />
+
+</LinearLayout>

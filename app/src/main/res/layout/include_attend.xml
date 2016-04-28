@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_19_80"
+                android:background="@drawable/accu_attend_bg" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/arc_opacity_bg2" />
+        </RelativeLayout>
+
+        <com.accuvally.hdtui.ui.CircleImageView
+            android:id="@+id/ivHead"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="20dp"
+            app:border_color="@color/txt_green"
+            app:border_width="2dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:drawablePadding="10dp"
+        android:text="@string/setting_no_login"
+        android:textColor="@color/txt_green"
+        android:textSize="@dimen/little_18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvUserCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/accu_addr_bg"
+            android:drawablePadding="5dp"
+            android:text="@string/setting_no_login"
+            android:textColor="@color/gary4"
+            android:textSize="@dimen/little_14" />
+
+        <TextView
+            android:id="@+id/tvUserSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/accu_sex_bg"
+            android:drawablePadding="5dp"
+            android:text="@string/setting_no_login"
+            android:textColor="@color/gary4"
+            android:textSize="@dimen/little_14" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvUpLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_about_btn"
+        android:drawableLeft="@drawable/organizers_add_icon_bg"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/details_icon_jiantou2"
+        android:gravity="center|left"
+        android:padding="13dp"
+        android:text="发布活动"
+        android:textColor="@color/txt_green"
+        android:textSize="@dimen/little_16" />
+
+    <View
+        android:id="@+id/uploadlineview"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/details_icon_line2" />
+
+    <LinearLayout
+        android:id="@+id/llAttendNoData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="75dp"
+        android:paddingTop="75dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/attend_no_data" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:gravity="center"
+            android:text="@string/attend_no_data_remind"
+            android:textColor="#e5e5e5"
+            android:textSize="@dimen/little_16" />
+    </LinearLayout>
+
+</LinearLayout>

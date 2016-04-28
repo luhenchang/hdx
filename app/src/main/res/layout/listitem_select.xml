@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RlImg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width_38_80" >
+
+        <ImageView
+            android:id="@+id/ivSelImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/default_details_image"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tvState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/sel_item_status_icon2_bg"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="报名中"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/lySelHomeType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/sel_near_bg"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/tvSelHomeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="正在进行"
+                android:textColor="@color/white"
+                android:textSize="@dimen/little_12" />
+
+            <ImageView
+                android:id="@+id/ivSelHomeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/sel_location_icon_bg" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lyItemSelText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RlImg"
+        android:background="@color/sel_item_bottom_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp" >
+
+        <RelativeLayout
+            android:id="@+id/RlMark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvSelTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="[聚旅行xxxxxxxxxxxxxxxxxxxxxxxxxxx]"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSelTitle"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvSelAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/sel_address_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:gravity="center|left"
+                    android:text="地址"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_12" />
+
+                <TextView
+                    android:id="@+id/tvSelItemTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/sel_time_icon_bg"
+                    android:drawablePadding="5dp"
+                    android:gravity="center|left"
+                    android:text="时间"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_12" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:gravity="right"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvSelLikeNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/yanjing"
+                android:drawablePadding="2dp"
+                android:text="10012"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_12" />
+
+            <TextView
+                android:id="@+id/tvSelPriceArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|bottom"
+                android:text="￥3940"
+                android:textColor="@color/darkgoldenrod"
+                android:textSize="@dimen/little_16" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/lyItemSelText"
+        android:background="#b2a9a2" />
+
+</RelativeLayout>

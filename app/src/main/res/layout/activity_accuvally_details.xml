@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.OverScrollView
+        android:id="@id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/ivDetailsLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/width_42_80"
+                    android:background="@drawable/default_details_image"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tvDetailsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_17" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tvDetailsSell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/gary_title"
+                        android:textSize="@dimen/little_13" />
+
+                    <TextView
+                        android:id="@+id/tvVisitNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/tvDetailsSell"
+                        android:textColor="@color/gary_title"
+                        android:textSize="@dimen/little_13" />
+
+                    <TextView
+                        android:id="@+id/tvLikeNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/tvVisitNum"
+                        android:textColor="@color/gary_title"
+                        android:textSize="@dimen/little_13" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tvDetailsTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_click_btn"
+                        android:drawableLeft="@drawable/details_time_icon_bg"
+                        android:drawablePadding="10dp"
+                        android:gravity="center|left"
+                        android:padding="10dp"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_15" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <LinearLayout
+                    android:id="@+id/lyDetailsAddr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/tvDetailsAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/details_address_icon_bg"
+                        android:drawablePadding="10dp"
+                        android:gravity="center|left"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_15" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/details_location_icon_bg" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/details_jiantou_bg" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/vPriceLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvDetailsTicket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:drawableLeft="@drawable/details_ticket_icon_bg"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center|left"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/little_15" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvContactOrganizer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:drawableLeft="@drawable/details_contact_organizer_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:gravity="center|left"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:text="联系主办方"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/little_15" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:id="@+id/lyDetailsOrg2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/lyDetailsOrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:id="@+id/iv_org_logo"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/tvDetailsOrgName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/details_jiantou_bg"
+                        android:gravity="center|left|top"
+                        android:singleLine="true"
+                        android:textColor="@color/txt_green"
+                        android:textSize="@dimen/little_15" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewOrgLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_accu_brief"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="3dp"
+                    android:padding="10dp"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_15" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/details_icon_line2" />
+
+                <TextView
+                    android:id="@+id/tvIntroduction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_click_btn"
+                    android:drawableRight="@drawable/details_jiantou_bg"
+                    android:lineSpacingExtra="3dp"
+                    android:padding="10dp"
+                    android:text="更多详情"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_15" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/details_icon_line2" />
+
+            <include
+                android:id="@+id/includeInterest"
+                layout="@layout/include_detail_interest"
+                android:visibility="gone" />
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.OverScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#bcbcbc" />
+
+    <include
+        android:id="@+id/include_accuvallydetail_bottom"
+        layout="@layout/include_accuvallydetail_bottom" />
+
+</LinearLayout>

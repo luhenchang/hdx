@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/txt_green"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/personal_sex"
+            android:textColor="@color/white"
+            android:textSize="@dimen/little_18"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivCloseDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/dialog_close_bg"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txt_green" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="true"
+            android:drawableRight="@drawable/selector_radiobutton_sex_btn"
+            android:padding="10dp"
+            android:text="@string/personal_update_sex_man"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@drawable/details_icon_line2" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/selector_radiobutton_sex_btn"
+            android:padding="10dp"
+            android:text="@string/personal_update_sex_women"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

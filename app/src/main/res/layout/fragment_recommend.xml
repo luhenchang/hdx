@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.accuvally.hdtui.ui.OverScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecedec"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="116.5dp" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.accuvally.hdtui.ui.CirclePageIndicator
+                android:id="@+id/cicleIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp" />
+        </RelativeLayout>
+
+        <include layout="@layout/include_home_type" />
+
+        <include layout="@layout/include_home_robticket" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="#ecedec"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <com.accuvally.hdtui.ui.ScrollGridView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="0.5dp"
+                android:listSelector="#00000000"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:verticalSpacing="0.5dp" />
+        </LinearLayout>
+
+        <include layout="@layout/include_home_topic" />
+
+        <include layout="@layout/include_home_recommend" />
+    </LinearLayout>
+
+</com.accuvally.hdtui.ui.OverScrollView>

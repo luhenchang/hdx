@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/iv_datails_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_click_btn"
+            android:onClick="onBack"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_arrows" />
+
+        <TextView
+            android:id="@+id/tvHeadTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="消息"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_18" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bcbcbc" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

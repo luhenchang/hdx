@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/details_top_sl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dip"
+                android:background="@drawable/details_ticket_top_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="15dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:paddingTop="20dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/big_logo" />
+
+                <ImageView
+                    android:id="@+id/img_code"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/default_square_image" />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/gary_title"
+                    android:textSize="@dimen/little_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="15dip"
+                    android:background="@color/circle_bg" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:gravity="center|left"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/bule"
+                    android:textSize="@dimen/little_18" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/circle_bg" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:drawableLeft="@drawable/details_ticket_body"
+                    android:drawablePadding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/gary_content"
+                    android:textSize="@dimen/little_14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/details_ticket_time" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dip"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ly_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:gravity="center|left|top"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dip"
+                        android:src="@drawable/details_ticket_address" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center|left"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="10dip"
+                        android:background="@color/circle_bg" />
+
+                    <com.accuvally.hdtui.ui.DrawableCenterTextView
+                        android:id="@+id/is_more_cb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="true"
+                        android:drawablePadding="10dip"
+                        android:drawableRight="@drawable/details_ticket_open"
+                        android:gravity="center"
+                        android:paddingBottom="10dip"
+                        android:paddingTop="10dip"
+                        android:text="更多详情"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_18" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/circle_bg" />
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/details_ticket_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    layout="@layout/details_ticket_more"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/valid_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_top_sl"
+                android:layout_marginBottom="30dip"
+                android:background="@drawable/details_ticket_bottom_bg"
+                android:gravity="center"
+                android:text="有效票券"
+                android:textColor="@color/white"
+                android:textSize="@dimen/little_22"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

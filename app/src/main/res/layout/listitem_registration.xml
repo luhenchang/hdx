@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_click_btn"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivOrganizer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_square_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="2dp"
+                android:text="搜狐媒体"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_16" />
+
+            <TextView
+                android:id="@+id/tvDescride"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="这是一个创业平台"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_12" />
+
+            <TextView
+                android:id="@+id/tvLikeNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/sel_follow_selected"
+                android:drawablePadding="2dp"
+                android:text="394568"
+                android:textColor="@color/gary_title"
+                android:textSize="@dimen/little_12" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/darkgoldenrod" />
+
+</LinearLayout>

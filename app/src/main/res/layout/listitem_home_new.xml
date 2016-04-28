@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_fy_homeItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_click_btn"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="@dimen/width_29_80"
+            android:layout_height="@dimen/height_10_80"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/default_home_image"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/tvHomeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textColor="@color/txt_gray"
+                android:textSize="@dimen/little_18" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/height_2_80" >
+
+                <TextView
+                    android:id="@+id/tvHomeAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:textColor="@color/topic_date"
+                    android:textSize="@dimen/little_14" />
+
+                <TextView
+                    android:id="@+id/tvHomeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/time_gray_bg"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="3dp"
+                    android:singleLine="true"
+                    android:textColor="@color/txt_green"
+                    android:textSize="@dimen/little_14" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

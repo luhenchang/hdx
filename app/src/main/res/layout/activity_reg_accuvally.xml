@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_backgroud"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <LinearLayout
+        android:id="@+id/llCouponCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btPromotionCode"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/woyouyouhuima"
+            android:text="我有优惠码"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@color/transparent"
+        android:dividerHeight="10dp"
+        android:listSelector="@color/transparent"
+        android:padding="10dp" />
+
+</LinearLayout>

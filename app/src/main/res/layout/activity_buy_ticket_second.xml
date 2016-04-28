@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/activity_header_new" />
+
+    <com.accuvally.hdtui.ui.CustomerScrollView
+        android:id="@+id/buy_ticket_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <LinearLayout
+            android:id="@+id/lyAddForm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </com.accuvally.hdtui.ui.CustomerScrollView>
+
+    <TextView
+        android:id="@+id/tvSecondNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/txt_green"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/details_next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/little_18"
+        android:textStyle="bold" />
+
+</LinearLayout>

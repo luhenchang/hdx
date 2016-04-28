@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_click_tip_detial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/xxx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_accu_title_bg"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/ll_xxx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center|left"
+                        android:lineSpacingExtra="3dp"
+                        android:maxLines="2"
+                        android:textColor="@color/details_title"
+                        android:textSize="@dimen/little_16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="活动时间:"
+                        android:textColor="@color/gary_title"
+                        android:textSize="@dimen/little_14" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:textColor="@color/gary_content"
+                        android:textSize="@dimen/little_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/reminder_accu_start"
+                android:gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:text="即\n将\n开\n始"
+                android:textColor="@color/white"
+                android:textSize="@dimen/little_10" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_click_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_accu_restract_look_bg"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/accu_click_expand" />
+
+            <TextView
+                android:id="@+id/tv_operate_remider_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/click"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="立即参加"
+                android:textSize="@dimen/little_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_marginLeft="7dip"
+            android:layout_marginRight="7dip"
+            android:layout_marginTop="-37dp"
+            android:background="@drawable/repeat_bg" />
+    </LinearLayout>
+
+</LinearLayout>
