@@ -1,0 +1,84 @@
+主界面MainActivityNew
+
+由4个Fragment组成：推荐（HomeFramgent）、发现（SelectFragment）、消息（MessageFragment）、我的（MineFragment）
+
+要注意的是可能会造成Framgent重叠现象。因为长时间在后台Activity销毁了又返回这个界面后内存重启但之前的4个Framgent还保留着，新启动的Activity有创建者几个Framgent就会造成重叠现象。所以要通过fragmentManager.findFragmentByTag方式把之前保存的Framgent找出重用
+
+?HomeFramgent 推荐
+布局ListView + header，ListView 有两种layout item 所以在Adpter里的getItemViewType返回不同的类型
+?SelectFragment 发现
+XListView支持下拉刷新，上拉加载更多。点击item进入活动详情
+?MessageFragment 消息
+没登录前显示登录按钮,登录后通过EventBus通知消息界面从数据库查询会话数据到ListView显示，支持滑动删除会话
+
+?MineFragment 我的
+也是在登录后EventBus通知这个Framgent刷新UI。
+
+
+
+?AccuvallyDetailsActivity 活动详情
+获取详情接口数据显示UI
+onClick中先判断有没有登录，如果没登录跳转到登录页面
+
+点击联系主办方就是创建一个和主办方的会话聊天
+点击主办方栏，如果是主办人跳转到用户详情UserDetailActivity
+如果是主办方则进入主办方详情SponsorDetailActivity
+
+下面的可能他感兴趣活动用LinearLayout实现，垂直的LinearLayout添加子View
+
+?SponsorDetailActivity 主办方信息
+自定义View StickyNavLayout 配合下面的PagerSlidingTabStrip加ViewPager实现 Sticky效果，解决和下面的ListView 滑动冲突问题。
+
+?UserDetailActivity 用户资料
+显示用户资料信息，显示用户关注的主办方、关注的活动和发布的活动。这个界面可以添加对方为同伴，对方通过后会受到通知，在消息界面显示红点。
+
+
+
+票券TicketTabActivity 列表展示我的票券和未完成的票券
+
+收藏的活动CollectActivity 列表显示收藏的活动
+
+关注的主办方 OrgListActivity ListView显示关注的主办方
+
+同伴FriendsActivity ListView显示添加过的同伴
+
+
+?ChatActivity 聊天页面
+分为单聊和群聊，通过Intent传递的isPrivateChat变量判断.
+群聊有通告功能，只有群主可以编辑公告内容。当有新的公告通知时通过EventBus通知的消息在onEventMainThread方法判断会话Id是当前聊天页面的SessionId。如果是当前会话则从顶部弹出公告内容。
+
+每次进入Activity都会会启动MsgServices来从leancloud拉取当前的20条消息，MsgServices继承IntentService处理完消息便会自动退出。
+
+?GroupMemberActivity 群信息
+由ChatActivity进入，可以看到群公告和群内成员，下面删除并退出按钮可以退出该群并从本地数据库删除该会话记录。
+
+
+一些改善的地方
+AccuApplication类太臃肿的改善
+
+?AccountManager 管理多用户账户的类，避免UserInfo都放在AccuApplication管理减少Application中的代码量。启动时从SharedPreferences创建UserInfo对象，检查用户是否登录和用户是否激活等一些和用户相关的方法都由此管理
+
+?SPUtil工具类改善SharedPreferences读取和保存的一些代码，避免都放在Application中管理
+
+?获取设备DeviceId可能用户不给权限获取不到的情况，这里可以改善。先获取IMEI码，为空时再取Mac地址，然后取Android ID,都为空时最后用UUID.randomUUID()保证DeviceId唯一性。这些也可以建个工具类减少Application的代码
+
+
+?所有Start ChatActivity 的地方都需要通过application设置当前会话，这里可以改成通过Intent传递SessionId来设置当前会话，也可以避免application保存当前会话，减少application的代码。Start ChatActivity时逻辑也清晰。
+
+?SQLite存储会话和消息，SessionInfo和MessageInfo会通过中间NotificationInfo来转换，而这几个类里的一些变量名又会有歧义，这里可以去掉NotificationInfo这一层转换，这样里面的字段会清晰一些。
+
+
+一些不易发现需要注意的地方
+?报名活动成功后会活动日期插入到系统日历中
+TimeUtils.addEvent()
+
+这行代码可能不易察觉到，我当初看的时候是没注意到这个是做什么用处的代码。
+
+
+?用个推推送的通知，个推会发生一个BroadCast,在GetuiPushMessageReceiver内接受处理通知。在跳转到Activity时，由于这时的Context不是Activity的Context，启动Activity时启动Activity的task，所以需要加上代码
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+设置flag标志
+
+?SureOrderActivity 付费活动订单确认 付款页面
+
+微信支付方式中 appId、parterId、packageValue这些字段早期的版本是由服务端返回，这样存在支付漏洞，现在改成直接写死在客户端
