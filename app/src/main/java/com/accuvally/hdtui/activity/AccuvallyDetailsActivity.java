@@ -1,12 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -61,13 +54,20 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
  * 活动详情
- * 
+ *
  * @author Semmer Wang
- * 
+ *
  */
 public class AccuvallyDetailsActivity extends BaseActivity implements OnClickListener, OverScrollView.OverScrollListener {
 
@@ -77,7 +77,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 
 //	private PushDetailsInfo pushDetailsInfo;//活动推详情
 //	private DetailsInfo detailsInfo;//活动行详情
-	
+
 	private AccuDetailBean detailsInfo;
 
 	private FromInfo fromInfo;
@@ -89,7 +89,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 	private TextView tvDetailsOrgName, tv_accu_brief, tvIntroduction, tvDetailsColl, tvDetailsSell, tvVisitNum, tvLikeNum;
 
 	private TextView tvCheapTicket;
-	
+
 	private LinearLayout lyDetailsAddr, lyDetailsOrg, share_ly;
 
 	private OverScrollView scrollview;
@@ -102,11 +102,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 
 	private View vPriceLine;
 
-//	private ZDClockButton clockButton;
-
 	ShareUtils shareUtils;
-
-	LinearLayout lyDetailsOrg2;
 
 	private View viewOrgLine;
 
@@ -114,14 +110,15 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 
 	private View llRobTicket;// 抢票
 	private View llEnroll;// 立即报名
-	
+
 	private View include_accuvallydetail_bottom;
-	
+
 	private RegSuccessInfo successInfo;
 
 	private String statusStr;
 
 	private boolean isStartBuyTicketThree;
+	private ImageView ivCertification;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,16 +137,18 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		ivDetailsLogo = (ImageView) findViewById(R.id.ivDetailsLogo);
 		tvDetailsTitle = (TextView) findViewById(R.id.tvDetailsTitle);
 		iv_org_logo = (ImageView) findViewById(R.id.iv_org_logo);
-		
+
 		tvDetailsTime = (TextView) findViewById(R.id.tvDetailsTime);
 		tvDetailsAddress = (TextView) findViewById(R.id.tvDetailsAddress);
 		tvDetailsTicket = (TextView) findViewById(R.id.tvDetailsTicket);
 		tvContactOrganizer = (TextView) findViewById(R.id.tvContactOrganizer);
-		
+
 		tvDetailsOrgName = (TextView) findViewById(R.id.tvDetailsOrgName);
+		ivCertification = (ImageView) findViewById(R.id.ivCertification);
+
 		tv_accu_brief = (TextView) findViewById(R.id.tv_accu_brief);
 		tvIntroduction = (TextView) findViewById(R.id.tvIntroduction);
-		
+
 		tvDetailsColl = (TextView) findViewById(R.id.tvDetailsColl);
 		ivDetailsColl = (ImageView) findViewById(R.id.ivDetailsColl);
 		tvDetailsRegTicket = (TextView) findViewById(R.id.tvDetailsRegTicket);
@@ -159,33 +158,32 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		tvVisitNum = (TextView) findViewById(R.id.tvVisitNum);
 		tvLikeNum = (TextView) findViewById(R.id.tvLikeNum);
 		scrollview = (OverScrollView) findViewById(R.id.scrollview);
-		viewOrgLine = (View) findViewById(R.id.viewOrgLine);
-		lyDetailsOrg2 = (LinearLayout) findViewById(R.id.lyDetailsOrg2);
-		vPriceLine = (View) findViewById(R.id.vPriceLine);
+		viewOrgLine = findViewById(R.id.viewOrgLine);
+		vPriceLine = findViewById(R.id.vPriceLine);
 		tvCheapTicket = (TextView) findViewById(R.id.tvCheapTicket);
-		
+
 		include_accuvallydetail_bottom = findViewById(R.id.include_accuvallydetail_bottom);
 
 		share_ly.setOnClickListener(this);
 		tvIntroduction.setOnClickListener(this);
 		tv_accu_brief.setOnClickListener(this);
-		
+
 		tvDetailsColl.setOnClickListener(this);
 		tvDetailsRegTicket.setOnClickListener(this);
 		lyDetailsAddr.setOnClickListener(this);
 		lyDetailsOrg.setOnClickListener(this);
 		scrollview.setOverScrollListener(this);
-		
+
 		tvDetailsTicket.setOnClickListener(this);
 		tvContactOrganizer.setOnClickListener(this);
 
 		findViewById(R.id.llCollect).setOnClickListener(this);// 收藏
 		findViewById(R.id.llShare).setOnClickListener(this);// 群聊
 		findViewById(R.id.llIsRobTicket).setOnClickListener(this);// 抢票
-		
+
 		parseIntent();
 	}
-	
+
 	private void setInterestAccu() {
 		if (detailsInfo == null || detailsInfo.interestacts == null)
 			return;
@@ -199,30 +197,30 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			for (int i = 0; i < detailsInfo.interestacts.size(); i++) {
 				View itemView = getLayoutInflater().inflate(R.layout.listitem_home_recommend, null);
 				hsvChildll.addView(itemView);
-				
+
 				final AccuBean accuBean = detailsInfo.interestacts.get(i);
 				ImageView ivItemRecommendImg = (ImageView) itemView.findViewById(R.id.ivItemRecommendImg);
 				ImageLoader.getInstance().displayImage(accuBean.logo, ivItemRecommendImg);
-				
+
 				TextView tvItemTitle = (TextView) itemView.findViewById(R.id.tvItemTitle);
 				TextView tvItemTime = (TextView) itemView.findViewById(R.id.tvItemTime);
 				TextView tvItemAddress = (TextView) itemView.findViewById(R.id.tvItemAddress);
 				TextView tvItemVisitNum = (TextView) itemView.findViewById(R.id.tvItemVisitNum);
 				TextView tvItemPriceArea = (TextView) itemView.findViewById(R.id.tvItemPriceArea);
-				
+
 				tvItemTitle.setText(accuBean.title);
 				tvItemTime.setText(accuBean.getTimeStr());
 				tvItemAddress.setText(accuBean.address);
 				tvItemVisitNum.setText(accuBean.visitnum);
 				tvItemPriceArea.setText(accuBean.pricearea);
-				
+
 				itemView.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						MobclickAgent.onEvent(mContext, "click_event_guesslike_count");
 						dbManager.insertSaveBeHavior(application.addBeHavior(10, 0 + "", accuBean.id, "", "", "", ""));
-						
+
 						Intent intent = new Intent(mContext, AccuvallyDetailsActivity.class);
 						intent.putExtra("id", accuBean.id);
 						intent.putExtra("isHuodong", accuBean.sourcetype);
@@ -281,7 +279,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			share_ly.setVisibility(View.VISIBLE);
 		}
 	}
-	
+
 	private boolean isRobGary() {
 		return "即将开始".equals(statusStr) || "已抢完".equals(statusStr) || "已结束".equals(statusStr);
 	}
@@ -352,7 +350,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 //								});
 //							}
 //						}
-						
+
 						detailsInfo = JSON.parseObject(response.result, AccuDetailBean.class);
 						if(isHuodong == 1) {
 							initJelly();
@@ -360,14 +358,14 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 							initAccuvally();
 							if (isRobTicket) {// 分享成功监听 设置公布名单时间
 								shareUtils.setShareSuccessListener(new shareCallBack() {
-									
+
 									@Override
 									public void shareSuccess() {
 										regRobTicket();//立即报名，验证有没有表单
 									}
 								});
 							}
-							
+
 							setInterestAccu();
 						}
 					}
@@ -387,7 +385,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		} else {
 			share_ly.setVisibility(View.VISIBLE);
 		}
-		
+
 		application.mImageLoader.displayImage(detailsInfo.logo, ivDetailsLogo);
 		tvDetailsTitle.setText(detailsInfo.title);
 		tvDetailsTime.setText(detailsInfo.getTimeStr());
@@ -406,6 +404,13 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		}
 		tvVisitNum.setText("浏览" + detailsInfo.visitnum + "次");
 		tvLikeNum.setText("收藏" + detailsInfo.likenum + "次");
+
+		if (detailsInfo.orgstatus == 1) {
+			ivCertification.setVisibility(View.VISIBLE);
+		} else {
+			ivCertification.setVisibility(View.GONE);
+		}
+
 		if (!"0".equals(detailsInfo.orgid)) {
 			String str = detailsInfo.orgname + "主办";
 			SpannableStringBuilder style = new SpannableStringBuilder(str);
@@ -419,7 +424,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			tvDetailsOrgName.setText(style);
 			application.mImageLoader.displayImage(detailsInfo.creatorlogo, iv_org_logo, UILoptions.squareOptions);
 		}
-		
+
 		switch (detailsInfo.status) {
 		case 0:
 			setStatus("未开始");
@@ -451,7 +456,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			ivDetailsColl.setImageResource(R.drawable.shoucang);
 			tvDetailsColl.setText("收藏");
 		}
-		
+
 		if (!TextUtils.isEmpty(detailsInfo.form)) {
 			fromInfo = JSON.parseObject(detailsInfo.form, FromInfo.class);
 		}
@@ -493,7 +498,6 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		tvDetailsAddress.setText(detailsInfo.address.replace(" ", "").replace("\n", "").trim());
 		tvDetailsTicket.setVisibility(View.GONE);
 		vPriceLine.setVisibility(View.GONE);
-		lyDetailsOrg2.setVisibility(View.GONE);
 		viewOrgLine.setVisibility(View.GONE);
 		if (detailsInfo.maxprice > 0)
 			tvDetailsTicket.setText("￥" + detailsInfo.minprice + " - ￥" + detailsInfo.maxprice);
@@ -516,11 +520,11 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		}
 //		clockButton.setVisibility(View.GONE);
 		shareUtils.initConfig(this, detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(), detailsInfo.logo, detailsInfo.shareurl);
-	
+
 		include_accuvallydetail_bottom.setVisibility(View.GONE);
 		share_ly.setVisibility(View.VISIBLE);
 	}
-	
+
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
@@ -652,6 +656,14 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			}
 			break;
 		case R.id.tvContactOrganizer:
+			if (Utils.isFastDoubleClick())
+				return;
+
+			if (!application.checkIsLogin()) {
+				toActivity(LoginActivityNew.class);
+				return;
+			}
+
 			if (detailsInfo != null) {
 				SessionInfo privateSession = SessionTable.queryPrivateSession(detailsInfo.createby, AccountManager.getAccount());
 				if (privateSession == null) {
@@ -665,6 +677,12 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		case R.id.lyDetailsOrg:// 主办方
 			if (Utils.isFastDoubleClick())
 				return;
+
+			if (!application.checkIsLogin()) {
+				toActivity(LoginActivityNew.class);
+				return;
+			}
+
 			if (isHuodong == 0 && detailsInfo != null) {
 				if (!"0".equals(detailsInfo.orgid)) {
 					Intent intent = new Intent(mContext, SponsorDetailActivity.class);
@@ -685,7 +703,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 				toActivity(LoginActivityNew.class);
 				return;
 			}
-			
+
 			if (isHuodong == 0 && detailsInfo != null) {
 				joinCircle(detailsInfo.id);//不论是否存在会话都请求，可能被踢出群就不能再加入了
 			}
@@ -738,7 +756,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			application.showMsg("报名此活动需要上传附件，请到活动行网站购买");
 		}
 	}
-	
+
 	//立即报名抢票
 	public void regRobTicket() {
 		if (!TextUtils.isEmpty(detailsInfo.form)) {// 表单不为空
@@ -788,7 +806,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 						} else {
 							if (!successInfo.isNeedApply()) {
 								application.showMsg("报名活动成功");
-								//无表单，无票卷 ，跳转报名成功页面						
+								//无表单，无票卷 ，跳转报名成功页面
 								Intent intent = new Intent();
 								Bundle bundle = new Bundle();
 								bundle.putSerializable("DetailsInfo", detailsInfo);
@@ -819,7 +837,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 						EventBus.getDefault().post(new EventEnroll());
 						initDetails();
 						dbManager.insertSaveBeHavior(application.addBeHavior(40, 0 + "", detailsInfo.id, "", "", "", ""));
-						
+
 					} else {
 						application.showMsg(msg.getMsg());
 					}
@@ -899,7 +917,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 						tvDetailsColl.setText("收藏");
 						tvLikeNum.setText("收藏" + (--detailsInfo.likenum) + "次");
 						dbManager.insertSaveBeHavior(application.addBeHavior(21, 0 + "", detailsInfo.id, "", "", "", ""));
-						
+
 						EventBus.getDefault().post(new EventCollection());
 						application.showMsg("取消收藏成功");
 					} else {
@@ -923,7 +941,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 		}
 		shareSuccessDialog.show();
 	}
-	
+
 	//分享成功之后调用报名接口，报名第一个票券
 	public void shareCompleteReg() {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -1072,7 +1090,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 	@Override
 	public void footerScroll() {// 上拉
 	}
-	
+
 //	@Override
 //	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //		super.onActivityResult(requestCode, resultCode, data);
@@ -1096,8 +1114,8 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 //
 //		}
 //	}
-	
-	
+
+
 	public void onEventMainThread(ChangeDetailsDialogEventBus eventBus) {
 		initDetails();
 	}
@@ -1112,13 +1130,13 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 				regTicket();
 		}
 	}
-	
+
 	public void onEventMainThread(EventRobSuccess eventBus) {
 		// 有可能是IntroductPushActivity打开的BuyTicketThreeActivity就不弹出对话框提示
 		if (isStartBuyTicketThree)
 			dialogShareSuccess();
 	}
-	
+
 	public void onEventMainThread(EventCollection eventCollection) {
 		if (eventCollection.state == eventCollection.favorite) {
 			ivDetailsColl.setImageResource(R.drawable.selected_shoucang);
@@ -1153,7 +1171,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 //		}
 //		super.finish();
 //	}
-	
+
 	private void addUmengEvent(RegSuccessInfo info) {
 		if (info != null) {
 			HashMap<String, String> map = new HashMap<String, String>();
@@ -1190,14 +1208,14 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 						map.put("title", detailsInfo.title);
 						map.put("logo", detailsInfo.logo);
 						MobclickAgent.onEventValue(mContext, "sum_of_groupchat_people", map, 1);
-						
+
 						application.showMsg("加入圈子成功");
 						SessionInfo sessionInfo = new SessionInfo();
 						sessionInfo.setSessionId(sessionId);
 						sessionInfo.setTitle(detailsInfo.title);
 						sessionInfo.setLogoUrl(detailsInfo.logo);
 						sessionInfo.setTime(System.currentTimeMillis());
-						
+
 						SessionTable.insertSession(sessionInfo);
 						EventBus.getDefault().post(new ChangeMessageEventBus(1));
 						application.setCurrentSession(sessionInfo);
@@ -1213,7 +1231,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			}
 		});
 	}
-	
+
 	private void requestCreateSession(final String touid) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("uid", AccountManager.getAccount()));
@@ -1249,7 +1267,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 			}
 		});
 	}
-	
+
 	private void ToChatActivity() {
 		Intent intent = new Intent(mContext, ChatActivity.class);
 		intent.putExtra("isPrivateChat", true);// 私聊

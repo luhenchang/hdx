@@ -63,6 +63,7 @@ public class AccuDetailBean implements Serializable {
 
 	public List<DetailsTicketInfo> ticks;
 	public List<AccuBean> interestacts;
+	public int orgstatus;
 
 	/** 活动开始本地时间 **/
 	public String getStartutc() {
