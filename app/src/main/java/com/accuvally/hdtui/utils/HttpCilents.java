@@ -60,7 +60,7 @@ public class HttpCilents {
 	public interface WebServiceCallBack {
 		public void callBack(int code, Object result);
 	}
-
+///http://api.huodongxing.com/v3/search/home_data?city=%E5%85%A8%E5%9B%BD&data=xxx
 	public String HawkGet(String url) throws MalformedURLException {
 		String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
 		String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
@@ -81,13 +81,15 @@ public class HttpCilents {
 		else {
 			String plus = "";
 			if (realUrl.getQuery() != null) {
-				plus = "?" + realUrl.getQuery();
+				plus = "?" + realUrl.getQuery();//即?后面的string
 			}
 			baseUrl = realUrl.getPath() + plus;
 		}
 		AuthorizationHeader authorizationHeader = null;
 		try {
-			HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST, url.equals(Url.ACCUPASS_HOME_DETAIL_SECRET + "?") ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
+			HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
+                    request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST,
+                            url.equals(Url.ACCUPASS_HOME_DETAIL_SECRET + "?") ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
 			authorizationHeader = b.build().createAuthorizationHeader();
 			return authorizationHeader.toString();
 		} catch (Exception e) {
@@ -362,6 +364,7 @@ public class HttpCilents {
 		return sb.toString();
 	}
 
+    //机器的唯一标识码
 	public String buildUserAgent(Context context) {
 		String buildUserAgent = "";
 		try {
@@ -383,6 +386,7 @@ public class HttpCilents {
 		}
 	}
 
+    //增加头部参数
 	public String printURL(String url, List<NameValuePair> list) {
 		if (list.size() > 0) {
 			StringBuffer buffer = new StringBuffer();

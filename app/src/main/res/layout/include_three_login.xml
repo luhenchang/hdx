@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
+            android:visibility="visible"
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/login_qq_icon_bg"
             android:gravity="center"

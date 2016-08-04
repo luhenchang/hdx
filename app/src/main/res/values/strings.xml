@@ -255,6 +255,7 @@
     <!-- 修改性别 -->
     <string name="personal_update_sex_man">男</string>
     <string name="personal_update_sex_women">女</string>
+    <string name="personal_update_sex_hiddle">保密</string>
     <!-- 修改城市 -->
     <string name="personal_update_city">选择城市</string>
     <!-- 绑定手机、邮箱 -->
@@ -438,6 +439,7 @@
     <string name="map_title">地图</string>
     <string name="add_firend">邀请好友</string>
     <string name="xlistview_upload_accu">暂只能管理手机发布的活动，更多活动请在电脑进行管理哦！</string>
+
 
     <!-- 验证购票人信息 -->
     <string name="buy_ticket_first_title">验证购票人信息</string>

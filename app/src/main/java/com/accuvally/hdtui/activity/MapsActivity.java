@@ -284,6 +284,8 @@ public class MapsActivity extends BaseActivity implements OnGetGeoCoderResultLis
 		}
 	};
 
+
+//    地理编码/反地理编码结果
 	@Override
 	public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 		try {

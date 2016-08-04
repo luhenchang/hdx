@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.accuvally.hdtui"
-    android:versionCode="50"
-    android:versionName="5.6.1">
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="16" />
+    package="com.accuvally.hdtui">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -116,11 +110,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+        <!--最新  热门  附近-->
         <activity
             android:name=".activity.HomeTypeActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+            <!--日历-->
         <activity
             android:name=".activity.CalenderTypeActivity"
             android:hardwareAccelerated="true"
@@ -137,6 +133,7 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+            <!--未完成票券-->
         <activity
             android:name=".activity.UnfinishedActivity"
             android:screenOrientation="portrait"
@@ -251,7 +248,7 @@
             android:name=".activity.FindPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <!-- 专题详情 -->
+        <!-- 专题精选详情 -->
         <activity
             android:name=".activity.ProjectDetailsActivity"
             android:screenOrientation="portrait"
@@ -265,6 +262,7 @@
             android:name=".activity.RecommendActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+              <!--活动设定-->
         <activity
             android:name=".activity.RemindActivity"
             android:screenOrientation="portrait"
@@ -368,9 +366,11 @@
             android:name=".activity.GeTuiWapActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+             <!-- 用户资料 -->
         <activity
             android:name=".activity.UserDetailActivity"
             android:screenOrientation="portrait" />
+               <!--资料设置-->
         <activity
             android:name=".activity.UserSettingActivity"
             android:screenOrientation="portrait" />
@@ -380,6 +380,7 @@
         <activity
             android:name=".activity.UserAccuActivity"
             android:screenOrientation="portrait" />
+              <!--我的同伴-->
         <activity
             android:name=".activity.FriendsActivity"
             android:screenOrientation="portrait" />
@@ -394,9 +395,11 @@
             android:name=".activity.ReportActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+             <!--群公告-->
         <activity
             android:name=".activity.GroupAnnounceActivity"
             android:screenOrientation="portrait" />
+               <!--全部群成员-->
         <activity
             android:name=".activity.AllMemberActivity"
             android:screenOrientation="portrait" />

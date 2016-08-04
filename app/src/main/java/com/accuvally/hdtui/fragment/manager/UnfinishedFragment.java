@@ -1,23 +1,11 @@
 package com.accuvally.hdtui.fragment.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,15 +15,12 @@ import android.widget.TextView;
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.LoginActivityNew;
-import com.accuvally.hdtui.activity.SponsorDetailActivity;
 import com.accuvally.hdtui.activity.TicketTabActivity;
 import com.accuvally.hdtui.adapter.InvalidTicketAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.fragment.ManagerFragment;
 import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.model.SelInfo;
-import com.accuvally.hdtui.model.SponsorBean;
 import com.accuvally.hdtui.model.UnfinishedTicket;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
@@ -43,23 +28,23 @@ import com.accuvally.hdtui.ui.calender.CustomDate;
 import com.accuvally.hdtui.ui.calender.DateUtil;
 import com.accuvally.hdtui.ui.calender.ManagerFragmentHelp;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
-import com.accuvally.hdtui.utils.ViewHolder;
-import com.accuvally.hdtui.utils.eventbus.ChangeAttentionState;
-import com.accuvally.hdtui.utils.eventbus.ChangeHomeLoaderEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeMainSelectEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeUnFinishedEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventCustomDate;
 import com.accuvally.hdtui.utils.eventbus.EventHideFooterView;
 import com.alibaba.fastjson.JSON;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
 /*
- * 关注主办方
+ * 未完成票券
  */
 public class UnfinishedFragment extends BaseFragment implements IXListViewListener, OnClickListener {
 

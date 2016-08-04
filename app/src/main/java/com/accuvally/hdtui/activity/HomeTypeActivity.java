@@ -1,34 +1,27 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.adapter.CommonAccuAdapter;
-import com.accuvally.hdtui.adapter.HomeTagAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.SelInfo;
-import com.accuvally.hdtui.ui.TabPageIndicator;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
-import com.accuvally.hdtui.ui.calender.DateUtil;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
-import com.accuvally.hdtui.utils.eventbus.ChangeDetailsLoadEventBus;
 import com.alibaba.fastjson.JSON;
 
-import de.greenrobot.event.EventBus;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
+import java.util.ArrayList;
+import java.util.List;
+//最新  热门  附近
 public class HomeTypeActivity extends BaseActivity {
 
 	private int pageIndex = 1, pageSize = 20;

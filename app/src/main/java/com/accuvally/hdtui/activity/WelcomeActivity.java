@@ -65,7 +65,8 @@ public class WelcomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_welcome);
 		application = (AccuApplication) getApplication();
 		Intent i_getvalue = getIntent();
@@ -127,6 +128,7 @@ public class WelcomeActivity extends Activity {
 		// 第一次进入直接启动引导页
 		isFirstIn = sharedUtils.readBoolean("isFirstIn");
 		if (!isFirstIn) {
+            //首次登录进入引导页
 			mHandle.postDelayed(delayGuide, 3000);
 		} else {
 			// 判断当前的MainActivityNew是否已经启动了,如果已经启动直接跳转
@@ -152,6 +154,7 @@ public class WelcomeActivity extends Activity {
 			if (BuildConfig.DEBUG) {
 				delay = 0;
 			}
+            //进入主页
 			mHandle.postDelayed(delayMain, delay);
 		}
 		getDynamicLogo();

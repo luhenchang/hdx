@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,15 +16,20 @@ import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.utils.CheckTextBox;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.MyCount;
 import com.alibaba.fastjson.JSON;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 绑定邮箱手机
+ * 绑定手机号码  邮箱
  * 
  * @author Semmer Wang
  * 

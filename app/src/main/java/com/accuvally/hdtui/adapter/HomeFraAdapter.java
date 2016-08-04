@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -29,11 +23,17 @@ import com.accuvally.hdtui.model.PoporgsBean;
 import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.utils.HttpCilents;
-import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
+import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.eventbus.ChangeAttentionState;
 import com.alibaba.fastjson.JSON;
 import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -116,7 +116,8 @@ public class HomeFraAdapter extends BaseAdapter {
 
 		switch (getItemViewType(position)) {
 		case TYPE_RECOMMEND:
-			viewHolder = ViewHolder.get(mContext, convertView, parent, R.layout.listitem_home_recommend, position);
+			viewHolder = ViewHolder.get(mContext, convertView, parent,
+                    R.layout.listitem_home_recommend, position);
 
 			final SelInfo item = mList1.get(position);
 			viewHolder.setImageUrl(R.id.ivItemRecommendImg, item.getLogo());

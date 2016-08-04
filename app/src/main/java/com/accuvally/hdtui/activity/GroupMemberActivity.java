@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,8 +33,14 @@ import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import de.greenrobot.event.EventBus;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
+//群信息
 public class GroupMemberActivity extends BaseActivity {
 
 	private GridView mGridView;

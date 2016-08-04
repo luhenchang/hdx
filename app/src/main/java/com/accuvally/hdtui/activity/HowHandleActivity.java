@@ -1,10 +1,8 @@
 package com.accuvally.hdtui.activity;
 
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
@@ -36,6 +34,7 @@ public class HowHandleActivity extends BaseActivity {
 			}
 		});
 		webView.loadUrl(urlHow);
+//        webView.loadUrl("http://www.baidu.com");
 	}
 
 }

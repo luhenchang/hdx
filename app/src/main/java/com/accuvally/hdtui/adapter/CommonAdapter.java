@@ -1,13 +1,13 @@
 package com.accuvally.hdtui.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 通用Adapter，只需要实现convert方法
@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
  * @author wan
  *
  */
+
 public abstract class CommonAdapter<T> extends BaseAdapter {
 	protected Context mContext;
 	protected List<T> mList = new ArrayList<T>();

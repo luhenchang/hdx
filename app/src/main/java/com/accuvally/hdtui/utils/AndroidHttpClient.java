@@ -84,6 +84,7 @@ public final class AndroidHttpClient implements HttpClient {
 	 *            to report in your HTTP requests.
 	 * @return AndroidHttpClient for you to use for all your requests.
 	 */
+    @SuppressWarnings("deprecation")
 	public static AndroidHttpClient newInstance(String userAgent) {
 		SSLSocketFactory sf = null;
 		try {

@@ -5,45 +5,70 @@ def releaseTime() {
 }
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
-    signingConfigs {
-        release {
-            keyAlias 'accupass'
-            keyPassword 'accu.2010'
-            storeFile file('C:/Android/accupass.ks')
-            storePassword 'accu.2010'
-        }
-    }
 
     defaultConfig {
         applicationId "com.accuvally.hdtui"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 51
-        versionName "5.6.2"
+        versionName "5.7.0"
 
         multiDexEnabled true
-        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+    }
+
+    lintOptions {
+        abortOnError false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+
+    signingConfigs {
+        debug {
+            // No debug config
+        }
+        release {
+            storeFile file("F:\\key\\accupass.ks")
+            storePassword "accu.2010"
+            keyAlias "accupass"
+            keyPassword "accu.2010"
+        }
     }
 
     buildTypes {
-        debugsigning {
+        debug {
+            ndk {
+//                 abiFilters "x86", "armeabi-v7a", "armeabi"
+                abiFilters "armeabi"
+            }
+
             buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+
             zipAlignEnabled false
             shrinkResources false
             minifyEnabled false
-
-            versionNameSuffix "-debug"
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.debug
         }
 
         release {
+
+            ndk {
+//                 abiFilters "x86", "armeabi-v7a", "armeabi"
+                abiFilters "armeabi"
+            }
+            // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //1.Zipalign优化  //是否zip对齐
             zipAlignEnabled true
+            // 2.移除无用的resource文件
             shrinkResources true
+            //3.主要用来控制是否运行混淆的
             minifyEnabled true
+
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -51,8 +76,9 @@ android {
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
+                    def time = releaseTime()
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "huodongxing_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        def fileName = "hdx_uold_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${time}.apk"
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
@@ -61,24 +87,51 @@ android {
         }
     }
 
+
+// 友盟多渠道打包
     productFlavors {
-        xiaomi {}
-        baidu { multiDexEnabled false }
+        TONGYONG{}
+//        wandoujia {}
+//        yingyongbao{}
+//        xiaomi{}
+//        huawei{}
+//        baidu{}
+//        _360{}
+//        kuaiyidian{}
+//        anzhuo{}
+//        yingyonghui{}
+
+//        anzhi{}
+//        lenovo{}
+//        mumayi{}
+//        jifeng{}
+
+//        yidong{}
+//        liantong{}
+//        dianxin{}
+//        wangyi{}
+//        _91{}
+//        meizu{}
+//        tf{}
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
 
     useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
+
+    compile project(':socialsdk')
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
-    compile project(':socialsdk')
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+//    compile "com.android.support:support-v4:23.1.1"
+
 
     compile 'org.apache.httpcomponents:httpcore:4.4.2'
 }

@@ -1,8 +1,5 @@
 package com.accuvally.hdtui.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -43,12 +40,15 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	private SwipeMenuListView mListView;
-	private CommonAdapter<SessionInfo> mAdapter;
+	private CommonAdapter<SessionInfo> mAdapter;//消息fragme的adapter
 
 	private final List<SessionInfo> list = new ArrayList<SessionInfo>();
 

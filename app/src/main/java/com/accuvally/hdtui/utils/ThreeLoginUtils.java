@@ -1,12 +1,8 @@
 package com.accuvally.hdtui.utils;
 
-import java.util.Map;
-import java.util.Set;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.config.Config;
@@ -22,8 +18,11 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import java.util.Map;
+
 import de.greenrobot.event.EventBus;
 
+//2016.08.03  把sina,微信，qq的umeng换成4.3 并把umeng_social_sdk也换成4.3
 public class ThreeLoginUtils {
 
 	public Context mContext;

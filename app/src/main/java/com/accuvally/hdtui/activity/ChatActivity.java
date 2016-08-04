@@ -119,6 +119,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 	private String OUTPUTFILEPATH;// 照片的路径
 	private FileCache fileCache;// 照片缓存
 	private RecordView mRecordView;
+    //表情有关
 	private LinearLayout lyContainer;
 	private ViewFlow viewflow;
 	private GridView myGridView;
@@ -553,7 +554,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 			mListView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 			break;
 
-		case R.id.llGroupMember:
+		case R.id.llGroupMember://群信息
 			if (sessionInfo != null && !TextUtils.isEmpty(sessionInfo.getSessionId())) {
 				Intent intent = new Intent(this, GroupMemberActivity.class);
 				intent.putExtra("title", sessionInfo.getTitle());

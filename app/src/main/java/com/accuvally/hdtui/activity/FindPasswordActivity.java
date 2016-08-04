@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
@@ -23,13 +17,18 @@ import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.ui.EditTextWithDel;
 import com.accuvally.hdtui.utils.CheckTextBox;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.MyCount;
 import com.alibaba.fastjson.JSON;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+//重设密码
 public class FindPasswordActivity extends BaseActivity implements OnClickListener, TextWatcher {
 
 	private EditTextWithDel find_password_password;

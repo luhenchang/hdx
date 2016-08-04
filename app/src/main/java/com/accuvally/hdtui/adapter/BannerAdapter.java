@@ -1,28 +1,27 @@
 package com.accuvally.hdtui.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.accuvally.hdtui.AccuApplication;
-import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.AccuvallyWebDetailsActivity;
-import com.accuvally.hdtui.config.UILoptions;
-import com.accuvally.hdtui.db.DBManager;
-import com.accuvally.hdtui.model.BannerInfo;
-import com.accuvally.hdtui.utils.Utils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.accuvally.hdtui.AccuApplication;
+import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.AccuvallyWebDetailsActivity;
+import com.accuvally.hdtui.db.DBManager;
+import com.accuvally.hdtui.model.BannerInfo;
+import com.accuvally.hdtui.utils.Utils;
+
+import java.util.List;
+
+//录播图 adapter
 public class BannerAdapter extends PagerAdapter {
 	
 	private List<BannerInfo> bannerList;

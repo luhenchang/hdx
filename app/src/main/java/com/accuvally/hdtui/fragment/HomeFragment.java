@@ -1,12 +1,5 @@
 package com.accuvally.hdtui.fragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,22 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.CalenderTypeActivity;
 import com.accuvally.hdtui.activity.HomeTypeActivity;
 import com.accuvally.hdtui.activity.ProjectDetailsActivity;
 import com.accuvally.hdtui.activity.RobTicketActivity;
 import com.accuvally.hdtui.adapter.BannerAdapter;
-import com.accuvally.hdtui.adapter.CommonAdapter;
 import com.accuvally.hdtui.adapter.HomeFraAdapter;
-import com.accuvally.hdtui.adapter.ViewHolder;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Constant;
 import com.accuvally.hdtui.config.Keys;
@@ -42,8 +30,6 @@ import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BannerInfo;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.HomeInfo;
-import com.accuvally.hdtui.model.PoporgsBean;
-import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.CirclePageIndicator;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
@@ -59,7 +45,18 @@ import com.baidu.location.BDLocation;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
+
+//布局ListView + header
+//header：轮播图，四个选项(最新，热门...)，专题精选
+// ListView 有两种layout item所以在Adpter里的getItemViewType返回不同的类型
 
 public class HomeFragment extends BaseFragment implements OnClickListener {
 	
@@ -157,7 +154,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 			}
 			initLocation();
 		}
-		regdevice(application.sharedUtils.readString("longitude"), application.sharedUtils.readString("latitude"));
+		regdevice(application.sharedUtils.readString("longitude"),
+                application.sharedUtils.readString("latitude"));
 	}
 	
 	public void isRunningForeground() {
@@ -235,7 +233,16 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		locationDialog.findViewById(R.id.tvDialogRemove).setOnClickListener(this);
 		locationDialog.show();
 	}
-	
+
+
+
+//    switch (msg.what) {
+//        case 1:// 定位成功
+//            locatinCallBack.callBack(1, (BDLocation) msg.obj);
+//            break;
+//        case 0:// 定位失败
+//            locatinCallBack.callBack(0, null);
+//            break;
 	public void initLocation() {
 		if (!NetworkUtils.isNetworkAvailable(mContext)) {
 			application.showMsg(R.string.network_check);
@@ -371,7 +378,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		case R.id.llRobTicket:
 			startActivity(new Intent(mContext, RobTicketActivity.class));
 			break;
-		case R.id.llNewTopic://最新专题
+		case R.id.llNewTopic://最新专题  专题精选
 			MobclickAgent.onEvent(mContext, "click_features_count");
 			if (newTopic != null) {
 				dbManager.insertSaveBeHavior(application.addBeHavior(100, "3", newTopic.getId(), "", "", "APP_SPECIAL", newTopic.getUrl()));

@@ -43,7 +43,8 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivityNew extends BaseActivity implements OnClickListener {
 
-	private TextView tvMainBottomHome, tvMainBottomSelect, tvMainBottomSession, tvMainBottomMessage;
+	private TextView tvMainBottomHome, tvMainBottomSelect,
+            tvMainBottomSession, tvMainBottomMessage;
 
 	private FragmentManager fragmentManager;
 
@@ -101,7 +102,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener {
 		}
 //		initSlidingMenu();
 		initView();
-		initData();
+		initData();//定位城市
 		initGetuiPush();
 		// 日历的小黄点用到
 		ManagerFragmentHelp.init();
@@ -126,7 +127,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	// SDK初始化，第三方程序启动时，都要进行SDK初始化
+	// SDK初始化，第三方程序启动时，都要进行SDK初始化   （个推）
 	private void initGetuiPush() {
 		com.igexin.sdk.PushManager.getInstance().initialize(this);
 	}
@@ -163,6 +164,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener {
 		tvMainMessageUnReadNum.setVisibility(View.GONE);
 	}
 
+    //定位城市
 	public void initData() {
 		if (application.sharedUtils.readString("cityName") != null) {
 			if("香港特别行政区".equals(application.sharedUtils.readString("cityName"))){
@@ -246,12 +248,13 @@ public class MainActivityNew extends BaseActivity implements OnClickListener {
 		case R.id.tvMainBottomSession:
 			selection(3);
 			break;
-		case R.id.tvMainHeaderCity:
+		case R.id.tvMainHeaderCity://选择城市
 			if (!NetworkUtils.isNetworkAvailable(mContext)) {
 				application.showMsg(R.string.network_check);
 				return;
 			}
-			toActivity(new Intent(mContext, ChooseCityActivity.class).putExtra("tag", 1).putExtra("cityname", tvMainHeaderCity.getText().toString()));
+			toActivity(new Intent(mContext, ChooseCityActivity.class).
+                    putExtra("tag", 1).putExtra("cityname", tvMainHeaderCity.getText().toString()));
 			break;
 		case R.id.ivMainHeaderLeft:// 设置
 //			slidingMenu.showMenu();
@@ -301,6 +304,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener {
 				homeFragment = new HomeFragment();
 				transaction.add(R.id.content, homeFragment, "homeFragment");
 			} else {
+
 				transaction.show(homeFragment);
 				if (homeFragment.isAdded()) {
 					homeFragment.onResume();

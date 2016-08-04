@@ -749,10 +749,11 @@ public class AccuvallyDetailsActivity extends BaseActivity implements OnClickLis
 				} else {
 					startActivity(new Intent(mContext, BindPhoneActivity.class).putExtra("TAG", 1));
 				}
-			} else {
+			} else {//验证 购票人信息
 				startActivity(new Intent(mContext, BuyTicketFirstActivity.class));
 			}
 		} else {
+            //要上传文件
 			application.showMsg("报名此活动需要上传附件，请到活动行网站购买");
 		}
 	}

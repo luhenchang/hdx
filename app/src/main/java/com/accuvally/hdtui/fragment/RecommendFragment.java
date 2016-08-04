@@ -1,71 +1,9 @@
 package com.accuvally.hdtui.fragment;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
-
-import com.accuvally.hdtui.BaseFragment;
-import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.AccuvallyWebDetailsActivity;
-import com.accuvally.hdtui.activity.CalenderTypeActivity;
-import com.accuvally.hdtui.activity.HomeTypeActivity;
-import com.accuvally.hdtui.activity.ProjectDetailsActivity;
-import com.accuvally.hdtui.activity.RobTicketActivity;
-import com.accuvally.hdtui.adapter.CommonAdapter;
-import com.accuvally.hdtui.adapter.ViewHolder;
-import com.accuvally.hdtui.config.Config;
-import com.accuvally.hdtui.config.Constant;
-import com.accuvally.hdtui.config.Keys;
-import com.accuvally.hdtui.config.Url;
-import com.accuvally.hdtui.model.BannerInfo;
-import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.model.HomeInfo;
-import com.accuvally.hdtui.model.SelInfo;
-import com.accuvally.hdtui.ui.CirclePageIndicator;
-import com.accuvally.hdtui.ui.OverScrollView;
-import com.accuvally.hdtui.ui.OverScrollView.OverScrollListener;
-import com.accuvally.hdtui.ui.ScrolListView;
-import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
-import com.accuvally.hdtui.utils.LocationUtils;
-import com.accuvally.hdtui.utils.LocationUtils.LocatinCallBack;
-import com.accuvally.hdtui.utils.NetworkUtils;
-import com.accuvally.hdtui.utils.Utils;
-import com.accuvally.hdtui.utils.eventbus.ChangeCityEventBus;
-import com.accuvally.hdtui.utils.eventbus.ChangeHomeLoaderEventBus;
-import com.alibaba.fastjson.JSON;
-import com.baidu.location.BDLocation;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import de.greenrobot.event.EventBus;
-
-public class RecommendFragment extends BaseFragment implements OnClickListener {
+public class RecommendFragment
+        /*extends BaseFragment implements OnClickListener*/ {
 	
-	private static final int SCROLL_WHAT = 0;
+	/*private static final int SCROLL_WHAT = 0;
 	private static final int interval = 5000;//banner 滑动间隔时间
 
 	private LocationUtils locationUtils;
@@ -393,12 +331,12 @@ public class RecommendFragment extends BaseFragment implements OnClickListener {
 		});
 	}
 	
-	/**
+	*//**
 	 * 当用户打开app时，进行判断，满足以下全部条件时，触发切换城市提醒：
 		1.当前城市与上次设置城市时的所在城市不符
 		2.当前城市并不是上次所选城市
 		3.当前城市在“城市列表”里
-	 */
+	 *//*
 	protected boolean isRemindSwitchCity(String locationCity) {
 		boolean sameCity = TextUtils.equals(locationCity, application.sharedUtils.readString("cityName"));
 		
@@ -603,5 +541,5 @@ public class RecommendFragment extends BaseFragment implements OnClickListener {
 			return view.equals(object);
 		}
 	}
-
+*/
 }

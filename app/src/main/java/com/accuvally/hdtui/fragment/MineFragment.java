@@ -128,7 +128,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.lyMineCircle:// 好友列表
+		case R.id.lyMineCircle:// 同伴
 			if (Utils.isFastDoubleClick())
 				return;
 			if (application.checkIsLogin())

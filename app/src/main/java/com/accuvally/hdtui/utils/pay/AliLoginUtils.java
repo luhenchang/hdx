@@ -1,19 +1,20 @@
 package com.accuvally.hdtui.utils.pay;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import android.app.Activity;
 
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.utils.eventbus.ChangeAliLoginEventBus;
 import com.alipay.sdk.app.AuthTask;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import de.greenrobot.event.EventBus;
 
+//阿里授权登录  invisible
 public class AliLoginUtils {
 
 	private static final int SDK_AUTH_FLAG = 1;

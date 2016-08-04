@@ -13,7 +13,7 @@ public class MemberInfo implements Serializable {
 	public String brief;
 
 	public int gender;// 1男————0女
-
+//新规则：1男2女0保密
 	public boolean isparter;
 
 	public List<AccuBean> followorgs;// 已关注活动
