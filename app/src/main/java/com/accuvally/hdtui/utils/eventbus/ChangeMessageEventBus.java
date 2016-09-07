@@ -1,10 +1,11 @@
 package com.accuvally.hdtui.utils.eventbus;
 
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.model.MessageInfo;
 
 
 /***
- * {@link com.accuvally.hdtui.activity.ChatActivity#onEventMainThread(ChangeMessageEventBus)}
+ * {@link ChatActivity#onEventMainThread(ChangeMessageEventBus)}
  * 
  * 
  * post

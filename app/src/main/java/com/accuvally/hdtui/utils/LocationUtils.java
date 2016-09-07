@@ -12,6 +12,8 @@ import com.baidu.location.LocationClientOption;
 
 public class LocationUtils {
 
+    public static final String TAG="LocationUtils";
+
 	Context mContext;
 
 	AccuApplication application;
@@ -25,21 +27,25 @@ public class LocationUtils {
 		application = (AccuApplication) mContext.getApplicationContext();
 	}
 
+    //1.MainActivityNew onCreateView()调用了   2.点击(是否开启定位)小助手对话框中的是
 	public void location(final LocatinCallBack locatinCallBack) {
 
 		final Handler handler = new Handler() {
 			public void handleMessage(Message msg) {
+                stopListener();//change by 123
 				switch (msg.what) {
 				case 1:// 定位成功
+                    Trace.d(TAG,"定位成功");
 					locatinCallBack.callBack(1, (BDLocation) msg.obj);
 					break;
 				case 0:// 定位失败
+                    Trace.d(TAG,"定位失败");
 					locatinCallBack.callBack(0, null);
 					break;
 				}
 			};
 		};
-
+        Trace.d(TAG,"location()");
 		mLocationClient = new LocationClient(mContext);
 		mLocationClient.registerLocationListener(new BDLocationListener() {
 			@Override
@@ -80,9 +86,11 @@ public class LocationUtils {
 	public interface LocatinCallBack {
 		public void callBack(int code, BDLocation location);
 	}
-
+//homefragment调用：1.成功调用LocatinCallBack会最后调用stopListener()
 	public void stopListener() {
+        Trace.d(TAG,"stopListener");
 		try {
+                Trace.d(TAG,"stopListener");
 			mLocationClient.stop();// 关闭定位SDK
 			mLocationClient = null;
 		} catch (Exception e) {

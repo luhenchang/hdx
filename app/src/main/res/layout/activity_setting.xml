@@ -129,7 +129,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="版本更新"
+                android:text="当前版本"
                 android:textColor="#3c3c3c"
                 android:textSize="15sp" />
 
@@ -138,11 +138,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/details_jiantou_bg"
-                android:text="当前版本5.2.4"
+                android:text="5.2.4"
                 android:textColor="#61b754"
                 android:textSize="14sp" />
         </LinearLayout>
+        <!--android:drawableRight="@drawable/details_jiantou_bg"-->
+
 
         <View
             android:layout_width="match_parent"

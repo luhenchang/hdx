@@ -1,8 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -12,11 +9,11 @@ import android.util.TypedValue;
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.adapter.FragmentViewPagerAdapter;
-import com.accuvally.hdtui.fragment.session.CircleFragment;
-import com.accuvally.hdtui.fragment.session.FriendsFragment;
-import com.accuvally.hdtui.fragment.session.SessionFragment;
+import com.accuvally.hdtui.fragment.SessionFragment;
 import com.accuvally.hdtui.ui.PagerSlidingTabStrip;
-import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 我的圈子

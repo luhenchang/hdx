@@ -2,7 +2,6 @@ package com.accuvally.hdtui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.utils.Utils;
 

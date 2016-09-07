@@ -14,12 +14,11 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.LoginActivityNew;
-import com.accuvally.hdtui.activity.TicketTabActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.TicketTabActivity;
 import com.accuvally.hdtui.adapter.InvalidTicketAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
-import com.accuvally.hdtui.fragment.ManagerFragment;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.UnfinishedTicket;
 import com.accuvally.hdtui.ui.XListView;

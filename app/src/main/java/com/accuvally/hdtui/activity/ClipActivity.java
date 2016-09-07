@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.ui.ClipImageLayout;
 import com.accuvally.hdtui.utils.ImageTools;
-
+//裁剪照片，unused
 public class ClipActivity extends Activity {
 
 	private ClipImageLayout clipView;

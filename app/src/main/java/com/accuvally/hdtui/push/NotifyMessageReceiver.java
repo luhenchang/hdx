@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.accuvally.hdtui.activity.MainActivityNew;
+import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.utils.eventbus.ChangeMainSelectEventBus;
 
 import de.greenrobot.event.EventBus;

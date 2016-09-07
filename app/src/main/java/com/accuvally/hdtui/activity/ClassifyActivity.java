@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.adapter.ClassfyAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;

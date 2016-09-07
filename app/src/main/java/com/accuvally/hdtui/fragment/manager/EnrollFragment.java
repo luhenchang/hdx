@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.fragment.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,17 +15,13 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.LoginActivityNew;
-import com.accuvally.hdtui.activity.TicketTabActivity;
-import com.accuvally.hdtui.activity.TicketVolumeActivity;
-import com.accuvally.hdtui.adapter.CommonAccuAdapter;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.TicketTabActivity;
+import com.accuvally.hdtui.activity.mine.TicketVolumeActivity;
 import com.accuvally.hdtui.adapter.CommonAdapter;
-import com.accuvally.hdtui.adapter.CommonAdapter.OnItemListener;
 import com.accuvally.hdtui.adapter.ViewHolder;
 import com.accuvally.hdtui.config.Config;
-import com.accuvally.hdtui.config.UILoptions;
 import com.accuvally.hdtui.config.Url;
-import com.accuvally.hdtui.fragment.ManagerFragment;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.XListView;
@@ -48,10 +38,16 @@ import com.accuvally.hdtui.utils.eventbus.EventEnroll;
 import com.accuvally.hdtui.utils.eventbus.EventHideFooterView;
 import com.alibaba.fastjson.JSON;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /*
- * 报名活动，已报名,我的票券
+ * 我的票券
  */
 public class EnrollFragment extends BaseFragment implements OnClickListener {
 
@@ -155,7 +151,8 @@ public class EnrollFragment extends BaseFragment implements OnClickListener {
 				TextView tvItemPriceArea = viewHolder.getView(R.id.tvSelPriceArea);
 				tvItemPriceArea.setText(item.getPriceArea());
 				if ("免费".equals(item.getPriceArea())) {
-					tvItemPriceArea.setTextColor(mContext.getResources().getColor(R.color.price_free));
+					tvItemPriceArea.setTextColor(mContext.getResources().getColor(R.color.price_charge));
+//                    tvItemPriceArea.setTextColor(mContext.getResources().getColor(R.color.price_free));
 				} else {
 					tvItemPriceArea.setTextColor(mContext.getResources().getColor(R.color.price_charge));
 				}

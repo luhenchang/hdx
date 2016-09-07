@@ -2,7 +2,7 @@ package com.accuvally.hdtui.utils;
 
 import android.content.Context;
 
-import com.umeng.update.UpdateResponse;
+//import com.umeng.update.UpdateResponse;
 
 
 public class UpdateExampleConfig {
@@ -15,7 +15,7 @@ public class UpdateExampleConfig {
 	private static boolean mDialogListener = false;
 	private static boolean mDownloadListener = false;
 	public static Context mContext;
-	public static UpdateResponse mResponse = null;
+//	public static UpdateResponse mResponse = null;
 
 	public static boolean isUpdateOnlyWifi() {
 		return mUpdateOnlyWifi;

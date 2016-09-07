@@ -3,7 +3,7 @@ package com.accuvally.hdtui.ui;
 import java.io.File;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.ChatActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.utils.FileCache;
 import com.accuvally.hdtui.utils.SoundMeter;
 

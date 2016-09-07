@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.model.SelInfo;
 

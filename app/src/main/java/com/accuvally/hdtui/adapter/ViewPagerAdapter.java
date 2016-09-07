@@ -16,7 +16,7 @@ import android.widget.Button;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.MainActivityNew;
+import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.utils.SharedUtils;
 

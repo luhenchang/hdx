@@ -1,7 +1,5 @@
 package com.accuvally.hdtui.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,9 +10,11 @@ import android.widget.BaseAdapter;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.SearchResultActivity;
+import com.accuvally.hdtui.activity.home.util.SearchResultActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.ui.AutoScaleTextView;
+
+import java.util.List;
 
 public class SearchTagAdapter extends BaseAdapter {
 

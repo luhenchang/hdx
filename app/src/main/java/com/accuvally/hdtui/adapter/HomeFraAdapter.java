@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.LoginActivityNew;
-import com.accuvally.hdtui.activity.SponsorDetailActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.db.DBManager;
@@ -136,6 +136,7 @@ public class HomeFraAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					dbManager.insertSaveBeHavior(application.addBeHavior(100, "0", item.getId(), "", "", "APP_RECOMMEND", item.getId()));
 					Intent intent = new Intent(mContext, AccuvallyDetailsActivity.class);
+//                    Intent intent = new Intent(mContext, Activity_ScrollView.class);
 					intent.putExtra("id", item.getId());
 					intent.putExtra("isHuodong", item.getSourceType());
 					mContext.startActivity(intent);

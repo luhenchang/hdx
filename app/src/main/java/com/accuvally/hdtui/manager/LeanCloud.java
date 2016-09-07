@@ -8,7 +8,7 @@ import java.util.Map;
 import android.text.TextUtils;
 
 import com.accuvally.hdtui.AccuApplication;
-import com.accuvally.hdtui.activity.ChatActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.db.DBThreadManager;

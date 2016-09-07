@@ -1,27 +1,27 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.adapter.SessionAdapter;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.utils.eventbus.ChangeMainSelectEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 
-import de.greenrobot.event.EventBus;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import de.greenrobot.event.EventBus;
 
 public class CircleSessionActivity extends BaseActivity implements OnClickListener {
 

@@ -1,17 +1,8 @@
 package com.accuvally.hdtui.fragment.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,11 +11,10 @@ import android.widget.RelativeLayout;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.adapter.CollectionAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
-import com.accuvally.hdtui.fragment.ManagerFragment;
 import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
@@ -38,6 +28,12 @@ import com.accuvally.hdtui.utils.eventbus.EventCollection;
 import com.accuvally.hdtui.utils.eventbus.EventCustomDate;
 import com.accuvally.hdtui.utils.eventbus.EventHideFooterView;
 import com.alibaba.fastjson.JSON;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 

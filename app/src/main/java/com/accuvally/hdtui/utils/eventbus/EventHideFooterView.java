@@ -1,6 +1,8 @@
 package com.accuvally.hdtui.utils.eventbus;
 
 
+import com.accuvally.hdtui.fragment.manager.ManagerFragment;
+
 public class EventHideFooterView {
 
 	public Class clazz;
@@ -12,7 +14,7 @@ public class EventHideFooterView {
 	 * {@link com.accuvally.hdtui.fragment.manager.UnfinishedFragment#onEventMainThread(EventHideFooterView)}
 	 * 
 	 * 发送方
-	 * {@link com.accuvally.hdtui.fragment.ManagerFragment#mRight.setOnClickListener}
+	 * {@link ManagerFragment#mRight.setOnClickListener}
 	 * @param clazz eventBar regist
 	 * @param close true close,false open
 	 * @param height footview的高度

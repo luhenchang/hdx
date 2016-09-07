@@ -6,15 +6,15 @@ def releaseTime() {
 
 android {
 
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.accuvally.hdtui"
         minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 51
-        versionName "5.7.0"
+        targetSdkVersion 22
+        versionCode 52
+        versionName "5.7.1"
 
         multiDexEnabled true
     }
@@ -78,7 +78,7 @@ android {
                     def outputFile = output.outputFile
                     def time = releaseTime()
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "hdx_uold_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${time}.apk"
+                        def fileName = "hdx_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${time}.apk"
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
@@ -90,18 +90,19 @@ android {
 
 // 友盟多渠道打包
     productFlavors {
-        TONGYONG{}
+//        TONGYONG{}
 //        wandoujia {}
-//        yingyongbao{}
+        yingyongbao{}
 //        xiaomi{}
 //        huawei{}
 //        baidu{}
 //        _360{}
+//        anzhi{}
+//        jinli{}
+
 //        kuaiyidian{}
 //        anzhuo{}
 //        yingyonghui{}
-
-//        anzhi{}
 //        lenovo{}
 //        mumayi{}
 //        jifeng{}
@@ -119,7 +120,7 @@ android {
     }
 
 
-    useLibrary 'org.apache.http.legacy'
+//    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -128,10 +129,10 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-//    compile "com.android.support:support-v4:23.1.1"
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
 
-
+//    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile 'com.android.support:design:23.1.1'
     compile 'org.apache.httpcomponents:httpcore:4.4.2'
 }

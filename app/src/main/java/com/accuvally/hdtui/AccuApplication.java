@@ -21,7 +21,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.accuvally.hdtui.activity.ChatActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.db.AccuvallySQLiteOpenHelper;

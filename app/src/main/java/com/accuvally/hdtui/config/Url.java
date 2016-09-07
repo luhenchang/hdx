@@ -2,8 +2,8 @@ package com.accuvally.hdtui.config;
 
 public class Url {
 
-	public static final String ACCUPASS_SERVICE_URL2 = "http://api.huodongxing.com/v3";
-	public static final String ACCUPASS_SERVICE_URL3 = "https://api.huodongxing.com/v3";
+	public static  String ACCUPASS_SERVICE_URL2 = "http://api.huodongxing.com/v3";
+	public static  String ACCUPASS_SERVICE_URL3 = "https://api.huodongxing.com/v3";
 
 	public static final String ACCUPASS_SERVICE_HOST = "api.huodongxing.com";
 	public static final int ACCUPASS_SERVICE_PORT = 80;

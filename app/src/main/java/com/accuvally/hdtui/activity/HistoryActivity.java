@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.model.Category;
 import com.accuvally.hdtui.model.HomeEventInfo;

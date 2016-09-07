@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.ChatActivity;
-import com.accuvally.hdtui.activity.NotificationActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
+import com.accuvally.hdtui.activity.message.NotificationActivity;
 import com.accuvally.hdtui.config.UILoptions;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.manager.AccountManager;

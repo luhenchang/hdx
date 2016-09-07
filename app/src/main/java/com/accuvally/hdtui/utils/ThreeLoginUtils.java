@@ -31,7 +31,10 @@ public class ThreeLoginUtils {
 
 	UMSocialService mController;
 
-	public ThreeLoginUtils(Context mContext, UMSocialService mController) {
+    public static final String TAG="ThreeLoginUtils";
+
+
+    public ThreeLoginUtils(Context mContext, UMSocialService mController) {
 		this.mContext = mContext;
 		application = (AccuApplication) mContext.getApplicationContext();
 		this.mController = mController;
@@ -51,7 +54,7 @@ public class ThreeLoginUtils {
 
 			@Override
 			public void onStart(SHARE_MEDIA arg0) {
-				application.showMsg("授权开始");
+//				application.showMsg("授权开始");
 			}
 
 			@Override
@@ -80,11 +83,12 @@ public class ThreeLoginUtils {
 		mController.getPlatformInfo(mContext, platform, new UMDataListener() {
 			@Override
 			public void onStart() {
-				application.showMsg("获取平台数据开始...");
+//				application.showMsg("获取平台数据开始...");
 			}
 
 			@Override
 			public void onComplete(int status, Map<String, Object> info) {
+//                LoginUtil.threeLogin(status,info);  变相日志
 				EventBus.getDefault().post(new ChangeThreeLoginEventBus(status, info, openid));
 			}
 		});

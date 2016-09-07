@@ -1,15 +1,5 @@
 package com.accuvally.hdtui.push;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,27 +7,22 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.accuvally.hdtui.AccuApplication;
-import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.ChatActivity;
 import com.accuvally.hdtui.activity.GeTuiWapActivity;
-import com.accuvally.hdtui.activity.MainActivityNew;
-import com.accuvally.hdtui.activity.ProjectDetailsActivity;
-import com.accuvally.hdtui.activity.SponsorDetailActivity;
-import com.accuvally.hdtui.activity.TicketTabActivity;
+import com.accuvally.hdtui.activity.entry.MainActivityNew;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
+import com.accuvally.hdtui.activity.mine.TicketTabActivity;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
-import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.GeTuiNotification;
-import com.accuvally.hdtui.model.NotificationInfo;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
@@ -48,6 +33,15 @@ import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//自定义的BroadcastReceiver与APPID绑定在一起。
+//根据PushConsts.CMD_ACTION 进行不同的处理
+//PushConsts.GET_MSG_DATA根据得到后台的数据中又细分为几个类：活动详情，专题页，票券（打开相应的activity）
 public class GetuiPushMessageReceiver extends BroadcastReceiver {
 
 	@Override

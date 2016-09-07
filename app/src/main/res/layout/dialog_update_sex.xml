@@ -75,7 +75,7 @@
             android:background="@drawable/details_icon_line2" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioButton0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:button="@null"

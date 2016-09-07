@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.PayWebActivity;
-import com.accuvally.hdtui.activity.SureOrderActivity;
+import com.accuvally.hdtui.activity.home.buy.PayWebActivity;
+import com.accuvally.hdtui.activity.home.buy.SureOrderActivity;
 import com.accuvally.hdtui.config.UILoptions;
 import com.accuvally.hdtui.model.UnfinishedTicket;
 import com.accuvally.hdtui.utils.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class InvalidTicketAdapter extends BaseListAdapter<UnfinishedTicket> {

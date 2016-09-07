@@ -12,11 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.CalenderTypeActivity;
+import com.accuvally.hdtui.activity.home.CalenderTypeActivity;
 import com.accuvally.hdtui.adapter.HomeTypeAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
@@ -29,7 +28,6 @@ import com.accuvally.hdtui.ui.calender.DateUtil;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsLoadEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventCustomDate;
-import com.accuvally.hdtui.utils.eventbus.RefreshCalendar;
 import com.alibaba.fastjson.JSON;
 
 import de.greenrobot.event.EventBus;

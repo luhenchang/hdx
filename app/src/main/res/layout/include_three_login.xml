@@ -40,6 +40,17 @@
         android:orientation="horizontal" >
 
         <TextView
+            android:id="@+id/tvLoginWx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/login_weixin_icon_bg"
+            android:gravity="center"
+            android:text="微信"
+            android:textColor="@color/gary_title" />
+
+        <TextView
             android:id="@+id/tvLoginQQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,6 +61,7 @@
             android:gravity="center"
             android:text="QQ"
             android:textColor="@color/gary_title" />
+
 
         <TextView
             android:id="@+id/tvLoginSina"
@@ -74,16 +86,7 @@
             android:visibility="gone"
             android:textColor="@color/gary_title" />
 
-        <TextView
-            android:id="@+id/tvLoginWx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/login_weixin_icon_bg"
-            android:gravity="center"
-            android:text="微信"
-            android:textColor="@color/gary_title" />
+
     </LinearLayout>
 
 </LinearLayout>

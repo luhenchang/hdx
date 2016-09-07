@@ -77,7 +77,7 @@
 
         <!-- *************************  Activity开始  **************************** -->
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name=".activity.entry.WelcomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -101,35 +101,35 @@
         </activity>
         <!-- 引导页 -->
         <activity
-            android:name=".activity.GuideActivity"
+            android:name=".activity.entry.GuideActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 首页 -->
         <activity
-            android:name=".activity.MainActivityNew"
+            android:name=".activity.entry.MainActivityNew"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--最新  热门  附近-->
         <activity
-            android:name=".activity.HomeTypeActivity"
+            android:name=".activity.home.HomeTypeActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
             <!--日历-->
         <activity
-            android:name=".activity.CalenderTypeActivity"
+            android:name=".activity.home.CalenderTypeActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 搜索 -->
         <activity
-            android:name=".activity.SearchActivityNew"
+            android:name=".activity.home.util.SearchActivityNew"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 搜索结果 -->
         <activity
-            android:name=".activity.SearchResultActivity"
+            android:name=".activity.home.util.SearchResultActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -145,7 +145,7 @@
             android:windowSoftInputMode="adjustResize" />
         <!-- 报名 -->
         <activity
-            android:name=".activity.RegAccuActivity"
+            android:name=".activity.home.register.RegAccuActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -154,10 +154,11 @@
             android:windowSoftInputMode="adjustResize" />
         <!-- 活动详情 -->
         <activity
-            android:name=".activity.AccuvallyDetailsActivity"
+            android:name=".activity.home.AccuvallyDetailsActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
+
         <!-- 我的活动行 -->
         <activity
             android:name=".activity.AttendActivity"
@@ -165,12 +166,12 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 意见反馈 -->
         <activity
-            android:name=".activity.FeedBackActivity"
+            android:name=".activity.mine.setting.FeedBackActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 关于活动行 -->
         <activity
-            android:name=".activity.AboutAccuvallyActivity"
+            android:name=".activity.mine.setting.AboutAccuvallyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 浏览历史 -->
@@ -180,33 +181,33 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 票券详情 -->
         <activity
-            android:name=".activity.TicketVolumeActivity"
+            android:name=".activity.mine.TicketVolumeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 订单确认 -->
         <activity
-            android:name=".activity.SureOrderActivity"
+            android:name=".activity.home.buy.SureOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.PaySuccessActivity2"
+            android:name=".activity.home.buy.PaySuccessActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 活动主办方 -->
         <activity
-            android:name=".activity.SponsorDetailActivity"
+            android:name=".activity.home.SponsorDetailActivity"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 个人资料 -->
         <activity
-            android:name=".activity.PersonalActivity"
+            android:name=".activity.mine.personal.PersonalActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 选择图像 -->
         <activity
-            android:name=".activity.ChoosePhotoActivity"
+            android:name=".activity.mine.personal.ChoosePhotoActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
@@ -215,42 +216,42 @@
             android:screenOrientation="portrait" />
         <!-- 修改个人资料 -->
         <activity
-            android:name=".activity.UpdatePersonalActivity"
+            android:name=".activity.mine.personal.UpdatePersonalActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 修改密码 -->
         <activity
-            android:name=".activity.UpdataPasswordActivity"
+            android:name=".activity.mine.personal.UpdataPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 选择城市 -->
         <activity
-            android:name=".activity.ChooseCityActivity"
+            android:name=".activity.home.util.ChooseCityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 绑定手机邮箱 -->
         <activity
-            android:name=".activity.BindPhoneActivity"
+            android:name=".activity.home.register.BindPhoneActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 登陆 -->
         <activity
-            android:name=".activity.LoginActivityNew"
+            android:name=".activity.mine.login.LoginActivityNew"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!-- 注册页面 -->
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.mine.login.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!-- 找回密码 -->
         <activity
-            android:name=".activity.FindPasswordActivity"
+            android:name=".activity.mine.login.FindPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 专题精选详情 -->
         <activity
-            android:name=".activity.ProjectDetailsActivity"
+            android:name=".activity.home.ProjectDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -259,16 +260,16 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 应用推荐 -->
         <activity
-            android:name=".activity.RecommendActivity"
+            android:name=".activity.mine.setting.RecommendActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
               <!--活动设定-->
         <activity
-            android:name=".activity.RemindActivity"
+            android:name=".activity.mine.setting.RemindActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.IntroductPushActivity"
+            android:name=".activity.home.IntroductPushActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 会话列表 -->
@@ -278,12 +279,12 @@
             android:windowSoftInputMode="adjustResize" />
         <!-- 通知列表 -->
         <activity
-            android:name=".activity.NotificationActivity"
+            android:name=".activity.message.NotificationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 地图 -->
         <activity
-            android:name=".activity.MapsActivity"
+            android:name=".activity.home.util.MapsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 聊天图片浏览 -->
@@ -292,27 +293,27 @@
             android:screenOrientation="portrait" />
         <!-- 支付网页 -->
         <activity
-            android:name=".activity.PayWebActivity"
+            android:name=".activity.home.buy.PayWebActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 报名注册 -->
         <activity
-            android:name=".activity.BuyTicketFirstActivity"
+            android:name=".activity.home.register.BuyTicketFirstActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 报名填写 -->
         <activity
-            android:name=".activity.BuyTicketThreeActivity"
+            android:name=".activity.home.register.BuyTicketThreeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 常见疑问 -->
         <activity
-            android:name=".activity.QuestionActivity"
+            android:name=".activity.mine.setting.QuestionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 常见疑问详情 -->
         <activity
-            android:name=".activity.QuestionDetailActivity"
+            android:name=".activity.mine.setting.QuestionDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 抢票 -->
@@ -321,41 +322,41 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.HowHandleActivity"
+            android:name=".activity.home.buy.HowHandleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 我的关注的主办方列表 -->
         <activity
-            android:name=".activity.OrgListActivity"
+            android:name=".activity.mine.OrgListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 我的收藏列表 -->
         <activity
-            android:name=".activity.CollectActivity"
+            android:name=".activity.mine.CollectActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 我的票券 -->
         <activity
-            android:name=".activity.TicketTabActivity"
+            android:name=".activity.mine.TicketTabActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.AtActivity"
+            android:name=".activity.message.AtActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 圈子成员 -->
         <activity
-            android:name=".activity.GroupMemberActivity"
+            android:name=".activity.message.core.GroupMemberActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.ChatActivity"
+            android:name=".activity.message.core.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateUnchanged" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".activity.mine.setting.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -368,40 +369,41 @@
             android:windowSoftInputMode="adjustResize" />
              <!-- 用户资料 -->
         <activity
-            android:name=".activity.UserDetailActivity"
+            android:name=".activity.message.user.UserDetailActivity"
             android:screenOrientation="portrait" />
                <!--资料设置-->
         <activity
-            android:name=".activity.UserSettingActivity"
+            android:name=".activity.message.user.UserSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.UserOrgListActivity"
+            android:name=".activity.message.user.UserOrgListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.UserAccuActivity"
+            android:name=".activity.message.user.UserAccuActivity"
             android:screenOrientation="portrait" />
               <!--我的同伴-->
         <activity
-            android:name=".activity.FriendsActivity"
+            android:name=".activity.mine.FriendsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.NewFriendActivity"
+            android:name=".activity.message.NewFriendActivity"
             android:screenOrientation="portrait" />
+        <!--申请信息-->
         <activity
-            android:name=".activity.ApplyFriendActivity"
+            android:name=".activity.message.ApplyFriendActivity"
             android:screenOrientation="portrait" />
         <!-- 举报 -->
         <activity
-            android:name=".activity.ReportActivity"
+            android:name=".activity.message.user.ReportActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
              <!--群公告-->
         <activity
-            android:name=".activity.GroupAnnounceActivity"
+            android:name=".activity.message.GroupAnnounceActivity"
             android:screenOrientation="portrait" />
                <!--全部群成员-->
         <activity
-            android:name=".activity.AllMemberActivity"
+            android:name=".activity.message.AllMemberActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".push.NotifyMessageReceiver">
@@ -458,13 +460,13 @@
         </service>
 
         <!-- 友盟更新 -->
-        <service
+       <!-- <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService"></service>
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
         <!-- 友盟更新END -->
         <!-- alipay sdk begin -->
         <activity
@@ -550,8 +552,9 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <!-- ======================leancloud配置========================== -->
+
         <service android:name=".MsgServices" />
+        <!-- ======================leancloud配置========================== -->
 
     </application>
 

@@ -40,9 +40,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.ChatActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.ImageBrowserActivity;
-import com.accuvally.hdtui.activity.UserDetailActivity;
+import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.UILoptions;
 import com.accuvally.hdtui.config.Url;

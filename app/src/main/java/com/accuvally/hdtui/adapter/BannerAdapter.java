@@ -13,7 +13,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.AccuvallyWebDetailsActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.model.BannerInfo;

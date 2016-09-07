@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +18,13 @@ import com.accuvally.hdtui.ui.XListView.IXListViewListener;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.alibaba.fastjson.JSON;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//受欢迎主办方fargment
 public class SponsorDetailFragment extends BaseFragment {
 	private int pageIndex = 1, pageSize = 10;
 	private String orgId;
@@ -35,6 +36,7 @@ public class SponsorDetailFragment extends BaseFragment {
 	private List<SelInfo> listData;
 	private boolean isFuture;
 
+    //isFuture ture为未来活动，false为过去活动
 	public static SponsorDetailFragment newInstance(String orgId, SponsorDetailBean bean, boolean isFuture) {
 		SponsorDetailFragment f = new SponsorDetailFragment();
 		Bundle b = new Bundle();

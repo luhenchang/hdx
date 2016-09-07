@@ -2,7 +2,6 @@ package com.accuvally.hdtui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -10,15 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.config.UILoptions;
-import com.accuvally.hdtui.model.ActsBean;
 import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.utils.ViewHolder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class CollectionAdapter extends BaseListAdapter<SelInfo> {
 

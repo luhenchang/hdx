@@ -39,6 +39,7 @@ public class AccuDetailBean implements Serializable {
 	public String url;
 	/** 当前用户是否已收藏该活动 **/
 	public boolean isfollow;
+    public boolean isvip;
 	public boolean isreg;
 	/** 剩余时间提示 **/
 	public String remainingtimestr;

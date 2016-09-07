@@ -39,37 +39,37 @@ public class SlidingMenu extends RelativeLayout {
 	private boolean mActionbarOverlay = false;
 
 	/**
-	 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
+	 * CityConstant value for use with setTouchModeAbove(). Allows the SlidingMenu
 	 * to be opened with a swipe gesture on the screen's margin
 	 */
 	public static final int TOUCHMODE_MARGIN = 0;
 
 	/**
-	 * Constant value for use with setTouchModeAbove(). Allows the SlidingMenu
+	 * CityConstant value for use with setTouchModeAbove(). Allows the SlidingMenu
 	 * to be opened with a swipe gesture anywhere on the screen
 	 */
 	public static final int TOUCHMODE_FULLSCREEN = 1;
 
 	/**
-	 * Constant value for use with setTouchModeAbove(). Denies the SlidingMenu
+	 * CityConstant value for use with setTouchModeAbove(). Denies the SlidingMenu
 	 * to be opened with a swipe gesture
 	 */
 	public static final int TOUCHMODE_NONE = 2;
 
 	/**
-	 * Constant value for use with setMode(). Puts the menu to the left of the
+	 * CityConstant value for use with setMode(). Puts the menu to the left of the
 	 * content.
 	 */
 	public static final int LEFT = 0;
 
 	/**
-	 * Constant value for use with setMode(). Puts the menu to the right of the
+	 * CityConstant value for use with setMode(). Puts the menu to the right of the
 	 * content.
 	 */
 	public static final int RIGHT = 1;
 
 	/**
-	 * Constant value for use with setMode(). Puts menus to the left and right
+	 * CityConstant value for use with setMode(). Puts menus to the left and right
 	 * of the content.
 	 */
 	public static final int LEFT_RIGHT = 2;

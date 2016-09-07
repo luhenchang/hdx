@@ -3,7 +3,7 @@ package com.accuvally.hdtui.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.accuvally.hdtui.activity.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.GeTuiWapActivity;
 
 import android.content.Context;

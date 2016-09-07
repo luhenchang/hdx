@@ -14,5 +14,8 @@ public class Keys {
 	public static final String insertAllSession = "insertAllSession";
 	/** 公告内容key 保存公告内容 **/
 	public static final String announceContent = "announceContent";
+
+    //登录类型，qq？微信？微博？帐号？
+//    public static final String logintype = "logintype";
 	
 }
