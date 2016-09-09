@@ -53,6 +53,7 @@ import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.baidu.mapapi.SDKInitializer;
+import com.microquation.linkedme.android.LinkedME;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -129,7 +130,24 @@ public class AccuApplication extends Application {
 		initLeanCloud();
 		if (notificationManager == null)
 			notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        initLinkMe();
+
 	}
+
+    private void initLinkMe(){
+        try {
+            if (BuildConfig.DEBUG){
+                //设置debug模式下打印LinkedME日志
+                LinkedME.getInstance(this).setDebug();
+            }else{
+                LinkedME.getInstance(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 	public void initLeanCloud() {
 		AVOSCloud.initialize(this, Config.ACCUPASS_LEANCLOUD_APP_ID, Config.ACCUPASS_LEANCLOUD_APP_KEY);

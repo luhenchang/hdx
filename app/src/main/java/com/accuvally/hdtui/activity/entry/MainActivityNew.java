@@ -15,14 +15,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.accuvally.hdtui.BaseActivity;
+import com.accuvally.hdtui.BaseActivityDeepLink;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.UnfinishedActivity;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.home.util.ChooseCityActivity;
-import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.activity.home.util.SearchActivityNew;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.activity.mine.setting.SettingActivity;
-import com.accuvally.hdtui.activity.UnfinishedActivity;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.fragment.core.HomeFragment;
 import com.accuvally.hdtui.fragment.core.MessageFragment;
@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * @author Semmer Wang
  * 
  */
-public class MainActivityNew extends BaseActivity implements OnClickListener {
+public class MainActivityNew extends BaseActivityDeepLink implements OnClickListener {
 
 	private TextView tvMainBottomHome, tvMainBottomSelect,
             tvMainBottomSession, tvMainBottomMessage;

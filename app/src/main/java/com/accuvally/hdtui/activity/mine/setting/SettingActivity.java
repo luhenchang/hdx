@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.BaseActivity;
+import com.accuvally.hdtui.BaseActivityDeepLink;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.util.ChooseCityActivity;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
@@ -21,14 +23,15 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.umeng.analytics.MobclickAgent;
-//import com.umeng.update.UmengUpdateAgent;
-//import com.umeng.update.UmengUpdateListener;
-//import com.umeng.update.UpdateResponse;
-//import com.umeng.update.UpdateStatus;
 
 import java.io.File;
 
 import de.greenrobot.event.EventBus;
+
+//import com.umeng.update.UmengUpdateAgent;
+//import com.umeng.update.UmengUpdateListener;
+//import com.umeng.update.UpdateResponse;
+//import com.umeng.update.UpdateStatus;
 
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
@@ -44,7 +47,18 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.activity_setting);
 		EventBus.getDefault().register(this);
 		initView();
+
+        resolveLinkData();
 	}
+
+    private void resolveLinkData(){
+        Intent intent = getIntent();
+        if(intent!=null){
+            String data = intent.getStringExtra(BaseActivityDeepLink.Channle);
+            AccuApplication.getInstance().showMsg("来自："+data);
+        }
+
+    }
 
 	public void initView() {
 		setTitle("设置");
