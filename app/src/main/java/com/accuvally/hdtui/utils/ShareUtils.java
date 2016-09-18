@@ -43,10 +43,14 @@ public class ShareUtils {
 		this.accuId = accuId;
 	}
 
-	public void initConfig(Activity activity, String title, String content, String logoUrl, String loadingUrl) {
+	public void initConfig(Activity activity, String title, String content,
+                           String logoUrl, String loadingUrl) {
+
 		mController.getConfig().setSsoHandler(new SinaSsoHandler());
-		mController.getConfig().setSsoHandler(new QZoneSsoHandler(activity, Config.QZONE_APPID, Config.QZONE_APPKEY));
-		mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL);
+		mController.getConfig().setSsoHandler(new QZoneSsoHandler(activity,
+                Config.QZONE_APPID, Config.QZONE_APPKEY));
+		mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT,
+                SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL);
 
 		UMWXHandler wxHandler = new UMWXHandler(mContext, Config.WX_APPID, Config.WX_APPSECRET);
 		UMWXHandler circleHandler = new UMWXHandler(mContext, Config.WX_APPID, Config.WX_APPSECRET);
@@ -88,7 +92,8 @@ public class ShareUtils {
 		mController.setShareMedia(urlImage);
 	}
 
-	public void shareAfterOauth(final SHARE_MEDIA share_MEDIA, final int shareType, final int target_type) {
+	public void shareAfterOauth(final SHARE_MEDIA share_MEDIA,
+                                final int shareType, final int target_type) {
 		if (OauthHelper.isAuthenticated(mContext, share_MEDIA)) {
 			share(share_MEDIA, shareType, target_type);
 		} else {
@@ -127,7 +132,8 @@ public class ShareUtils {
 
 			@Override
 			public void onComplete(SHARE_MEDIA arg0, int arg1, SocializeEntity arg2) {
-				dbManager.insertSaveBeHavior(application.addBeHavior(shareType, target_type + "", accuId, "", "", "", ""));
+				dbManager.insertSaveBeHavior(application.addBeHavior(shareType, target_type + "",
+                        accuId, "", "", "", ""));
 				if (sharecCallBack != null) {
 					sharecCallBack.shareSuccess();
 				}

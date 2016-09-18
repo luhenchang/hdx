@@ -30,6 +30,7 @@ import com.accuvally.hdtui.activity.home.register.BindPhoneActivity;
 import com.accuvally.hdtui.activity.home.register.BuyTicketFirstActivity;
 import com.accuvally.hdtui.activity.home.register.BuyTicketThreeActivity;
 import com.accuvally.hdtui.activity.home.register.RegAccuActivity;
+import com.accuvally.hdtui.activity.home.util.EvaluateActivity;
 import com.accuvally.hdtui.activity.home.util.MapsActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
@@ -57,6 +58,7 @@ import com.accuvally.hdtui.utils.TimeUtils;
 import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
+import com.accuvally.hdtui.utils.eventbus.ChangeAttentionState;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsDialogEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsRegEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
@@ -81,15 +83,11 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 
 
-/**
- * Header's root is ScrollView , Footer's root is ScrollView
- *
- * @author zy
- *
- */
+
 @SuppressWarnings("unused")
 public class AccuvallyDetailsActivity extends BaseActivity implements View.OnClickListener , PullLayout.OnPullListener,
         PullLayout.OnPageChangedListener,OverScrollView.OverScrollListener {
+
     private PullLayout mLayout;
     private ScrollView mHeader, mFooter;
     private LinearLayout mHeaderContent, mFooterContent;
@@ -106,52 +104,63 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 
     private FromInfo fromInfo;
 
-    private ImageView ivDetailsLogo, iv_org_logo, ivDetailsColl;
+    private LinearLayout  share_ly;//分享
 
-    private TextView tvDetailsTitle, tvDetailsTime, tvDetailsAddress, tvDetailsTicket, tvContactOrganizer, tvDetailsRegTicket;
+    private ImageView ivDetailsLogo;//最上面的大img，
+    private TextView tvDetailsTitle;//标题
 
-    private TextView tvDetailsOrgName,   tvDetailsColl, tvDetailsSell, tvVisitNum, tvLikeNum;//tvIntroduction,tv_accu_brief,
+    private TextView  tvDetailsSell, tvVisitNum, tvLikeNum;//卖出的，浏览的，收藏的次数
 
-    private TextView tvCheapTicket;
+    private TextView tvDetailsTime;//活动时间
+    private LinearLayout lyDetailsAddr;//活动地点布局
+    private TextView tvDetailsAddress; //活动地点
+    private View vPriceLine;//一条横线
+    private TextView        tvDetailsTicket;//票价
+    private TextView        tvDetailsRegTicket;
 
-    private LinearLayout lyDetailsAddr, lyDetailsOrg, share_ly;
+    private LinearLayout lyDetailsOrg;//主办方布局
+    private ImageView iv_org_logo, ivDetailsColl;//主办方logo
+    private TextView tvDetailsOrgName;//主办方名称
+    private ImageView ivCertification;//主办方标志，认证 vip
+    private TextView         tvContactOrganizer;//联系主办方
+    private TextView tvToOrganizer;//主办方详情
+    private ImageView ivHasFollowed;//关注主办方
+    private TextView followNum,huodongNum,likeNum;//关注数，活动数，点赞数
+    private TextView OrgDesc;//主办方描述
+
+    private View viewOrgLine;//一条横线
+
+    private TextView        tvDetailsColl;//收藏提示
+    private View llRobTicket;// 抢票
+    private View llEnroll;// 立即报名
+    private TextView tvCheapTicket;//特价抢票
+    private View include_accuvallydetail_bottom;//底部layout
+
 
         	private OverScrollView scrollview;  //123
 //    private ScrollView scrollview;
 
-    private Dialog shareDialog, unRegDialog, shareSuccessDialog;
+    private Dialog shareDialog, shareSuccessDialog;//分享按钮
+    private Dialog unRegDialog;// 没有登入,弹出对话框
+    private Dialog dialog;//报名有关dialog
 
     private UMSocialService mController;
 
-    private Dialog dialog;
-
-    private View vPriceLine;
-
     ShareUtils shareUtils;
 
-    private View viewOrgLine;
 
     private boolean isRobTicket;
 
-    private View llRobTicket;// 抢票
-    private View llEnroll;// 立即报名
-
-    private View include_accuvallydetail_bottom;
 
     private RegSuccessInfo successInfo;
+
+    public static  final String TAG="AccuvallyDetailsActivity";
 
     private String statusStr;
 
     private boolean isStartBuyTicketThree;
-    private ImageView ivCertification;
 
-    /* @Override
-     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_accuvally_details);
-         initScroll();
 
-     }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +169,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         EventBus.getDefault().register(this);
         initProgress();
         initView();
-        initData();
+        initData();//友盟
         initDetails();
     }
 
@@ -175,18 +184,24 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         tvDetailsAddress = (TextView) findViewById(R.id.tvDetailsAddress);
         tvDetailsTicket = (TextView) findViewById(R.id.tvDetailsTicket);
         tvContactOrganizer = (TextView) findViewById(R.id.tvContactOrganizer);
+        tvToOrganizer = (TextView) findViewById(R.id.tvToOrganizer);
+        ivHasFollowed = (ImageView) findViewById(R.id.addAttention);
+        ivHasFollowed.setOnClickListener(this);
+
+        followNum = (TextView) findViewById(R.id.tv_followNumber);
+        huodongNum = (TextView) findViewById(R.id.tv_huodongNumber);
+        likeNum = (TextView) findViewById(R.id.tv_likeNumber);
+        OrgDesc = (TextView) findViewById(R.id.tvDetailsOrgDesc2);
 
         tvDetailsOrgName = (TextView) findViewById(R.id.tvDetailsOrgName);
         ivCertification = (ImageView) findViewById(R.id.ivCertification);
 
-//        tv_accu_brief = (TextView) findViewById(R.id.tv_accu_brief);
-//        tvIntroduction = (TextView) findViewById(R.id.tvIntroduction);
 
         tvDetailsColl = (TextView) findViewById(R.id.tvDetailsColl);
         ivDetailsColl = (ImageView) findViewById(R.id.ivDetailsColl);
         tvDetailsRegTicket = (TextView) findViewById(R.id.tvDetailsRegTicket);
         lyDetailsAddr = (LinearLayout) findViewById(R.id.lyDetailsAddr);
-        lyDetailsOrg = (LinearLayout) findViewById(R.id.lyDetailsOrg);
+
         tvDetailsSell = (TextView) findViewById(R.id.tvDetailsSell);
         tvVisitNum = (TextView) findViewById(R.id.tvVisitNum);
         tvLikeNum = (TextView) findViewById(R.id.tvLikeNum);
@@ -201,8 +216,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         include_accuvallydetail_bottom = findViewById(R.id.include_accuvallydetail_bottom);
 
         share_ly.setOnClickListener(this);
-//        tvIntroduction.setOnClickListener(this);
-//        tv_accu_brief.setOnClickListener(this);
+
 
         tvDetailsColl.setOnClickListener(this);
         tvDetailsRegTicket.setOnClickListener(this);
@@ -211,19 +225,22 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         lyDetailsAddr.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                copy(detailsInfo.address,AccuvallyDetailsActivity.this);
+                copy(detailsInfo.address, AccuvallyDetailsActivity.this);
                 return true;
             }
         });
-        lyDetailsOrg.setOnClickListener(this);
+
 		scrollview.setOverScrollListener(this);  // 123
 
         tvDetailsTicket.setOnClickListener(this);
         tvContactOrganizer.setOnClickListener(this);
+        tvToOrganizer.setOnClickListener(this);
 
         findViewById(R.id.llCollect).setOnClickListener(this);// 收藏
         findViewById(R.id.llShare).setOnClickListener(this);// 群聊
         findViewById(R.id.llIsRobTicket).setOnClickListener(this);// 抢票
+        findViewById(R.id.llEvaluate).setOnClickListener(this);// 评价
+
 
         parseIntent();
     }
@@ -237,10 +254,83 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 
     }
 
+    private boolean hasAttention = true;//是否已经关注
+    private boolean isAttentioning = false;//正在请求中
+//    private boolean hasRequested = false;
+    private int follows;//关注数
+    private void attentionSponsor() {
+        if (!application.checkIsLogin()) {// 如果未登陆就进入登陆页面
+            startActivity(new Intent(mContext, LoginActivityNew.class));
+            return;
+        }
+        if (isAttentioning)
+            return;
+        isAttentioning = true;
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("id", detailsInfo.orgid));
+        String url = "";
+        if (hasAttention) {// 已经关注后点击就送取消关注
+            url = Url.ORG_UNFOLLOW;
+        } else {
+            url = Url.ORG_FOLLOW;
+        }
+        httpCilents.postA(url, params, new HttpCilents.WebServiceCallBack() {
+
+            @Override
+            public void callBack(int code, Object result) {
+                isAttentioning = false;
+                if (code == Config.RESULT_CODE_ERROR) {
+                    ToastUtil.showMsg("网络连接断开，请检查网络");
+                    return;
+                }
+
+                if (code == Config.RESULT_CODE_SUCCESS) {
+                    EventBus.getDefault().post(new ChangeAttentionState());
+                    BaseResponse response = JSON.parseObject((String) result, BaseResponse.class);
+                    if (response.isSuccess()) {
+//                        ToastUtil.showMsg(response.msg);
+                        if (hasAttention) {
+                            ivHasFollowed.setImageResource(R.drawable.add_attention);
+                            follows = follows - 1;
+                            followNum.setText(follows + "");
+//                            dbManager.insertSaveBeHavior(application.addBeHavior(21, 1 + "", orgBean.getId(), "", "", "", ""));
+                            dbManager.insertSaveBeHavior(application.addBeHavior(21, 1 + "", detailsInfo.orgid, "", "", "", ""));//????
+                        } else {
+                            MobclickAgent.onEvent(mContext, "follow_organizer_count");
+                            ivHasFollowed.setImageResource(R.drawable.has_attention);
+                            follows = follows + 1;
+                            followNum.setText(follows + "");
+//                            dbManager.insertSaveBeHavior(application.addBeHavior(20, 1 + "", orgBean.getId(), "", "", "", ""));
+                            dbManager.insertSaveBeHavior(application.addBeHavior(21, 1 + "", detailsInfo.orgid, "", "", "", ""));
+                        }
+                        hasAttention = !hasAttention;
+                    }
+                }
+            }
+        });
+    }
+
+
+    private void updateSpor(){
+        follows=1000;
+        followNum.setText(follows+"");
+        huodongNum.setText(15+"");
+        likeNum.setText(858 + "");
+            if(hasAttention){
+                ivHasFollowed.setImageResource(R.drawable.has_attention);
+            }   else {
+                ivHasFollowed.setImageResource(R.drawable.add_attention);
+            }
+        OrgDesc.setText("主办方描述11");
+    }
+
+
+    //你可能感兴趣的
     private void setInterestAccu() {
         if (detailsInfo == null || detailsInfo.interestacts == null)
             return;
-        setupWebView();
+
         if (detailsInfo.interestacts.isEmpty()) {
             findViewById(R.id.includeInterest).setVisibility(View.GONE);
         } else {
@@ -342,34 +432,6 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         shareUtils = new ShareUtils(mContext, mController, homeId);
     }
 
-    // 正点闹钟
-//	public void refresh() {
-//		ClockData data = new ClockData();
-//		if (TextUtils.isEmpty(detailsInfo.logo)) {
-//			data.bgURL = "http://cdn.huodongxing.com/Content/v2.0/img/default_details_image.png";
-//		} else {
-//			data.bgURL = detailsInfo.logo;
-//		}
-//		if (detailsInfo.id.length() > 6)
-//			data.clockId = Integer.parseInt(detailsInfo.id.substring(detailsInfo.id.length() - 6, detailsInfo.id.length()));
-//		else
-//			data.clockId = Integer.parseInt(detailsInfo.id);
-//		data.iconURL = "http://www.huodongxing.com/Content/v2.0/img/icon-holder.png";
-//		data.linkAppPackage = "com.accuvally.hdtui";
-//		data.linkAppURI = "hdx://com.accuvally.hdtuix_detail?eid=" + detailsInfo.id;
-//		data.linkTitle = "活动详情";
-//		data.linkURL = detailsInfo.shareurl;
-//		data.note = detailsInfo.title;
-//		data.startTime = (TimeUtils.getStartTime(detailsInfo.getStartutc()));
-//		data.title = "活动提醒";
-//		data.type = ClockData.LoopType.ONCE;
-//		CheckResult checkResult = data.checkAvailableAndGetError();
-//		if (checkResult.isAvailable) {
-//			clockButton.setup(Config.ACCUPASS_ZD_CLOCK_APP_KEY, Config.ACCUPASS_ZD_CLOCK_APP_SECRET, data);
-//		} else {
-//			application.showMsg(checkResult.message);
-//		}
-//	}
 
     // 获取详情
     public void initDetails() {
@@ -388,7 +450,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                         if (response.isSuccess()) {
                             //delete unused
                             detailsInfo = JSON.parseObject(response.result, AccuDetailBean.class);
-                            Trace.e("AccuvallyDetailsActivity","detailsInfo.isvip:"+detailsInfo.isvip);
+//                            Trace.e("AccuvallyDetailsActivity","detailsInfo.isvip:"+detailsInfo.isvip);
                             if(isHuodong == 1) {
                                 initJelly();
                             }else {
@@ -404,6 +466,8 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                                 }
 
                                 setInterestAccu();
+                                updateSpor();
+                                setupWebView();
                             }
                         }
                         break;
@@ -454,14 +518,12 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 
 
         if (!"0".equals(detailsInfo.orgid)) {
-//			String str = detailsInfo.orgname + "主办";
             String str = detailsInfo.orgname;
             SpannableStringBuilder style = new SpannableStringBuilder(str);
             style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gary_title)), detailsInfo.orgname.length(), str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvDetailsOrgName.setText(style);
             application.mImageLoader.displayImage(detailsInfo.orglogo, iv_org_logo, UILoptions.squareOptions);
         } else {
-//			String str = detailsInfo.creator + "发布";
             String str = detailsInfo.creator;
             SpannableStringBuilder style = new SpannableStringBuilder(str);
             style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.gary_title)), detailsInfo.creator.length(), str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -524,7 +586,28 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         setIsRobTicket();
 
 //		refresh();
-        shareUtils.initConfig(this, detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(), detailsInfo.logo, detailsInfo.shareurl);
+        String url=getLinkedMeUrl();
+        shareUtils.initConfig(this, detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(),
+                detailsInfo.logo, url);
+//        shareUtils.initConfig(this, detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(),
+//                detailsInfo.logo, detailsInfo.shareurl);
+    }
+
+    //(1)活动分享来链接    sence=share&isapp=1&eid={活动 Id}&uid={分享人id}
+    private String getLinkedMeUrl(){
+
+        String isapp="1";
+        String str=detailsInfo.shareurl;
+        String query;
+        if(application.checkIsLogin()){
+            String uid=application.getUserInfo().getAccount();
+             query="?sence=share&eid="+detailsInfo.id+"&isapp="+isapp+"&uid="+uid;
+        }else {
+             query="?sence=share&eid="+detailsInfo.id+"&isapp="+isapp;
+        }
+        Trace.e(TAG,"url2="+str+query);
+
+        return str+query;
     }
 
     public void setStatus(String status) {
@@ -536,6 +619,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 
     // 活动推详情
     public void initJelly() {
+        Trace.e(TAG,"进入活动推");
         application.mImageLoader.displayImage(detailsInfo.logo, ivDetailsLogo);
         tvDetailsTitle.setText(detailsInfo.title);
         tvDetailsTime.setText(detailsInfo.getStartutc() + " - " + detailsInfo.getEndutc());
@@ -636,6 +720,24 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                 MobclickAgent.onEvent(mContext, "click_event_share_count");
                 share();
                 break;
+            case R.id.llEvaluate://评价
+                if (Utils.isFastDoubleClick()) {
+                    return;
+                }
+
+                Intent Evaluateintent=new Intent(mContext, EvaluateActivity.class);
+                Evaluateintent.putExtra(EvaluateActivity.TITLE,detailsInfo.title);
+                Evaluateintent.putExtra(EvaluateActivity.TIME,detailsInfo.getStartutc());
+                Evaluateintent.putExtra(EvaluateActivity.LOCATION,detailsInfo.address);
+                Evaluateintent.putExtra(EvaluateActivity.LOGO,detailsInfo.logo);
+
+                startActivity(Evaluateintent);
+
+                break;
+
+            case R.id.addAttention://关注
+                attentionSponsor();
+                break;
 //            case R.id.tv_accu_brief:// 简介
 //            case R.id.tvIntroduction:// 更多详情
 //                if (Utils.isFastDoubleClick())
@@ -718,7 +820,7 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                     }
                 }
                 break;
-            case R.id.lyDetailsOrg:// 主办方
+            case R.id.tvToOrganizer:// 主办方
                 if (Utils.isFastDoubleClick())
                     return;
 
@@ -1290,7 +1392,10 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                 BaseResponse response = JSON.parseObject((String) result, BaseResponse.class);
                 switch (code) {
                     case Config.RESULT_CODE_SUCCESS:
-                        ToastUtil.showMsg(response.msg);
+                        if(response.msg!=null){
+                            ToastUtil.showMsg(response.msg);
+                        }
+
                         if (response.isSuccess() && !TextUtils.isEmpty(response.result)) {
                             SessionInfo sessionInfo = new SessionInfo();
                             sessionInfo.userId = AccountManager.getAccount();
@@ -1336,39 +1441,6 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 //        content = getIntent().getStringExtra("content");
         webView.loadDataWithBaseURL("about:blank", detailsInfo.desc, "text/html", "utf-8", null);
     }
-
-
-
-
-
-
-
-
-    //////////////////////==================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //=========================================================================================
 

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.accuvally.hdtui.activity.mine.setting.SettingActivity;
+import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.ui.TitleBar;
@@ -33,12 +33,7 @@ import com.microquation.linkedme.android.callback.LMSimpleInitListener;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
 import com.microquation.linkedme.android.referral.LMError;
 import com.microquation.linkedme.android.util.LinkProperties;
-import com.singulariti.deepshare.DeepShare;
-import com.singulariti.deepshare.listeners.DSInappDataListener;
 import com.umeng.analytics.MobclickAgent;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -80,68 +75,50 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
 
 	AnimationDrawable animationDrawable;
 
-
-
     private LinkedME linkedME;
     private static final String TAG = "LinkedME-Demo";
-    public static final String Channle = "BaseActivityDeepLink_Channle";
     /**
      * <p>解析深度链获取跳转参数，开发者自己实现参数相对应的页面内容</p>
      * <p>通过LinkProperties对象调用getControlParams方法获取自定义参数的HashMap对象,
      * 通过创建的自定义key获取相应的值,用于数据处理。</p>
      */
-    //。linkProperties  lmUniversalObject都携带有数据
+    //linkProperties  lmUniversalObject都携带有数据
     LMSimpleInitListener simpleInitListener = new LMSimpleInitListener() {
         @Override
         public void onSimpleInitFinished(LMUniversalObject lmUniversalObject,
                                          LinkProperties linkProperties, LMError error) {
             try {
-                Log.i(TAG, "开始处理deep linking数据... " + this.getClass().getSimpleName());
+                Log.e(TAG, "开始处理deep linking数据... " + this.getClass().getSimpleName());
                 if (error != null) {
-                    Log.i("LinkedME-Demo", "LinkedME初始化失败. " + error.getMessage());
+                    Log.e(TAG, "LinkedME初始化失败. " + error.getMessage());
                 } else {
 
-                    //LinkedME SDK初始化成功，获取跳转参数，具体跳转参数在LinkProperties中，和创建深度链接时设置的参数相同；
-                    Log.i("LinkedME-Demo", "LinkedME初始化完成");
+                    Log.e(TAG, "LinkedME初始化完成");
 
                     if (linkProperties != null) {
-                        Log.i("LinkedME-Demo", "Channel " + linkProperties.getChannel());
-                        Log.i("LinkedME-Demo", "control params " + linkProperties.getControlParams());
+                        Log.e("LinkedME-Demo", "Channel " + linkProperties.getChannel());
 
-                        //获取自定义参数封装成的hashmap对象
                         HashMap<String, String> hashMap = linkProperties.getControlParams();
 
                         //获取传入的参数
-                        if(hashMap.containsKey("ActivityId")){
-                            String ActivityId = hashMap.get("ActivityId");
-                            String channel=linkProperties.getChannel();
-                            Log.i("LinkedME-Demo", "ActivityId: " + ActivityId);
-                            Log.i("LinkedME-Demo", "channel:" + channel);
+                        if(hashMap.containsKey("sence")){
+                            String sence = hashMap.get("sence");
+                            Log.e(TAG, "sence: " + sence);
 
-
-                            switch (ActivityId){
-                                case "1":
-                                    Intent intent = new Intent(BaseActivityDeepLink.this, SettingActivity.class);
-                                    intent.putExtra(BaseActivityDeepLink.Channle, channel);
+                            switch (sence){
+                                case "share":
+                                    Intent intent = new Intent(BaseActivityDeepLink.this, AccuvallyDetailsActivity.class);
+                                    intent.putExtra("id", hashMap.get("eid"));//活动ID
+//                                    intent.putExtra(BaseActivityDeepLink.Channle, channel);
                                     startActivity(intent);
                                     break;
-
                             }
-                        }else {
-                            Intent intent = new Intent(BaseActivityDeepLink.this, SettingActivity.class);
-                            intent.putExtra(BaseActivityDeepLink.Channle, "来自 deepshare 222");
-                            startActivity(intent);
-
                         }
-                        }
-
-
-                    if (lmUniversalObject != null) {
-                        Log.i("LinkedME-Demo", "title " + lmUniversalObject.getTitle());
-                        Log.i("LinkedME-Demo", "control " + linkProperties.getControlParams());
-                        Log.i("LinkedME-Demo", "metadata " + lmUniversalObject.getMetadata());
                     }
-
+                    if (lmUniversalObject != null) {
+//                        Log.e("LinkedME-Demo", "title " + lmUniversalObject.getTitle());
+                        Log.e(TAG, "lmUniversalObject != null");
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -150,42 +127,6 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
     };
 
 
-    DSInappDataListener dsInappDataListener=new DSInappDataListener() {
-        @Override
-        public void onInappDataReturned(JSONObject params) {
-            try {
-                if (params == null) return;
-
-                //获取传入的参数
-                String ActivityId = (String) params.get("ActivityId");
-                String channel=(String) params.get(BaseActivityDeepLink.Channle);
-                Log.i("LinkedME-Demo", "ActivityId: " + ActivityId);
-                Log.i("LinkedME-Demo", "channel:" + channel);
-
-                switch (ActivityId){
-                    case "1":
-                        Intent intent = new Intent(BaseActivityDeepLink.this, SettingActivity.class);
-                        intent.putExtra(BaseActivityDeepLink.Channle, channel);
-                        startActivity(intent);
-                        break;
-                }
-
-                /*Iterator<?> keys = params.keys();
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    params.getString(key);
-//                    textViewParam.append("key:" + key + "; value:" + params.getString(key) + " ");
-                }*/
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onFailed(String s) {
-
-        }
-    };
 
 
     private void printLinkMeDevice(){
@@ -227,50 +168,12 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
 
 
 
-
-    //生成URL并打开
-    private void printDeepShareURL(){
-//        editShortUrl.setText("");
-        // shareUrl should be filled with the destination url you want user to see when they click the button
-        String shareUrl = "http://deepshare.io/deepshare-web-demo.html";
-        // set the appid, you can find your appid in deepshare dashboard. URL:dashboard.deepshare.io
-        String appId = "6f05fc8bb03de00e";
-
-        // put key value pairs into JSONObject as inapp_data
-        JSONObject dataToInclude = new JSONObject();
-        try {
-
-            dataToInclude.put("ActivityId", "1");
-            dataToInclude.put(BaseActivityDeepLink.Channle, "DeepShare");
-
-        } catch (JSONException ex) {
-        }
-        String inappData = dataToInclude.toString();
-
-        // should pass appid, inapp_data, sender_id as parameters.
-        String url = shareUrl + "?appid=" + appId + "&inapp_data=" +
-                inappData + "&sender_id=" + DeepShare.getSenderId();
-
-        Log.e(TAG, "DeepShare URL " + url);
-
-        // using browser to open the url
-//        Intent intent = new Intent();
-//        intent.setAction("android.intent.action.VIEW");
-//        Uri content_url = Uri.parse(url);
-//        intent.setData(content_url);
-//        startActivity(intent);
-    }
-
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         Log.i(TAG, "onNewIntent: " + this.getClass().getSimpleName());
         simpleInitListener.reset();
         setIntent(intent);
     }
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -297,13 +200,12 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
     protected void onStart() {
         super.onStart();
 
-        DeepShare.init(this, "6f05fc8bb03de00e", dsInappDataListener);
 
         Log.i(TAG, "onStart: " + this.getClass().getSimpleName());
         try {
             //如果消息未处理则会初始化initSession，因此不会每次都去处理数据，不会影响应用原有性能问题
             if (!LinkedME.getInstance().isHandleStatus()) {
-                Log.i(TAG, "LinkedME +++++++ initSession... " + this.getClass().getSimpleName());
+                Log.e(TAG, "LinkedME initSession... " + this.getClass().getSimpleName());
                 //初始化LinkedME实例
                 linkedME = LinkedME.getInstance();
                 //初始化Session，获取Intent内容及跳转参数
@@ -326,9 +228,6 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
                 }
             });
         }
-
-
-        DeepShare.onStop();//停止DeepShare
     }
 
 
@@ -532,9 +431,8 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
 	@Override
 	protected void onResume() {
 
-        printLinkMeURL();
-        printDeepShareURL();
-        printLinkMeDevice();
+//        printLinkMeURL();
+//        printLinkMeDevice();
 		super.onResume();
 		try {
 			MobclickAgent.onPageStart(getClass().getSimpleName());

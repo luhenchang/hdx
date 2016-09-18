@@ -171,6 +171,7 @@ public class CalenderTypeActivity extends BaseActivity {
 	private CustomDate mCustomDate = new CustomDate();
 
 	public CustomDate getCustomDate() {
+
 		return mCustomDate;
 	}
 

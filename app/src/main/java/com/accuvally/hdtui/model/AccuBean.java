@@ -1,9 +1,10 @@
 package com.accuvally.hdtui.model;
 
-import java.io.Serializable;
-
 import com.accuvally.hdtui.utils.TimeUtils;
 
+import java.io.Serializable;
+
+//活动概要
 public class AccuBean implements Serializable {
 
 	public String id;

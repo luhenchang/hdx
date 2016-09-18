@@ -148,7 +148,6 @@
     <orderEntry type="library" exported="" name="signpost-commonshttp4-1.2.1.1" level="project" />
     <orderEntry type="library" exported="" name="crittercism_v3_0_3_sdkonly" level="project" />
     <orderEntry type="library" exported="" name="design-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="deepshare-v2.1.1" level="project" />
     <orderEntry type="module" module-name="socialsdk" exported="" />
   </component>
 </module>

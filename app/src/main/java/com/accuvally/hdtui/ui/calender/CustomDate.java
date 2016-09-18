@@ -1,8 +1,8 @@
 package com.accuvally.hdtui.ui.calender;
 
-import java.io.Serializable;
-
 import android.content.res.Resources;
+
+import java.io.Serializable;
 /**
  * 自定义的日期类
  *

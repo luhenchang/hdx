@@ -52,6 +52,25 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/llEvaluate"
+        android:layout_width="89dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_click_btn"
+        android:clickable="true"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/acc_detail_group"
+            android:gravity="center"
+            android:text="评价"
+            android:textColor="#bdbdbd"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/llEnroll"
         android:layout_width="0dp"

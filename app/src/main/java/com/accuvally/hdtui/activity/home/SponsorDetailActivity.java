@@ -120,6 +120,7 @@ public class SponsorDetailActivity extends BaseActivity implements OnClickListen
 	public void getListData() {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("id", orgId));
+//        Trace.e("intent传进来的：",orgId);
 		String url = Url.ACCUPASS_ORGANIZER_DETAILS;
 		httpCilents.get(httpCilents.printURL(url, params), new WebServiceCallBack() {
 
@@ -131,7 +132,9 @@ public class SponsorDetailActivity extends BaseActivity implements OnClickListen
 					if(response.isSuccess()) {
 						bean = JSON.parseObject(response.result, SponsorDetailBean.class);
 						orgBean = bean.org;
-						shareUtils.initConfig(SponsorDetailActivity.this, orgBean.getName(), orgBean.getDesc(), orgBean.getLogo(), orgBean.getShareUrl());
+//                        Trace.e("从后台传进来的：",orgBean.getId());
+						shareUtils.initConfig(SponsorDetailActivity.this, orgBean.getName(),
+                                orgBean.getDesc(), orgBean.getLogo(), orgBean.getShareUrl());
 						
 						setTabsValue();
 						updateView();

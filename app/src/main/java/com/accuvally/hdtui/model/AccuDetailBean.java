@@ -33,7 +33,6 @@ public class AccuDetailBean implements Serializable {
 	public String maxnum;
 	/** 已报名人数**/
 	public String regnum;
-	public String desc;
 	public String creatorlogo;
 	public String shareurl;
 	public String url;
@@ -62,9 +61,12 @@ public class AccuDetailBean implements Serializable {
 	/** 是否显示 已售x张 **/
 	public boolean showregisternum;
 
-	public List<DetailsTicketInfo> ticks;
-	public List<AccuBean> interestacts;
-	public int orgstatus;
+    public String desc;//活动详情，用webview呈现
+	public List<DetailsTicketInfo> ticks;//票
+	public List<AccuBean> interestacts;//你可能感兴趣的
+//    public List<AccuBean> interestacts;//你可能感兴趣的
+
+    public int orgstatus;
 
 	/** 活动开始本地时间 **/
 	public String getStartutc() {

@@ -3,6 +3,9 @@ package com.accuvally.hdtui.ui.calender;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 
+import com.accuvally.hdtui.AccuApplication;
+import com.accuvally.hdtui.utils.Trace;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,7 +45,7 @@ public class DateUtil {
 	}
 
 	public static int getMonth() {
-		return Calendar.getInstance().get(Calendar.MONTH);
+		return Calendar.getInstance().get(Calendar.MONTH)+1;
 	}
 
 	public static int getCurrentMonthDay() {
