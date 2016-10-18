@@ -2,6 +2,7 @@ package com.accuvally.hdtui.model;
 
 import java.io.Serializable;
 
+//获取评论
 public class CommentInfo implements Serializable {
 	
 	private String Id;
@@ -15,6 +16,31 @@ public class CommentInfo implements Serializable {
 	private String Logo;
 
 	private String Nick;
+
+    private int ReplyType;//回复类型（1=活动评价，2=活动咨询）
+
+
+    public String getImgs() {
+        return Imgs;
+    }
+
+    public void setImgs(String imgs) {
+        Imgs = imgs;
+    }
+
+    private String Imgs;//图片CDN
+//    private List<String> Imgs;//图片CDN
+
+
+    public int getReplyType() {
+        return ReplyType;
+    }
+
+    public void setReplyType(int replyType) {
+        ReplyType = replyType;
+    }
+
+
 
 	public String getId() {
 		return Id;

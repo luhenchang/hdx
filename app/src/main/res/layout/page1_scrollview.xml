@@ -158,9 +158,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@drawable/details_icon_line2" />
+        android:background="#efefef" />
 
-            <!--主办方相关-->
+    <!--主办方相关-->
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="vertical"
                   android:background="#fff"
@@ -187,7 +187,7 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                               android:orientation="vertical"
-                              android:layout_gravity="center_vertical"
+                              android:layout_marginTop="15dp"
                               android:layout_marginLeft="10dp"
                               android:layout_height="wrap_content">
 
@@ -198,10 +198,12 @@
                             android:id="@+id/tvDetailsOrgName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:textColor="@color/txt_green"
-                            android:textSize="15sp"
-                            tool:text="电商书院" />
+                            android:maxLines="2"
+                            android:maxEms="9"
+                            android:ellipsize="end"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            tool:text="主办方名称" />
 
                         <ImageView
                             android:id="@+id/ivCertification"
@@ -216,11 +218,13 @@
                         android:id="@+id/tvDetailsOrgDesc2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="2"
                         android:text="主办方描述"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/txt_green"
-                        android:textSize="12sp"/>
+                        android:layout_marginRight="10dp"
+                        android:maxLines="4"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:textColor="#989898"
+                        android:textSize="11sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -228,9 +232,10 @@
                 android:id="@+id/addAttention"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/add_attention" />
 
         </RelativeLayout>
@@ -280,7 +285,7 @@
                               android:textSize="18sp"
                               android:textColor="#010101"
                               android:id="@+id/tv_huodongNumber"
-                              android:layout_marginLeft="8dp"
+                              android:layout_marginLeft="12dp"
                               android:text="13"
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
@@ -308,6 +313,7 @@
                     <TextView android:layout_width="wrap_content"
                               android:textSize="18sp"
                               android:textColor="#010101"
+                              android:layout_marginLeft="5dp"
                               android:id="@+id/tv_likeNumber"
                               android:text="856"
                               android:layout_height="wrap_content"/>
@@ -332,54 +338,86 @@
                       android:layout_height="wrap_content">
 
             <RelativeLayout android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:background="@drawable/share_detail_background"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tvContactOrganizer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grid_view_city_bg"
-                    android:drawableLeft="@drawable/contact_sel_3x"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/detail_contact"
                     android:drawablePadding="10dp"
-                    android:layout_centerInParent="true"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingTop="10dp"
                     android:text="联系主办方"
-                    android:textColor="@color/main_color"
-                    android:textSize="@dimen/little_18" />
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="#9a9a9a"
+                    android:textSize="@dimen/little_16" />
             </RelativeLayout>
 
             <RelativeLayout android:layout_width="0dp"
-                          android:layout_weight="1"
-                          android:layout_height="wrap_content">
+                            android:layout_weight="1"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:background="@drawable/share_detail_background"
+                            android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tvToOrganizer"
-                    android:background="@drawable/grid_view_city_bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/home_sel_3x"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/detail_home"
                     android:drawablePadding="10dp"
-                    android:text="主办方详情"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingTop="10dp"
+                    android:text="主办方小站"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_centerInParent="true"
-                    android:textColor="@color/main_color"
-                    android:textSize="@dimen/little_18" />
+                    android:gravity="center"
+                    android:textColor="#9a9a9a"
+                    android:textSize="@dimen/little_16" />
             </RelativeLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#efefef" />-->
+
+
+    <!--历史评价入口-->
+    <!-- <TextView
+         android:id="@+id/tv_home_historyComment"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="#ffffff"
+         android:drawableRight="@drawable/details_jiantou_bg"
+         android:gravity="center|left"
+         android:text="历史评价"
+         android:padding="10dp"
+         android:textColor="@color/black"
+         android:textSize="@dimen/little_18" />-->
+    <!--评价列表-->
+    <include
+        android:id="@+id/includeComment"
+        layout="@layout/include_detail_comment"
+        android:visibility="gone" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@drawable/details_icon_line2" />
-
+        android:background="#efefef" />
     <!--你可能感兴趣的-->
     <include
         android:id="@+id/includeInterest"

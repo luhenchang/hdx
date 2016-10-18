@@ -1,7 +1,6 @@
 package com.accuvally.hdtui.activity.message;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;

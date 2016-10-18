@@ -1,11 +1,5 @@
 package com.accuvally.hdtui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,15 +15,19 @@ import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.SaveBeHaviorInfo;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
-import com.accuvally.hdtui.utils.Util;
 import com.accuvally.hdtui.utils.Utils;
 import com.alibaba.fastjson.JSON;
 import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseFragment extends Fragment {
 
@@ -111,7 +109,7 @@ public class BaseFragment extends Fragment {
 	}
 
 	/**
-	 * @param 消息
+	 * @param message
 	 */
 	public void showProgress(String message) {
 		myProgressDialog.setMyMessage(message);
@@ -124,7 +122,7 @@ public class BaseFragment extends Fragment {
 	}
 
 	/**
-	 * @param 消息
+	 * @param message
 	 */
 	public void setMessage(String message) {
 		myProgressDialog.setMyMessage(message);

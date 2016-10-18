@@ -5,7 +5,7 @@
               android:background="#ecedec"
               android:orientation="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:background="#ecedec"
@@ -36,7 +36,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical" >
 
@@ -153,11 +153,11 @@
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:background="#fff"
-                      android:layout_height="100dp">
+                      android:layout_height="70dp">
 
             <LinearLayout android:layout_width="0dp"
                           android:layout_weight="1"
-                          android:layout_marginTop="30dp"
+                          android:layout_marginTop="15dp"
                           android:layout_height="match_parent">
                 <ImageButton android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
@@ -171,11 +171,13 @@
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:text="13"
+                              android:id="@+id/tv_evaluate_likeNum"
+                              android:visibility="gone"
                               android:layout_marginLeft="15dp"
                               android:textSize="15sp"/>
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:layout_marginTop="2dp"
+                              android:layout_marginTop="8dp"
                               android:text="活动很赞"
                               android:textSize="15sp"/>
 
@@ -192,7 +194,7 @@
 
             <LinearLayout android:layout_width="0dp"
                           android:layout_weight="1"
-                          android:layout_marginTop="30dp"
+                          android:layout_marginTop="15dp"
                           android:layout_height="match_parent">
                 <ImageButton android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
@@ -205,12 +207,14 @@
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:text="3"
+                              android:text="0"
+                              android:visibility="gone"
+                              android:id="@+id/tv_evaluate_dislikeNum"
                               android:layout_marginLeft="15dp"
                               android:textSize="15sp"/>
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:layout_marginTop="2dp"
+                              android:layout_marginTop="8dp"
                               android:text="有待改进"
                               android:textSize="15sp"/>
 
@@ -236,12 +240,16 @@
                 android:background="@drawable/share_nor_3x"
                 android:id="@+id/evaluate_share"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
+                  android:visibility="gone"
+
+                  android:layout_marginLeft="30dp"
                 android:layout_height="60px"/>
 
         <TextView android:layout_width="wrap_content"
                   android:textColor="@color/black"
                   android:layout_centerVertical="true"
+                  android:visibility="gone"
+
                   android:layout_marginLeft="10dp"
                   android:layout_toRightOf="@id/evaluate_share"
                   android:text="分享到朋友圈"
@@ -251,12 +259,15 @@
 
         <LinearLayout android:layout_width="280px"
                       android:background="#61b754"
+                      android:id="@+id/evaluate_submit_ly"
+
                       android:layout_alignParentRight="true"
                       android:layout_height="match_parent">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textColor="@color/white"
+
                       android:id="@+id/evaluate_submit"
                       android:layout_gravity="center"
                       android:layout_marginLeft="30dp"

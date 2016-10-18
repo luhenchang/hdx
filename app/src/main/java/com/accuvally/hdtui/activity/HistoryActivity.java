@@ -1,10 +1,5 @@
 package com.accuvally.hdtui.activity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -35,6 +30,11 @@ import com.accuvally.hdtui.utils.eventbus.ChangeBackHomeEventBus;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -68,7 +68,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		setTitle(getResources().getString(R.string.setting_tab_history));
 		setViewFailure();
 		share_ly = (LinearLayout) findViewById(R.id.share_ly);
-		share_ly.setVisibility(8);
+		share_ly.setVisibility(View.GONE);
 		history_listview = (ScrolListView) findViewById(R.id.history_listview);
 		scrollView = (CustomerScrollView) findViewById(R.id.scrollView);
 		delete_img = (ImageView) findViewById(R.id.two_img);
@@ -90,10 +90,11 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		dbManager = new DBManager(HistoryActivity.this);
 		mData = getData();
 		if (homes.size() == 0) {
-			scrollView.setVisibility(8);
+//			scrollView.setVisibility(8);
+            scrollView.setVisibility(View.GONE);
 			showFailure();
 		} else {
-			scrollView.setVisibility(0);
+			scrollView.setVisibility(View.VISIBLE);
 			notifyAdapter();
 		}
 	}
@@ -204,15 +205,16 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 				String itemValue = (String) getItem(position);
 				textView.setText(itemValue);
 				if (position == 0) {
-					child_line_two.setVisibility(4);
+					child_line_two.setVisibility(View.INVISIBLE);
 					if (isMulChoice) {
-						all_btn.setVisibility(0);
+						all_btn.setVisibility(View.VISIBLE);
+//                        all_btn.setVisibility(View.VISIBLE);
 					} else {
-						all_btn.setVisibility(8);
+						all_btn.setVisibility(View.GONE);
 					}
 				} else {
-					child_line_two.setVisibility(0);
-					all_btn.setVisibility(8);
+					child_line_two.setVisibility(View.VISIBLE);
+					all_btn.setVisibility(View.GONE);
 				}
 				all_btn.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
@@ -344,7 +346,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.share_ly:
 			if (selection.size() == 0) {
-				Toast.makeText(HistoryActivity.this, "还没有选择需要删除的项 ", 4).show();
+				Toast.makeText(HistoryActivity.this, "还没有选择需要删除的项 ", Toast.LENGTH_SHORT).show();
 			} else {
 				if (ischeck != null)
 					ischeck.clear();
@@ -378,10 +380,10 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 			share_ly.setVisibility(View.GONE);
 			isMulChoice = false;
 			if (homes.size() == 0) {
-				scrollView.setVisibility(8);
+				scrollView.setVisibility(View.GONE);
 				showFailure();
 			} else {
-				scrollView.setVisibility(0);
+				scrollView.setVisibility(View.VISIBLE);
 				if (selection != null)
 					selection.clear();
 				if (ischeck != null)

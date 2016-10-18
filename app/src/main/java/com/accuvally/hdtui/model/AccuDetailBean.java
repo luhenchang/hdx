@@ -46,10 +46,12 @@ public class AccuDetailBean implements Serializable {
 	public String summary;
 	public String orglogo;
 	
-	public String orgname;
+	public String orgname;//主办方名称
 	public String orgid;
 	/** 创建人名称 **/
 	public String creator;
+
+    public String CreatorDesc;//主办人详情
 	/** 活动创建人帐号id **/
 	public String createby;
 	
@@ -64,7 +66,16 @@ public class AccuDetailBean implements Serializable {
     public String desc;//活动详情，用webview呈现
 	public List<DetailsTicketInfo> ticks;//票
 	public List<AccuBean> interestacts;//你可能感兴趣的
-//    public List<AccuBean> interestacts;//你可能感兴趣的
+
+    public String orgdesc;//主办方详情
+    public boolean IsFollowOrg;// 是否关注主办方，
+    public int OrgFollowsNum;// 主办方关注数，
+    public int OrgEventsNum;// 主办方发布活动数，
+    public int OrgZanNum;// 主办方点赞数，
+    public boolean AllowReply;// 允许评价，显示评价按钮（活动成功举办 + 报名）
+    public  List<CommentInfo> commentlist;//历史评价列表;
+    public  int ZanUp;// 点赞数
+    public  int ZanDown;// 踩/差评数
 
     public int orgstatus;
 

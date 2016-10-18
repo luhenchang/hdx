@@ -81,7 +81,8 @@ public class HomeFraAdapter extends BaseAdapter {
 		if (size2 == 0) {
 			return size1;
 		}
-		return size1 + 1 + size2;
+//		return size1 + 1 + size2;
+        return size1  ;
 	}
 
 	@Override

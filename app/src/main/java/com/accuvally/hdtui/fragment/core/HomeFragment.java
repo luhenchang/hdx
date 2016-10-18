@@ -17,19 +17,20 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.RobTicketActivity;
 import com.accuvally.hdtui.activity.home.CalenderTypeActivity;
 import com.accuvally.hdtui.activity.home.HomeTypeActivity;
 import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
-import com.accuvally.hdtui.activity.RobTicketActivity;
 import com.accuvally.hdtui.adapter.BannerAdapter;
-import com.accuvally.hdtui.adapter.HomeFraAdapter;
-import com.accuvally.hdtui.config.Config;
+import com.accuvally.hdtui.adapter.CommonAccuAdapter;
 import com.accuvally.hdtui.config.CityConstant;
+import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BannerInfo;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.HomeInfo;
+import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.CirclePageIndicator;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
@@ -66,7 +67,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
     public static final String TAG="HomeFragment";
 
-	private int pageIndex = 0, pageSize = 30;
+	private int pageIndex = 0, pageSize = 31;
 	
 	private LocationUtils locationUtils;
 	
@@ -83,7 +84,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 	private ViewPager mViewPager;
 	
 	private XListView mListView;
-	private HomeFraAdapter mAdapter;
+	private CommonAccuAdapter mAdapter;//原来是HomeFraAdapter 2016.09.22
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		initView(listHeader);
 		mListView.addHeaderView(listHeader);
 		
-		mListView.setPullLoadEnable(false);
+		mListView.setPullLoadEnable(true);
 		setupListView();
 		
 		initData();
@@ -129,7 +130,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void setupListView() {
-		mAdapter = new HomeFraAdapter(mContext);
+		mAdapter = new CommonAccuAdapter(mContext);
 		mListView.setAdapter(mAdapter);
 		
 		mListView.setXListViewListener(new IXListViewListener() {
@@ -142,6 +143,10 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 			
 			@Override
 			public void onLoadMore() {
+
+
+                pullToLoadMore(application.sharedUtils.readString("cityName"));
+//                mListView.setPullLoadEnable(false);
 			}
 		});
 	}
@@ -152,7 +157,9 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 			dialog_location();
 		} else {
 			if (application.cacheUtils.getAsString("home") != null) {
-				HomeInfo homeInfo = JSON.parseObject(application.cacheUtils.getAsString("home"), HomeInfo.class);
+                String str=application.cacheUtils.getAsString("home");
+//                Trace.e(TAG,str);
+				HomeInfo homeInfo = JSON.parseObject(str, HomeInfo.class);
 				setViewData(homeInfo);
 			}
 			initLocation();
@@ -189,16 +196,66 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 						setViewData(homeInfo);
 					}
 					locationUtils.stopListener();
+//                    mListView.setPullLoadEnable(true);
 					break;
 				case Config.RESULT_CODE_ERROR:
+//                    mListView.setPullLoadEnable(true);
 					break;
 				}
 			}
 		});
 	}
+
+
+
+    public void pullToLoadMore(String city) {
+//        pageIndex = 0;
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("city", city));
+
+        pageIndex++;
+        params.add(new BasicNameValuePair("pi", pageIndex + ""));
+        Trace.e(TAG, "onLoadMore pageIndex" + pageIndex);
+
+        params.add(new BasicNameValuePair("ps", pageSize + ""));
+//        params.add(new BasicNameValuePair("refreshcache", true + ""));刷新缓存
+        EventBus.getDefault().post(new ChangeHomeLoaderEventBus(true));
+        httpCilents.get(httpCilents.printURL(Url.search_recommend, params), new WebServiceCallBack() {
+
+            @Override
+            public void callBack(int code, Object result) {
+                EventBus.getDefault().post(new ChangeHomeLoaderEventBus(false));
+                mListView.stopRefresh();
+                mListView.stopLoadMore();
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        BaseResponse response = JSON.parseObject(result.toString(), BaseResponse.class);
+                        if (response.isSuccess()) {
+                            List<SelInfo> list = JSON.parseArray(response.result, SelInfo.class);
+                            Trace.e(TAG,"mAdapter.getCount() ="+mAdapter.getCount() + " " + "  pageIndex =" + pageIndex + "" + "  list.size()=" + list.size());
+
+                            if (list.size() == 0) {
+                                application.showMsg("亲，没有更多数据");
+                            } else {
+                                // 这种状态不太明确
+                                mAdapter.addAll(list);
+                            }
+                            locationUtils.stopListener();
+                        }
+//                        mListView.setPullLoadEnable(true);
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+//                        mListView.setPullLoadEnable(true);
+                        break;
+                }
+            }
+        });
+    }
 	
 	public void setViewData(HomeInfo homeInfo) {
-		mAdapter.setLists(homeInfo.getRecommends(), homeInfo.getPoporgs());
+//        mAdapter.setLists(homeInfo.getRecommends(), homeInfo.getPoporgs());
+        mAdapter.setList(homeInfo.getRecommends());
 		
 		//顶部banner
 		bannerList.clear();
@@ -399,6 +456,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	public void onEventMainThread(ChangeCityEventBus eventBus) {
+        pageIndex = 0;
 		initHomeData(eventBus.getCity());
 	}
 	

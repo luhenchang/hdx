@@ -8,7 +8,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.entry.BaseDeepLink;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.ui.TitleBar;
@@ -26,18 +25,9 @@ import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackActivityBase;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackActivityHelper;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackLayout;
-import com.microquation.linkedme.android.LinkedME;
-import com.microquation.linkedme.android.callback.LMLinkCreateListener;
-import com.microquation.linkedme.android.callback.LMReferralCloseListener;
-import com.microquation.linkedme.android.callback.LMSimpleInitListener;
-import com.microquation.linkedme.android.indexing.LMUniversalObject;
-import com.microquation.linkedme.android.referral.LMError;
-import com.microquation.linkedme.android.util.LinkProperties;
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.HashMap;
-
-public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackActivityBase {
+public class BaseActivityDeepLink extends BaseDeepLink implements SwipeBackActivityBase {
 
 	protected Context mContext;
 
@@ -75,105 +65,12 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
 
 	AnimationDrawable animationDrawable;
 
-    private LinkedME linkedME;
-    private static final String TAG = "LinkedME-Demo";
-    /**
-     * <p>解析深度链获取跳转参数，开发者自己实现参数相对应的页面内容</p>
-     * <p>通过LinkProperties对象调用getControlParams方法获取自定义参数的HashMap对象,
-     * 通过创建的自定义key获取相应的值,用于数据处理。</p>
-     */
-    //linkProperties  lmUniversalObject都携带有数据
-    LMSimpleInitListener simpleInitListener = new LMSimpleInitListener() {
-        @Override
-        public void onSimpleInitFinished(LMUniversalObject lmUniversalObject,
-                                         LinkProperties linkProperties, LMError error) {
-            try {
-                Log.e(TAG, "开始处理deep linking数据... " + this.getClass().getSimpleName());
-                if (error != null) {
-                    Log.e(TAG, "LinkedME初始化失败. " + error.getMessage());
-                } else {
-
-                    Log.e(TAG, "LinkedME初始化完成");
-
-                    if (linkProperties != null) {
-                        Log.e("LinkedME-Demo", "Channel " + linkProperties.getChannel());
-
-                        HashMap<String, String> hashMap = linkProperties.getControlParams();
-
-                        //获取传入的参数
-                        if(hashMap.containsKey("sence")){
-                            String sence = hashMap.get("sence");
-                            Log.e(TAG, "sence: " + sence);
-
-                            switch (sence){
-                                case "share":
-                                    Intent intent = new Intent(BaseActivityDeepLink.this, AccuvallyDetailsActivity.class);
-                                    intent.putExtra("id", hashMap.get("eid"));//活动ID
-//                                    intent.putExtra(BaseActivityDeepLink.Channle, channel);
-                                    startActivity(intent);
-                                    break;
-                            }
-                        }
-                    }
-                    if (lmUniversalObject != null) {
-//                        Log.e("LinkedME-Demo", "title " + lmUniversalObject.getTitle());
-                        Log.e(TAG, "lmUniversalObject != null");
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
 
 
 
 
-    private void printLinkMeDevice(){
-        String device_id = LinkedME.getInstance().getDeviceId();
-        Log.e(TAG, "LinkedME device id:  " + device_id);
-    }
-
-    private void printLinkMeURL(){
-        /**创建深度链接*/
-        //深度链接属性设置
-        final LinkProperties properties = new LinkProperties();
-        //渠道
-        properties.setChannel("LINKME");  //微信、微博、QQ
-        //功能
-        properties.setFeature("Share");
-        //标签
-        properties.addTag("LinkedME");
-        properties.addTag("Demo");
-        //阶段
-        properties.setStage("Live");
-        //自定义参数,用于在深度链接跳转后获取该数据
-        properties.addControlParameter("ActivityId", "1");
-        properties.addControlParameter("View", "Demo222");
-        LMUniversalObject universalObject = new LMUniversalObject();
-        universalObject.setTitle("aaaaa");
-
-        // Async Link creation example
-        universalObject.generateShortUrl(BaseActivityDeepLink.this, properties, new LMLinkCreateListener() {
-            @Override
-            public void onLinkCreate(String url, LMError error) {
-//                demo_edit.setText(url);
-//                demo_link_view.setVisibility(View.VISIBLE);
-                //获取自定义参数数据
-//                demo_link_view.setText(properties.getControlParams().toString());
-                Log.e(TAG, "LinkedME URL " + url);
-            }
-        });
-    }
 
 
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        Log.i(TAG, "onNewIntent: " + this.getClass().getSimpleName());
-        simpleInitListener.reset();
-        setIntent(intent);
-    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -199,35 +96,16 @@ public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackA
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        Log.i(TAG, "onStart: " + this.getClass().getSimpleName());
-        try {
-            //如果消息未处理则会初始化initSession，因此不会每次都去处理数据，不会影响应用原有性能问题
-            if (!LinkedME.getInstance().isHandleStatus()) {
-                Log.e(TAG, "LinkedME initSession... " + this.getClass().getSimpleName());
-                //初始化LinkedME实例
-                linkedME = LinkedME.getInstance();
-                //初始化Session，获取Intent内容及跳转参数
-                linkedME.initSession(simpleInitListener, this.getIntent().getData(), this);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop: " + this.getClass().getSimpleName());
-        if (linkedME != null) {
-            linkedME.closeSession(new LMReferralCloseListener() {
-                @Override
-                public void onCloseFinish() {
-                }
-            });
-        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 
 

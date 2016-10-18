@@ -300,7 +300,7 @@
 
         <!-- 活动评价 -->
         <activity
-            android:name=".activity.home.util.EvaluateActivity"
+            android:name=".activity.home.util.CommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 地图 -->

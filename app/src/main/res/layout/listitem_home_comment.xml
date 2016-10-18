@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <com.accuvally.hdtui.ui.CircleImageView
+            android:id="@+id/home_comment_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/home_comment_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小**"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/home_comment_logo"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_15" />
+
+        <TextView
+            android:id="@+id/home_comment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016-08-12"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gary_title"
+            android:textSize="@dimen/little_15" />
+
+    </RelativeLayout>
+
+    <!--评论内容-->
+    <TextView
+        android:id="@+id/home_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:text="这次活动很开心，感谢活动行的举办。。。。。。"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/little_15"/>
+                <!--图片(预留)-->
+
+    <View
+        android:id="@+id/comments_line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+</LinearLayout>

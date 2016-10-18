@@ -16,6 +16,7 @@ import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
 import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
+import com.accuvally.hdtui.activity.home.util.CommentActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
 import com.accuvally.hdtui.config.Config;
@@ -44,6 +45,7 @@ import java.util.List;
 //PushConsts.GET_MSG_DATA根据得到后台的数据中又细分为几个类：活动详情，专题页，票券（打开相应的activity）
 public class GetuiPushMessageReceiver extends BroadcastReceiver {
 
+    public static final String TAG="GetuiPushMessage";
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
@@ -170,6 +172,7 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 		AccuApplication application = (AccuApplication) context.getApplicationContext();
 		Intent intent = new Intent();
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        Log.e(TAG, "type="+info.getOp_type());
 		switch (info.getOp_type()) {
 		case 1:// 活动详情页 , op_value = 活动id
 			if (application.hasActivity(MainActivityNew.class)) {
@@ -212,6 +215,17 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 			intent.setClass(context, TicketTabActivity.class);
 			context.startActivity(intent);
 			break;
+        case 9:
+//               intent.putExtra("id", info.getOp_value());
+            String id=info.getOp_value();
+//            Log.e(TAG,"id="+id);
+//            Log.e(TAG,"**********");
+            intent.setClass(context, CommentActivity.class);
+            intent.putExtra(CommentActivity.FROM,"LINKEDME");
+            intent.putExtra(CommentActivity.ID, id);
+            context.startActivity(intent);
+
+            break;
 		}
 		
 //		int requestCode = (int) SystemClock.uptimeMillis();

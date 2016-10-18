@@ -10,6 +10,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 
+
 public class LocationUtils {
 
     public static final String TAG="LocationUtils";
@@ -66,10 +67,6 @@ public class LocationUtils {
 				}
 			}
 
-			@Override
-			public void onReceivePoi(BDLocation arg0) {
-
-			}
 		});
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);

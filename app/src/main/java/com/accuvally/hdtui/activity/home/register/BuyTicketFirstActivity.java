@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.activity.home.register;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -27,6 +21,12 @@ import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsRegEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 import com.alibaba.fastjson.JSON;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 

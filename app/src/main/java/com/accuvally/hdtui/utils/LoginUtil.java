@@ -23,7 +23,14 @@ import de.greenrobot.event.EventBus;
 public class LoginUtil {
 
 
+//    是否主办方：
+    public static boolean isSporsor(String orgid){
 
+        if (!"0".equals(orgid))
+            return true;
+        else
+            return false;
+    }
 
 
     public static void threeLogin(int status, Map<String, Object> info) {

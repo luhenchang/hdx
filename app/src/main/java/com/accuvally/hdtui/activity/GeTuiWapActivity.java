@@ -6,7 +6,6 @@ import com.accuvally.hdtui.R.id;
 import com.accuvally.hdtui.R.layout;
 
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 

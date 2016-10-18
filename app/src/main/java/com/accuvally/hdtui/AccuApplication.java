@@ -320,7 +320,7 @@ public class AccuApplication extends Application {
 
 	public String getIMEI() {
 		String imei = mTelephonyManager.getDeviceId();
-		if ("000000000000000".equals(imei) || "".equals(imei)) {
+		if (imei==null||"000000000000000".equals(imei) || "".equals(imei)) {
 			imei = getIMEI2();
 		}
 		return imei;

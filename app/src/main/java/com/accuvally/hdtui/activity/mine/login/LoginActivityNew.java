@@ -24,6 +24,7 @@ import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.ui.EditTextWithDel;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.ThreeLoginUtils;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Util;
 import com.accuvally.hdtui.utils.eventbus.ChangeAliLoginEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeLoginOrRegEventBus;
@@ -209,6 +210,7 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 		showProgress("正在登录中");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("deviceid", application.getIMEI()));
+        Trace.e("LoginActivityNew",application.getIMEI());
 		params.add(new BasicNameValuePair("devicetype", 2 + ""));
 		params.add(new BasicNameValuePair("app", "hdx"));
 		params.add(new BasicNameValuePair("account", userName));

@@ -3,6 +3,7 @@ package com.accuvally.hdtui.activity.entry;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +31,8 @@ import com.accuvally.hdtui.fragment.core.MineFragment;
 import com.accuvally.hdtui.fragment.core.SelectFragment;
 import com.accuvally.hdtui.ui.calender.ManagerFragmentHelp;
 import com.accuvally.hdtui.utils.NetworkUtils;
+import com.accuvally.hdtui.utils.PermissionUtil;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeBackHomeEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeCityEventBus;
@@ -95,7 +98,8 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_new);
+        Trace.e("MainActivityNew","****************MainActivityNew start**************");
+        setContentView(R.layout.activity_main_new);
 		application.sharedUtils.writeBoolean("isFirstIn", true);
 		EventBus.getDefault().register(this);
 		initProgress();
@@ -122,6 +126,15 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		
 		ToAccuvallyDetail(getIntent());
 	}
+
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if(PermissionUtil.findDeniedPermissions(this, PermissionUtil.needPermissions).size()!=0){
+                PermissionUtil.checkPermissions(this,PermissionUtil.needPermissions);
+            }
+        }
+    }
 
 	private void ToAccuvallyDetail(Intent intent) {
 		String id = intent.getStringExtra("id");
@@ -172,6 +185,9 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 
     //定位城市
 	public void initData() {
+
+        requestPermission();
+
 		if (application.sharedUtils.readString("cityName") != null) {
 			if("香港特别行政区".equals(application.sharedUtils.readString("cityName"))){
 				tvMainHeaderCity.setText("香港");

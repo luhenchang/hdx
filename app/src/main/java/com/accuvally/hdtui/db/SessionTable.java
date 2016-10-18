@@ -1,10 +1,5 @@
 package com.accuvally.hdtui.db;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +10,11 @@ import android.util.Log;
 import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SessionTable {
 
@@ -391,7 +391,7 @@ public class SessionTable {
 				return true;
 			}
 		} catch (Exception e) {
-			Log.e("updateSessionByUnReadNum", "修改未读条数失败:" + e.getMessage());
+			Log.e("SessionTable", "修改未读条数失败:" + e.getMessage());
 			e.printStackTrace();
 		}
 		return false;

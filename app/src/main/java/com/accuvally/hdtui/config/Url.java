@@ -329,5 +329,5 @@ public class Url {
 //	/** 获取评论列表 **/
 //	public static final String ACCUPASS_COMMENT_LIST = ACCUPASS_SERVICE_URL2 + "/comment/cms";
 //	/** 发表评论 **/
-//	public static final String ACCUPASS_UPALOD_COMMENT = ACCUPASS_SERVICE_URL2 + "/comment/pub";
+	public static final String ACCUPASS_UPALOD_COMMENT = ACCUPASS_SERVICE_URL2 + "/comment/pub";
 }

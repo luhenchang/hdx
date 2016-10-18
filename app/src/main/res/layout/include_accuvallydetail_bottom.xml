@@ -59,6 +59,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/selector_click_btn"
         android:clickable="true"
+        android:visibility="visible"
         android:gravity="center" >
 
         <TextView
