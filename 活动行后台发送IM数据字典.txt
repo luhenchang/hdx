@@ -1,0 +1,427 @@
+/***********************************************活动行后台发送IM数据字典******************************************************************/
+target_type 1  #1表示往群里发消息  0表示给单个用户发消息
+title  #如果没有点击会话，铃铛下拉界面上显示的通知的 标题
+message  #真正发送的消息实用内容  如：“今天天气好晴朗,处处好风光”      *********
+logo_url  #聊天界面里的头像url，也就是发送者的头像url(会话列表中某个会话的头像logo)
+source_id  #原始发送者的id
+source_name #原始发送者的昵称
+type  #文本消息 -1;图像 -2;音频 -3;视频 -4;地理位置 -5;通用文件 -6
+from_name  #由谁发送，发送者的昵称
+from_peer  #由谁发送 发送者的id
+to_id   #发送到哪里，指的就是会话id
+to_peer #接收者的id，如：小明的user_id为123we32
+to_name #接收者的昵称
+message_type  #IM的消息类型
+source_logo_url  #聊天中的某人发消息的时候,某人的头像
+isNotification #是否是通知    1是通知   0不是通知
+clientId   #进行个推推送的时候 个推的id    
+op_type   0-(默认，没有操作),1-活动,2-专题,3-圈子，4-主办方,5-网页,6-我的票券,7-列表页,8-app内其它页面 ,9-同伴(朋友)列表
+		  3和6算是和圈子相关的,其他的算是和活动相关的
+op_value
+device_type 0-unknown   1-IOS  2-Android
+
+
+RL_APP_BANNER__UNCLIP_false_北京
+
+与圈子社交数据相关的IM消息demo:
+{
+"target_type":0,
+"title":"张三申请加入你创建的圈子",
+"message":"I am JordanAndy",
+"logo_url":"http://www.huodongxing.com/Content/v2.0/img/face/male/small/13.jpg",
+"source_id":"A_id",
+"source_name":"A_name",
+"type":10,
+"from_name":"活动行_name",
+"from_peer":"活动行_id",
+"to_id":"会话_id",
+"to_peer":"B_id",
+"to_name":"B_name",
+"message_type":10,
+"activity_id":123212322,
+"source_logo_url":"http://www.huodongxing.com/Content/v2.0/img/face/male/small/13.jpg",
+"isNotification":1,
+"clientId":"133wsaw12",
+"op_type":3,
+"op_value":"会话id"
+}
+
+与业务逻辑数据相关的IM消息demo:
+{
+"target_type":0,
+"title":"2015年创新中国总决赛",
+"message":"你报名参加的这个活动还有1天就要开始了",
+"logo_url":"http://www.huodongxing.com/Content/v2.0/img/face/male/small/13.jpg",
+"source_id":"活动行_id",
+"source_name":"活动行_name",
+"type":2,
+"from_name":"活动行_name",
+"from_peer":"活动行_id",
+"to_id":"会话_id",
+"to_peer":"B_id",
+"to_name":"B_name",
+"message_type":2,
+"activity_id":123212322,
+"source_logo_url":"http://www.huodongxing.com/Content/v2.0/img/face/male/small/13.jpg",
+"isNotification":1,
+"clientId":"133wsaw12",
+"op_type":0,
+"op_value":""
+}
+
+message_type类型说明：
+public static final int VERSION_UPDATE = 1;//客户端升级通知
+public static final int NOTICE_BEFORE_START = 2;//活动开始前通知
+public static final int RELATED_RECOMMEND = 3;//相关活动推荐通知
+public static final int OPERATE_NOTICE = 4;//运营提醒
+public static final int REGIST_VERIFIED = 5;//活动报名审核通过
+public static final int NEW_EVENTS_BY_FOLLOWED_ORGANIZER = 6;//关注的主办方发布新的活动
+public static final int GROUP_ORGANIZER_SPEAK = 7;//圈子消息--主办方发言
+public static final int GROUP_ORGANIZER_NOTICE = 8;//圈子消息--主办方通知
+public static final int GROUP_OTHER_SPEAK = 9;//圈子消息--其他圈友消息
+public static final int GROUP_AT_ME = 10;//圈子里有人 @ 我
+public static final int NOTICE_FROM_FRIEND = 11;//圈友一对一消息
+public static final int NOTICE_FOR_NEW_GROUP_EVENT = 12;//新的圈子加入邀请
+public static final int NOTICE_FOR_NEW_GROUP_OTHER = 13;//其他用户发的圈子加入邀请
+public static final int INVITED_FROM_FRIEND = 14;//其他用户发来的加好友邀请
+
+
+#######################################到此结束,以下部分暂时忽略###################################################
+
+后台持久层设计：
+user_conversation:
+user_id,              conversation_ids
+888               ["111","222","333","444","555"]
+
+所有的与对话管理的操作：包括建立对话，删除对话，增加成员，删除成员等，都是走API，由API操作leancloud数据存储实现的
+用户和会话之间的关联表：
+user_conversation:
+id           user_id   conversation_id    logo_url    conversation_name 
+888_111       888           111          \test.jpg      创新中国总决赛
+888_222       888           222          \test.jpg      深圳政协会议
+888_333       888          123456        \test.jpg      小明
+
+用户好友关系记录表：
+user_friends:
+user_id              friend_ids
+888                 ["111","222","333","444"]
+ 
+ 
+与圈子相关的操作，API需要提供的接口：
+1.添加或者删除用户到圈子成员列表中  flag来区分操作是添加还是删除,0为添加,1为删除,2不操作,忽略，比如：A申请加入B创建的圈子,结果B拒绝了
+	0 用户报名成功,点"进入圈子",API将该用户添加到该圈子的成员列表中去
+      A用户申请加入B用户创建的圈子,B用户同意了,回调API,让API将A加到圈子的成员列表中
+    1 A用户自己操作,选择退出圈子,API就将A用户从圈子的成员列表中删除掉  退出圈子的同时,需要将user_conversation表中的对应的一条记录也删掉
+      圈子的创建者操作,选择将某用户从圈子中删除掉
+	2 A用户申请加入B创建的圈子,这时B拒绝了,此时会回调API,告诉API flag为2,API将既不会添加也不会删除A的用户id到圈子的成员列表,只是负责通知A用户被拒绝了
+2.根据用户id返回与该用户id相关的会话列表
+3.根据会话id，返回该会话内部成员的所有 (user_id,logo_url,nick_name) 字典
+4.提供接口操作建立或者删除好友关系  flag来区分操作是添加还是删除,0为添加,1为删除,2不操作,忽略，比如：A申请和B成为好友,结果B拒绝了
+	0 A申请添加B为好友,这时B同意了.B就会回调API，API同时将A加到B的好友列表,也将B添加到A的好友列表
+	1 A把好友B删除掉了,这时将调用API，把A和B从彼此的好友列表中都删除掉  其实,也允许不把自己从对方的好友列表中删除   删除好友的同时，需要将user_conversation表中的一条对应记录也删掉
+    2 A申请添加B为好友,这时B拒绝了.B就会回调API,API将通知A被拒绝了
+5.给IM聊天功能提供"附近"的功能,其实可以直接查询leancloud服务器 获取返回结果
+	
+与系统通知相关的操作，API需要提供的接口：
+
+_Conversation:
+logo_url #该会话的logo
+
+
+APP登录用户的用户id为origin_id
+
+
+活动行后台根据origin_id获取与之相关的会话ids ==> conversation_ids
+for  con_id  in  conversation_ids
+     根据con_id获取该对话的基本信息：会话名称，会话logo；关于会话logo，如果是单聊就用对方的头像，如果群聊 就用会话的固定logo
+	 获取最后一条聊天记录：(可以考虑转由APP请求)
+	 1.先根据con_id获取该会话的最后一条聊天数据,获取最后发言的user_id    查leancloud
+	 2.根据user_id再查询该用户的logo_url,昵称    查活动行后台
+	 3.会话基本信息+最后一条聊天数据 构成一个完整的会话属性，会话列表+1
+
+返回 与origin_id相对应的会话列表到APP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+100
+001
+3
+
+
+铃铛里面的消息类型：
+邀请成为好友
+申请加入圈子
+邀请加入圈子
+im_type 999  #活动行服务器发送过来的IM消息
+from 王大妈家  #活动行
+
+
+要把用户id和用户的昵称之间的映射关系保存起来
+
+有新的版本  1
+已报名的活动开始前一天 2
+已报名的活动开始前两小时 3
+已关注的活动开始前一天 4
+参加的活动结束后的相关活动推荐 5
+使用者关注过的主办方发布新的活动 6
+有圈的成立邀请通知  ** 7
+有圈友送信息过来 8
+有新的专题或者Feed 9
+有人邀请你当圈友   ** 10
+有人@你  ** 11
+
+有人申请加入 你的圈子 ** 12
+邀请某人加入圈子 ** 13
+
+后台发送旁白消息：
+某时某刻 某人加入了圈子 14
+某时某刻 某人退出了圈子 15
+
+与申请加入圈子相关的：拒绝申请；同意申请
+与申请成为圈友相关的：拒绝申请；同意申请
+与邀请某人加入圈子相关的：拒绝邀请；接受邀请
+接受邀请 ==> 向群主发送加入圈子的申请
+拒绝邀请 ==> 直接dropped掉
+
+用户id，而不是昵称、手机号作为leancloud IM的成员标识
+app上发送leancloud IM消息的时候，将 消息内容以json的格式包装好，发送，
+app解析leanclou IM的时候，消息内容的主题也是一个json字符串，里面包含了不同的字段，app上根据这些不同的字段，选择不同的表现形式和动作效果
+
+
+活动行服务器的账号为：huodongxing
+默认情况下,每个活动对应的圈子的会话id为活动的id
+与圈子社交数据相关的IM消息：
+1.进入圈子，A用户请求API，API先请求leancloud判断该会话id是否存在，不存在的话，就新建一个会话，将A用户添加到会话的成员列表中去。然后将A用户的
+用户id，用户头像url，用户昵称 追加到 _Conversation表中的Array类型的字段member_attr中，然后将会话id返回给A用户，
+然后将会话id，用户头像url，用户昵称  放到消息发送系统，由消息发送系统来将具体内容发到 该会话id对应的会话中去。
+2.退出圈子，流程同加入圈子一样。只不过是将以上的操作由添加改为移除，然后通知消息发送系统发送到对应的会话中去
+
+3.C用户是某个圈子的创建者，A用户申请加入圈子：
+A用户请求API，API会根据这个请求中附带的会话的id，去查询leancloud获取该圈子的创建者的id(也可以将会话id和创建者之间的映射关系保存到活动行服务器)，
+然后API将会话id，会话名称，C用户id，A用户id，A用户昵称，和具体的内容描述信息，放到消息发送系统，消息发送系统创建一个到C用户的会话，将具体消息发送到整个会话，
+C就能收到A用户申请加入圈子的消息了
+4.接着上述的第3条。C用户是可以点击接受或者拒绝的
+接受：C用户请求API,带上圈子的会话id，会话名称，A用户的id，A用户的名称，API调用leancloud操作，将A用户id添加到该会话的成员列表中去。并且API还要将A用户id，A用户昵称，
+具体消息内容，A用户的头像url，圈子会话id，圈子会话名称，C用户id，C用户名称，放入消息发送系统，消息发送系统会进行两种不同的IM消息发送，分别建立一个和A用户之间的单独会话，告诉A用户，
+你申请加入圈子，C用户同意了。另一个是发送旁白数据到圈子中，告诉所有人，A用户加入圈子了
+拒绝：和接受的消息流程类似
+
+与业务逻辑相关的IM消息：
+1.报名的活动开始前1天：由业务系统负责开启整个流程，将活动名称，开始时间，活动行id，活动行用户名，用户名称，用户id，放到消息发送系统。由消息发送系统负责创建和用户之间的1对1的会话，
+将消息发给用户
+2.报名审核通过：

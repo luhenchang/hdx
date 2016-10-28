@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.AccuDetailBean;
@@ -44,8 +44,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public static final String DISLIKENUM="EvaluateActivity_DISLIKENUM";
 
 
-    public static final String FROM="CommentActivity_FROM";
-    private boolean fromLinkedMe=false;
+//    public static final String FROM="CommentActivity_FROM";
+//    private boolean fromGetui =false;
 
 
     public static final String TAG="CommentActivity";
@@ -78,14 +78,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private void parseIntent(){
         Intent intent=getIntent();
         if(intent!=null){
-
-            if("LINKEDME".equals(intent.getStringExtra(FROM))){
-                fromLinkedMe=true;
-                String eid=getIntent().getStringExtra(ID);
-                initDetails(eid);
-            }else {
-                fromLinkedMe=false;
-
                 id = getIntent().getStringExtra(ID);
 
                 String logo=intent.getStringExtra(LOGO);
@@ -119,10 +111,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     dislikeTextView.setVisibility(View.GONE);
                 }
 
-
-
 //                initData();
-            }
+
         }
     }
 
@@ -212,6 +202,34 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         likeTextView= (TextView) findViewById(R.id.tv_evaluate_likeNum);
         dislikeTextView= (TextView) findViewById(R.id.tv_evaluate_dislikeNum);
 
+
+        findViewById(R.id.btLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, LoginActivityNew.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (application.checkIsLogin()) {
+            findViewById(R.id.evaluate_linear).setVisibility(View.VISIBLE);
+            findViewById(R.id.evaluate_relate).setVisibility(View.VISIBLE);
+            findViewById(R.id.evaluateEmpty).setVisibility(View.GONE);
+
+        } else {
+            findViewById(R.id.evaluate_linear).setVisibility(View.GONE);
+            findViewById(R.id.evaluate_relate).setVisibility(View.GONE);
+            findViewById(R.id.evaluateEmpty).setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     private void initData(){
@@ -226,10 +244,16 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 			return;
 		}
 
+            if(content.trim()==""){//" " 这种也要限制
+                application.showMsg("请输入评论内容");
+                return;
+            }
+
         if(content.length()>300){
             application.showMsg("评价字数超过300，请重新输入");
             return;
         }
+
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("id", id));
 		params.add(new BasicNameValuePair("type", "0"));
@@ -329,22 +353,12 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        if(fromLinkedMe&&id!=null){
-            mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).
-                    putExtra("id", id).putExtra("isHuodong", 0));
-        }
-    }
-
-    @Override
     public void onBack(View view) {
         finish();
-        if(fromLinkedMe&&id!=null){
+        /*if(fromGetui &&id!=null){
             mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).
                     putExtra("id", id).putExtra("isHuodong", 0));
-        }
+        }*/
     }
 
 

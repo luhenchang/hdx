@@ -16,7 +16,6 @@ import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
 import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
-import com.accuvally.hdtui.activity.home.util.CommentActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
 import com.accuvally.hdtui.config.Config;
@@ -46,6 +45,8 @@ import java.util.List;
 public class GetuiPushMessageReceiver extends BroadcastReceiver {
 
     public static final String TAG="GetuiPushMessage";
+
+    public static final String ToCommentActivity="ToCommentActivity";
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
@@ -177,6 +178,7 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 		case 1:// 活动详情页 , op_value = 活动id
 			if (application.hasActivity(MainActivityNew.class)) {
 				intent.setClass(context, AccuvallyDetailsActivity.class);
+                intent.putExtra(GetuiPushMessageReceiver.ToCommentActivity, false);
 			} else {
 				intent.setClass(context, MainActivityNew.class);
 			}
@@ -220,14 +222,13 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
             String id=info.getOp_value();
 //            Log.e(TAG,"id="+id);
 //            Log.e(TAG,"**********");
-            intent.setClass(context, CommentActivity.class);
-            intent.putExtra(CommentActivity.FROM,"LINKEDME");
-            intent.putExtra(CommentActivity.ID, id);
+            intent.setClass(context, AccuvallyDetailsActivity.class);
+            intent.putExtra(GetuiPushMessageReceiver.ToCommentActivity, true);
+            intent.putExtra("id", id);
             context.startActivity(intent);
-
             break;
 		}
-		
+
 //		int requestCode = (int) SystemClock.uptimeMillis();
 //		PendingIntent pendIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 //

@@ -50,6 +50,7 @@ import com.accuvally.hdtui.model.DetailsTicketInfo;
 import com.accuvally.hdtui.model.FromInfo;
 import com.accuvally.hdtui.model.RegSuccessInfo;
 import com.accuvally.hdtui.model.SessionInfo;
+import com.accuvally.hdtui.push.GetuiPushMessageReceiver;
 import com.accuvally.hdtui.ui.CircleImageView;
 import com.accuvally.hdtui.ui.OverScrollView;
 import com.accuvally.hdtui.ui.pulltoloaddetail.PullLayout;
@@ -99,6 +100,8 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
 
 
     private String homeId;
+
+    private boolean ToCommentActivity=false;//是否加载完就跳转到评价界面
 
     private int isHuodong;//isHuodong 0表示活动行的，1表示活动推
 
@@ -165,6 +168,9 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
     private String statusStr;
 
     private boolean isStartBuyTicketThree;
+
+
+    public static final  int loginForComment=1;
 
 
     @Override
@@ -451,8 +457,12 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         homeId = getIntent().getStringExtra("id");
         isHuodong = getIntent().getIntExtra("isHuodong", 0);
         isRobTicket = getIntent().getBooleanExtra("isRobTicket", false);
+        ToCommentActivity = getIntent().getBooleanExtra(GetuiPushMessageReceiver.ToCommentActivity, false);
+
+
         llEnroll = findViewById(R.id.llEnroll);
         llRobTicket = findViewById(R.id.llIsRobTicket);
+
 //		setIsRobTicket();
     }
 
@@ -540,6 +550,9 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
                                 updateSpor();
                                 setupWebView();
                             }
+
+                            dealToCommentActivity();
+
                         }
                         break;
                     case Config.RESULT_CODE_ERROR:
@@ -549,6 +562,17 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
             }
         });
     }
+
+
+    //若是个推导向CommentActivity：
+    //1.没有登录，直接去登录界面
+    //2.登录之后，而且有评价权限，则去评价界面
+    private void dealToCommentActivity(){
+        if(ToCommentActivity){
+            evalute();
+        }
+    }
+
 
     // 活动行详情
     public void initAccuvally() {
@@ -758,17 +782,43 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    private void evalute() {
-        Intent Evaluateintent = new Intent(mContext, CommentActivity.class);
-        Evaluateintent.putExtra(CommentActivity.TITLE, detailsInfo.title);
-        Evaluateintent.putExtra(CommentActivity.TIME, detailsInfo.getStartutc());
-        Evaluateintent.putExtra(CommentActivity.LOCATION, detailsInfo.address);
-        Evaluateintent.putExtra(CommentActivity.LOGO, detailsInfo.logo);
-        Evaluateintent.putExtra(CommentActivity.ID, detailsInfo.id);
-        Evaluateintent.putExtra(CommentActivity.LIKENUM, detailsInfo.ZanUp);
-        Evaluateintent.putExtra(CommentActivity.DISLIKENUM, detailsInfo.ZanDown);
 
-        startActivity(Evaluateintent);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        application.showMsg("onActivityResult");
+        if(requestCode==loginForComment){
+            initDetails();//登录之后，再次刷新评价按钮
+            application.showMsg("onActivityResult");
+
+        }
+
+    }
+
+    private void evalute() {
+
+
+        if (!application.checkIsLogin()) {
+            Intent intent = new Intent(mContext, LoginActivityNew.class);
+            startActivityForResult(intent, loginForComment);
+            return;
+        }
+
+        if(detailsInfo.AllowReply){
+
+            Intent Evaluateintent = new Intent(mContext, CommentActivity.class);
+            Evaluateintent.putExtra(CommentActivity.TITLE, detailsInfo.title);
+            Evaluateintent.putExtra(CommentActivity.TIME, detailsInfo.getStartutc());
+            Evaluateintent.putExtra(CommentActivity.LOCATION, detailsInfo.address);
+            Evaluateintent.putExtra(CommentActivity.LOGO, detailsInfo.logo);
+            Evaluateintent.putExtra(CommentActivity.ID, detailsInfo.id);
+            Evaluateintent.putExtra(CommentActivity.LIKENUM, detailsInfo.ZanUp);
+            Evaluateintent.putExtra(CommentActivity.DISLIKENUM, detailsInfo.ZanDown);
+
+            startActivity(Evaluateintent);
+        }
+
+
     }
 
 
@@ -925,23 +975,27 @@ public class AccuvallyDetailsActivity extends BaseActivity implements View.OnCli
             case R.id.tvDetailsRegTicket:// 底部报名按钮点击报名
                 if (Utils.isFastDoubleClick())
                     return;
-                if (!detailsInfo.AllowReply) {//活动报名
-                    if (isHuodong == 1) {
-                        if (detailsInfo != null) {
-                            application.showMsg("该活动不提供报名");
-                        }
-                    } else {
-                        if (detailsInfo != null) {
-                            if (!application.checkIsLogin()) {// 没有登入,弹出对话框
-                                UnRegDialog();
-                                return;
+                if (detailsInfo != null){
+                    if (!detailsInfo.AllowReply) {//活动报名
+                        if (isHuodong == 1) {
+                            if (detailsInfo != null) {
+                                application.showMsg("该活动不提供报名");
                             }
-                            regTicket();
+                        } else {
+                            if (detailsInfo != null) {
+                                if (!application.checkIsLogin()) {// 没有登入,弹出对话框
+                                    UnRegDialog();
+                                    return;
+                                }
+                                regTicket();
+                            }
                         }
+                    } else {//活动评价
+                        evalute();
                     }
-                } else {//活动评价
-                    evalute();
                 }
+
+
                 break;
             case R.id.lyDetailsAddr:// 地图
                 if (Utils.isFastDoubleClick())
