@@ -460,5 +460,12 @@
     <string name="circle_wel">去【 %1$s】的活动圈里，与其他参与者一起聊聊吧！</string>
 
     <string name="announce_count">每天最多只能发送3次公告,今天已经发送%1$s次公告</string>
+    <string name="title_activity_set_category">SetCategory</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_refund">RefundActivity</string>
+    <string name="title_activity_comment_display">CommentDisplayActivity</string>
+    <string name="title_activity_consulation">ConsulationActivity</string>
 
 </resources>

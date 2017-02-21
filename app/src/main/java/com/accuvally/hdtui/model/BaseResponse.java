@@ -18,4 +18,13 @@ public class BaseResponse {
 	public String getResult() {
 		return result;
 	}
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }

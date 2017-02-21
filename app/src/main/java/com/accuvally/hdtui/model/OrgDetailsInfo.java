@@ -11,7 +11,7 @@ public class OrgDetailsInfo {
 	
 	private List<HomeEventInfo> Acts;
 	
-	private List<CommentInfo> Cmts; 
+//	public List<CommentInfoWithoutReply> Cmts;
 	
 	private OrgInfo Org;
 
@@ -23,13 +23,7 @@ public class OrgDetailsInfo {
 		Acts = acts;
 	}
 
-	public List<CommentInfo> getCmts() {
-		return Cmts;
-	}
 
-	public void setCmts(List<CommentInfo> cmts) {
-		Cmts = cmts;
-	}
 
 	public OrgInfo getOrg() {
 		return Org;

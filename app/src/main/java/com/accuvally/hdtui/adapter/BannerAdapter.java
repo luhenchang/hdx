@@ -64,19 +64,29 @@ public class BannerAdapter extends PagerAdapter {
 		((ViewPager) view).addView(layoutview, 0);
 		layoutview.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View positioin) {
-				if (Utils.isFastDoubleClick()) {
-					return;
-				}
-				dbManager.insertSaveBeHavior(application.addBeHavior(10, 0 + "", info.getId(), "", "", "", ""));
-				if (info.isOpenInWeb()) {
-					dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_BANNER", info.getUrl()));
-					Intent intent = new Intent(mContext, AccuvallyWebDetailsActivity.class).putExtra("loadingUrl", info.getUrl()).putExtra("injectJs", "");
-					mContext.startActivity(intent);
-				} else {
-					dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_BANNER", info.getId()));
-					Intent intent = new Intent(mContext, AccuvallyDetailsActivity.class).putExtra("isHuodong", 0).putExtra("id", info.getId());
+            @Override
+            public void onClick(View positioin) {
+                if (Utils.isFastDoubleClick()) {
+                    return;
+                }
+                dbManager.insertSaveBeHavior(application.addBeHavior(10, 0 + "", info.getId(), "", "", "", ""));
+                if (info.isOpenInWeb()) {
+
+                    String event_data = info.getUrl();
+                    if (!(event_data.contains("<") || event_data.contains("\""))) {
+                        dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_BANNER", info.getUrl()));
+                    }
+
+                    Intent intent = new Intent(mContext, AccuvallyWebDetailsActivity.class).putExtra("loadingUrl", info.getUrl()).putExtra("injectJs", "");
+                    mContext.startActivity(intent);
+                } else {
+
+                    String event_data = info.getUrl();
+                    if (!(event_data.contains("<") || event_data.contains("\""))) {
+                        dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_BANNER", info.getId()));
+                    }
+
+                    Intent intent = new Intent(mContext, AccuvallyDetailsActivity.class).putExtra("isHuodong", 0).putExtra("id", info.getId());
 					mContext.startActivity(intent);
 				}
 			}

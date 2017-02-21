@@ -12,10 +12,12 @@ public class Url {
 	public static final Boolean ISDEBUG = false;
 
 	public static final String ACCUPASS_BETA = "ACCUPASS_BETA";
-	
-	
 
-	/** 获取闪屏图片 **/
+
+
+
+
+    /** 获取闪屏图片 **/
 	public static final String GET_DYNAMIC_LOGO = ACCUPASS_SERVICE_URL2 + "/flash";
 	
 	/**意见反馈 **/
@@ -214,12 +216,25 @@ public class Url {
 	/** 详情验证 **/
 	public static final String ACCUPASS_HOME_DETAIL_SECRET = ACCUPASS_SERVICE_URL3 + "/account/secret";
 
+
+
+    public static final String UPLOAD_FILES = ACCUPASS_SERVICE_URL2 + "/upload/files";//上传文件
+
+    public static final String SET_CATEGORY_TAG = ACCUPASS_SERVICE_URL2 + "/user/set_category_tag";//设置标签
+    public static final String GET_PREQUERY_TAGS = ACCUPASS_SERVICE_URL2 + "/tag/get_prequery_tags";//获取标签
+
+    public static final String TICKET_REFUND = ACCUPASS_SERVICE_URL2 + "/tickets/refund";//退票
+
+
+
 	/** 获取用户标签 **/
 	public static final String ACCUPASS_GETUSERTAGS = ACCUPASS_SERVICE_URL2 + "/user/getutags";
 	/** 设置用户标签 **/
 	public static final String ACCUPASS_SETUSERTAGS = ACCUPASS_SERVICE_URL2 + "/user/setutags";
-	/** 取消票券 **/
-	public static final String REFUND_TICKET = ACCUPASS_SERVICE_URL2 + "/tickets/refund_ticket";
+
+
+//	/** 取消票券 **/
+//	public static final String REFUND_TICKET = ACCUPASS_SERVICE_URL2 + "/tickets/refund_ticket";
 	
 //	/** 票卷详情 **/
 //	public static final String GETTICKET = ACCUPASS_SERVICE_URL2 + "/tickets/detail";
@@ -330,4 +345,8 @@ public class Url {
 //	public static final String ACCUPASS_COMMENT_LIST = ACCUPASS_SERVICE_URL2 + "/comment/cms";
 //	/** 发表评论 **/
 	public static final String ACCUPASS_UPALOD_COMMENT = ACCUPASS_SERVICE_URL2 + "/comment/pub";
+
+    public static final String ACCUPASS_UPALOD_IMG_COMMENT = ACCUPASS_SERVICE_URL2 + "/comment/uploadImg";
+
+    public static final String ACCUPASS_GET_COMMENT = ACCUPASS_SERVICE_URL2 +"/comment/cms";
 }

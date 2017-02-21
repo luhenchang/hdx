@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical" >
+
+
+
+        <TextView
+            android:id="@+id/tvPhotograph"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_click_btn"
+            android:padding="15dp"
+            android:gravity="center"
+            android:text="拍摄"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@drawable/details_icon_line2" />
+
+
+
+        <TextView
+            android:id="@+id/tvAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/selector_click_btn"
+            android:padding="15dp"
+            android:text="相册"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/little_16" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/details_icon_line2" />
+
+
+    <TextView
+        android:id="@+id/dialog_select_picture_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/selector_click_btn"
+        android:padding="15dp"
+        android:text="取消"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/little_16" />
+
+</LinearLayout>

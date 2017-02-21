@@ -1,13 +1,13 @@
 package com.accuvally.hdtui.utils;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * SharedPreferences写入工具
@@ -81,7 +81,18 @@ public class SharedUtils {
 		}
 	}
 
-	public void writeBoolean(String key, Boolean value) {
+
+    public void writeLong(String key, long value) {
+        SharedPreferences share = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        if (share != null) {
+            Editor editor = share.edit();
+            editor.putLong(key, value);
+            editor.commit();
+        }
+    }
+
+
+    public void writeBoolean(String key, Boolean value) {
 		SharedPreferences share = context.getSharedPreferences("data", Context.MODE_PRIVATE);
 		if (share != null) {
 			Editor editor = share.edit();

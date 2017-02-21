@@ -10,29 +10,4 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/details_icon_line2"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/details_accu_publish_reminder"
-                android:textColor="@color/gary_title"
-                android:textSize="@dimen/little_16"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_horizontal"
-                android:text="@string/details_accu_publish_address"
-                android:textColor="@color/bule"
-                android:textSize="@dimen/little_16"
-                android:visibility="gone" />
         </LinearLayout>

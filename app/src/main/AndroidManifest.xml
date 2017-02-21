@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.accuvally.hdtui">
+    package="com.accuvally.hdtui" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -37,7 +37,7 @@
 
     <permission
         android:name="getui.permission.GetuiService.com.accuvally.hdtui"
-        android:protectionLevel="normal"></permission>
+        android:protectionLevel="normal" />
 
     <!-- 个推SDK权限配置===============结束 -->
     <application
@@ -46,20 +46,21 @@
         android:hardwareAccelerated="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="53df535efd98c5bd5e00d3ac"></meta-data>
+            android:value="53df535efd98c5bd5e00d3ac" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="stkGUbeonYDtqAwKFGLjRGGg" />
+
         <!-- 线上模式 LinkedME官网注册应用后,从"设置"页面获取该Key -->
         <meta-data
             android:name="linkedme.sdk.key"
-            android:value="linkedme_live_a92d4e678c6c5eff3483b97c5b971d67" />
+            android:value="a92d4e678c6c5eff3483b97c5b971d67" />
 
         <!-- test:8gfW40QbVc6ZYybNIWzZFLkW ,stkGUbeonYDtqAwKFGLjRGGg -->
 
@@ -84,7 +85,7 @@
         <activity
             android:name=".activity.entry.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -116,22 +117,34 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
 
-            <!--用于linkedme-->
+            <!-- 用于linkedme -->
             <intent-filter>
                 <data android:scheme="hdx" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
-
         </activity>
-        <!--最新  热门  附近-->
+
+        <!-- 用于linkedme跳转中介 -->
+        <activity
+            android:name=".activity.entry.LinkedMiddleActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="linkedme.sdk.auto_link_keys"
+                android:value="linkedme" />
+        </activity>
+
+        <!-- 最新  热门  附近 -->
         <activity
             android:name=".activity.home.HomeTypeActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-            <!--日历-->
+        <!-- 日历 -->
         <activity
             android:name=".activity.home.CalenderTypeActivity"
             android:hardwareAccelerated="true"
@@ -148,7 +161,7 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-            <!--未完成票券-->
+        <!-- 未完成票券 -->
         <activity
             android:name=".activity.UnfinishedActivity"
             android:screenOrientation="portrait"
@@ -171,8 +184,18 @@
         <activity
             android:name=".activity.home.AccuvallyDetailsActivity"
             android:excludeFromRecents="true"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+
+
+        <!-- 活动详情 -->
+        <activity
+            android:name=".activity.home.AccuvallyDetailsActivity2"
+            android:excludeFromRecents="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- 我的活动行 -->
         <activity
@@ -278,7 +301,7 @@
             android:name=".activity.mine.setting.RecommendActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-              <!--活动设定-->
+        <!-- 活动设定 -->
         <activity
             android:name=".activity.mine.setting.RemindActivity"
             android:screenOrientation="portrait"
@@ -298,11 +321,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- 活动评价 -->
-        <activity
-            android:name=".activity.home.util.CommentActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <!-- 地图 -->
         <activity
             android:name=".activity.home.util.MapsActivity"
@@ -388,11 +406,11 @@
             android:name=".activity.GeTuiWapActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-             <!-- 用户资料 -->
+        <!-- 用户资料 -->
         <activity
             android:name=".activity.message.user.UserDetailActivity"
             android:screenOrientation="portrait" />
-               <!--资料设置-->
+        <!-- 资料设置 -->
         <activity
             android:name=".activity.message.user.UserSettingActivity"
             android:screenOrientation="portrait" />
@@ -400,16 +418,20 @@
             android:name=".activity.message.user.UserOrgListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.mine.RefundActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.message.user.UserAccuActivity"
             android:screenOrientation="portrait" />
-              <!--我的同伴-->
+        <!-- 我的同伴 -->
         <activity
             android:name=".activity.mine.FriendsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.message.NewFriendActivity"
             android:screenOrientation="portrait" />
-        <!--申请信息-->
+        <!-- 申请信息 -->
         <activity
             android:name=".activity.message.ApplyFriendActivity"
             android:screenOrientation="portrait" />
@@ -418,18 +440,18 @@
             android:name=".activity.message.user.ReportActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-             <!--群公告-->
+        <!-- 群公告 -->
         <activity
             android:name=".activity.message.GroupAnnounceActivity"
             android:screenOrientation="portrait" />
-               <!--全部群成员-->
+        <!-- 全部群成员 -->
         <activity
             android:name=".activity.message.AllMemberActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".push.NotifyMessageReceiver">
+        <receiver android:name=".push.NotifyMessageReceiver" >
             <intent-filter>
-                <action android:name="com.accuvally.hdtui.NotifyMessageReceiver"></action>
+                <action android:name="com.accuvally.hdtui.NotifyMessageReceiver" />
             </intent-filter>
         </receiver>
 
@@ -440,11 +462,11 @@
             android:configChanges="orientation|keyboard"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true">
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -474,20 +496,22 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:permission="android.permission.BAIDU_LOCATION_SERVICE"
-            android:process=":remote">
+            android:process=":remote" >
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
 
         <!-- 友盟更新 -->
-       <!-- <service
+        <!--
+        <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService"></service>
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        -->
         <!-- 友盟更新END -->
         <!-- alipay sdk begin -->
         <activity
@@ -495,12 +519,12 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
         <!-- alipay sdk end -->
 
 
@@ -508,7 +532,7 @@
         <!-- 配置活动行用来上传个推IDReceiver -->
         <receiver
             android:name=".push.GetuiPushMessageReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.ZZu8NGNjTg6vzdWMIiIgw" />
             </intent-filter>
@@ -518,13 +542,13 @@
             android:name="com.igexin.sdk.PushService"
             android:exported="true"
             android:label="NotificationCenter"
-            android:process=":pushservice"></service>
+            android:process=":pushservice" />
         <service
             android:name="com.igexin.sdk.PushServiceUser"
             android:exported="true"
-            android:label="NotificationCenterUser"></service>
+            android:label="NotificationCenterUser" />
 
-        <receiver android:name="com.igexin.sdk.PushReceiver">
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -538,7 +562,7 @@
         </receiver>
         <receiver
             android:name="com.igexin.sdk.PushManagerReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.pushmanager" />
             </intent-filter>
@@ -550,7 +574,7 @@
             android:exported="false"
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.igexin.getuiext.activity.GetuiExtActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
@@ -567,7 +591,7 @@
         <!-- ======================leancloud配置========================== -->
         <service android:name="com.avos.avoscloud.PushService" />
 
-        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -577,6 +601,47 @@
         <service android:name=".MsgServices" />
         <!-- ======================leancloud配置========================== -->
 
+        <activity
+            android:name=".activity.entry.SetCategoryActivity"
+            android:label="@string/title_activity_set_category"
+            android:parentActivityName=".BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.accuvally.hdtui.BaseActivity" />
+        </activity>
+        <activity
+            android:name=".activity.home.comment.CommentDisplayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.home.comment.ImageBrowserActivity2"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.home.comment.CommentActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.home.comment.WxDemoActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" >
+        </activity>
+
+
+            <activity
+                android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+                android:theme="@style/ImagePickerThemeFullScreen"/>
+
+            <activity
+                android:name="com.lzy.imagepicker.ui.ImagePreviewActivity"
+                android:configChanges="orientation|screenSize"
+                android:theme="@style/ImagePickerThemeFullScreen" />
+
+        <activity
+            android:name=".activity.home.comment.ConsulationActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

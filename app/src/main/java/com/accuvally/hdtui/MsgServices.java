@@ -1,7 +1,5 @@
 package com.accuvally.hdtui;
 
-import java.util.List;
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
@@ -11,7 +9,6 @@ import com.accuvally.hdtui.model.MessageInfo;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -19,7 +16,17 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
+
+
+//MsgServices查找会话的所有消息：1.从leancloud后台拉数据，2.插入到本地数据库中，3.最后更新ui
+//        NotificationInfo   MessageInfo     SessionInfo
+//        消息来到时的监听处理：AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
+//        LeanCloud.querySession(); 查找用户的所有消息
+//        发送消息：mConversation.sendMessage(message, new AVIMConversationCallback())
+//        添加好友用的是后台的接口
 
 public class MsgServices extends IntentService {
 

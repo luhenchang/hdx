@@ -1,11 +1,5 @@
 package com.accuvally.hdtui.activity.home;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -40,6 +34,12 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -108,7 +108,7 @@ public class ProjectDetailsActivity extends BaseActivity implements OnClickListe
 		httpCilents.get(httpCilents.printURL(Url.NEWS, list), new WebServiceCallBack() {
 			public void callBack(int code, Object result) {
 				goneFailure();
-				lyLoading.setVisibility(8);
+				lyLoading.setVisibility(View.GONE);
 				if (code == Config.RESULT_CODE_SUCCESS) {
 					BaseResponse response = JSON.parseObject(result.toString(), BaseResponse.class);
 					if (response.isSuccess()) {
@@ -119,9 +119,8 @@ public class ProjectDetailsActivity extends BaseActivity implements OnClickListe
 							showFailure();
 						}
 					}
-					
 //					String content = Html.fromHtml(project.getNews().getContent()).toString();
-					shareUtils.initConfig(ProjectDetailsActivity.this, project.getTitle(), "", project.getLogo(), project.getUrl());
+					shareUtils.initConfig(ProjectDetailsActivity.this, project.getTitle(), project.getSummary(), project.getLogo(), project.getUrl());
 				} else {
 					application.showMsg(result.toString());
 					showWifi();
@@ -149,7 +148,7 @@ public class ProjectDetailsActivity extends BaseActivity implements OnClickListe
 		}
 
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			Log.i("info", url);
+			Log.e("ProjectDetailsActivity"," shouldOverrideUrlLoading url： "+ url);
 			if (url.indexOf("huodongxing.com/event") != -1 || url.indexOf("huodongxing.com/go") != -1) {
 				mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).putExtra("id", url).putExtra("isHuodong", 0));
 			} else {

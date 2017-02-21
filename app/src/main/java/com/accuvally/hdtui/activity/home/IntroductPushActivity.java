@@ -97,7 +97,7 @@ public class IntroductPushActivity extends BaseActivity implements OnClickListen
 		setTitle(getResources().getString(R.string.details_Introduction));
 
 		findViewById(R.id.llCollect).setOnClickListener(this);// 收藏
-		findViewById(R.id.llShare).setOnClickListener(this);// 分享
+		findViewById(R.id.llGroupChat).setOnClickListener(this);// 分享
 		findViewById(R.id.llIsRobTicket).setOnClickListener(this);// 抢票
 		tvDetailsRegTicket = (TextView) findViewById(R.id.tvDetailsRegTicket);
 		tvDetailsRegTicket.setOnClickListener(this);// 立即报名
@@ -237,7 +237,7 @@ public class IntroductPushActivity extends BaseActivity implements OnClickListen
 				showDialogShare(detailsInfo.title, detailsInfo.getStartutc(), detailsInfo.shareurl);
 			}
 			break;
-		case R.id.llShare:// 分享
+		case R.id.llGroupChat:// 分享
 //			if (!NetworkUtils.isNetworkAvailable(mContext)) {
 //				application.showMsg(R.string.network_check);
 //				return;

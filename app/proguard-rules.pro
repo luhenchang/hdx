@@ -65,6 +65,11 @@
 -keep class android.support.v4.** { *; }
 -keep interface android.support.v4.app.** { *; }
 -keep public class * extends android.support.v4.**
+
+-keep class android.support.v7.** { *; }
+-keep public class * extends android.support.v7.**
+-keep interface android.support.v7.app.** { *; }
+
 -keep public class * extends android.app.Fragment
 -keep class com.qihoo.gamead.res.** {*;}
 -keep class com.qihoo.channel.** {*;}

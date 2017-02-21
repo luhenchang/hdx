@@ -17,12 +17,12 @@
 
         <ImageView
             android:id="@+id/flash_logo_bottom"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/welcome_bg2" />
+            android:src="@drawable/welcome_bg3" />
     </LinearLayout>
 
     <TextView

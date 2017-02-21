@@ -27,6 +27,7 @@ import com.accuvally.hdtui.config.CityConstant;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
+import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.model.BannerInfo;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.HomeInfo;
@@ -180,6 +181,13 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("city", city));
 		EventBus.getDefault().post(new ChangeHomeLoaderEventBus(true));
+
+        if(!AccountManager.checkIsLogin()){
+            String str=application.sharedUtils.readString(Keys.select_categorys);
+            params.add(new BasicNameValuePair("categorytag", str));
+            Trace.e(TAG,"categorytag:"+ str);
+        }
+
 		httpCilents.get(httpCilents.printURL(Url.HOME_URL, params), new WebServiceCallBack() {
 
 			@Override
@@ -217,6 +225,12 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         pageIndex++;
         params.add(new BasicNameValuePair("pi", pageIndex + ""));
         Trace.e(TAG, "onLoadMore pageIndex" + pageIndex);
+
+        if(!AccountManager.checkIsLogin()){
+            String str=application.sharedUtils.readString(Keys.select_categorys);
+            params.add(new BasicNameValuePair("categorytag", str));
+            Trace.e(TAG,"categorytag:"+ str);
+        }
 
         params.add(new BasicNameValuePair("ps", pageSize + ""));
 //        params.add(new BasicNameValuePair("refreshcache", true + ""));刷新缓存

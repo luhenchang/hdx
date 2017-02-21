@@ -1,93 +1,37 @@
 package com.accuvally.hdtui.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-//获取评论
+/**
+ * Created by Andy Liu on 2016/11/23.
+ */
 public class CommentInfo implements Serializable {
-	
-	private String Id;
 
-	private String Rid;
+    public String logo;//评价人的头像地址
+    public String nick;//评价人姓名
+    public int zanstatus=0;//0没选，1喜欢，2不喜欢
+    public String createdate;//评价时间
 
-	private String Content;
-
-	private String CreateDate;
-
-	private String Logo;
-
-	private String Nick;
-
-    private int ReplyType;//回复类型（1=活动评价，2=活动咨询）
+    public String content;//评价内容
+    public String eventname;//评价的活动
+    public String eventid;//评价的活动
 
 
-    public String getImgs() {
-        return Imgs;
+    public ArrayList<String> imgs;//评价上传的图片 0-9张不等
+
+    public ArrayList<CommentReplyInfo> replays;//回复的内容 0-n条不等（可回复多次）
+
+    public String Id="0";//评论id
+    public String Rid;//回复id
+
+    public static class CommentReplyInfo implements Serializable{
+
+         public String commentName;//回复人的名字
+        public String commentContent;
+        public String Id;//评论id
+        public String Rid;//回复id
     }
 
-    public void setImgs(String imgs) {
-        Imgs = imgs;
-    }
-
-    private String Imgs;//图片CDN
-//    private List<String> Imgs;//图片CDN
-
-
-    public int getReplyType() {
-        return ReplyType;
-    }
-
-    public void setReplyType(int replyType) {
-        ReplyType = replyType;
-    }
-
-
-
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String id) {
-		Id = id;
-	}
-
-	public String getRid() {
-		return Rid;
-	}
-
-	public void setRid(String rid) {
-		Rid = rid;
-	}
-
-	public String getContent() {
-		return Content;
-	}
-
-	public void setContent(String content) {
-		Content = content;
-	}
-
-	public String getCreateDate() {
-		return CreateDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		CreateDate = createDate;
-	}
-
-	public String getLogo() {
-		return Logo;
-	}
-
-	public void setLogo(String logo) {
-		Logo = logo;
-	}
-
-	public String getNick() {
-		return Nick;
-	}
-
-	public void setNick(String nick) {
-		Nick = nick;
-	}
 
 }

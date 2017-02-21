@@ -59,7 +59,7 @@ public class HomeDetailsInfo implements Serializable {
 
 	private List<String> Tags;
 
-	private List<CommentInfo> Cmts;
+//	private List<CommentInfoWithoutReply> Cmts;
 
 	private List<DetailsTicketInfo> Ticks;
 
@@ -233,14 +233,16 @@ public class HomeDetailsInfo implements Serializable {
 	public void setTags(List<String> tags) {
 		Tags = tags;
 	}
+/*
 
-	public List<CommentInfo> getCmts() {
+	public List<CommentInfoWithoutReply> getCmts() {
 		return Cmts;
 	}
 
-	public void setCmts(List<CommentInfo> cmts) {
+	public void setCmts(List<CommentInfoWithoutReply> cmts) {
 		Cmts = cmts;
 	}
+*/
 
 	public List<DetailsTicketInfo> getTicks() {
 		return Ticks;

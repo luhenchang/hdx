@@ -45,7 +45,10 @@ public class ShareUtils {
 
 	public void initConfig(Activity activity, String title, String content,
                            String logoUrl, String loadingUrl) {
-
+        /*if(AccountManager.checkIsLogin()){
+            loadingUrl=loadingUrl+"&td="+AccountManager.getAccount();
+        }
+        Trace.e("TAG",loadingUrl);*/
 		mController.getConfig().setSsoHandler(new SinaSsoHandler());
 		mController.getConfig().setSsoHandler(new QZoneSsoHandler(activity,
                 Config.QZONE_APPID, Config.QZONE_APPKEY));

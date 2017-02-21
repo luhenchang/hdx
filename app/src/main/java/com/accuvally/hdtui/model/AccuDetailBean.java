@@ -79,6 +79,10 @@ public class AccuDetailBean implements Serializable {
 
     public int orgstatus;
 
+
+    public  int commentlistcount;
+    public  int consultlistcount;
+
 	/** 活动开始本地时间 **/
 	public String getStartutc() {
 		return TimeUtils.utcToLocal(startutc);

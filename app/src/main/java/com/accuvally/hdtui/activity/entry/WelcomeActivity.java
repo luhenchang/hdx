@@ -27,12 +27,16 @@ import com.accuvally.hdtui.BuildConfig;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.config.Config;
+import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
+import com.accuvally.hdtui.ui.SplashUtils;
+import com.accuvally.hdtui.utils.ActivityUtils;
 import com.accuvally.hdtui.utils.FileUtils;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.SharedUtils;
+import com.accuvally.hdtui.utils.Trace;
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -60,6 +64,9 @@ public class WelcomeActivity extends Activity {
 
 	protected boolean OpendIndetail;
 
+    private boolean isAgainSplash=false;//
+    public static final String IS_AGAIN_SPLASH="IS_AGAIN_SPLASH";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +74,9 @@ public class WelcomeActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_welcome);
+
+        isAgainSplash=getIntent().getBooleanExtra(IS_AGAIN_SPLASH,false);
+
 		application = (AccuApplication) getApplication();
 		Intent i_getvalue = getIntent();
 		String action = i_getvalue.getAction();
@@ -99,41 +109,22 @@ public class WelcomeActivity extends Activity {
 			}
 		}
 
-//		lyLogo = (LinearLayout) findViewById(R.id.lyLogo);
-//		ivLogo = (ImageView) findViewById(R.id.ivLogo);
-//		lyLogoYingyongBao = (LinearLayout) findViewById(R.id.lyLogoYingyongBao);
-//		if (Config.UMENG_CHANNEL_360.equals(Utils.getChannel(this))) {
-//			ivLogo.setBackgroundResource(R.drawable.welcome_360_bg);
-//		} else if (Config.UMENG_CHANNEL_91ZHUSHOU.equals(Utils.getChannel(this)) || Config.UMENG_CHANNEL_ANDROID.equals(Utils.getChannel(this)))
-//			ivLogo.setBackgroundResource(R.drawable.welcome_channal_91_anzhuo_bg);
-//		else if (Config.UMENG_CHANNEL_HUAWEI.equals(Utils.getChannel(this))) {
-//			ivLogo.setBackgroundResource(R.drawable.welcome_huawei_bg);
-//		} else if (Config.UMENG_CHANNEL_YINGYONGBAO.equals(Utils.getChannel(this))) {
-//			lyLogoYingyongBao.setVisibility(View.VISIBLE);
-//			lyLogo.setVisibility(View.GONE);
-//		} else if (Config.UMENG_CHANNEL_BAIDU.equals(Utils.getChannel(this))) {
-//			ivLogo.setBackgroundResource(R.drawable.welcome_baidu_bg);
-//		} else
-//			lyLogo.setVisibility(View.GONE);
-
 		sharedUtils = new SharedUtils(this);
 
 		next();
 		
-		Log.d("build", "{"+new Date(System.currentTimeMillis()).toLocaleString()+"}");
+//		Log.d("build", "{"+new Date(System.currentTimeMillis()).toLocaleString()+"}");
 	}
 
 	private void next() {
 		// 第一次进入直接启动引导页
+//        Trace.e("registActivityLifeCycle","saveSplashTimeInPre");
 		isFirstIn = sharedUtils.readBoolean("isFirstIn");
 		if (!isFirstIn) {
-            //首次登录进入引导页
-			mHandle.postDelayed(delayGuide, 3000);
+			mHandle.postDelayed(delayGuide, 3000);//首次登录进入引导页
 		} else {
 			// 判断当前的MainActivityNew是否已经启动了,如果已经启动直接跳转
 			long delay = 0;
-			if (application.hasActivity(MainActivityNew.class)) {
-			} else {
 				String url = sharedUtils.readString("flash_logourl");
 				// 没有闪屏
 				if (TextUtils.isEmpty(url)) {
@@ -148,15 +139,17 @@ public class WelcomeActivity extends Activity {
 					// 闪屏停留 5秒，然后消失
 					delay = 5000;
 				}
-			}
 
-			if (BuildConfig.DEBUG) {
-				delay = 0;
-			}
-            //进入主页
-			mHandle.postDelayed(delayMain, delay);
+
+            if(isAgainSplash){
+                mHandle.postDelayed(delayFinish, delay);
+            }else {
+                mHandle.postDelayed(delayMain, delay);//显示welcome几秒之后进入主页
+            }
+
+
 		}
-		getDynamicLogo();
+		getDynamicLogo();//动态读取LOGO,下次展示
 	}
 	 
 	/**
@@ -194,7 +187,7 @@ public class WelcomeActivity extends Activity {
 	
 
 	/**
-	 * 动态读取LOGO
+	 * 展示动态LOGO
 	 */
 	private void displayDynamicLogo() {
 		String logourl = sharedUtils.readString("flash_logourl");
@@ -215,6 +208,7 @@ public class WelcomeActivity extends Activity {
 
 			@Override
 			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                //如果flash_logourl有url，而且加载成功，则显示动态的网络logo
 				findViewById(R.id.static_logolayout).setVisibility(View.GONE);
 				findViewById(R.id.sync_logolayout).setVisibility(View.VISIBLE);
 				ImageView img = (ImageView) findViewById(R.id.flash_logo);
@@ -256,7 +250,7 @@ public class WelcomeActivity extends Activity {
 	}
 
 	/**
-	 * 动态读取LOGO
+	 * 动态读取LOGO,不展示
 	 */
 	private void getDynamicLogo() {
 		HttpCilents httpCilents = new HttpCilents(WelcomeActivity.this);
@@ -317,15 +311,25 @@ public class WelcomeActivity extends Activity {
 		});
 	}
 
+
+    // 再次闪屏的时候直接删除自己
+    private Runnable delayFinish = new Runnable() {
+
+        @Override
+        public void run() {
+            mHandle.removeCallbacks(this, null);
+            finish();
+        }
+    };
+
 	// 主页
 	private Runnable delayMain = new Runnable() {
 
 		@Override
 		public void run() {
 			mHandle.removeCallbacks(this, null);
-			Intent intent = new Intent(WelcomeActivity.this, MainActivityNew.class);
-			startActivity(intent);
-			finish();
+            ActivityUtils.toNext(WelcomeActivity.this);
+            finish();
 		}
 	};
 
@@ -343,7 +347,12 @@ public class WelcomeActivity extends Activity {
 
 	public void skip(View view) {
 		ImageLoader.getInstance().cancelDisplayTask(((ImageView) findViewById(R.id.flash_logo)));
-		mHandle.post(delayMain);
+        if(isAgainSplash){
+            mHandle.post(delayFinish);//跳过
+        }else {
+            mHandle.post(delayMain);//跳过，进入主页
+        }
+
 	}
 
 	public long getCacheSize() {

@@ -36,12 +36,14 @@ public class ImageBig {
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			opts.inJustDecodeBounds = true;
-			BitmapFactory.decodeFile(filename, opts);
+			BitmapFactory.decodeFile(filename, opts);//把文件转为bitmap
 			int srcWidth = opts.outWidth;
 			int srcHeight = opts.outHeight;
+//            Trace.e("scalePicture 原来尺寸","srcWidth："+srcWidth+"  srcHeight:"+srcHeight);
 			if (srcWidth <= maxWidth && srcHeight <= maxHeight) {
 				return filename;
 			}
+
 			int desWidth = 0;
 			int desHeight = 0;
 			double ratio = 0.0;
@@ -55,13 +57,26 @@ public class ImageBig {
 				desWidth = (int) (srcWidth / ratio);
 			}
 			BitmapFactory.Options newOpts = new BitmapFactory.Options();
+
+//            如果被设置为一个值> 1,要求解码器解码出原始图像的一个子样本,返回一个较小的bitmap,以节省存储空间。
+//            例如,inSampleSize = = 2，则取出的缩略图的宽和高都是原始图片的1/2，图片大小就为原始大小的1/4。
+//            对于任何值< = 1的同样处置为1。
 			newOpts.inSampleSize = (int) (ratio) + 1;
 			newOpts.inJustDecodeBounds = false;
+//inJustDecodeBounds  如果该 值设为true那么将不返回实际的bitmap，也不给其分配内存空间这样就避免内存溢出了。
+// 但是允许我们查询图片的信息这其中就包括图片大小信息
 			newOpts.outWidth = desWidth;
 			newOpts.outHeight = desHeight;
-			bitmap = BitmapFactory.decodeFile(filename, newOpts);
+			bitmap = BitmapFactory.decodeFile(filename, newOpts);//Decode a file path into a bitmap.
+
+//            Trace.e("scalePicture bitmap.get()", "desWidth/ratio：" + desWidth / ratio + "  desHeight/ratio:"+desHeight/ratio);
+//
+//            Trace.e("scalePicture 计算","bitmap.getWidth()："+bitmap.getWidth()+"  bitmap.getHeight():"+bitmap.getHeight());
+
 			// 读取图片旋转角度
 			final int angle = PickPhoto.readPictureDegree(filename);
+//            Trace.e("scalePicture 读取图片旋转角度","angle："+angle);
+
 			bitmap2 = PickPhoto.rotaingImageView(angle, bitmap);
 			url = new FileCache(context).getImageCacheDir().getAbsolutePath() + "/M" + System.currentTimeMillis() + ".jpg";
 			FileOutputStream out = new FileOutputStream(url);

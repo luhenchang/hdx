@@ -87,28 +87,6 @@
             android:padding="5dp" >
 
             <TextView
-                android:id="@+id/tvShareSina"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/selector_share_sina_btn"
-                android:gravity="center"
-                android:text="@string/dialog_share_sina"
-                android:textColor="@color/share" />
-
-            <TextView
-                android:id="@+id/tvShareQzone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/selector_share_qzone_btn"
-                android:gravity="center"
-                android:text="@string/dialog_share_qq"
-                android:textColor="@color/share" />
-
-            <TextView
                 android:id="@+id/tvSharewx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,16 +96,6 @@
                 android:gravity="center"
                 android:text="@string/dialog_share_wx"
                 android:textColor="@color/share" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp" >
 
             <TextView
                 android:id="@+id/tvSharewxpy"
@@ -138,6 +106,39 @@
                 android:drawableTop="@drawable/selector_share_wxpy_btn"
                 android:gravity="center"
                 android:text="@string/dialog_share_wx_py"
+                android:textColor="@color/share" />
+
+            <TextView
+                android:id="@+id/tvShareSina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_sina_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_sina"
+                android:textColor="@color/share" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/tvShareQzone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableTop="@drawable/selector_share_qzone_btn"
+                android:gravity="center"
+                android:text="@string/dialog_share_qq"
                 android:textColor="@color/share" />
 
             <TextView

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -40,30 +39,261 @@
                     android:spacing="30dp" />
             </RelativeLayout>
 
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="vertical"
+                              android:layout_height="wrap_content">
+                    <!--========金额======-->
+                    <RelativeLayout
+                        android:id="@+id/ll_pay_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_click_btn"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="实付金额"
+                            android:textColor="@color/txt_gray"
+                            android:textSize="@dimen/little_16" />
+
+                        <TextView
+                            android:id="@+id/tvActuallypaid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0.0"
+                            android:textColor="@color/txt_gray"
+                            android:textSize="@dimen/little_16" />
+
+                        <FrameLayout android:layout_width="wrap_content"
+                                     android:layout_toLeftOf="@id/tvActuallypaid"
+                                     android:layout_marginRight="10dp"
+                                     android:visibility="gone"
+                                     android:layout_centerVertical="true"
+                                     android:id="@+id/frame_Ticketprice"
+                                     android:layout_height="wrap_content">
+
+                            <ImageView android:layout_width="match_parent"
+                                       android:src="@drawable/line_custom1"
+                                       android:layout_gravity="center"
+                                       android:layout_height="1dp"/>
+                            <TextView
+                                android:id="@+id/tvTicketprice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_alignParentRight="true"
+                                android:text=""
+                                android:textColor="@color/txt_gray2"
+                                android:textSize="@dimen/little_14" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@drawable/details_icon_line2" />
+
+                    <!--========票种======-->
+                    <RelativeLayout
+                        android:id="@+id/ll_ticket_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_click_btn"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="票种"
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                        <TextView
+                            android:id="@+id/tv_ticket_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                    </RelativeLayout>
+
+                    <!--========状态======-->
+                    <RelativeLayout
+                        android:id="@+id/ll_ticket_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_click_btn"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="状态"
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                        <TextView
+                            android:id="@+id/tv_ticket_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                    </RelativeLayout>
+
+                    <!--========姓名======-->
+                    <RelativeLayout
+                        android:id="@+id/ll_ticket_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_click_btn"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="姓名"
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                        <TextView
+                            android:id="@+id/tv_ticket_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                    </RelativeLayout>
+
+
+                    <!--========电话======-->
+                    <RelativeLayout
+                        android:id="@+id/ll_ticket_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_click_btn"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="电话"
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                        <TextView
+                            android:id="@+id/tv_ticket_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            android:textColor="@color/txt_gray2"
+                            android:textSize="@dimen/little_14" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <ImageView android:layout_width="wrap_content"
+                           android:src="@drawable/label_checked"
+                           android:id="@+id/iv_label_checked"
+                           android:layout_gravity="right"
+                           android:layout_marginTop="20dp"
+                           android:visibility="gone"
+                           android:layout_marginRight="50dp"
+                           android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/details_icon_line2" />
+
+
+            <!--========票券说明======-->
+            <LinearLayout
+                android:id="@+id/ll_ticket_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_click_btn"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="票券说明"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/little_16" />
+                <TextView
+                    android:id="@+id/tv_ticket_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/txt_gray2"
+                    android:textSize="@dimen/little_14" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#f0f0f0" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:id="@+id/ll_creator"
+                android:background="@drawable/selector_click_btn"
                 android:layout_height="wrap_content" >
 
-                <com.accuvally.hdtui.ui.CircleImageView
-                    android:id="@+id/ivUserLogo"
+                <ImageView
+                    android:id="@+id/ivCreatorLogo"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/user_name"
-                    app:border_color="@color/txt_green"
-                    app:border_width="2dp" />
+                    android:src="@drawable/user_name"/>
 
                 <TextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvCreatorName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/ivUserLogo"
+                    android:layout_toRightOf="@id/ivCreatorLogo"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/gary_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="#76bf47"
                     android:textSize="@dimen/little_14" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tvCreatorName"
+                    android:padding="10dp"
+                    android:text="主办"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/txt_gray2"
+                    android:textSize="@dimen/little_14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawableRight="@drawable/details_jiantou_bg"/>
             </RelativeLayout>
 
             <View
@@ -76,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_click_btn"
-                android:drawableLeft="@drawable/details_time_icon_bg"
+                android:drawableLeft="@drawable/details_date_icon_bg"
                 android:drawablePadding="10dp"
                 android:gravity="center|left"
                 android:padding="10dp"
@@ -102,34 +332,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/details_address_icon_bg"
+                    android:drawableLeft="@drawable/details_address_icon_bg2"
                     android:drawablePadding="10dp"
                     android:gravity="center|left"
                     android:singleLine="true"
                     android:textColor="@color/gary_content"
                     android:textSize="@dimen/little_16" />
+                <ImageView android:layout_width="wrap_content"
+                          android:src="@drawable/icon_navi"
+                           android:layout_gravity="center"
+                          android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@drawable/details_icon_line2" />
-
-            <TextView
-                android:id="@+id/tvAccuvallyDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_click_btn"
-                android:drawableRight="@drawable/details_jiantou_bg"
-                android:padding="10dp"
-                android:text="活动详情"
-                android:textColor="@color/txt_gray"
-                android:textSize="@dimen/little_16" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@drawable/details_icon_line2" />
+                android:layout_height="5dp"
+                android:background="#f0f0f0" />
 
             <TextView
                 android:id="@+id/tvRefundTicket"
@@ -137,17 +356,35 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_click_btn"
                 android:clickable="true"
-                android:drawableRight="@drawable/details_jiantou_bg"
                 android:padding="10dp"
-                android:text="取消票券"
-                android:textColor="@color/txt_gray"
-                android:textSize="@dimen/little_16"
-                android:visibility="gone" />
+                android:text=""
+                android:gravity="center"
+                android:textColor="@color/txt_gray2"
+                android:textSize="@dimen/little_16"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@drawable/details_icon_line2" />
+                android:layout_height="10dp"
+                android:background="#f0f0f0" />
+            <LinearLayout android:layout_width="match_parent"
+                          android:background="#f0f0f0"
+                          android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvRefundtip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/txt_gray2"
+                    android:textSize="@dimen/little_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#f0f0f0" />
+
         </LinearLayout>
     </com.accuvally.hdtui.ui.OverScrollView>
 

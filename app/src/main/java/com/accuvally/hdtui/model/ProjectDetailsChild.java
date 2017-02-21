@@ -7,6 +7,8 @@ public class ProjectDetailsChild {
 	private String Url;
 	private String Content;
 	private String PublishDate;
+    private String summary;
+
 
 	public String getId() {
 		return Id;

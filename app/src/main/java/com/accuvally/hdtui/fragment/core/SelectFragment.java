@@ -83,11 +83,11 @@ public class SelectFragment extends BaseFragment implements IXListViewListener, 
 		mListView = (XListView) view.findViewById(R.id.listview);
 		lySelTime = (LinearLayout) view.findViewById(R.id.lySelTime);
 		lySelTag = (LinearLayout) view.findViewById(R.id.lySelTag);
-		lySelType = (LinearLayout) view.findViewById(R.id.lySelType);
+		lySelType = (LinearLayout) view.findViewById(R.id.lySelType);//价位
 		ivOrg = (ImageView) view.findViewById(R.id.ivOrg);
 		tvSelTime = (TextView) view.findViewById(R.id.tvSelTime);
 		tvSelType = (TextView) view.findViewById(R.id.tvSelType);
-		tvSelPrice = (TextView) view.findViewById(R.id.tvSelPrice);
+		tvSelPrice = (TextView) view.findViewById(R.id.tvSelPrice);//价位
 
 		mListView.setXListViewListener(this);
 		lySelTime.setOnClickListener(this);

@@ -1,0 +1,212 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#f0f0f0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include layout="@layout/activity_header_new" />
+
+   <ScrollView android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+   <LinearLayout android:layout_width="match_parent"
+                 android:orientation="vertical"
+                 android:layout_height="match_parent">
+       <LinearLayout android:layout_width="match_parent"
+                     android:orientation="horizontal"
+                     android:background="#fbf4dd"
+                     android:paddingTop="10dp"
+                     android:paddingBottom="10dp"
+                     android:layout_height="wrap_content">
+
+           <ImageView android:layout_width="wrap_content"
+                      android:src="@drawable/icon_refund_tip"
+                      android:layout_marginLeft="10dp"
+                      android:layout_gravity="center"
+                      android:layout_height="wrap_content"/>
+
+           <TextView android:layout_width="wrap_content"
+                     android:textColor="#f65c5c"
+                     android:textSize="@dimen/text_size_small"
+                     android:layout_marginLeft="10dp"
+                     android:text="取消报名后将无法恢复，你确定不参加活动吗？\n已付费项目，退款将收取10%手续费，详情见退款说明。"
+                     android:layout_height="wrap_content"/>
+
+       </LinearLayout>
+
+
+       <!--==============退款金额及路径=========================-->
+      <LinearLayout android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_refund_amount_lujin"
+                    android:layout_height="wrap_content">
+          <RelativeLayout android:layout_width="match_parent"
+                          android:background="@drawable/selector_about_btn"
+                          android:layout_marginTop="10dp"
+                          android:paddingTop="10dp"
+                          android:paddingBottom="10dp"
+                          android:layout_height="wrap_content">
+              <TextView android:layout_width="wrap_content"
+                        android:text="退款金额"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/refund_tuikuan"
+                        android:textSize="@dimen/text_size_middle"
+                        android:textColor="@color/txt_gray"
+                        android:layout_height="wrap_content"/>
+
+              <TextView android:layout_width="wrap_content"
+                        android:text="(已扣除10%手续费)"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/refund_tuikuan"
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/txt_gray2"
+                        android:layout_height="wrap_content"/>
+
+              <TextView android:layout_width="wrap_content"
+                        android:text=""
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/refund_amount"
+                        android:textSize="@dimen/text_size_middle"
+                        android:textColor="#ff8b2d"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout android:layout_width="match_parent"
+                          android:background="@drawable/selector_about_btn"
+                          android:layout_marginTop="10dp"
+                          android:paddingTop="10dp"
+                          android:paddingBottom="10dp"
+                          android:layout_height="wrap_content">
+              <TextView android:layout_width="wrap_content"
+                        android:text="退回原账户"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="@dimen/text_size_middle"
+                        android:textColor="@color/txt_gray"
+                        android:layout_height="wrap_content"/>
+
+
+
+              <ImageView android:layout_width="wrap_content"
+                         android:src="@drawable/icon_refund_complete"
+                         android:layout_alignParentRight="true"
+                         android:layout_marginRight="10dp"
+                         android:layout_height="wrap_content"/>
+
+
+          </RelativeLayout>
+      </LinearLayout>
+
+       <!--==============退款原因========================-->
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           android:background="@color/white"
+           android:orientation="vertical">
+
+           <LinearLayout android:layout_width="match_parent"
+                         android:paddingTop="10dp"
+                         android:orientation="horizontal"
+                         android:paddingBottom="10dp"
+                         android:layout_height="wrap_content">
+               <TextView android:layout_width="wrap_content"
+                         android:text="请填写详细原因"
+                         android:layout_marginLeft="10dp"
+                         android:textSize="@dimen/text_size_middle"
+                         android:textColor="@color/txt_gray"
+                         android:layout_height="wrap_content"/>
+
+               <TextView android:layout_width="wrap_content"
+                         android:text="(必填，限200字)"
+                         android:layout_marginLeft="10dp"
+                         android:textSize="@dimen/text_size_small"
+                         android:textColor="@color/txt_gray2"
+                         android:layout_height="wrap_content"/>
+
+           </LinearLayout>
+
+           <View android:layout_width="match_parent"
+                 android:background="#f0f0f0"
+                 android:layout_height="0.5dp"/>
+
+           <EditText
+               android:id="@+id/refund_comment"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@null"
+               android:layout_gravity="top|left"
+               android:layout_marginTop="5dp"
+               android:gravity="top"
+               android:inputType="textMultiLine"
+               android:minLines="4"
+               android:paddingLeft="10dp"
+               android:textSize="@dimen/text_size_middle" />
+       </LinearLayout>
+
+
+       <!--==============退款说明=========================-->
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           android:id="@+id/ll_refund_tip"
+           android:background="@color/white"
+           android:orientation="vertical">
+
+           <TextView android:layout_width="wrap_content"
+                     android:text="退款说明"
+                     android:paddingTop="5dp"
+                     android:paddingBottom="5dp"
+                     android:layout_marginLeft="10dp"
+                     android:textSize="@dimen/text_size_middle"
+                     android:textColor="@color/txt_gray"
+                     android:layout_height="wrap_content"/>
+
+
+
+           <View android:layout_width="match_parent"
+                 android:background="#f0f0f0"
+                 android:layout_height="0.5dp"/>
+
+           <TextView android:layout_width="wrap_content"
+                     android:text="1、活动开始前24的小时内不可退票"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginTop="5dp"
+                     android:textSize="@dimen/text_size_small"
+                     android:textColor="@color/txt_gray2"
+                     android:layout_height="wrap_content"/>
+           <TextView android:layout_width="wrap_content"
+                     android:text="2、如需退票活动行将收取原票价10%的退票手续费"
+                     android:layout_marginLeft="10dp"
+                     android:textSize="@dimen/text_size_small"
+                     android:textColor="@color/txt_gray2"
+                     android:layout_height="wrap_content"/>
+           <TextView android:layout_width="wrap_content"
+                     android:text="3、活动行将在收到主办方通知后的5个工作日内处理退票"
+                     android:layout_marginLeft="10dp"
+                     android:textSize="@dimen/text_size_small"
+                     android:textColor="@color/txt_gray2"
+                     android:layout_height="wrap_content"/>
+       </LinearLayout>
+
+
+       <Button
+           android:id="@+id/refund_submit"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="20dp"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:layout_marginBottom="20dp"
+           android:text="提交"
+           android:textSize="@dimen/text_size_middle"
+           android:textColor="#1a1a1a"
+           android:background="@drawable/refund_bg_dis"/>
+   </LinearLayout>
+
+   </ScrollView>
+
+
+</LinearLayout>

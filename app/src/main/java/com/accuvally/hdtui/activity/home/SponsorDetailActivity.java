@@ -25,7 +25,6 @@ import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.SponsorDetailBean;
 import com.accuvally.hdtui.model.SponsorDetailOrg;
 import com.accuvally.hdtui.ui.PagerSlidingTabStrip;
-import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.utils.DialogUtils;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.ShareUtils;
@@ -33,7 +32,6 @@ import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeAttentionState;
 import com.alibaba.fastjson.JSON;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -55,16 +53,13 @@ public class SponsorDetailActivity extends BaseActivity implements OnClickListen
 
 	private ViewPager viewpager;
 	private PagerSlidingTabStrip tabStrip;
-	private XListView mListView;
-	private View headView;
 
 	private List<Fragment> fragments = new ArrayList<Fragment>();
 
 	private String orgId;
 	private SponsorDetailBean bean;
 	private SponsorDetailOrg orgBean;
-	private Dialog attentionDialog;
-	private DisplayImageOptions options;
+
 	private boolean hasAttention = true;
 	private boolean isAttentioning = false;
 	private boolean hasRequested = false;

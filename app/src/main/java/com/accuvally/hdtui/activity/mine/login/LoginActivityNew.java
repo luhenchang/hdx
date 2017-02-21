@@ -17,12 +17,14 @@ import android.widget.TextView;
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.config.Config;
+import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.ThreeLoginInfo;
 import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.ui.EditTextWithDel;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
+import com.accuvally.hdtui.utils.LoginUtil;
 import com.accuvally.hdtui.utils.ThreeLoginUtils;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Util;
@@ -241,7 +243,8 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 						application.sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, obj.getString("token"));
 //                        application.sharedUtils.writeString(Keys.logintype, "logintype_password");
 						getUserInfo(userName, password);
-					} else {
+                        postTag();//帐号登录
+                    } else {
 						application.showMsg(info.getMsg());
 					}
 					break;
@@ -383,7 +386,7 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 							application.sharedUtils.writeBoolean(Config.IS_SAME_ACCOUNT, false);
 						}
 						application.sharedUtils.writeString("accountId", userInfo.getAccount());
-						Log.i("Login", "phone:" + userInfo.getPhone());
+//						Log.i("Login", "phone:" + userInfo.getPhone());
 						// if
 						// (application.sharedUtils.readBoolean("isSynchronous"))
 						// {
@@ -392,7 +395,9 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 						// }
 						// }
 						application.leanCloudLogin(userInfo.getAccount());
-						EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGIN));
+                        EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGIN));
+
+                        postTag();//第三方登录
 						finish();
 					} else {
 						application.showMsg(msgInfo.getMsg());
@@ -405,6 +410,11 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 			}
 		});
 	}
+
+    private void postTag(){
+        String str=application.sharedUtils.readString(Keys.select_categorys);
+        LoginUtil.setCategory(httpCilents,str);
+    }
 
 	@Override
 	public void onClick(View v) {

@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="#f0f0f0"
+              android:orientation="vertical"
+                android:layout_height="match_parent">
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+        <include layout="@layout/activity_header_new" />
+
+        <TextView android:layout_width="wrap_content"
+                   android:layout_gravity="right|center_vertical"
+                   android:padding="10dp"
+                  android:id="@+id/consulation_rewrite"
+                  android:layout_marginRight="10dp"
+                  android:text="重写"
+                   android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center|top"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/feedback_content_icon_bg" />
+
+        <EditText
+            android:id="@+id/edContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="限50个字"
+
+            android:inputType="textMultiLine"
+            android:minLines="8"
+            android:paddingLeft="5dp"
+            android:textSize="@dimen/text_size_middle" />
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/commit_consulation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_middle"
+        android:textColor="#ffffff"
+        android:background="@drawable/selector_wane_green"
+        android:text="提交" >
+    </Button>
+
+</LinearLayout>

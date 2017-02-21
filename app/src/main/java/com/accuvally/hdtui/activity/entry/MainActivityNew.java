@@ -95,6 +95,8 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 
 	private RelativeLayout header;
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="10dp"
+                  android:layout_height="wrap_content">
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="附件"
+                  android:textColor="@color/gary_title"
+                  android:textSize="@dimen/text_size_middle"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="*"
+                  android:id="@+id/file_form_require"
+                  android:textColor="@color/red2"
+                  android:textSize="@dimen/text_size_middle"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text=":"
+                  android:textColor="@color/gary_title"
+                  android:textSize="@dimen/text_size_middle"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ImageView android:layout_width="wrap_content"
+               android:id="@+id/file_form_add"
+               android:src="@drawable/file_form_add_bg"
+               android:padding="10dp"
+               android:layout_height="wrap_content"/>
+
+    <RelativeLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="10dp"
+                    android:visibility="gone"
+                  android:id="@+id/ll_file_form_display"
+                  android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/file_form_display_icon"
+                   android:layout_centerVertical="true"
+                   android:id="@+id/file_form_display_id"
+                   android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:textColor="@color/gary_title"
+                  android:textSize="@dimen/text_size_middle"
+                  android:id="@+id/file_form_fileName"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:layout_toRightOf="@id/file_form_display_id"
+                  android:text="xxx"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:src="@drawable/file_form_remove"
+                   android:id="@+id/file_form_remove_id"
+                   android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                   android:layout_marginRight="10dp"
+                   android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+<!--    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ecedec" />-->
+
+    <!--<RelativeLayout android:layout_width="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:textColor="#1a1a1a"
+                  android:text="票的类型"
+                  android:id="@+id/tickname"
+                  android:textSize="@dimen/text_size_small"
+                  android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginRight="12dp"
+
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+
+            <TextView android:layout_width="wrap_content"
+                      android:textSize="@dimen/text_size_small"
+                      android:text="88"
+                      android:textColor="#21bc22"
+                      android:id="@+id/tickselect"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:textSize="15sp"
+                      android:text="/"
+                      android:textColor="#999999"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:textSize="@dimen/text_size_small"
+                      android:text="888"
+                      android:id="@+id/ticksum"
+                      android:textColor="#999999"
+                      android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+-->
+
+</LinearLayout>

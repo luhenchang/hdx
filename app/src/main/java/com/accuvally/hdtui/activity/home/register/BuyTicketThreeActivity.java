@@ -1,10 +1,15 @@
 package com.accuvally.hdtui.activity.home.register;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
@@ -25,11 +30,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,8 +56,12 @@ import com.accuvally.hdtui.model.KeyValueInfo;
 import com.accuvally.hdtui.model.RegSuccessInfo;
 import com.accuvally.hdtui.ui.CustomerScrollView;
 import com.accuvally.hdtui.utils.DialogUtils;
+import com.accuvally.hdtui.utils.FileCache;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
+import com.accuvally.hdtui.utils.ImageBig;
+import com.accuvally.hdtui.utils.PickPhoto;
 import com.accuvally.hdtui.utils.TimeUtils;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsDialogEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangePaySuccessEventBus;
@@ -62,8 +73,14 @@ import com.accuvally.hdtui.utils.timepicker.WheelMain;
 import com.alibaba.fastjson.JSON;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,12 +99,13 @@ import de.greenrobot.event.EventBus;
  */
 public class BuyTicketThreeActivity extends BaseActivity implements OnClickListener {
 
+    public static final String TAG="BuyTicketThreeActivity";
 	private LinearLayout lyAddForm;
 	private AccuDetailBean info;
 	private static final int RADIO_CHANGE_UI = 0;
 	private static final int CHECK_BOX_CHANG_UI = 1;
 	FromInfo fromInfo;
-	List<KeyValueInfo> list = new ArrayList<KeyValueInfo>();
+	List<KeyValueInfo> list = new ArrayList<KeyValueInfo>();//收集到的报名数据
 	Map<String, String> radioMap = new HashMap<String, String>();
 	Map<String, List<String>> checkMap = new HashMap<String, List<String>>();
 	WheelMain wheelMain;
@@ -100,11 +118,15 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 	private TextView bt_checkbox_submit;
 	private CustomerScrollView buyTicketScrollview;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_buy_ticket_second);
 		info = (AccuDetailBean) getIntent().getSerializableExtra("info");
+        if (info.ticks.size() != 0) {
+            position = getIntent().getIntExtra("position", 0);
+        }
 		initView();
 		initData();
 		controlScrollView();
@@ -115,23 +137,23 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 
 		buyTicketScrollview.setOnTouchListener(new View.OnTouchListener() {
 
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				int action = event.getAction();
-				switch (action) {
-				case MotionEvent.ACTION_MOVE:
-					if (buyTicketScrollview.getHeight() >= lyAddForm.getHeight()) {
-						Log.i("height", "buyTicketScrollview.getHeight()=" + buyTicketScrollview.getHeight() + ",lyAddForm.getHeight()=" + lyAddForm.getHeight());
-						return true;
-					} else {
-						return false;
-					}
-				}
-				return false;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_MOVE:
+                        if (buyTicketScrollview.getHeight() >= lyAddForm.getHeight()) {
+                            Log.i("height", "buyTicketScrollview.getHeight()=" + buyTicketScrollview.getHeight() + ",lyAddForm.getHeight()=" + lyAddForm.getHeight());
+                            return true;
+                        } else {
+                            return false;
+                        }
+                }
+                return false;
 
-			}
-		});
+            }
+        });
 	}
 
 	public void initView() {
@@ -145,14 +167,6 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 		tvSecondNext.setOnClickListener(this);
 	}
 
-	@Override
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
-		case R.id.tvSecondNext:
-			Registration();
-			break;
-		}
-	}
 
 	public void layoutParam(View view, int left, int top, int right, int bottom) {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -239,7 +253,9 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 	}
 
 	public void initData() {
+
 		fromInfo = JSON.parseObject(info.form, FromInfo.class);
+        Trace.e(TAG,info.form);
 		for (int i = 0; i < fromInfo.items.size(); i++) {
 			final ItemInfo itemInfo = fromInfo.items.get(i);
 			String strTitle = itemInfo.getTitle();
@@ -389,7 +405,15 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 						dialogTime(title, textViewData);
 					}
 				});
-			}
+			}else if("file".equals(strType)){
+                fileCache = new FileCache(mContext);
+                // （报名表单附件上传文件名规则：活动ID+“-s”+报名表单附件sort值+"-sn"+票种ID，eg: "7365682477000-s3-sn1"）
+                uploadFileName =info.id+"-s"+itemInfo.getSort()+"-sn"+info.ticks.get(position).getSN();
+                Trace.e(TAG,"position:"+position);
+                Trace.e(TAG,uploadFileName);
+                View view=getFileFormView(itemInfo);
+                lyAddForm.addView(view);
+            }
 
 			View view = new View(mContext);
 			view.setBackgroundResource(R.drawable.details_icon_line3);
@@ -398,6 +422,7 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 
 		}
 	}
+
 
 	private LinearLayout choiceInfo(final ItemInfo itemInfo, String strTitle, int intSort, String strType) {
 		LinearLayout layout = new LinearLayout(mContext);
@@ -641,127 +666,185 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 		dialogTime.show();
 	}
 
-	public void Registration() {
-		for (int j = 0; j < fromInfo.items.size(); j++) {
-			if ("input".equals(fromInfo.items.get(j).getType()) || "number".equals(fromInfo.items.get(j).getType()) || "textarea".equals(fromInfo.items.get(j).getType()) || "email".equals(fromInfo.items.get(j).getType())) {// 输入框
-				initContraol(j);
-			} else if ("date".equals(fromInfo.items.get(j).getType())) {// 时间
-				TextView textView = (TextView) lyAddForm.findViewWithTag("I_" + fromInfo.items.get(j).getSort());
-				if (fromInfo.items.get(j).isRequired() && ("请选择" + fromInfo.items.get(j).getTitle()).equals(textView.getText().toString())) {
-					// application.showMsg("请选择" +
-					// fromInfo.items.get(j).getTitle());
-					return;
-				}
-				if (("请选择" + fromInfo.items.get(j).getTitle()).equals(textView.getText().toString())) {
-					for (int i = 0; i < list.size(); i++) {
-						if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
-							list.remove(i);
-						}
-					}
-				} else {
-					Log.i("info", textView.getText().toString());
-					KeyValueInfo keyValueInfo = new KeyValueInfo();
-					keyValueInfo.setKey("I_" + fromInfo.items.get(j).getSort());
-					keyValueInfo.setValue(textView.getText().toString());
-					for (int i = 0; i < list.size(); i++) {
-						if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
-							list.remove(i);
-						}
-					}
-					list.add(keyValueInfo);
-				}
-			} else if ("radio".equals(fromInfo.items.get(j).getType())) {
-				// 单选
 
-				Iterator it = radioMap.keySet().iterator();
-				while (it.hasNext()) {
-					String key;
-					String value;
-					key = it.next().toString();
-					value = radioMap.get(key);
-					for (int i = 0; i < list.size(); i++) {
-						if (key.equals(list.get(i).getKey())) {
-							list.remove(list.get(i));
-						}
-					}
-					KeyValueInfo keyValueInfo = new KeyValueInfo();
-					keyValueInfo.setKey(key);
-					keyValueInfo.setValue(value);
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()) {
+            case R.id.tvSecondNext://下一步按钮
+                getInformation();
+                submitSignUp(list.toString());
+                break;
 
-					list.add(keyValueInfo);
-					Log.i("Form", "radio" + (key + "--" + value));
+            case R.id.tvPhotograph:// 拍照
+                photoDialog.dismiss();
+                OUTPUTFILEPATH = fileCache.getImageCacheDir().getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(OUTPUTFILEPATH)));
+                Trace.e(TAG,OUTPUTFILEPATH);
+                startActivityForResult(intent, PickPhoto.TAKE_PHOTO);
+                break;
+            case R.id.tvAlbum:// 相册
+                photoDialog.dismiss();
+                Intent intent2 = new Intent();
+                intent2.setType("image/*");
+                intent2.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intent2, PickPhoto.PICK_PHOTO);
+                break;
+            case R.id.file_form_add://上传文件
+                shwoPictureSelctDialog();
+                break;
+            case R.id.dialog_select_picture_dismiss://取消上传文件对话框
+                photoDialog.dismiss();
+                break;
+            case R.id.file_form_remove_id://删除上传的文件
+                fileSerialNumber=null;
+                file_form_add.setVisibility(View.VISIBLE);
+                ll_file_form_display.setVisibility(View.GONE);
+                break;
+        }
+    }
 
-				}
-			} else if ("select".equals(fromInfo.items.get(j).getType())) {// 下拉
-			} else if ("checkbox".equals(fromInfo.items.get(j).getType())) {// checkbox
+    //===================================收集数据并报名====================================================
 
-				Iterator it = checkMap.keySet().iterator();
-				while (it.hasNext()) {
-					String key;
-					List<String> value;
-					String checkboxString = new String();
-					key = it.next().toString();
-					value = checkMap.get(key);
-					for (int i = 0; i < list.size(); i++) {
-						if (key.equals(list.get(i).getKey())) {
-							list.remove(list.get(i));
-						}
-					}
-					KeyValueInfo keyValueInfo = new KeyValueInfo();
-					keyValueInfo.setKey(key);
-					for (int i = 0; value != null && i < value.size(); i++) {
-						if (i == value.size() - 1) {
-							checkboxString += (value.get(i));
-						} else {
-							checkboxString += (value.get(i)) + ",";
-						}
-					}
-					keyValueInfo.setValue(checkboxString);
-					list.add(keyValueInfo);
-					Log.i("Form", "checkbox" + (key + "--" + value));
+    //// 获取输入框数据
+    public void getTextInfomation(int j) {
+        EditText editText = (EditText) lyAddForm.findViewWithTag("I_" + fromInfo.items.get(j).getSort());
+        Log.i("boolean", "fromInfo=" + (fromInfo == null) + ",fromInfo.items=" + (fromInfo.items == null) + "fromInfo.items.get(j)=" + (fromInfo.items.get(j) == null) + ",editText.getText()=" + (editText.getText() == null));
+        if (fromInfo.items.get(j).isRequired() && "".equals(editText.getText().toString())) {
+            return;
+        }
+        if ("email".equals(fromInfo.items.get(j).getType())) {
+        }
+        if (editText.getTag() != null && editText.getTag().toString().equals("I_" + fromInfo.items.get(j).getSort())) {
+            if ("".equals(editText.getText().toString())) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
+                        list.remove(i);
+                    }
+                }
+            } else {
+                KeyValueInfo keyValueInfo = new KeyValueInfo();
+                keyValueInfo.setKey("I_" + fromInfo.items.get(j).getSort());
+                keyValueInfo.setValue(editText.getText().toString());
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
+                        list.remove(i);
+                    }
+                }
+                list.add(keyValueInfo);
+            }
+        }
+    }
 
-				}
-			}
-		}
-		getDetailsReg(list.toString());
-		Log.i("info", list.toString());
-	}
+    //收集表单数据
+    private void getInformation(){
+        for (int j = 0; j < fromInfo.items.size(); j++) {
+            if ("input".equals(fromInfo.items.get(j).getType()) ||
+                    "number".equals(fromInfo.items.get(j).getType()) ||
+                    "textarea".equals(fromInfo.items.get(j).getType()) ||
+                    "email".equals(fromInfo.items.get(j).getType())) {// 输入框
+                getTextInfomation(j);
+            } else if ("date".equals(fromInfo.items.get(j).getType())) {// 时间
+                TextView textView = (TextView) lyAddForm.findViewWithTag("I_" + fromInfo.items.get(j).getSort());
+                if (fromInfo.items.get(j).isRequired() && ("请选择" + fromInfo.items.get(j).getTitle()).equals(textView.getText().toString())) {
+                    // application.showMsg("请选择" +
+                    // fromInfo.items.get(j).getTitle());
+                    return;
+                }
+                if (("请选择" + fromInfo.items.get(j).getTitle()).equals(textView.getText().toString())) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
+                            list.remove(i);//remove()是防止重复增加
+                        }
+                    }
+                } else {
+                    Log.i("info", textView.getText().toString());
+                    KeyValueInfo keyValueInfo = new KeyValueInfo();
+                    keyValueInfo.setKey("I_" + fromInfo.items.get(j).getSort());
+                    keyValueInfo.setValue(textView.getText().toString());
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
+                            list.remove(i);
+                        }
+                    }
+                    list.add(keyValueInfo);
+                }
+            } else if ("radio".equals(fromInfo.items.get(j).getType())) {// 单选
+                Iterator it = radioMap.keySet().iterator();
+                while (it.hasNext()) {
+                    String key;
+                    String value;
+                    key = it.next().toString();
+                    value = radioMap.get(key);
+                    for (int i = 0; i < list.size(); i++) {
+                        if (key.equals(list.get(i).getKey())) {
+                            list.remove(list.get(i));
+                        }
+                    }
+                    KeyValueInfo keyValueInfo = new KeyValueInfo();
+                    keyValueInfo.setKey(key);
+                    keyValueInfo.setValue(value);
 
-	public void initContraol(int j) {
-		EditText editText = (EditText) lyAddForm.findViewWithTag("I_" + fromInfo.items.get(j).getSort());
-		Log.i("boolean", "fromInfo=" + (fromInfo == null) + ",fromInfo.items=" + (fromInfo.items == null) + "fromInfo.items.get(j)=" + (fromInfo.items.get(j) == null) + ",editText.getText()=" + (editText.getText() == null));
-		if (fromInfo.items.get(j).isRequired() && "".equals(editText.getText().toString())) {
-			return;
-		}
-		if ("email".equals(fromInfo.items.get(j).getType())) {
-		}
-		if (editText.getTag() != null && editText.getTag().toString().equals("I_" + fromInfo.items.get(j).getSort())) {
-			if ("".equals(editText.getText().toString())) {
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
-						list.remove(i);
-					}
-				}
-			} else {
-				KeyValueInfo keyValueInfo = new KeyValueInfo();
-				keyValueInfo.setKey("I_" + fromInfo.items.get(j).getSort());
-				keyValueInfo.setValue(editText.getText().toString());
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
-						list.remove(i);
-					}
-				}
-				list.add(keyValueInfo);
-			}
-		}
-	}
+                    list.add(keyValueInfo);
+                    Log.i("Form", "radio" + (key + "--" + value));
 
-	// 报名
-	public void getDetailsReg(String list) {
+                }
+            } else if ("select".equals(fromInfo.items.get(j).getType())) {// 下拉
+            } else if ("checkbox".equals(fromInfo.items.get(j).getType())) {// checkbox
+
+                Iterator it = checkMap.keySet().iterator();
+                while (it.hasNext()) {
+                    String key;
+                    List<String> value;
+                    String checkboxString = new String();
+                    key = it.next().toString();
+                    value = checkMap.get(key);
+                    for (int i = 0; i < list.size(); i++) {
+                        if (key.equals(list.get(i).getKey())) {
+                            list.remove(list.get(i));
+                        }
+                    }
+                    KeyValueInfo keyValueInfo = new KeyValueInfo();
+                    keyValueInfo.setKey(key);
+                    for (int i = 0; value != null && i < value.size(); i++) {
+                        if (i == value.size() - 1) {
+                            checkboxString += (value.get(i));
+                        } else {
+                            checkboxString += (value.get(i)) + ",";
+                        }
+                    }
+                    keyValueInfo.setValue(checkboxString);
+                    list.add(keyValueInfo);
+                    Log.i("Form", "checkbox" + (key + "--" + value));
+
+                }
+            }else if("file".equals(fromInfo.items.get(j).getType())){
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getKey().equals("I_" + fromInfo.items.get(j).getSort())) {
+                        list.remove(i);
+                    }
+                }
+
+                if(fileSerialNumber!=null){
+                    KeyValueInfo keyValueInfo = new KeyValueInfo();
+                    keyValueInfo.setKey("I_" + fromInfo.items.get(j).getSort());
+                    keyValueInfo.setValue(fileSerialNumber);
+                    list.add(keyValueInfo);
+                }
+
+
+            }
+        }
+        Trace.e(TAG,list.toString());
+    }
+
+
+	// 提交报名
+	public void submitSignUp(String list) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("Form", list));
 		if (info.ticks.size() != 0) {
-			position = getIntent().getIntExtra("position", 0);
 			params.add(new BasicNameValuePair("SN", info.ticks.get(position).getSN() + ""));
 		} else
 			params.add(new BasicNameValuePair("SN", ""));
@@ -852,4 +935,183 @@ public class BuyTicketThreeActivity extends BaseActivity implements OnClickListe
 			}
 		});
 	}
+
+
+    //=========================上传文件有关===============================================================
+
+    private ImageView file_form_add;
+    private RelativeLayout ll_file_form_display;
+    private TextView file_form_fileName;
+    private ImageView file_form_remove;
+    private Dialog photoDialog,upLoadingDialog;
+    private AnimationDrawable dialogAnimationDrawable;
+    private String fileSerialNumber;//文件序列码，提交文件后 后台返回的，用于提交报名的时候用
+    private String OUTPUTFILEPATH;//拍照的路径
+    private FileCache fileCache;
+    private String uploadFileName;
+
+    private View getFileFormView(final ItemInfo itemInfo) {
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.form_file_item, null);
+
+        if(itemInfo.isRequired()){
+            view.findViewById(R.id.file_form_require).setVisibility(View.VISIBLE);
+        }else {
+            view.findViewById(R.id.file_form_require).setVisibility(View.GONE);
+        }
+
+        file_form_add = (ImageView) view.findViewById(R.id.file_form_add);
+        file_form_add.setOnClickListener(this);
+        ll_file_form_display= (RelativeLayout) view.findViewById(R.id.ll_file_form_display);
+        file_form_fileName = (TextView) view.findViewById(R.id.file_form_fileName);
+        file_form_remove = (ImageView) view.findViewById(R.id.file_form_remove_id);
+        file_form_remove.setOnClickListener(this);
+        return view;
+
+    }
+
+
+    // 修改头像
+    private void shwoPictureSelctDialog() {
+        photoDialog = new Dialog(mContext, R.style.dialog);
+        photoDialog.setCancelable(true);
+        photoDialog.setCanceledOnTouchOutside(true);
+        photoDialog.setContentView(R.layout.dialog_select_pitcture);
+        TextView tvPhotograph = (TextView) photoDialog.findViewById(R.id.tvPhotograph);
+        TextView tvAlbum = (TextView) photoDialog.findViewById(R.id.tvAlbum);
+        tvPhotograph.setOnClickListener(this);
+        tvAlbum.setOnClickListener(this);
+        photoDialog.findViewById(R.id.dialog_select_picture_dismiss).setOnClickListener(this);
+        DialogUtils.dialogSet(photoDialog, mContext, Gravity.BOTTOM, 1, 1, true, false, true);
+        photoDialog.show();
+    }
+
+
+    private void showUpLoadingDialog(){
+        upLoadingDialog = new Dialog(mContext, R.style.dialog);
+        upLoadingDialog.setCancelable(false);
+        upLoadingDialog.setCanceledOnTouchOutside(false);
+        upLoadingDialog.setContentView(R.layout.dialog_upload_file_loading);
+
+        ImageView progressbar = (ImageView) upLoadingDialog.findViewById(R.id.diaolg_uploading_header_progressbar);
+        progressbar.setBackgroundResource(R.drawable.loading);
+        dialogAnimationDrawable = (AnimationDrawable) progressbar.getBackground();
+
+        progressbar.post(new Runnable() {
+            @Override
+            public void run() {
+                dialogAnimationDrawable.start();
+            }
+        });
+        upLoadingDialog.show();
+    }
+
+    private void dismissUpLoadingDialog(){
+        if (dialogAnimationDrawable.isRunning()) {
+            dialogAnimationDrawable.stop();
+        }
+        upLoadingDialog.dismiss();
+
+    }
+
+
+    private void deleteCacheFile(String filePath){
+        File file = new File(filePath);
+        if(file.exists()){
+            file.delete();
+        }
+    }
+
+
+    private void uploadPicture(final String filePath,String fileName){
+        showUpLoadingDialog();
+        try {
+            MultipartEntity mutiEntity = new MultipartEntity();
+            File file = new File(filePath);
+            mutiEntity.addPart("f", new StringBody("form_attach", Charset.forName("utf-8")));
+            mutiEntity.addPart("n", new StringBody(fileName, Charset.forName("utf-8")));
+            mutiEntity.addPart("file", new FileBody(file));
+            httpCilents.setMutiEntity(mutiEntity);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        httpCilents.postFile(Url.UPLOAD_FILES, new WebServiceCallBack() {
+            @Override
+            public void callBack(int code, Object result) {
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        Trace.e(TAG, result.toString());
+                        BaseResponse response = JSON.parseObject(result.toString(), BaseResponse.class);
+                        if (response.isSuccess()) {
+                            fileSerialNumber = response.getResult();
+                            setUploadSuccess(filePath);
+                        } else {
+                            application.showMsg(response.getMsg());
+                        }
+                        dismissUpLoadingDialog();
+                        //删除上传的压缩文件
+                        deleteCacheFile(filePath);
+
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        application.showMsg("图片上传失败，请检查网络");
+                        dismissUpLoadingDialog();
+                        //删除上传的压缩文件
+                        deleteCacheFile(filePath);
+                        break;
+                }
+            }
+        });
+    }
+
+
+
+    private void setUploadSuccess(String path){
+        file_form_add.setVisibility(View.GONE);
+        ll_file_form_display.setVisibility(View.VISIBLE);
+        String paths[]=path.split("/");
+        if(paths.length>0){
+            file_form_fileName.setText(paths[paths.length-1]);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            String path = null;
+            switch (requestCode) {
+                case PickPhoto.TAKE_PHOTO://拍照返回
+                    path = ImageBig.scalePicture(mContext, OUTPUTFILEPATH, 600, 600);
+                    Trace.e(TAG,"拍照后原图片路径："+OUTPUTFILEPATH);
+                    Trace.e(TAG,"拍照后压缩的图片路径："+path);
+                    if (path != null) {
+                        uploadPicture(path, uploadFileName);
+                    }
+                    break;
+                case PickPhoto.PICK_PHOTO://从相册中选择
+                    try {
+                        Cursor cursor = mContext.getContentResolver().query(data.getData(), null, null, null, null);
+                        cursor.moveToFirst();
+                        path = ImageBig.scalePicture(mContext, cursor.getString(1), 800, 800);
+                        Trace.e(TAG,"相册中原图片路径："+cursor.getString(1));
+                        Trace.e(TAG,"相册中压缩的图片路径："+path);
+                        cursor.close();
+                        if (path != null) {
+                            uploadPicture(path, uploadFileName);
+                        }
+                    } catch (Exception e) {
+                        application.showMsg("请选择相册中的照片");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

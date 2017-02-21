@@ -4,15 +4,15 @@
               android:layout_height="wrap_content"
               android:background="#ffffff"
               android:orientation="vertical" >
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/details_icon_line2" />
+
 
     <LinearLayout
         android:id="@+id/hsvComment"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
+
+
 
 </LinearLayout>

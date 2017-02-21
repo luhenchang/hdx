@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/dialog_refund_success_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <ImageView android:layout_width="wrap_content"
+               android:src="@drawable/icon_refund_success"
+               android:paddingTop="20dp"
+               android:layout_gravity="center"
+               android:layout_height="wrap_content"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:textSize="24sp"
+              android:layout_marginTop="20dp"
+              android:text="提交成功"
+              android:paddingLeft="60dp"
+              android:paddingRight="60dp"
+              android:textColor="@color/txt_gray"
+              android:layout_height="wrap_content"/>
+    <View android:layout_width="match_parent"
+          android:layout_height="30dp"/>
+
+    <View android:layout_width="match_parent"
+          android:background="#e5e5e5"
+          android:layout_height="0.1dp"/>
+    <TextView android:layout_width="match_parent"
+              android:text="返回首页"
+              android:id="@+id/dialog_refund_toHome"
+              android:textColor="#76bf47"
+              android:padding="10dp"
+              android:gravity="center"
+              android:textSize="@dimen/text_size_large"
+              android:background="@drawable/selector_white_transparentblack2"
+              android:layout_height="wrap_content"/>
+
+    <View android:layout_width="match_parent"
+          android:background="#e5e5e5"
+          android:layout_height="0.1dp"/>
+
+
+    <TextView android:layout_width="match_parent"
+              android:text="我的票券"
+              android:textColor="#76bf47"
+              android:padding="10dp"
+              android:gravity="center"
+              android:textSize="@dimen/text_size_large"
+              android:background="@drawable/selector_white_transparentblack2"
+              android:id="@+id/dialog_refund_toTicket"
+              android:layout_height="wrap_content"/>
+
+    <View android:layout_width="match_parent"
+          android:background="#e5e5e5"
+          android:layout_height="0.1dp"/>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="30dp"/>
+
+</LinearLayout>

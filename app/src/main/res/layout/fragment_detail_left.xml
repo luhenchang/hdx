@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <com.accuvally.hdtui.ui.pulltoloaddetail.PullLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:id="@+id/tblayout"
+        android:orientation="vertical" >
+
+        <com.accuvally.hdtui.ui.OverScrollView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/page1_scrollview" />
+        </com.accuvally.hdtui.ui.OverScrollView>
+
+        <ScrollView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/page2_scrollview" />
+        </ScrollView>
+
+    </com.accuvally.hdtui.ui.pulltoloaddetail.PullLayout>
+
+
+
+</LinearLayout>

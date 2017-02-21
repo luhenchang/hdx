@@ -1,10 +1,6 @@
 package com.accuvally.hdtui.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,15 +12,17 @@ import android.widget.Button;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.config.Config;
+import com.accuvally.hdtui.utils.ActivityUtils;
 import com.accuvally.hdtui.utils.SharedUtils;
+
+import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
 	// private List<View> views;
 
-	private Context context;
+	private Activity context;
 
 	private int tag;
 
@@ -34,7 +32,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 	AccuApplication application;
 
-	public ViewPagerAdapter(List<View> views, Context context, int tag) {
+	public ViewPagerAdapter(List<View> views, Activity context, int tag) {
 		// this.views = views;
 		this.context = context;
 		shareUtils = new SharedUtils(context);
@@ -102,7 +100,8 @@ public class ViewPagerAdapter extends PagerAdapter {
 			application.sharedUtils.writeBoolean("isFirstIn", true);
 			application.sharedUtils.writeString(Config.KEY_ACCUPASS_USER_NAME, Config.ACCUPASS_ID);
 			application.sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, Config.ACCUPASS_KEY);
-			context.startActivity(new Intent(context, MainActivityNew.class));
+
+            ActivityUtils.toNext(context);
 			((Activity) context).finish();
 		}
 	}

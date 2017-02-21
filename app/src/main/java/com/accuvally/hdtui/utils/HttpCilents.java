@@ -25,9 +25,13 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.protocol.HTTP;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,6 +40,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,6 +52,7 @@ public class HttpCilents {
 
 	private static final String API_VERSION = "v3.5.0";
 	private static final ExecutorService executorService = Executors.newFixedThreadPool(3);
+
 
 	AccuApplication application;
 
@@ -98,7 +104,7 @@ public class HttpCilents {
 		}
 	}
 
-	public String HawkPost(String url) throws MalformedURLException {
+	public String  HawkPost(String url) throws MalformedURLException {
 		String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
 		String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
 		Log.i("info", accu_id);
@@ -171,6 +177,7 @@ public class HttpCilents {
 					request.addHeader("api-version", API_VERSION);
 //					Log.d("result", printURL(url, params));
 					request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
 					// getConsumer().sign(request);
 					HttpResponse response = httpClient.execute(request);
 					int statusCode = response.getStatusLine().getStatusCode();
@@ -221,6 +228,128 @@ public class HttpCilents {
 			}
 		});
 	}
+
+
+    public void setMutiEntity(MultipartEntity mutiEntity) {
+        this.mutiEntity = mutiEntity;
+    }
+
+    private MultipartEntity mutiEntity;
+
+    /***
+     * post请求
+     *
+     * @param url
+     * @param params
+     * @param webServiceCallBack
+     */
+    public void postFile(final String url, final WebServiceCallBack webServiceCallBack) {
+
+        final Handler mHandler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        try {
+//						Log.i("webservice", msg.obj.toString());
+                            webServiceCallBack.callBack(Config.RESULT_CODE_SUCCESS, (Object) msg.obj);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            webServiceCallBack.callBack(Config.RESULT_CODE_ERROR, "网络连接断开，请检查网络");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_HAWK401:
+                       /* try {
+                            Log.i("webservice", msg.obj.toString());
+                            application.hawkOffset = Long.parseLong(msg.obj.toString());
+                            postA(url, params, webServiceCallBack);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }*/
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                AndroidHttpClient httpClient = AndroidHttpClient.newInstance(buildUserAgent(context));
+                try {
+                    HttpPost request = new HttpPost(url);
+                    request.addHeader("Authorization", HawkPost(url).toString());
+                    request.addHeader("api-version", API_VERSION);
+//					Log.d("result", printURL(url, params));
+//                    request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
+                    if(mutiEntity!=null){
+                        request.setEntity(mutiEntity);
+                    }
+
+
+                    // getConsumer().sign(request);
+                    HttpResponse response = httpClient.execute(request);
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    String content = convertStreamToString(response.getEntity().getContent());
+                    if (statusCode == 401 && response.containsHeader("WWW-Authenticate") && response.getFirstHeader("WWW-Authenticate").getValue().contains("tsm=")) {
+                        // 时间处理
+                        // mHandler.sendMessage(mHandler.obtainMessage(0,
+                        // reason));
+                        Pattern pattern = Pattern.compile("ts=\"(.*)\", tsm=\"(.*)\"");
+                        Matcher matcher = pattern.matcher(response.getFirstHeader("WWW-Authenticate").getValue());
+                        if (matcher.find()) {
+                            String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+                            String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+                            HawkWwwAuthenticateContext k = HawkWwwAuthenticateContext.tsAndTsm(Long.parseLong(matcher.group(1)), matcher.group(2)).credentials(accu_id, accu_key, Algorithm.SHA_256).build();
+                            if (k.isValidTimestampMac(k.getTsm())) {
+                                long offset = k.getTs() - (System.currentTimeMillis() / 1000L);
+                                if (offset > 0) {
+                                    if (application.count == 0) {
+                                        application.count = 1;
+                                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_HAWK401, offset));
+                                    } else {
+                                        application.count = 0;
+                                        if ("".equals(content)) {
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                                        } else {
+                                            JSONObject res = JSON.parseObject(content);
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, res.getString("Message")));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if (statusCode >= 300) {
+                        if ("".equals(content)) {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                        } else {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, content));
+                        }
+                    } else {
+                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_SUCCESS, content));
+                    }
+                } catch (Exception e) {
+                    mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, e.getMessage()));
+                    e.printStackTrace();
+                } finally {
+                    httpClient.close();
+                }
+            }
+        });
+    }
+
+
 
 	/**
 	 * get请求
@@ -341,7 +470,7 @@ public class HttpCilents {
 		});
 	}
 
-	public String convertStreamToString(InputStream is) {
+	public static String convertStreamToString(InputStream is) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
 
@@ -365,7 +494,7 @@ public class HttpCilents {
 	}
 
     //机器的唯一标识码
-	public String buildUserAgent(Context context) {
+	public static String buildUserAgent(Context context) {
 		String buildUserAgent = "";
 		try {
 			final PackageManager manager = context.getPackageManager();

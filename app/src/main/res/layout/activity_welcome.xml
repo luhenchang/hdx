@@ -7,81 +7,45 @@
         android:id="@+id/static_logolayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom|center"
         android:orientation="vertical" >
 
-        <RelativeLayout
+
+        <LinearLayout
             android:id="@+id/dynamic_logo_parent"
             android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/welcome_bg4"
-            android:gravity="center|top" >
+            android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/dynamic_logo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:gravity="center"
-                android:src="@drawable/welcom_bg1" />
-        </RelativeLayout>
+                android:layout_marginTop="0dp"
+                android:src="@drawable/welcome_bg1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/welcome_bg2" />
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/welcome_bg2"
-            android:gravity="bottom|center" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="bottom|center"
-            android:visibility="gone" >
-
-            <LinearLayout
-                android:id="@+id/lyLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/welcome_advert_bg"
-                android:gravity="center" >
-
-                <ImageView
-                    android:id="@+id/ivLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/welcome_huawei_bg"
-                    android:gravity="bottom|center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lyLogoYingyongBao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:visibility="gone" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/welcome_yingyongbao_bg"
-                    android:gravity="bottom|center" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/welcome_bg3"
-            android:gravity="bottom|center" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"/>
+
     </LinearLayout>
 
     <include
         android:id="@+id/sync_logolayout"
         layout="@layout/activity_flash"
         android:visibility="gone" />
+
 
 </FrameLayout>

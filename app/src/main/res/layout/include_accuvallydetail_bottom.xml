@@ -35,7 +35,7 @@
         android:background="#ecedec" />
 
     <LinearLayout
-        android:id="@+id/llShare"
+        android:id="@+id/llGroupChat"
         android:layout_width="89dp"
         android:layout_height="match_parent"
         android:background="@drawable/selector_click_btn"
@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/selector_click_btn"
         android:clickable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:gravity="center" >
 
         <TextView

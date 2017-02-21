@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#ecedec"
-              android:orientation="vertical" >
-
-
-
-
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ecedec"
+                android:orientation="vertical">
 
 
     <LinearLayout
@@ -28,6 +26,7 @@
                 android:layout_height="10dp"
                 android:background="#ecedec" />
 
+            <!--==================活动描述=============================-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,8 +36,8 @@
 
                 <ImageView
                     android:id="@+id/evaluate_ivItemRecommendImg"
-                    android:layout_width="162dp"
-                    android:layout_height="96dp"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/default_home_image"
                     android:scaleType="centerCrop" />
 
@@ -71,6 +70,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center|left"
                             android:maxLines="1"
+                            android:ellipsize="end"
                             android:text="活动地点:"
                             android:textColor="#737373"
                             android:textSize="12sp" />
@@ -81,6 +81,7 @@
                             android:gravity="center|left"
                             android:layout_marginLeft="10dp"
                             android:maxLines="1"
+                            android:ellipsize="end"
                             android:text="地址"
                             android:textColor="#737373"
                             android:textSize="12sp" />
@@ -119,17 +120,17 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="1dp"
                 android:background="#ecedec" />
+
+            <!--==================填写评价内容=============================-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="center|top"
                 android:orientation="horizontal"
                 android:background="#fff"
-
                 android:padding="10dp" >
 
                 <ImageView
@@ -148,9 +149,25 @@
                     android:inputType="textMultiLine"
                     android:minLines="5"
                     android:paddingLeft="5dp"
-                    android:singleLine="true"
                     android:textSize="@dimen/little_16" />
             </LinearLayout>
+
+            <!--app:layoutManager="android.support.v7.widget.GridLayoutManager"-->
+            <!--app:layoutManager="com.accuvally.hdtui.activity.home.comment.WrappableGridLayoutManager"-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="singleChoice"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:background="@color/white"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                app:spanCount="4"
+                tools:listitem="@layout/list_item_image"/>
+
 
             <View
                 android:layout_width="match_parent"
@@ -158,39 +175,31 @@
 
                 android:background="#ecedec" />
 
+            <!--==================赞/踩=============================-->
 
             <LinearLayout android:orientation="horizontal"
                           android:layout_width="match_parent"
                           android:background="#fff"
-                          android:layout_height="70dp">
+                          android:layout_height="50dp">
 
                 <LinearLayout android:layout_width="0dp"
                               android:layout_weight="1"
-                              android:layout_marginTop="15dp"
-                              android:layout_height="match_parent">
+                              android:orientation="horizontal"
+                              android:layout_gravity="center_vertical"
+                              android:layout_height="wrap_content" >
                     <ImageButton android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="50dp"
                                  android:id="@+id/evaluate_like"
-                                 android:background="@drawable/like_nor_3x"/>
-                    <LinearLayout android:layout_width="wrap_content"
-                                  android:layout_marginLeft="10dp"
-                                  android:orientation="vertical"
-                                  android:layout_height="wrap_content">
-                        <TextView android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:text="13"
-                                  android:id="@+id/tv_evaluate_likeNum"
-                                  android:visibility="gone"
-                                  android:layout_marginLeft="15dp"
-                                  android:textSize="15sp"/>
-                        <TextView android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="8dp"
-                                  android:text="活动很赞"
-                                  android:textSize="15sp"/>
+                                 android:layout_gravity="center_vertical"
+                                 android:background="@drawable/like_nor_2x"/>
 
-                    </LinearLayout>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="活动很赞"
+                              android:layout_marginLeft="5dp"
+                              android:layout_gravity="center_vertical"
+                              android:textSize="15sp"/>
                 </LinearLayout>
 
                 <View
@@ -203,31 +212,21 @@
 
                 <LinearLayout android:layout_width="0dp"
                               android:layout_weight="1"
-                              android:layout_marginTop="15dp"
-                              android:layout_height="match_parent">
+                              android:layout_gravity="center_vertical"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
                     <ImageButton android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="50dp"
+                                 android:layout_gravity="center_vertical"
                                  android:id="@+id/evaluate_dislike"
-                                 android:background="@drawable/dislike_nor_3x"/>
-                    <LinearLayout android:layout_width="wrap_content"
-                                  android:layout_marginLeft="10dp"
-                                  android:orientation="vertical"
-                                  android:layout_height="wrap_content">
-                        <TextView android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:text="0"
-                                  android:visibility="gone"
-                                  android:id="@+id/tv_evaluate_dislikeNum"
-                                  android:layout_marginLeft="15dp"
-                                  android:textSize="15sp"/>
-                        <TextView android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="8dp"
-                                  android:text="有待改进"
-                                  android:textSize="15sp"/>
-
-                    </LinearLayout>
+                                 android:background="@drawable/dislike_nor_2x"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_gravity="center_vertical"
+                              android:layout_marginLeft="5dp"
+                              android:text="有待改进"
+                              android:textSize="15sp"/>
                 </LinearLayout>
 
 
@@ -240,6 +239,9 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <!--==================提交评价=============================-->
 
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_alignParentBottom="true"
@@ -268,6 +270,7 @@
                   android:layout_height="wrap_content"/>
 
 
+
         <LinearLayout android:layout_width="280px"
                       android:background="#61b754"
                       android:id="@+id/evaluate_submit_ly"
@@ -288,10 +291,5 @@
         </LinearLayout>
 
 </RelativeLayout>
-    <include
-        android:id="@+id/evaluateEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/layout_not_login"
-        android:visibility="gone" />
+
 </RelativeLayout>

@@ -116,7 +116,7 @@ public class MapsActivity extends BaseActivity implements OnGetGeoCoderResultLis
     private String city;
     private String address;
     double daodaLon, daodaLat;
-    String title;
+//    String title;
     private List<HashMap<String, Object>> list;
     LocationAdapter adapter;
     double latitude;
@@ -140,7 +140,7 @@ public class MapsActivity extends BaseActivity implements OnGetGeoCoderResultLis
         locationUtils = new LocationUtils(mContext);
         city = getIntent().getStringExtra("city");
         address = getIntent().getStringExtra("address");
-        title = getIntent().getStringExtra("title");
+//        title = getIntent().getStringExtra("title");
         setTitle("地图");
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();

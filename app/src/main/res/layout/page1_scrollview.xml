@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tool="http://schemas.android.com/tools"
               android:layout_width="match_parent"
+              android:background="@color/white"
               android:layout_height="wrap_content"
               android:orientation="vertical" >
 
@@ -245,88 +246,74 @@
                       android:orientation="horizontal"
                       android:layout_height="50dp">
 
-            <RelativeLayout android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-                <LinearLayout android:layout_width="wrap_content"
+
+                <LinearLayout android:layout_width="0dp"
                               android:orientation="vertical"
-                              android:layout_centerInParent="true"
+                              android:layout_weight="1"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textSize="18sp"
                               android:textColor="#010101"
                               android:text="1.2W"
+                              android:layout_gravity="center"
                               android:id="@+id/tv_followNumber"
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
                               android:textSize="12sp"
                               android:textColor="#999999"
+                              android:layout_gravity="center"
                               android:text="关注人数"
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
-
-            </RelativeLayout>
-
 
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="#e5e5e5" />
 
-            <RelativeLayout android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                <LinearLayout android:layout_width="wrap_content"
+                <LinearLayout android:layout_width="0dp"
                               android:orientation="vertical"
-                              android:layout_centerInParent="true"
+                              android:layout_weight="1"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textSize="18sp"
                               android:textColor="#010101"
+                              android:layout_gravity="center"
                               android:id="@+id/tv_huodongNumber"
-                              android:layout_marginLeft="12dp"
                               android:text="13"
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
                               android:textSize="12sp"
                               android:textColor="#999999"
+                              android:layout_gravity="center"
                               android:text="全部活动"
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
-            </RelativeLayout>
-
 
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="#e5e5e5" />
 
-            <RelativeLayout android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
 
-                <LinearLayout android:layout_width="wrap_content"
-                              android:orientation="vertical"
-                              android:layout_centerInParent="true"
+                <LinearLayout android:orientation="vertical"
+                              android:layout_width="0dp"
+                              android:layout_weight="1"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textSize="18sp"
                               android:textColor="#010101"
-                              android:layout_marginLeft="5dp"
+                              android:layout_gravity="center"
                               android:id="@+id/tv_likeNumber"
                               android:text="856"
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
                               android:textSize="12sp"
+                              android:layout_gravity="center"
                               android:textColor="#999999"
                               android:text="点赞数"
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
-
-
-            </RelativeLayout>
-
 
         </LinearLayout>
 
@@ -390,29 +377,96 @@
 
     </LinearLayout>
 
-    <!--<View
+    <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#efefef" />-->
+        android:background="#efefef" />
 
 
     <!--历史评价入口-->
-    <!-- <TextView
+     <TextView
          android:id="@+id/tv_home_historyComment"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:background="#ffffff"
          android:drawableRight="@drawable/details_jiantou_bg"
          android:gravity="center|left"
          android:text="历史评价"
+         android:background="@drawable/selector_click_btn"
+         android:visibility="visible"
          android:padding="10dp"
          android:textColor="@color/black"
-         android:textSize="@dimen/little_18" />-->
+         android:textSize="@dimen/little_18" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#efefef" />
     <!--评价列表-->
     <include
         android:id="@+id/includeComment"
+        android:background="#ffffff"
         layout="@layout/include_detail_comment"
         android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#efefef" />
+
+    <!--历史评价  活动咨询-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:background="@color/white"
+                  android:layout_marginTop="15dp"
+                  android:layout_marginBottom="20dp"
+                  android:layout_height="wrap_content">
+
+        <RelativeLayout android:layout_width="0dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/share_detail_background"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/toHistoryComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="历史评价"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="#9a9a9a"
+                android:textSize="@dimen/little_16" />
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:background="@drawable/share_detail_background"
+                        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/toHistoryConsultion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="活动咨询"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="#9a9a9a"
+                android:textSize="@dimen/little_16" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

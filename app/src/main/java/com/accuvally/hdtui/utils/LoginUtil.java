@@ -23,6 +23,26 @@ import de.greenrobot.event.EventBus;
 public class LoginUtil {
 
 
+    //1.登录成功的时候会上传tag，  2.在选择tag页面并且已经登录后会上传tag
+    public static void setCategory(HttpCilents httpCilents,String tags){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("tags", tags));
+        httpCilents.postA(Url.SET_CATEGORY_TAG, params, new HttpCilents.WebServiceCallBack() {
+            @Override
+            public void callBack(int code, Object result) {
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+
+                        Trace.e("SET_CATEGORY_TAG","RESULT_CODE_SUCCESS  "+result.toString());
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        Trace.e("SET_CATEGORY_TAG","RESULT_CODE_ERROR  "+result.toString());
+                        break;
+                }
+            }
+        });
+    }
+
 //    是否主办方：
     public static boolean isSporsor(String orgid){
 

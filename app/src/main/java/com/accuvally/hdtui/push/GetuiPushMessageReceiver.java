@@ -47,6 +47,8 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
     public static final String TAG="GetuiPushMessage";
 
     public static final String ToCommentActivity="ToCommentActivity";
+    public static final String TOCommentDisplayActivity_comment="TOCommentDisplayActivity_comment";
+    public static final String TOCommentDisplayActivity_consult="TOCommentDisplayActivity_consult";
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
@@ -69,9 +71,9 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 				}
 			}
 			break;
-		case PushConsts.GET_CLIENTID:
+		case PushConsts.GET_CLIENTID://不知道哪里触发的，但是个推初始化之后，就会调用这里，使个推id上传
 			String cid = bundle.getString("clientid");
-			Log.d("GetuiSdkDemo", "onReceive() clientid=" + cid);
+			Log.e("GetuiSdkDemo", "onReceive() clientid=" + cid);
 			// Toast.makeText(context, "onReceive() clientid="+cid,
 			// Toast.LENGTH_LONG).show();
 			updateGeTuiID(context, cid);
@@ -178,7 +180,6 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 		case 1:// 活动详情页 , op_value = 活动id
 			if (application.hasActivity(MainActivityNew.class)) {
 				intent.setClass(context, AccuvallyDetailsActivity.class);
-                intent.putExtra(GetuiPushMessageReceiver.ToCommentActivity, false);
 			} else {
 				intent.setClass(context, MainActivityNew.class);
 			}
@@ -217,7 +218,7 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 			intent.setClass(context, TicketTabActivity.class);
 			context.startActivity(intent);
 			break;
-        case 9:
+        case 9://邀请评价
 //               intent.putExtra("id", info.getOp_value());
             String id=info.getOp_value();
 //            Log.e(TAG,"id="+id);
@@ -227,6 +228,24 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
             intent.putExtra("id", id);
             context.startActivity(intent);
             break;
+
+            case 11://主办人回复了评价
+                String id2=info.getOp_value();
+                intent.setClass(context, AccuvallyDetailsActivity.class);
+                intent.putExtra(GetuiPushMessageReceiver.TOCommentDisplayActivity_comment, true);
+                intent.putExtra("id", id2);
+                context.startActivity(intent);
+
+                break;
+
+            case 12://主办人回复了咨询
+                String id3=info.getOp_value();
+                intent.setClass(context, AccuvallyDetailsActivity.class);
+                intent.putExtra(GetuiPushMessageReceiver.TOCommentDisplayActivity_consult, true);
+                intent.putExtra("id", id3);
+                context.startActivity(intent);
+                break;
+
 		}
 
 //		int requestCode = (int) SystemClock.uptimeMillis();

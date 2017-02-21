@@ -1,6 +1,5 @@
 package com.accuvally.hdtui.activity.entry;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -17,6 +16,7 @@ import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.adapter.ViewPagerAdapter;
 import com.accuvally.hdtui.config.Config;
+import com.accuvally.hdtui.utils.ActivityUtils;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackLayout;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener 
 	
 	private TextView mSkip;
 
-	private int tag;
+	private int tag;//tag 1为从设置界面进入， 0是第一次开机进入
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener 
 			
 			@Override
 			public void onClick(View v) {
-				if (tag != 1) {//不是从关于我们进入引导页才保存
+				if (tag != 1) {//首次启动app
 					AccuApplication application = (AccuApplication) getApplicationContext();
 					application.sharedUtils.writeBoolean("isSynchronous", true);
 					application.sharedUtils.writeInt("remind", 1);
@@ -93,7 +93,8 @@ public class GuideActivity extends BaseActivity implements OnPageChangeListener 
 					application.sharedUtils.writeBoolean("isFirstIn", true);
 					application.sharedUtils.writeString(Config.KEY_ACCUPASS_USER_NAME, Config.ACCUPASS_ID);
 					application.sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, Config.ACCUPASS_KEY);
-					startActivity(new Intent(GuideActivity.this, MainActivityNew.class));
+
+					ActivityUtils.toNext(GuideActivity.this);
 				}
 				finish();
 			}

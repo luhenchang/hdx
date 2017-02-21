@@ -17,5 +17,12 @@ public class Keys {
 
     //登录类型，qq？微信？微博？帐号？
 //    public static final String logintype = "logintype";
-	
+
+    public static final String have_select_categorys = "have_select_categorys";//选择了，启动app就不会再进入这个界面
+    public static final String categorys = "categorys";
+    public static final String select_categorys = "select_categorys";
+
+
+    public static final String KEY_SPLASH_LASTTIME= "preferences_splash_lasttime";//上一次闪屏时间
+
 }

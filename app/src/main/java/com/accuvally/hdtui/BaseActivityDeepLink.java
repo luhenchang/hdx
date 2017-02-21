@@ -8,6 +8,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.accuvally.hdtui.activity.entry.BaseDeepLink;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.ui.TitleBar;
@@ -27,7 +27,7 @@ import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackActivityHelper;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackLayout;
 import com.umeng.analytics.MobclickAgent;
 
-public class BaseActivityDeepLink extends BaseDeepLink implements SwipeBackActivityBase {
+public class BaseActivityDeepLink extends FragmentActivity implements SwipeBackActivityBase {
 
 	protected Context mContext;
 
@@ -66,9 +66,10 @@ public class BaseActivityDeepLink extends BaseDeepLink implements SwipeBackActiv
 	AnimationDrawable animationDrawable;
 
 
-
-
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);//linkme
+    }
 
 
 
@@ -103,10 +104,7 @@ public class BaseActivityDeepLink extends BaseDeepLink implements SwipeBackActiv
         super.onStop();
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
+
 
 
 	@Override

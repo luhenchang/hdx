@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.entry.SetCategoryActivity;
 import com.accuvally.hdtui.activity.home.util.ChooseCityActivity;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.utils.DataCleanManager;
@@ -57,7 +58,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		findViewById(R.id.llHomeLeftCity).setOnClickListener(this);// 我的城市click
 		findViewById(R.id.llHomeLeftRemind).setOnClickListener(this);// 活动设定click
 		findViewById(R.id.llHomeLeftFeedBack).setOnClickListener(this);// 疑问与反馈click
-		findViewById(R.id.llVersion).setOnClickListener(this);// 版本更新click
+        findViewById(R.id.llHomeLeftMyIntersting).setOnClickListener(this);//
+
+        findViewById(R.id.llVersion).setOnClickListener(this);// 版本更新click
 		findViewById(R.id.llHomeLeftClean).setOnClickListener(this);// 清除缓存click
 		findViewById(R.id.llHomeLeftRecommend).setOnClickListener(this);// 应用推荐click
 		findViewById(R.id.llHomeLeftAbout).setOnClickListener(this);// 关于我们click
@@ -166,6 +169,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 				return;
 			toActivity(FeedBackActivity.class);
 			break;
+
+            case R.id.llHomeLeftMyIntersting:// 疑问与反馈
+                if (Utils.isFastDoubleClick())
+                    return;
+                Intent intent = new Intent(mContext, SetCategoryActivity.class);
+                intent.putExtra(SetCategoryActivity.fromSetting,true);
+                startActivity(intent);
+                break;
 
 		/*case R.id.llVersion:// 版本更新
 			if (Utils.isFastDoubleClick())

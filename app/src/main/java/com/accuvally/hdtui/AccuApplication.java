@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
@@ -21,6 +22,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.accuvally.hdtui.activity.entry.MainActivityNew;
+import com.accuvally.hdtui.activity.entry.WelcomeActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
@@ -35,9 +38,11 @@ import com.accuvally.hdtui.model.SaveBeHaviorInfo;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.push.NotifyMessageReceiver;
+import com.accuvally.hdtui.ui.SplashUtils;
 import com.accuvally.hdtui.utils.CacheUtils;
 import com.accuvally.hdtui.utils.SharedUtils;
 import com.accuvally.hdtui.utils.TimeUtils;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Util;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.alibaba.fastjson.JSON;
@@ -133,8 +138,93 @@ public class AccuApplication extends Application {
 
         initLinkMe();
 
+        // 开启全局捕获异常
+//        ExceptionHandler.getInstance().init(this);
+
+        registActivityLifeCycle();
 	}
 
+
+    private volatile int activityCount=0;
+    private boolean fromFirstBacktoFornt =true;//第一次从后台到前台
+    private void registActivityLifeCycle(){
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivityCreated");
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+                activityCount++;
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivityStarted activityCount"+activityCount);
+
+                //如果mCount==1，说明是从后台到前台
+                if (activityCount == 1){
+                    if(fromFirstBacktoFornt){
+//                        Trace.e("registActivityLifeCycle","第一次从后台到前台");
+                        fromFirstBacktoFornt =false;
+                    }else {
+                        if(AccuApplication.this.hasActivity(MainActivityNew.class)){
+//                            Trace.e("registActivityLifeCycle", "再一次从后台到前台");
+                            if(SplashUtils.isEnoughtTimeToSplash()){
+                                Trace.e("registActivityLifeCycle", "isEnoughtTimeToSplash");
+                                String url = sharedUtils.readString("flash_logourl");
+                                if (!TextUtils.isEmpty(url)) {//有闪屏才展示闪屏
+                                    Intent intent = new Intent(AccuApplication.this.getApplicationContext(), WelcomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra(WelcomeActivity.IS_AGAIN_SPLASH,true);
+                                    startActivity(intent);
+                                }
+
+                            }
+
+                        }else {
+                            Trace.e("registActivityLifeCycle", "从后台到前台 MainActivityNew被杀，AccuApplication没死");
+                        }
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivityResumed");
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivityPaused");
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                activityCount--;
+                SplashUtils.saveSplashTimeInPre();
+//                Trace.e("registActivityLifeCycle",activity.toString()+" onActivityStopped activityCount"+activityCount);
+                //如果mCount==0，说明是前台到后台
+//                if (activityCount == 0){
+//                    //执行应用切换到后台的逻辑
+//                    Trace.e("registActivityLifeCycle","前台到后台");
+//                }
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivitySaveInstanceState");
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+//                Trace.e("registActivityLifeCycle",activity.toString()+"onActivityDestroyed");
+            }
+        });
+    }
     private void initLinkMe(){
         try {
             if (BuildConfig.DEBUG){
@@ -305,9 +395,9 @@ public class AccuApplication extends Application {
 		ImageLoader.getInstance().init(config);
 	}
 
-	private String getIMEI2() {
+	private String getIMEI2() {//35的改为15
 		try {
-			String m_szDevIDShort = "35" + Build.BOARD.length() % 10 + Build.BRAND.length() % 10 + Build.CPU_ABI.length() % 10
+			String m_szDevIDShort = "15" + Build.BOARD.length() % 10 + Build.BRAND.length() % 10 + Build.CPU_ABI.length() % 10
 					+ Build.DEVICE.length() % 10 + Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 + Build.ID.length() % 10
 					+ Build.MANUFACTURER.length() % 10 + Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 + Build.TAGS.length()
 					% 10 + Build.TYPE.length() % 10 + Build.USER.length() % 10;
