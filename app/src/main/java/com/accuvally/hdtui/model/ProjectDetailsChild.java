@@ -7,6 +7,15 @@ public class ProjectDetailsChild {
 	private String Url;
 	private String Content;
 	private String PublishDate;
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     private String summary;
 
 
