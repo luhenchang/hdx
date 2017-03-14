@@ -13,31 +13,6 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llRobTips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFAE00"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/tvTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="原价1238元,20张免费票"
-            android:visibility="gone"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分享活动给小伙伴,即可参与抢票!"
-            android:textColor="#ffffff" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

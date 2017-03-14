@@ -40,7 +40,7 @@ public class MyProgressDialog extends AlertDialog {
 	private AccuApplication app;
 
 	public MyProgressDialog(Context context) {
-		super(context);
+		super(context, R.style.dialog);
 		this.mContext = context;
 	}
 

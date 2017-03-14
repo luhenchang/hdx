@@ -65,21 +65,6 @@ public class DialogShare implements OnClickListener {
 			TextView tvCancel = (TextView) shareDialog.findViewById(R.id.tvCancel);
 			TextView tvShareMsg = (TextView) shareDialog.findViewById(R.id.tvShareMsg);
 			LinearLayout lydismiss = (LinearLayout) shareDialog.findViewById(R.id.lydismiss);
-			LinearLayout llRobTips = (LinearLayout) shareDialog.findViewById(R.id.llRobTips);// 分享的抢票提示
-
-			if (isRobTicket) {// 是抢票活动
-				llRobTips.setVisibility(View.VISIBLE);// 分享的抢票提示 ——显示
-				tvShareMsg.setVisibility(View.INVISIBLE);// 短信分享不可见
-
-				TextView tvTips = (TextView) shareDialog.findViewById(R.id.tvTips);
-				tvTips.setText(description);
-
-				if (shareComplete != null) {
-					shareUtils.setShareSuccessListener(shareComplete);
-				}
-			} else {
-				llRobTips.setVisibility(View.GONE);
-			}
 
 			if (isHideShareMsg) {
 				tvShareMsg.setVisibility(View.INVISIBLE);

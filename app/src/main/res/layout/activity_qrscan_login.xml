@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+
+
+    <!--
+        头部：返回键，textview
+    -->
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/back"
+            android:onClick="onReturnClick"
+            android:src="@drawable/back_arrows" />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="扫码登录"
+            android:layout_marginRight="45dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+
+
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <com.google.zxing.client.android.ViewfinderView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent" />
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/status_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="80dp"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="请扫描主办人出示授权登录的二维码\n以便协助验票"
+                android:textColor="@color/status_text"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+
+ <!--       <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/btn_flash"
+                style="@style/TitleBarAction"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/flash_off" />
+        </LinearLayout>-->
+
+    </FrameLayout>
+
+</LinearLayout>

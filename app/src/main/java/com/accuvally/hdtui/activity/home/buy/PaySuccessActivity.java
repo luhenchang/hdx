@@ -215,6 +215,7 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 			break;
 		case R.id.lydismiss:
 			shareDialog.dismiss();
+            break;
 		case R.id.tvShareMsg:
 			if (Utils.isFastDoubleClick())
 				return;
@@ -223,6 +224,7 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 			mIntent.putExtra("sms_body", "我刚刚报名参加了：" + info.title + "," + info.getStartutc() + "，一起去参加吧？记得联系我。" + info.shareurl);// 短信内容
 			startActivity(mIntent);
 			shareDialog.dismiss();
+            break;
 		default:
 			break;
 		}

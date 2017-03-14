@@ -1,5 +1,6 @@
 package com.accuvally.hdtui.fragment.detailfragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.entry.LinkedMiddleActivity;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
 import com.accuvally.hdtui.activity.home.buy.PaySuccessActivity;
@@ -36,10 +39,9 @@ import com.accuvally.hdtui.activity.home.buy.PayWebActivity;
 import com.accuvally.hdtui.activity.home.buy.SureOrderActivity;
 import com.accuvally.hdtui.activity.home.comment.CommentActivity;
 import com.accuvally.hdtui.activity.home.comment.CommentDisplayActivity;
-import com.accuvally.hdtui.activity.home.register.BindPhoneActivity;
-import com.accuvally.hdtui.activity.home.register.BuyTicketFirstActivity;
-import com.accuvally.hdtui.activity.home.register.BuyTicketThreeActivity;
-import com.accuvally.hdtui.activity.home.register.RegAccuActivity;
+import com.accuvally.hdtui.activity.home.register.BindPhoneBeforBuyActivity;
+import com.accuvally.hdtui.activity.home.register.SelectTicketActivity;
+import com.accuvally.hdtui.activity.home.register.SubmitFormActivity;
 import com.accuvally.hdtui.activity.home.util.MapsActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
@@ -54,14 +56,13 @@ import com.accuvally.hdtui.model.AccuBean;
 import com.accuvally.hdtui.model.AccuDetailBean;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.CommentInfo;
-import com.accuvally.hdtui.model.DetailsTicketInfo;
-import com.accuvally.hdtui.model.FromInfo;
 import com.accuvally.hdtui.model.RegSuccessInfo;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.push.GetuiPushMessageReceiver;
 import com.accuvally.hdtui.ui.OverScrollView;
 import com.accuvally.hdtui.ui.PagerSlidingTabStrip;
 import com.accuvally.hdtui.ui.pulltoloaddetail.PullLayout;
+import com.accuvally.hdtui.utils.AndroidHttpClient;
 import com.accuvally.hdtui.utils.DialogUtils;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.LoginUtil;
@@ -79,7 +80,6 @@ import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangePaySuccessEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventCollection;
 import com.accuvally.hdtui.utils.eventbus.EventEnroll;
-import com.accuvally.hdtui.utils.eventbus.EventRobSuccess;
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
@@ -87,18 +87,25 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
-
 /**
  * Created by Andy Liu on 2017/2/7.
  */
+@SuppressLint("HandlerLeak")
+//@SuppressLint或者@SuppressWarnings
 public class DetailLeft extends BaseFragment implements View.OnClickListener, PullLayout.OnPullListener,
         PullLayout.OnPageChangedListener {
 
@@ -117,7 +124,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     private AccuDetailBean detailsInfo;
 
-    private FromInfo fromInfo;
 
     private LinearLayout share_ly;//分享
 
@@ -138,16 +144,18 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
 
     private TextView tvDetailsOrgName;//主办方名称
-    private ImageView ivCertification;//主办方标志，认证 vip
-    private TextView tvContactOrganizer;//联系主办方
-    private TextView tvToOrganizer;//主办方详情
-    private ImageView ivHasFollowed;//关注主办方
+    private ImageView ivCertification;//主办方标志，
+    private ImageView ivVip;//认证 vip
+//    private TextView tvContactOrganizer;//联系主办方
+    private RelativeLayout rlToOrganizer;//主办方详情
+    private RelativeLayout rlAddAttention;//关注主办方
+    private TextView tvAddAttention;
     private TextView tv_followNum, tv_huodongNum, tv_likeNum;//关注数，活动数，点赞数
     private int likeNum;
     private TextView OrgDesc;//主办方描述
 
     private TextView toHistoryComment,toHistoryConsultion;
-
+    private RelativeLayout llToHistoryComment,llToHistoryConsultion;
     private View viewOrgLine;//一条横线
 
     private TextView tvDetailsColl;//收藏提示
@@ -155,10 +163,8 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     private  LinearLayout llCollect;//收藏layout
 
     private  LinearLayout llGroupChat,llEvaluate;//群聊，评价
+    private  TextView tvGroupChat;//群聊textview
 
-    private View llRobTicket;// 抢票
-    private View llEnroll;// 立即报名
-    private TextView tvCheapTicket;//特价抢票
     private CustomViewPager viewpager;
 
     private View include_accuvallydetail_bottom;//底部layout
@@ -173,17 +179,9 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     ShareUtils shareUtils;
 
-
-    private boolean isRobTicket;// 是否是抢票
-
-
     private RegSuccessInfo successInfo;
 
     public static final String TAG = "AccuvallyDetailsActivity";
-
-    private String statusStr;
-
-    private boolean isStartBuyTicketThree;
 
     public static final int loginForComment = 1;
     public static final int submitComment = 2;
@@ -198,6 +196,16 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
      ImageView activity_header_progressbar;
      AnimationDrawable animationDrawable;
+    public TextView tvRobTicket;//抢票文字
+    public LinearLayout llRegTicket;
+    Timer timer;
+    int count;//离抢票的时间
+    public final static String SCODE="SCODE";
+
+    private String scode=null;
+
+    private boolean hasGetTheCodeAddress=false;
+    private boolean hasGetTheCode=false;
 
     public void startProgress() {
         activity_header_progressbar.setVisibility(View.VISIBLE);
@@ -226,6 +234,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         parseIntent();
         initUmengData();
         getDetails();
+
         return rootView;
     }
 
@@ -248,10 +257,11 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         tvDetailsTime = (TextView) rootView.findViewById(R.id.tvDetailsTime);
         tvDetailsAddress = (TextView) rootView.findViewById(R.id.tvDetailsAddress);
         tvDetailsTicket = (TextView) rootView.findViewById(R.id.tvDetailsTicket);
-        tvContactOrganizer = (TextView) rootView.findViewById(R.id.tvContactOrganizer);
-        tvToOrganizer = (TextView) rootView.findViewById(R.id.tvToOrganizer);
-        ivHasFollowed = (ImageView) rootView.findViewById(R.id.addAttention);
-        ivHasFollowed.setOnClickListener(this);
+//        tvContactOrganizer = (TextView) rootView.findViewById(R.id.tvContactOrganizer);
+        rlToOrganizer = (RelativeLayout) rootView.findViewById(R.id.rlToOrganizer);
+        rlAddAttention = (RelativeLayout) rootView.findViewById(R.id.rlAddAttention);
+        rlAddAttention.setOnClickListener(this);
+        tvAddAttention = (TextView) rootView.findViewById(R.id.tvAddAttention);
 
         tv_followNum = (TextView) rootView.findViewById(R.id.tv_followNumber);
         tv_huodongNum = (TextView) rootView.findViewById(R.id.tv_huodongNumber);
@@ -260,11 +270,14 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
 
         toHistoryConsultion = (TextView) rootView.findViewById(R.id.toHistoryConsultion);
+        llToHistoryConsultion= (RelativeLayout) rootView.findViewById(R.id.llToHistoryConsultion);
+
         toHistoryComment = (TextView) rootView.findViewById(R.id.toHistoryComment);
+        llToHistoryComment= (RelativeLayout) rootView.findViewById(R.id.llToHistoryComment);
 
         tvDetailsOrgName = (TextView) rootView.findViewById(R.id.tvDetailsOrgName);
         ivCertification = (ImageView) rootView.findViewById(R.id.ivCertification);
-
+        ivVip = (ImageView) rootView.findViewById(R.id.ivVip);
 
         lyDetailsAddr = (LinearLayout) rootView.findViewById(R.id.lyDetailsAddr);
 
@@ -302,13 +315,14 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         });
 
         tvDetailsTicket.setOnClickListener(this);
-        tvContactOrganizer.setOnClickListener(this);
-        tvToOrganizer.setOnClickListener(this);
+//        tvContactOrganizer.setOnClickListener(this);
+        rlToOrganizer.setOnClickListener(this);
 
 
-        rootView.findViewById(R.id.toHistoryComment).setOnClickListener(this);
+        llToHistoryComment.setOnClickListener(this);
         rootView.findViewById(R.id.tv_home_historyComment).setOnClickListener(this);
-        rootView.findViewById(R.id.toHistoryConsultion).setOnClickListener(this);
+
+        llToHistoryConsultion.setOnClickListener(this);
 
     }
 
@@ -325,6 +339,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         llCollect.setOnClickListener(this);// 收藏
 
         llGroupChat= accuvallyDetailsActivity.llGroupChat;
+        tvGroupChat=accuvallyDetailsActivity.tvGroupChat;
         llGroupChat.setOnClickListener(this);// 群聊
 
         llEvaluate= accuvallyDetailsActivity.llEvaluate;
@@ -332,36 +347,15 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
         tvDetailsRegTicket = accuvallyDetailsActivity.tvDetailsRegTicket;//报名文字
         tvDetailsRegTicket.setOnClickListener(this);
-        llEnroll = accuvallyDetailsActivity.llEnroll;//报名layout
 
-        llRobTicket = accuvallyDetailsActivity.llRobTicket;// 抢票layout
-        llRobTicket.setOnClickListener(this);
+        tvRobTicket = accuvallyDetailsActivity.tvRobTicket;//抢票提示
+        llRegTicket=accuvallyDetailsActivity.llRegTicket;
 
-        tvCheapTicket = accuvallyDetailsActivity.tvCheapTicket;//抢票提示
 
         tabStripone=accuvallyDetailsActivity.tabStripone;
         tabStriptwo=accuvallyDetailsActivity.tabStriptwo;
         viewpager=accuvallyDetailsActivity.viewpager;
 
-       /* tvDetailsColl = (TextView) rootView.findViewById(R.id.tvDetailsColl);//收藏与否文字提示
-        ivDetailsColl = (ImageView) rootView.findViewById(R.id.ivDetailsColl);//收藏与否图标提示
-        llCollect= (LinearLayout) rootView.findViewById(R.id.llCollect);
-        llCollect.setOnClickListener(this);// 收藏
-
-        llGroupChat= (LinearLayout) rootView.findViewById(R.id.llGroupChat);
-        llGroupChat.setOnClickListener(this);// 群聊
-
-        llEvaluate= (LinearLayout) rootView.findViewById(R.id.llEvaluate);
-        llEvaluate.setOnClickListener(this);// 评价
-
-        tvDetailsRegTicket = (TextView) rootView.findViewById(R.id.tvDetailsRegTicket);//报名文字
-        tvDetailsRegTicket.setOnClickListener(this);
-        llEnroll = rootView.findViewById(R.id.llEnroll);//报名layout
-
-        llRobTicket = rootView.findViewById(R.id.llIsRobTicket);// 抢票layout
-        llRobTicket.setOnClickListener(this);
-
-        tvCheapTicket = (TextView) rootView.findViewById(R.id.tvCheapTicket);//抢票提示*/
     }
 
 
@@ -384,7 +378,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         Bundle bundle = getArguments();
         homeId = bundle.getString("id");
         isHuodong = bundle.getInt("isHuodong", 0);
-        isRobTicket = bundle.getBoolean("isRobTicket", false);
         ToCommentActivity = bundle.getBoolean(GetuiPushMessageReceiver.ToCommentActivity, false);
         TOCommentDisplayActivity_comment = bundle.getBoolean(GetuiPushMessageReceiver.TOCommentDisplayActivity_comment, false);
         TOCommentDisplayActivity_consult = bundle.getBoolean(GetuiPushMessageReceiver.TOCommentDisplayActivity_consult, false);
@@ -437,10 +430,17 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                                 toConsultionDisplay();//个推导向
                             }
 
+                            if(accuvallyDetailsActivity.LinkedActivity_HASCOUPON){
+                                linkedToSelectActivity();
+                            }
+
+
+                        }else {
+                            application.showMsg(response.getMsg());
                         }
                         break;
                     case Config.RESULT_CODE_ERROR:
-                        application.showMsg(result.toString());
+                        application.showMsg("网络连接断开，请检查网络");
                         break;
                 }
             }
@@ -457,10 +457,14 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         tv_likeNum.setText(likeNum + "");
 
         hasAttention = detailsInfo.IsFollowOrg;
-        if (hasAttention) {
-            ivHasFollowed.setImageResource(R.drawable.has_attention);
+        if (hasAttention) {//初始化
+            tvAddAttention.setText("已关注");
+//            tvAddAttention.setTextColor(Color.argb(255, 0x99, 0x99, 0x99));
+            tvAddAttention.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         } else {
-            ivHasFollowed.setImageResource(R.drawable.add_attention);
+            tvAddAttention.setText("关注");
+//            tvAddAttention.setTextColor(Color.argb(255, 0x76, 0xbf, 0x47));
+            tvAddAttention.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.add_attention_no_frame), null, null, null);
         }
 
         if (LoginUtil.isSporsor(detailsInfo.orgid)) {
@@ -474,6 +478,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
 
 
+    //设置历史评价列表(0-3条)
     private void setCommentAccu(){
 
         if (detailsInfo == null || detailsInfo.commentlist == null)
@@ -555,10 +560,9 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     // 活动行详情Text界面
     private void setTextAccuvally() {
-        if (detailsInfo.isRush) {
-            share_ly.setVisibility(View.GONE);
-        } else {
-            share_ly.setVisibility(View.VISIBLE);
+
+        if(detailsInfo.GroupChatDisabled){
+            tvGroupChat.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.acc_detail_group_disable), null,null);
         }
 
         application.mImageLoader.displayImage(detailsInfo.logo, ivDetailsLogo);
@@ -581,13 +585,16 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         tvLikeNum.setText("收藏" + detailsInfo.likenum + "次");
 
         if (detailsInfo.isvip) {
-            ivCertification.setBackgroundResource(R.drawable.icon_vip);
+
+            ivVip.setVisibility(View.VISIBLE);
         } else {
-            if (detailsInfo.orgstatus == 1) {
-                ivCertification.setBackgroundResource(R.drawable.v_certification);
-            } else {
-                ivCertification.setVisibility(View.GONE);
-            }
+            ivVip.setVisibility(View.GONE);
+        }
+
+        if (detailsInfo.orgstatus == 1) {
+            ivCertification.setVisibility(View.VISIBLE);
+        } else {
+            ivCertification.setVisibility(View.GONE);
         }
 
 
@@ -645,10 +652,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             tvDetailsColl.setText("收藏");
         }
 
-        if (!TextUtils.isEmpty(detailsInfo.form)) {
-            fromInfo = JSON.parseObject(detailsInfo.form, FromInfo.class);
-        }
-
         if (detailsInfo.status == 3) {
             boolean visble = false;
             for (int i = 0; i < detailsInfo.ticks.size(); i++) {
@@ -664,51 +667,339 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             }
         }
 
-        isRobTicket = detailsInfo.isRush;// 是否是抢票
-        setIsRobTicket();
+
+        if (detailsInfo.StaticMode) {//抢票活动会判断是否展示抢票倒计时等
+            share_ly.setVisibility(View.VISIBLE);
+            tvRobTicket.setVisibility(View.VISIBLE);
+
+            setStatus("倒计时中");
+
+//            llRegTicket.setVisibility(View.GONE);
+            setCountDownTimer();//获取抢票时间，并开始倒计时
+
+        } else {
+
+            tvRobTicket.setVisibility(View.GONE);
+
+            tvDetailsRegTicket.setClickable(true);
+            tvDetailsRegTicket.setBackgroundResource(R.drawable.selector_click_btn);
+            tvDetailsTicket.setClickable(true);
+
+//            llRegTicket.setVisibility(View.VISIBLE);
+        }
+
+
 
         String url = detailsInfo.shareurl;
         shareUtils.initConfig(this.getActivity(), detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(),
                 detailsInfo.logo, url);
     }
 
-
-    //设置抢票活动的特殊界面
-    private void setIsRobTicket() {
-        if (isRobTicket) {// 是抢票的活动隐藏收藏和分享
-            llEnroll.setVisibility(View.GONE);
-            llRobTicket.setVisibility(View.VISIBLE);
-            share_ly.setVisibility(View.GONE);// 抢票活动先隐藏圈子
-
-            llCollect.setVisibility(View.GONE);
-
-            tvDetailsTicket.setClickable(false);// 抢票详情价格不能点击,右边的箭头也去掉
-            tvDetailsTicket.setCompoundDrawablesWithIntrinsicBounds(R.drawable.details_ticket_icon_bg, 0, 0, 0);
-
-            if (detailsInfo != null) {
-                statusStr = detailsInfo.statusstr;
-                tvCheapTicket.setText(statusStr);
-                if ("即将开始".equals(statusStr) || "已抢完".equals(statusStr) || "已结束".equals(statusStr)) {
-                    llRobTicket.setBackgroundColor(0xffbdbdbd);
-                    llRobTicket.setClickable(false);
-                }
-            }
-
-            if (detailsInfo != null) {
-                List<DetailsTicketInfo> ticks = detailsInfo.ticks;
-                if (!ticks.isEmpty() && ticks.get(0).isHadReg()) {// 已抢票报名过了
-                    tvCheapTicket.setText("已报名");
-                    llRobTicket.setBackgroundColor(0xffbdbdbd);
-                    llRobTicket.setClickable(false);
-                }
-            }
-
-        } else {
-            llEnroll.setVisibility(View.VISIBLE);
-            llRobTicket.setVisibility(View.GONE);// 隐藏抢特价票按钮,默认显示
-            share_ly.setVisibility(View.VISIBLE);
+    private String parseScodeAddress(String str){
+        String ret=null;
+        try{
+            String[] strings=str.split("=");
+            ret=strings[1].trim().substring(1,strings[1].length()-3);
+            System.out.println(str);
+        } catch (Exception e){
+            e.printStackTrace();
         }
+        return ret;
+
     }
+
+
+    //获取验证码的地址
+    private void getScodeAddress(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                final int maxTime=40;
+                int tryTime=0;
+                hasGetTheCodeAddress=false;
+
+                while (!hasGetTheCodeAddress){
+
+                    tryTime++;
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        AndroidHttpClient httpClient = AndroidHttpClient.newInstance(HttpCilents.buildUserAgent(mContext));
+                        HttpGet request = new HttpGet("http://rush.huodongxing.com/address/"+homeId+".js"+"?time="+System.currentTimeMillis());//暂时写死
+                        HttpResponse response = httpClient.execute(request);
+                        String result= EntityUtils.toString(response.getEntity());
+                        int statusCode = response.getStatusLine().getStatusCode();
+                        Trace.e(TAG, "getScodeAddress   result:" + result + ",statusCode:" + statusCode+",tryTime:"+tryTime);
+                        if(statusCode==200){
+
+                            String address=parseScodeAddress(result);
+                            if((address!=null) && address.startsWith("http")){
+                                hasGetTheCodeAddress=true;
+                                getScode(address);
+                            }else {
+                                if(tryTime>maxTime){
+                                    hasGetTheCodeAddress=true;
+                                    setTryRobTickView();
+                                }
+                            }
+                        }//end 200
+                        else{//除200外的其他情况
+                            if(tryTime>maxTime){
+                                hasGetTheCodeAddress=true;
+                                setTryRobTickView();
+                            }
+                        }//end 除200外的其他情况
+
+
+                    } catch (Exception e) {
+                        if(tryTime>maxTime){
+                            hasGetTheCodeAddress=true;
+                            setTryRobTickView();
+                        }
+                        Trace.e(TAG,e.getMessage());
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+        }).start();
+    }
+
+
+    //由linked优惠码引导进入购票页面
+    private void linkedToSelectActivity(){
+        Intent intent=new Intent(mContext, SelectTicketActivity.class);
+        intent.putExtra("info", detailsInfo);
+        intent.putExtra(LinkedMiddleActivity.LinkedActivity_COUPON, accuvallyDetailsActivity.LinkedActivity_COUPON);
+        intent.putExtra(LinkedMiddleActivity.LinkedActivity_HASCOUPON, true);
+        startActivity(intent);
+    }
+
+
+    //有了scode，进入抢票
+    private void starRobActivity(){
+        Intent intent=new Intent(mContext, SelectTicketActivity.class);
+        intent.putExtra("info", detailsInfo);
+        intent.putExtra(SCODE, scode);
+        startActivity(intent);
+    }
+
+    //获取验证码
+    private void getScode(final String address){
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int maxTime=40;
+                int tryTime=0;
+                hasGetTheCode=false;
+                while (!hasGetTheCode){
+                    tryTime++;
+
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        AndroidHttpClient httpClient = AndroidHttpClient.newInstance(HttpCilents.buildUserAgent(mContext));
+                        HttpGet request = new HttpGet(address);
+                        HttpResponse response = httpClient.execute(request);
+                        String result= EntityUtils.toString(response.getEntity());
+                        int statusCode = response.getStatusLine().getStatusCode();
+
+                        Trace.e(TAG, "getScode   result:" + result + ",statusCode:" + statusCode+",tryTime:"+tryTime);
+                        int scodeLength=result.trim().length();
+                        if((10<scodeLength) &&(scodeLength<20)){//抢到了s码
+
+                            hasGetTheCode=true;//a.抢到s码
+                            scode=result.trim();//去掉换行符
+
+                            setRobSuccessTickView();
+                            starRobActivity();//获取到scode
+                        }else if(result.trim().equals("1012")){//1012抢票结束
+                            hasGetTheCode=true;//b.抢票结束
+                            setRobStopTickView();
+                        }else {//其他提示一直在
+
+                            if(tryTime>maxTime){
+                                hasGetTheCode=true;//c.超过次数了
+                                setTryRobTickView();
+                            }
+                        }
+
+
+
+                    } catch (Exception e) {
+                        Trace.e(TAG,e.getMessage());
+                        e.printStackTrace();
+
+                        if(tryTime>maxTime){
+                            hasGetTheCode=true;//c.超过次数了
+                            setTryRobTickView();
+                        }
+                    }
+
+                }
+
+            }
+        }).start();
+    }
+
+    //正在排队中的ui：包括获取scode地址，获取scode
+    private void setRobIngTickView(){
+        setProgressCancleable(false);
+        showProgress("正在排队中");
+
+    }
+
+    //抢票结束
+    private void setRobStopTickView(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dismissProgress();
+                application.showMsg("很抱歉，此次抢票已结束");
+                setStatus("抢票结束");
+            }
+        });
+    }
+
+
+    //40次获取s码之后，提示
+    private void setTryRobTickView(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dismissProgress();
+
+                showTryRobAgainDialog();
+            }
+        });
+    }
+
+
+    //抢到s码之后，恢复可报名状态，从报名退出来之后可继续抢票
+    private void setRobSuccessTickView(){
+                                    getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                dismissProgress();
+
+            }
+        });
+    }
+
+    DecimalFormat df=new DecimalFormat("00");
+    //显示倒计时，并且在时间到了之后把买票按钮显示出来。
+    private void setTimeDisplay(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (count <= 0) {//倒计时结束
+                    if (timer != null) {
+                        timer.cancel();
+                    }
+                    tvRobTicket.setVisibility(View.GONE);//可以抢票了
+//                    llRegTicket.setVisibility(View.VISIBLE);//可以抢票了
+
+
+                    tvDetailsRegTicket.setText("立即抢票");
+                    tvDetailsRegTicket.setClickable(true);
+                    tvDetailsRegTicket.setBackgroundResource(R.drawable.selector_click_btn);
+                    tvDetailsTicket.setClickable(true);
+
+
+                    ToastUtil.showMsgShort("现在可以开始抢票");
+
+                } else {
+                    int hour = count / 3600;
+                    int temp = count % 3600;
+                    int minute = temp / 60;
+                    int secound = temp % 60;
+
+                    if(AccountManager.checkIsLogin()){
+                        tvRobTicket.setText("抢票倒计时:  " + df.format(hour) + ":" + df.format(minute) + ":" + df.format(secound) );
+                    }else {
+                        tvRobTicket.setText("(请提前登录) 抢票倒计时:  "  +df.format(hour) + ":" + df.format(minute) + ":" + df.format(secound) + ":");
+                    }
+
+                }
+
+
+            }
+        });
+
+
+    }
+
+
+
+    //倒计时
+    private void handleCountDownTimer(){
+        if(timer!=null){
+            timer.cancel();//重复刷新的时候要先杀死之前的timer
+        }
+
+        timer=new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                count--;
+                setTimeDisplay();//倒计时
+
+            }
+        }, 1000, 1000);
+
+    }
+
+
+    //获取抢票时间，并开始倒计时
+    private void setCountDownTimer(){
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AndroidHttpClient httpClient = AndroidHttpClient.newInstance(HttpCilents.buildUserAgent(mContext));
+                    HttpGet request = new HttpGet("http://rush.huodongxing.com/service/e2s?eid="+homeId);//暂时写死
+                    HttpResponse response = httpClient.execute(request);
+                    String result= EntityUtils.toString(response.getEntity());
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    Trace.e(TAG, "setCountDownTimer    result:" + result + ",statusCode:" + statusCode);
+                    try {
+                        double temp=Double.parseDouble(result);
+                        count=(int)temp;
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        count=-1;
+                    }
+                    setTimeDisplay();//先显示倒计时出来，或者时间到了，把买票页面显示出来
+
+                    if(count>0){
+                        handleCountDownTimer();
+                    }
+
+                } catch (Exception e) {
+                    Trace.e(TAG,e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
 
 
     //==========报名按钮的显示内容=====
@@ -722,15 +1013,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     private void initAccuDetail(){
         setTextAccuvally();
-        if (isRobTicket) {// 分享成功监听 设置公布名单时间
-            shareUtils.setShareSuccessListener(new ShareUtils.shareCallBack() {
-
-                @Override
-                public void shareSuccess() {
-                    regRobTicket();//立即报名，验证有没有表单
-                }
-            });
-        }
         setSporAccu();
 
         setInterestAccu();
@@ -769,7 +1051,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             ivDetailsColl.setImageResource(R.drawable.shoucang);
             tvDetailsColl.setText("收藏");
         }
-//		clockButton.setVisibility(View.GONE);
         shareUtils.initConfig(this.getActivity(), detailsInfo.title, Html.fromHtml(detailsInfo.summary).toString(), detailsInfo.logo, detailsInfo.shareurl);
 
         include_accuvallydetail_bottom.setVisibility(View.GONE);
@@ -816,29 +1097,35 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     private void toCommentDisplay(){
         if (detailsInfo != null) {
-            Intent commentIntent = new Intent(mContext, CommentDisplayActivity.class);
-            commentIntent.putExtra(CommentDisplayActivity.REPLAY_TYPE, 1);//评价
-            if (!"0".equals(detailsInfo.orgid)){
-                commentIntent.putExtra(CommentDisplayActivity.TYPE, 1);//主办方
-                commentIntent.putExtra(CommentDisplayActivity.TARGET, detailsInfo.orgid);//
-            }else {
-                commentIntent.putExtra(CommentDisplayActivity.TYPE, 11);//主办人
-                commentIntent.putExtra(CommentDisplayActivity.TARGET,  detailsInfo.createby);//
+            if(!detailsInfo.CommentDisabled){
+                Intent commentIntent = new Intent(mContext, CommentDisplayActivity.class);
+                commentIntent.putExtra(CommentDisplayActivity.REPLAY_TYPE, 1);//评价
+                if (!"0".equals(detailsInfo.orgid)){
+                    commentIntent.putExtra(CommentDisplayActivity.TYPE, 1);//主办方
+                    commentIntent.putExtra(CommentDisplayActivity.TARGET, detailsInfo.orgid);//
+                }else {
+                    commentIntent.putExtra(CommentDisplayActivity.TYPE, 11);//主办人
+                    commentIntent.putExtra(CommentDisplayActivity.TARGET,  detailsInfo.createby);//
+                }
+
+                startActivity(commentIntent);
             }
 
-            startActivity(commentIntent);
         }
     }
 
     private void toConsultionDisplay(){
         if (detailsInfo != null) {
-            Intent consulationIntent = new Intent(mContext, CommentDisplayActivity.class);
-            consulationIntent.putExtra(CommentDisplayActivity.REPLAY_TYPE, 2);//活动咨询
-            consulationIntent.putExtra(CommentDisplayActivity.TYPE, 0);//
-            consulationIntent.putExtra(CommentDisplayActivity.TARGET,  detailsInfo.id);//
-            consulationIntent.putExtra(CommentDisplayActivity.EVENT_NAME,  detailsInfo.title);//
 
-            startActivity(consulationIntent);
+            if(!detailsInfo.CommentDisabled){
+                Intent consulationIntent = new Intent(mContext, CommentDisplayActivity.class);
+                consulationIntent.putExtra(CommentDisplayActivity.REPLAY_TYPE, 2);//活动咨询
+                consulationIntent.putExtra(CommentDisplayActivity.TYPE, 0);//
+                consulationIntent.putExtra(CommentDisplayActivity.TARGET,  detailsInfo.id);//
+                consulationIntent.putExtra(CommentDisplayActivity.EVENT_NAME,  detailsInfo.title);//
+                startActivity(consulationIntent);
+            }
+
         }
     }
 
@@ -847,7 +1134,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     public void onClick(View arg0) {
         switch (arg0.getId()) {
 
-            case R.id.toHistoryComment:
+            case R.id.llToHistoryComment:
             case R.id.tv_home_historyComment:
                 if (Utils.isFastDoubleClick()) {
                     return;
@@ -855,7 +1142,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 toCommentDisplay();
 
                 break;
-            case R.id.toHistoryConsultion:
+            case R.id.llToHistoryConsultion:
                 if (Utils.isFastDoubleClick()) {
                     return;
                 }
@@ -909,15 +1196,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 startActivity(mIntent);
                 shareDialog.dismiss();
                 break;
-            case R.id.llIsRobTicket:// 抢特价票也要先分享
-                if (!application.checkIsLogin()) {
-                    showUnRegDialog();
-                    return;
-                }
-                if (detailsInfo != null) {
-                    showDialogShare();// 抢特价票也要先分享
-                }
-                break;
             case R.id.share_ly:// 分享
                 if (Utils.isFastDoubleClick()) {
                     return;
@@ -934,7 +1212,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 evalute();//用于测试
                 break;
 
-            case R.id.addAttention://关注
+            case R.id.rlAddAttention://关注
                 if (detailsInfo != null) {
                     attentionSponsor();
                 }
@@ -954,6 +1232,22 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 }
                 break;
             case R.id.tvDetailsTicket:// 免费|收费栏 点击报名
+                if (Utils.isFastDoubleClick())
+                    return;
+                if (detailsInfo != null) {
+                    if (!detailsInfo.AllowReply) {//活动报名
+                        if (isHuodong == 1) {
+                            if (detailsInfo != null) {
+                                application.showMsg("该活动不提供报名");
+                            }
+                        } else {
+                                if(!detailsInfo.StaticMode){//  不是抢票活动才能从票价进入报名界面
+                                    regTicket();//从票价进入
+                                }
+                        }
+                    }
+                }
+                break;
             case R.id.tvDetailsRegTicket:// 底部报名按钮点击报名
                 if (Utils.isFastDoubleClick())
                     return;
@@ -965,11 +1259,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                             }
                         } else {
                             if (detailsInfo != null) {
-                                if (!application.checkIsLogin()) {// 没有登入,弹出对话框
-                                    showUnRegDialog();
-                                    return;
-                                }
-                                regTicket();
+                                regTicket();//从底部报名按钮进入
                             }
                         }
                     } else {
@@ -993,7 +1283,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                     }
                 }
                 break;
-            case R.id.tvContactOrganizer://联系主办方
+           /* case R.id.tvContactOrganizer://联系主办方
                 if (Utils.isFastDoubleClick())
                     return;
 
@@ -1011,8 +1301,8 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                         ToChatActivity();
                     }
                 }
-                break;
-            case R.id.tvToOrganizer:// 主办方小站
+                break;*/
+            case R.id.rlToOrganizer:// 主办方小站
                 if (Utils.isFastDoubleClick())
                     return;
 
@@ -1033,6 +1323,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             case R.id.llGroupChat:// 群聊
                 if (Utils.isFastDoubleClick())
                     return;
+
                 MobclickAgent.onEvent(mContext, "click_event_groupchat_count");
                 if (!application.checkIsLogin()) {
                     toActivity(LoginActivityNew.class);
@@ -1040,7 +1331,9 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 }
 
                 if (isHuodong == 0 && detailsInfo != null) {
-                    joinCircle(detailsInfo.id);//不论是否存在会话都请求，可能被踢出群就不能再加入了
+                    if(!detailsInfo.GroupChatDisabled){
+                        joinCircle(detailsInfo.id);//不论是否存在会话都请求，可能被踢出群就不能再加入了
+                    }
                 }
                 break;
         }
@@ -1074,46 +1367,47 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     //立即报名
     public void regTicket() {
-        //1是否登录  2登录了的话电话/email是否为空 3.是否填写表单，
+        //1是否登录  2登录了的话电话/email是否为空   3.是否要选择票种
+        // 4.1是否填写表单 4.2是否抢票活动
 
         if (application.checkIsLogin()) {
             if (application.getUserInfo().isEmailActivated() || application.getUserInfo().isPhoneActivated()) {
                 if (detailsInfo.ticks.size() == 0) {
                     if (!TextUtils.isEmpty(detailsInfo.form)) {
                         // 表单不为空   填写报名表单
-                        Intent intent = new Intent(mContext, BuyTicketThreeActivity.class);
+                        Intent intent = new Intent(mContext, SubmitFormActivity.class);
                         intent.putExtra("info", detailsInfo);
-                        intent.putExtra("isRobTicket", isRobTicket);
+                        intent.putExtra("isRobTicket", detailsInfo.isRush);
                         startActivity(intent);
                     } else {
                         // 表单为空,直接报名
                         submitSignUp();
                     }
-                } else {
-                    startActivity(new Intent(mContext, RegAccuActivity.class).putExtra("info", detailsInfo));
+                } else {//进入报名，选择票种界面
+                    if(!detailsInfo.StaticMode){
+                        startActivity(new Intent(mContext, SelectTicketActivity.class).
+                                putExtra("info", detailsInfo));
+                    }else {//如果是抢票活动
+
+                        if(scode!=null){
+                            starRobActivity();
+                        }else {
+                            setRobIngTickView();
+                            getScodeAddress();
+                        }
+
+                    }
                 }
-            } else {
-                startActivity(new Intent(mContext, BindPhoneActivity.class).putExtra("TAG", 1));
+            } else {//第三方登录了，但电话/email为空
+                showUnRegDialog();
             }
-        } else {//未登录，验证 购票人信息
-            startActivity(new Intent(mContext, BuyTicketFirstActivity.class));
+        } else {//未登录，跳转到登录界面
+            startActivity(new Intent(mContext, LoginActivityNew.class));
         }
 
     }
 
 
-    //立即报名抢票
-    public void regRobTicket() {
-        if (!TextUtils.isEmpty(detailsInfo.form)) {// 表单不为空
-            Intent intent = new Intent(mContext, BuyTicketThreeActivity.class);
-            intent.putExtra("info", detailsInfo);
-            intent.putExtra("isRobTicket", isRobTicket);
-            startActivity(intent);
-            isStartBuyTicketThree = true;
-        } else {
-            shareCompleteReg();// 分享成功之后调用报名接口，报名第一个票券
-        }
-    }
 
     //在本界面直接报名
     private void submitSignUp() {
@@ -1122,7 +1416,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         params.add(new BasicNameValuePair("SN", ""));
         params.add(new BasicNameValuePair("id", detailsInfo.id));
         showProgress("正在报名");
-        httpCilents.postA(Url.ACCUPASS_DETAILS_REG, params, new HttpCilents.WebServiceCallBack() {
+        httpCilents.postB(Url.ACCUPASS_DETAILS_REG, params, new HttpCilents.WebServiceCallBack() {
 
             @Override
             public void callBack(int code, Object result) {
@@ -1198,75 +1492,45 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     }
 
 
-    //    成功参与抢票后分享
-    private void dialogShareSuccess() {
-        if (shareSuccessDialog == null) {
-            shareSuccessDialog = new Dialog(mContext, R.style.dialog);
-            shareSuccessDialog.setCancelable(true);
-            shareSuccessDialog.setCanceledOnTouchOutside(true);
-            shareSuccessDialog.setContentView(R.layout.dialog_share_success);
-        }
-        shareSuccessDialog.show();
-    }
+    private Dialog tryRobAgainDialog;
 
-    //分享成功之后调用报名接口，报名第一个票券
-    public void shareCompleteReg() {
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("Form", ""));
-        try {
-            params.add(new BasicNameValuePair("SN", detailsInfo.ticks.get(0).getSN() + ""));
-        } catch (Exception e) {
-            e.printStackTrace();
-            application.showMsg("数据有误");
-            return;
-        }
-        params.add(new BasicNameValuePair("id", detailsInfo.id));
-        showProgress("正在报名");
-        httpCilents.postA(Url.ACCUPASS_DETAILS_REG, params, new HttpCilents.WebServiceCallBack() {
+    public void showTryRobAgainDialog() {
+        tryRobAgainDialog = new Dialog(mContext, R.style.DefaultDialog);
+        tryRobAgainDialog.setCancelable(false);
+        tryRobAgainDialog.setCanceledOnTouchOutside(false);
+        tryRobAgainDialog.setContentView(R.layout.dialog_collect);
+        ((TextView) tryRobAgainDialog.findViewById(R.id.title)).setText("亲~");
+        ((TextView) tryRobAgainDialog.findViewById(R.id.message)).setText("当前排队人数过多，是否继续抢票");
+        ((TextView) tryRobAgainDialog.findViewById(R.id.tvDialogMistake)).setText("放弃");
+        ((TextView) tryRobAgainDialog.findViewById(R.id.tvDialogRemove)).setText("继续");
+
+        //放弃
+        tryRobAgainDialog.findViewById(R.id.tvDialogMistake).setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void callBack(int code, Object result) {
-                dismissProgress();
-                switch (code) {
-                    case Config.RESULT_CODE_SUCCESS:
-                        BaseResponse msg = JSON.parseObject(result.toString(), BaseResponse.class);
-                        if (msg.isSuccess()) {
-                            successInfo = JSON.parseObject(msg.getResult(), RegSuccessInfo.class);
-                            if (successInfo.getPrice() > 0) {// 收费票
-                                try {
-                                    if (!successInfo.isNeedApply()) {// 不需要审核
-                                        if (successInfo.getIsAppPay() == 1) {
-                                            Intent intent = new Intent(mContext, SureOrderActivity.class);
-                                            intent.putExtra("info", successInfo);
-                                            intent.putExtra("DetailsInfo", detailsInfo);
-                                            intent.putExtra("tag", 1);
-                                            startActivity(intent);
-                                        } else {
-                                            startActivity(new Intent(mContext, PayWebActivity.class).putExtra("payUrl", successInfo.getPayUrl()));
-                                        }
-                                    } else {// 需要审核
-                                        application.showMsg(successInfo.getMsg());// 报名成功，请等待审核！
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                dialogShareSuccess();
-                            }
-                            dbManager.insertSaveBeHavior(application.addBeHavior(40, 0 + "", detailsInfo.id, "", "", "", ""));
-                        } else {
-                            application.showMsg(msg.getMsg());
-                        }
-                        break;
-                    case Config.RESULT_CODE_ERROR:
-                        application.showMsg(result.toString());
-                        break;
-                }
+            public void onClick(View arg0) {
+
+                tryRobAgainDialog.dismiss();
             }
         });
+        //继续
+        tryRobAgainDialog.findViewById(R.id.tvDialogRemove).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                tryRobAgainDialog.dismiss();
+
+                setRobIngTickView();
+                getScodeAddress();
+
+            }
+        });
+        tryRobAgainDialog.show();
     }
 
-    //    没有登入,弹出对话框,进入验证购票人信息
+
+    // 第三方登录了，但电话/email为空
     public void showUnRegDialog() {
         if (unRegDialog == null) {
             unRegDialog = new Dialog(mContext, R.style.dialog);
@@ -1278,7 +1542,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 @Override
                 public void onClick(View v) {
                     unRegDialog.dismiss();
-                    startActivity(new Intent(mContext, BuyTicketFirstActivity.class));
+                    startActivity(new Intent(mContext, BindPhoneBeforBuyActivity.class));
                 }
             });
         }
@@ -1296,16 +1560,12 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     public void onEventMainThread(ChangeDetailsRegEventBus eventBus) {
         if (detailsInfo != null) {
-            if (!isRobTicket)// 抢票活动不报名留在这个页面
-                regTicket();
+            if (!detailsInfo.StaticMode)// 抢票活动不报名,留在这个页面
+                regTicket();//第三方登录，绑定手机号之后
         }
     }
 
-    public void onEventMainThread(EventRobSuccess eventBus) {
-        // 有可能是IntroductPushActivity打开的BuyTicketThreeActivity就不弹出对话框提示
-        if (isStartBuyTicketThree)
-            dialogShareSuccess();
-    }
+
 
 
     @Override
@@ -1314,6 +1574,11 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         shareUtils.setShareSuccessListener(null);// dialog Unable to add window
         shareUtils = null;
         EventBus.getDefault().unregister(this);
+        hasGetTheCode=true;//退出界面
+        hasGetTheCodeAddress=true;//退出界面
+        if(timer!=null){
+            timer.cancel();
+        }
     }
 
 
@@ -1357,16 +1622,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         TextView tvCancel = (TextView) shareDialog.findViewById(R.id.tvCancel);
         TextView tvShareMsg = (TextView) shareDialog.findViewById(R.id.tvShareMsg);
         LinearLayout lydismiss = (LinearLayout) shareDialog.findViewById(R.id.lydismiss);
-        LinearLayout llRobTips = (LinearLayout) shareDialog.findViewById(R.id.llRobTips);// 分享的抢票提示,
-        // 默认隐藏
-        if (isRobTicket) {// 是抢票活动
-            llRobTips.setVisibility(View.VISIBLE);// 分享的抢票提示 ——显示
-            tvShareMsg.setVisibility(View.INVISIBLE);// 短信分享不可见
 
-            TextView tvTips = (TextView) shareDialog.findViewById(R.id.tvTips);
-        } else {
-            llRobTips.setVisibility(View.GONE);
-        }
 
         shareSina.setOnClickListener(this);
         shareQzone.setOnClickListener(this);
@@ -1486,7 +1742,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         String url = "";
-        if (hasAttention) {// 已经关注后点击就送取消关注
+        if (hasAttention) {// 已经关注后点击就送取消关注（不同的url请求）
             if (LoginUtil.isSporsor(detailsInfo.orgid)) {
                 params.add(new BasicNameValuePair("id", detailsInfo.orgid));
                 url = Url.ORG_UNFOLLOW;
@@ -1519,15 +1775,22 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                     BaseResponse response = JSON.parseObject((String) result, BaseResponse.class);
                     if (response.isSuccess()) {
 //                        ToastUtil.showMsg(response.msg);
-                        if (hasAttention) {
-                            ivHasFollowed.setImageResource(R.drawable.add_attention);
+                        if (hasAttention) {//请求成功之前的状态为已关注，即ui要的逻辑应该是取消关注后的
+                            tvAddAttention.setText("关注");
+//                            tvAddAttention.setTextColor(Color.argb(255, 0x76, 0xbf, 0x47));
+                            tvAddAttention.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.add_attention_no_frame), null, null, null);
+
                             follows = follows - 1;
                             tv_followNum.setText(follows + "");
 //                            dbManager.insertSaveBeHavior(application.addBeHavior(21, 1 + "", orgBean.getId(), "", "", "", ""));
                             dbManager.insertSaveBeHavior(application.addBeHavior(21, 1 + "", detailsInfo.orgid, "", "", "", ""));//????
                         } else {
                             MobclickAgent.onEvent(mContext, "follow_organizer_count");
-                            ivHasFollowed.setImageResource(R.drawable.has_attention);
+
+                            tvAddAttention.setText("已关注");
+//                            tvAddAttention.setTextColor(Color.argb(255, 0x99, 0x99, 0x99));
+                            tvAddAttention.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
                             follows = follows + 1;
                             tv_followNum.setText(follows + "");
 //                            dbManager.insertSaveBeHavior(application.addBeHavior(20, 1 + "", orgBean.getId(), "", "", "", ""));
@@ -1735,7 +1998,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     public void onPageChanged(int stub) {
         switch (stub) {
             case PullLayout.SCREEN_HEADER:
-//            Toast.makeText(mContext,"onPageChanged,SCREEN_HEADER",Toast.LENGTH_SHORT).show();
+
                 tabStripone.setVisibility(View.GONE);
                 tabStriptwo.setVisibility(View.VISIBLE);
                 viewpager.setScanScroll(true);

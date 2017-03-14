@@ -162,7 +162,7 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener {
 		params.add(new BasicNameValuePair("devicedesc",application.getDeviceDesc()));
 		params.add(new BasicNameValuePair("appversion",application.getAppversion()));
 		showProgress("正在获取验证码");
-		httpCilents.postA(Url.ACCUPASS_SEND_CODE, params, new WebServiceCallBack() {
+		httpCilents.postB(Url.ACCUPASS_SEND_CODE, params, new WebServiceCallBack() {
 
 			@Override
 			public void callBack(int code, Object result) {

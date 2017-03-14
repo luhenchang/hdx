@@ -29,6 +29,7 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:centerDark">@color/white</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
@@ -80,6 +81,9 @@
         <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustPan</item>
     </style>
 
+
+
+
     <style name="dialogWindowAnim" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
@@ -109,6 +113,11 @@
         <item name="android:clickable">false</item>
         <item name="android:focusableInTouchMode">false</item>
     </style>
+
+
+
+
+
 
     <style name="Transparent" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

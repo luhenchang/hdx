@@ -20,4 +20,18 @@
     <item name="id_stickynavlayout_indicator" type="id"/>
     <item name="id_stickynavlayout_innerscrollview" type="id"/>
 
+
+    <!-- Messages IDs   zxing -->
+    <item type="id" name="auto_focus"/>
+    <item type="id" name="decode"/>
+    <item type="id" name="decode_failed"/>
+    <item type="id" name="decode_succeeded"/>
+    <item type="id" name="encode_failed"/>
+    <item type="id" name="encode_succeeded"/>
+    <item type="id" name="restart_preview"/>
+    <item type="id" name="show_result"/>
+    <item type="id" name="quit"/>
+    <item type="id" name="return_scan_result"/>
+    <item type="id" name="launch_product_query"/>
+
 </resources>

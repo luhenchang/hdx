@@ -153,7 +153,7 @@
             </LinearLayout>
 
             <!--app:layoutManager="android.support.v7.widget.GridLayoutManager"-->
-            <!--app:layoutManager="com.accuvally.hdtui.activity.home.comment.WrappableGridLayoutManager"-->
+            <!--app:layoutManager="com.accuvally.hdtui.ui.imageloader.WrappableGridLayoutManager"-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"

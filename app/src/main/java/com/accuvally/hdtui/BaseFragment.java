@@ -19,7 +19,6 @@ import com.accuvally.hdtui.model.SaveBeHaviorInfo;
 import com.accuvally.hdtui.ui.MyProgressDialog;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
-import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.alibaba.fastjson.JSON;
 import com.umeng.analytics.MobclickAgent;
@@ -108,6 +107,11 @@ public class BaseFragment extends Fragment {
 		myProgressDialog.setMyCancelable(true);
 		myProgressDialog.setMyTouchOutside(false);
 	}
+
+
+    public void setProgressCancleable(boolean cancleable){
+        myProgressDialog.setMyCancelable(cancleable);
+    }
 
 	/**
 	 * @param message
@@ -203,7 +207,7 @@ public class BaseFragment extends Fragment {
 	public void svaeBeHavior(List<SaveBeHaviorInfo> info) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("", info.toString()));
-        Trace.e("behaviour",info.toString());
+//        Trace.e("behaviour",info.toString());
 		httpCilents.postA(Url.SAVE_BEHAVIOR_INFO, params, new WebServiceCallBack() {
 
 			@Override

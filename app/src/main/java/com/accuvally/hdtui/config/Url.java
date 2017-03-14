@@ -74,10 +74,6 @@ public class Url {
 	/** 上传头像 **/
 	public static final String ACCUPASS_UPLOAD_HEAD = ACCUPASS_SERVICE_URL2 + "/user/upload_user_logo";
 	
-	
-	
-	
-	
 	/** 首页推荐 **/
 	public static final String HOME_URL = ACCUPASS_SERVICE_URL2 + "/search/home_data";
 	

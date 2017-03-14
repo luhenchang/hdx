@@ -3,10 +3,6 @@ package com.accuvally.hdtui;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.accuvally.hdtui.utils.TimeUtils;
-
-import java.util.Calendar;
-
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
@@ -19,13 +15,13 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void test() throws Exception {
 
 
-        System.out.println(Calendar.getInstance().get(Calendar.MONTH));
+      /*  System.out.println(Calendar.getInstance().get(Calendar.MONTH));
 
         String str1=TimeUtils.utcToLocal("2016-09-20T01:44:58Z");
 
         System.out.print(str1);
         int input1 = 1;
         int input2 = 2;
-        assertEquals(input1, input2);
+        assertEquals(input1, input2);*/
     }
 }

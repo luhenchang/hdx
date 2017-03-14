@@ -468,4 +468,14 @@
     <string name="title_activity_comment_display">CommentDisplayActivity</string>
     <string name="title_activity_consulation">ConsulationActivity</string>
 
+
+    <!-- zxing  start-->
+    <string name="msg_error">错误</string>
+    <string name="msg_invalid_value">值无效</string>
+    <string name="scan_text">将二维码放入框内，即可自动扫描</string>
+    <string name="preferences_continuous_scan_interval_title">连续扫描恢复时间(秒)</string>
+    <string name="preferences_play_beep_title">声音提示</string>
+    <string name="preferences_vibrate_title">震动</string>
+    <!-- zxing  end -->
+
 </resources>

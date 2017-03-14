@@ -93,4 +93,13 @@
     <color name="shape_mine">#d2d2d2</color>
     <color name="shape_mine_tvbg">#fc9300</color>
 
+
+    <!--===================zxing start==================================-->
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#90000000</color>
+    <!--===================zxing end==================================-->
+
 </resources>

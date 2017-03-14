@@ -1,8 +1,12 @@
 package com.accuvally.hdtui;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.junit.Test;
 
-import java.net.URLEncoder;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,11 +14,71 @@ import static org.junit.Assert.assertEquals;
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
 public class ExampleUnitTest {
+
+
+
+
+
+    @Test
+    public void httpTest() throws Exception {
+        String url="https://api.huodongxing.com/v3/utils/qret?qid=b9bbeda85548459f9b134d07bef05258&type=1";
+
+        URL realUrl = new URL(url);
+
+        System.out.println(realUrl.getPath());
+        System.out.println(realUrl.getQuery());
+
+       /* HttpCilents httpCilents=new HttpCilents(AccuApplication.getInstance());
+        final List<NameValuePair> params2=new ArrayList<NameValuePair>();
+
+        httpCilents.postA(url,params2,null);*/
+
+
+    }
+
+    @Test
+    public void parseUrl(){
+//        https://api.huodongxing.com/v3/utils/qret?qid=b9bbeda85548459f9b134d07bef05258&type=1
+        String url="https://api.huodongxing.com/v3/utils/qret?qid=b9bbeda85548459f9b134d07bef05258&type=1";
+        String url2="";
+        List<NameValuePair> params2=new ArrayList<>();
+        String[] strings=url.split("\\?");
+        url2=strings[0];
+        System.out.println(strings[0]);
+//        System.out.println(strings[1]);
+
+        String[] strings1=strings[1].split("&");
+        for(String s:strings1){
+            System.out.println(s);
+            String[] strings2=s.split("=");
+            params2.add(new BasicNameValuePair(strings2[0],strings2[1]));
+
+        }
+
+        System.out.println(strings[0]);
+
+
+    }
+
     @Test
     public void addition_isCorrect() throws Exception {
+
+        String s="var qServerUrl = \"http://rush.huodongxing.com/rush/f9ad2da871\";" ;
+        String s2="http://rush.huodongxing.com/rush/f0db853fde\"";
+
+        String s1 ="325363798255889578\n";
+        System.out.println(s1.substring(0, s1.length() - 1));
+
+
+        System.out.println("1050".length());
+
+        System.out.println("1050\n".trim());
+        System.out.println("  1050\n   ".trim());
+        System.out.print("1050\n".trim());
+        System.out.print("xxxx");
         assertEquals(4, 2 + 2);
 
-        java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#0.00");
+       /* java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#0.00");
         System.out.println(df.format(3.4));
         System.out.println(df.format(0.4));
 
@@ -24,7 +88,7 @@ public class ExampleUnitTest {
         int limit=0;int offset=0;
         String queryString="http://180.150.178.179:25679/hdx/pass_follow/_search?q="+
                 URLEncoder.encode("target_type:2" + " AND update_date:[" + sinceStartTime + " TO " + sinceEndTime + "]", "utf-8")
-                +"&from=" + offset + "&size=" + limit + "&pretty";
+                +"&from=" + offset + "&size=" + limit + "&pretty";*/
     }
 
   /*  class Account {

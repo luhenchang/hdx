@@ -2,13 +2,13 @@ package com.accuvally.hdtui.activity.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.entry.LinkedMiddleActivity;
 import com.accuvally.hdtui.fragment.detailfragment.CustomViewPager;
 import com.accuvally.hdtui.fragment.detailfragment.DetailFragementAdapter;
 import com.accuvally.hdtui.fragment.detailfragment.DetailLeft;
@@ -41,20 +41,20 @@ public class AccuvallyDetailsActivity extends BaseActivity {
     private boolean TOCommentDisplayActivity_comment = false;//是否加载完就跳转到评价展示界面
     private boolean TOCommentDisplayActivity_consult = false;//是否加载完就跳转到咨询展示界面
 
+    public boolean LinkedActivity_HASCOUPON = false;//是否加载完就跳转到咨询展示界面
+    public String LinkedActivity_COUPON;
 
     private int isHuodong;//isHuodong 0表示活动行的，1表示活动推
-    private boolean isRobTicket;
+
 
     public TextView tvDetailsColl;//收藏提示
     public ImageView ivDetailsColl;//收藏图片提示
     public  LinearLayout llCollect;//收藏layout
 
     public  LinearLayout llGroupChat,llEvaluate;//群聊，评价
-
-    public View llRobTicket;// 抢票
-    public View llEnroll;// 立即报名
-    public TextView tvCheapTicket;//特价抢票
-
+    public   TextView tvGroupChat;//群聊textview
+    public LinearLayout llRegTicket;//普通底部layout
+    public TextView tvRobTicket;//抢票文字
     public TextView tvDetailsRegTicket;//报名文字
 
     public DetailRight detailRight;
@@ -63,7 +63,7 @@ public class AccuvallyDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accuvally_details2);
+        setContentView(R.layout.activity_accuvally_details);
 
         parseIntent();
         initView();
@@ -73,10 +73,13 @@ public class AccuvallyDetailsActivity extends BaseActivity {
     private void parseIntent() {
         homeId = getIntent().getStringExtra("id");
         isHuodong = getIntent().getIntExtra("isHuodong", 0);
-        isRobTicket = getIntent().getBooleanExtra("isRobTicket", false);
         ToCommentActivity = getIntent().getBooleanExtra(GetuiPushMessageReceiver.ToCommentActivity, false);
         TOCommentDisplayActivity_comment = getIntent().getBooleanExtra(GetuiPushMessageReceiver.TOCommentDisplayActivity_comment, false);
         TOCommentDisplayActivity_consult = getIntent().getBooleanExtra(GetuiPushMessageReceiver.TOCommentDisplayActivity_consult, false);
+
+
+        LinkedActivity_HASCOUPON= getIntent().getBooleanExtra(LinkedMiddleActivity.LinkedActivity_HASCOUPON, false);
+        LinkedActivity_COUPON= getIntent().getStringExtra(LinkedMiddleActivity.LinkedActivity_COUPON);
 
     }
 
@@ -91,32 +94,24 @@ public class AccuvallyDetailsActivity extends BaseActivity {
         tvDetailsColl = (TextView) findViewById(R.id.tvDetailsColl);//收藏与否文字提示
         ivDetailsColl = (ImageView) findViewById(R.id.ivDetailsColl);//收藏与否图标提示
         llCollect= (LinearLayout) findViewById(R.id.llCollect);
-//        llCollect.setOnClickListener(this);// 收藏
 
         llGroupChat= (LinearLayout) findViewById(R.id.llGroupChat);
-//        llGroupChat.setOnClickListener(this);// 群聊
-
+        tvGroupChat= (TextView) findViewById(R.id.tvGroupChat);
         llEvaluate= (LinearLayout) findViewById(R.id.llEvaluate);
-//        llEvaluate.setOnClickListener(this);// 评价
 
         tvDetailsRegTicket = (TextView) findViewById(R.id.tvDetailsRegTicket);//报名文字
-//        tvDetailsRegTicket.setOnClickListener(this);
-        llEnroll = findViewById(R.id.llEnroll);//报名layout
 
-        llRobTicket = findViewById(R.id.llIsRobTicket);// 抢票layout
-//        llRobTicket.setOnClickListener(this);
-
-        tvCheapTicket = (TextView) findViewById(R.id.tvCheapTicket);//抢票提示
+        tvRobTicket = (TextView) findViewById(R.id.tv_robTicket);//抢票提示
+        llRegTicket = (LinearLayout) findViewById(R.id.ll_regTicket);
     }
 
-    public DetailLeft newInstance(String homeId, int isHuodong,
-                                  boolean isRobTicket,boolean ToCommentActivity,
+    public DetailLeft newInstance(String homeId, int isHuodong, boolean ToCommentActivity,
                                   boolean TOCommentDisplayActivity_comment,boolean TOCommentDisplayActivity_consult) {
         DetailLeft f = new DetailLeft();
         Bundle b = new Bundle();
         b.putString("id", homeId);
         b.putInt("isHuodong", isHuodong);
-        b.putBoolean("isRobTicket", isRobTicket);
+
         b.putBoolean(GetuiPushMessageReceiver.ToCommentActivity,ToCommentActivity);
         b.putBoolean(GetuiPushMessageReceiver.TOCommentDisplayActivity_comment,TOCommentDisplayActivity_comment);
         b.putBoolean(GetuiPushMessageReceiver.TOCommentDisplayActivity_consult,TOCommentDisplayActivity_consult);
@@ -127,8 +122,10 @@ public class AccuvallyDetailsActivity extends BaseActivity {
 
 
     private void setTabsValue() {
-        fragments.add(newInstance( homeId,  isHuodong,  isRobTicket, ToCommentActivity,
+
+        fragments.add(newInstance( homeId,isHuodong,ToCommentActivity,
                 TOCommentDisplayActivity_comment,TOCommentDisplayActivity_consult));
+
         detailRight=new DetailRight();
         fragments.add(detailRight);
 

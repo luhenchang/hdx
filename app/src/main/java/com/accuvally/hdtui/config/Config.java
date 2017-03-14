@@ -15,6 +15,7 @@ public class Config {
 	public static final int RESULT_CODE_SUCCESS = 0;
 	public static final int RESULT_CODE_ERROR = 1;
 	public static final int RESULT_CODE_HAWK401 = 2;
+    public static final int RESULT_ROB_ERROR = 3;
 	public static final String PREFERENCE_USER_INFO = "per_user";
 	public static final String SOCIAL_UMENG = "com.umeng.share";
 	public static final String LOGO="logo";

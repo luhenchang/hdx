@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+   <!-- <PreferenceCategory android:title="@string/preferences_scan_title" >
+     -->   
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="preferences_play_beep"
+            android:title="@string/preferences_play_beep_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="preferences_vibrate"
+            android:textSize="@dimen/text_size_middle"
+            android:title="@string/preferences_vibrate_title" />
+        <!--
+             <CheckBoxPreference
+	        android:key="preferences_front_light"
+	        android:defaultValue="false"
+	        android:title="@string/preferences_flashlight_title"/>
+        -->
+        <EditTextPreference
+            android:defaultValue="10"
+            android:inputType="phone"
+            android:textColor="#999999"
+            android:textSize="@dimen/text_size_middle"
+            android:key="preferences_valid_result_interval"
+            android:title="@string/preferences_continuous_scan_interval_title" />
+   
+       
+        <!-- <PreferenceCategory android:title="@string/preferences_sync_title" >
+	         <CheckBoxPreference
+	            android:defaultValue="true"
+	            android:key="preferences_startup_sync"
+	            android:title="@string/preferences_startup_sync_title" />
+	         
+	         <CheckBoxPreference
+	            android:defaultValue="true"
+	            android:key="preferences_sync_only_wifi"
+	            android:title="@string/preferences_onlywifi_sync_title" />
+	      
+        </PreferenceCategory>     -->
+       
+</PreferenceScreen>

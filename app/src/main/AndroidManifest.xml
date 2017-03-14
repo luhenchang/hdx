@@ -173,7 +173,7 @@
             android:windowSoftInputMode="adjustResize" />
         <!-- 报名 -->
         <activity
-            android:name=".activity.home.register.RegAccuActivity"
+            android:name=".activity.home.register.SelectTicketActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -188,14 +188,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
-
-        <!-- 活动详情 -->
-        <activity
-            android:name=".activity.home.AccuvallyDetailsActivity2"
-            android:excludeFromRecents="true"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
 
         <!-- 我的活动行 -->
         <activity
@@ -306,10 +298,6 @@
             android:name=".activity.mine.setting.RemindActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.home.IntroductPushActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
         <!-- 会话列表 -->
         <activity
             android:name=".activity.SessionTabActivity"
@@ -337,12 +325,12 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 报名注册 -->
         <activity
-            android:name=".activity.home.register.BuyTicketFirstActivity"
+            android:name=".activity.home.register.BindPhoneBeforBuyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 报名填写 -->
         <activity
-            android:name=".activity.home.register.BuyTicketThreeActivity"
+            android:name=".activity.home.register.SubmitFormActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <!-- 常见疑问 -->
@@ -613,23 +601,15 @@
             android:name=".activity.home.comment.CommentDisplayActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".activity.home.comment.ImageBrowserActivity2"
-            android:screenOrientation="portrait" >
-        </activity>
+
         <activity
             android:name=".activity.home.comment.CommentActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
+
+
         <activity
-            android:name=".activity.home.comment.WxDemoActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" >
-        </activity>
-
-
-            <activity
                 android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
                 android:theme="@style/ImagePickerThemeFullScreen"/>
 

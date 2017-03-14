@@ -169,12 +169,10 @@
 
         <!--主办方相关第一行-->
 
-        <RelativeLayout android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="110dp">
+
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
-                          android:layout_height="140dp">
+                          android:layout_height="110dp">
 
 
                 <ImageView
@@ -200,7 +198,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
-                            android:maxEms="9"
+                            android:maxEms="12"
+                            android:layout_gravity="center"
                             android:ellipsize="end"
                             android:textColor="@color/black"
                             android:textSize="12sp"
@@ -211,7 +210,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/v_certification"
+                            android:scaleType="centerCrop"/>
+                        <ImageView
+                            android:id="@+id/ivVip"
+                            android:src="@drawable/icon_vip"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
                             android:scaleType="centerCrop"/>
                     </LinearLayout>
 
@@ -229,17 +237,8 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/addAttention"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/add_attention" />
 
-        </RelativeLayout>
+
 
         <!--主办方相关第二行-->
         <LinearLayout android:layout_width="match_parent"
@@ -324,37 +323,13 @@
                       android:layout_marginBottom="20dp"
                       android:layout_height="wrap_content">
 
-            <RelativeLayout android:layout_width="0dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginLeft="10dp"
-
-                            android:background="@drawable/share_detail_background"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvContactOrganizer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:drawableLeft="@drawable/detail_contact"
-                    android:drawablePadding="10dp"
-                    android:text="联系主办方"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:textColor="#9a9a9a"
-                    android:textSize="@dimen/little_16" />
-            </RelativeLayout>
 
             <RelativeLayout android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
-
-                            android:background="@drawable/share_detail_background"
+                            android:id="@+id/rlToOrganizer"
+                            android:background="@drawable/rectangle_detail_background"
                             android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tvToOrganizer"
@@ -362,16 +337,43 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
-                    android:drawableLeft="@drawable/detail_home"
+                    android:drawableLeft="@drawable/home_sel_3x"
                     android:drawablePadding="10dp"
                     android:text="主办方小站"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:textColor="#9a9a9a"
+                    android:textColor="#76bf47"
                     android:textSize="@dimen/little_16" />
             </RelativeLayout>
+
+            <RelativeLayout android:layout_width="0dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/rlAddAttention"
+                            android:background="@drawable/rectangle_detail_background"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddAttention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/add_attention_no_frame"
+                    android:drawablePadding="10dp"
+                    android:text="关注"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="#76bf47"
+                    android:textSize="@dimen/little_16" />
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
@@ -424,7 +426,8 @@
         <RelativeLayout android:layout_width="0dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/share_detail_background"
+                        android:id="@+id/llToHistoryComment"
+                        android:background="@drawable/rectangle_detail_background2"
                         android:layout_weight="1"
                         android:layout_height="wrap_content">
 
@@ -447,8 +450,8 @@
                         android:layout_weight="1"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
-
-                        android:background="@drawable/share_detail_background"
+                        android:id="@+id/llToHistoryConsultion"
+                        android:background="@drawable/rectangle_detail_background2"
                         android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/toHistoryConsultion"

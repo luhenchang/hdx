@@ -55,8 +55,7 @@ public class AccuDetailBean implements Serializable {
 	/** 活动创建人帐号id **/
 	public String createby;
 	
-	/** 报名表单 **/
-	public String form;
+
 	/** 公布名单时间 **/
 	public boolean isRush;
 	
@@ -64,7 +63,11 @@ public class AccuDetailBean implements Serializable {
 	public boolean showregisternum;
 
     public String desc;//活动详情，用webview呈现
+
+
+    public String form;/** 报名表单 **/
 	public List<DetailsTicketInfo> ticks;//票
+
 	public List<AccuBean> interestacts;//你可能感兴趣的
 
     public String orgdesc;//主办方详情
@@ -80,8 +83,13 @@ public class AccuDetailBean implements Serializable {
     public int orgstatus;
 
 
+    public boolean CommentDisabled;/// 是否禁用评论功能
+    public boolean GroupChatDisabled;/// 是否禁用群聊功能
+
     public  int commentlistcount;
     public  int consultlistcount;
+
+    public boolean StaticMode;//静态抢票模式
 
 	/** 活动开始本地时间 **/
 	public String getStartutc() {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.home.register.RegAccuActivity;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.util.LinkProperties;
 
@@ -20,6 +19,11 @@ public class LinkedMiddleActivity extends AppCompatActivity {
     通过LinkProperties对象调用getControlParams方法获取自定义参数的HashMap对象,
             * 通过创建的自定义key获取相应的值,用于数据处理。
             */
+
+
+    public static final String LinkedActivity_HASCOUPON="LinkedActivity_HASCOUPON";
+    public static final String LinkedActivity_COUPON="LinkedActivity_COUPON";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +46,12 @@ public class LinkedMiddleActivity extends AppCompatActivity {
                             break;
         // (2)优惠码分享链接   sence=coupon&isapp=1&eid={活动id}&code={优惠码加密}
                         case "coupon":
-                            Intent intent1=new Intent(LinkedMiddleActivity.this, RegAccuActivity.class);
-                            intent1.putExtra(RegAccuActivity.ID,hashMap.get("eid"));
-                            intent1.putExtra(RegAccuActivity.CODE,hashMap.get("code"));
-                            intent1.putExtra(RegAccuActivity.FROM,"LINKEDME");
+
+                            Intent intent1=new Intent(LinkedMiddleActivity.this, AccuvallyDetailsActivity.class);
+                            intent1.putExtra("id",hashMap.get("eid"));
+                            intent1.putExtra(LinkedActivity_COUPON,hashMap.get("code"));
+                            intent1.putExtra(LinkedActivity_HASCOUPON,true);
+
 //                                    Log.e(TAG, "code: " + hashMap.get("code"));
 //                                    Log.e(TAG, "id: " + hashMap.get("eid"));
                             startActivity(intent1);

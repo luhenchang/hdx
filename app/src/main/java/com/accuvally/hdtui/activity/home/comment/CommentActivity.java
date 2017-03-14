@@ -2,7 +2,6 @@ package com.accuvally.hdtui.activity.home.comment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +18,9 @@ import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
+import com.accuvally.hdtui.ui.imageloader.GlideImageLoader;
+import com.accuvally.hdtui.ui.imageloader.ImagePickerAdapter;
+import com.accuvally.hdtui.ui.imageloader.WrappableGridLayoutManager;
 import com.accuvally.hdtui.utils.AndroidHttpClient;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.ImageBig;
