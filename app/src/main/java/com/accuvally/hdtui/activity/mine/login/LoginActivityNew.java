@@ -198,6 +198,8 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 		aliLoginUtils = new AliLoginUtils();
 	}
 
+
+    //帐号密码登录
 	public void login() {
 		final String userName = login_user_name.getText().toString();
 		final String password = login_password.getText().toString();
@@ -321,6 +323,8 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 	// });
 	// }
 
+
+    //第三方登录
 	public void threeLogin(ThreeLoginInfo threeLoginInfo) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("unionid",threeLoginInfo.getOpenid()));
@@ -386,14 +390,7 @@ public class LoginActivityNew extends BaseActivity implements OnClickListener, T
 							application.sharedUtils.writeBoolean(Config.IS_SAME_ACCOUNT, false);
 						}
 						application.sharedUtils.writeString("accountId", userInfo.getAccount());
-//						Log.i("Login", "phone:" + userInfo.getPhone());
-						// if
-						// (application.sharedUtils.readBoolean("isSynchronous"))
-						// {
-						// if (dbManager.getClassfy().size() != 0) {
-						// setUserTags();
-						// }
-						// }
+
 						application.leanCloudLogin(userInfo.getAccount());
                         EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGIN));
 

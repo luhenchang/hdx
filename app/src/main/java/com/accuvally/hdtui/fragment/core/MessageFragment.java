@@ -70,7 +70,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		View rootView = inflater.inflate(R.layout.fragment_message, container, false);
 		EventBus.getDefault().register(this);
 		initView(rootView);
-		initData();
+		setData();//创建
 		return rootView;
 	}
 
@@ -92,6 +92,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		SquareBtn.setOnClickListener(this);
 	}
 
+    //1.view   2.swipe  3.onclick
 	private void initListView(View view) {
 		mListView = (SwipeMenuListView) view.findViewById(R.id.listview);
 		mAdapter = new CommonAdapter<SessionInfo>(mContext, R.layout.listitem_main_right) {
@@ -199,7 +200,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	}
 
-	public void initData() {
+    //查询的是本地数据库的会话列表
+	public void setData() {
 		if (application.checkIsLogin()) {
 			lyFailure.setVisibility(View.GONE);
 			mListView.setVisibility(View.VISIBLE);
@@ -216,6 +218,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		}
 	}
 
+    //从本地数据库中查找聊天列表，
 	private void queryAllSession() {
 		unReadNum = 0;
 		hasAddOneNotify = false;
@@ -248,12 +251,12 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	public void onEventMainThread(ChangeUserStateEventBus eventBus) {
 		list.clear();
-		initData();
+		setData();//ChangeUserStateEventBus
 	}
 
 	public void onEventMainThread(ChangeMessageEventBus eventBus) {
 		list.clear();
-		initData();
+		setData();//ChangeMessageEventBus
 	}
 
 	@Override

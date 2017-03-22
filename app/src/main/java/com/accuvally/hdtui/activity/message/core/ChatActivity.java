@@ -874,7 +874,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 		msg.setTimestamp(System.currentTimeMillis());
 		msg.setSessionId(sessionInfo.getSessionId());
 
-		// 添加数据到数据库
+		// 添加数据到ui中
 		mAdapter.add(msg);
 
 		// 插入数据库

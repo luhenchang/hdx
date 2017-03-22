@@ -85,8 +85,8 @@
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@id/rlMainHeaderMessage"
         android:background="@drawable/selector_click_btn"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:src="@drawable/fragment_header_right_search_bg"
         android:visibility="gone" />
 

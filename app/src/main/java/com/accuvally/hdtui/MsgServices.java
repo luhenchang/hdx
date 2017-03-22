@@ -19,13 +19,21 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+//leanCloud登录：1.所做的事：连接leancloud服务器，在登录之后从leancloud服务器查询到会话列表（包括一条会话信息），并插入到本地数据库的TABLE_SESSION表中
+//2.调用时机：在登录，注册，绑定，或者mainactivity（已登录）中，数据库升级中
+//3.代码：AccuApplication.leanCloudLogin（）-->LeanCloud.querySession()+queryMessage();
+//--------------------------------------------------------------------------------------------
+//每次收到消息都会回调：AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MsgHandler());
 
 
-//MsgServices查找会话的所有消息：1.从leancloud后台拉数据，2.插入到本地数据库中，3.最后更新ui
+//--------------------------------------------------------------------------------------------
+//发送消息：1.进入聊天界面，把所有新消息都从leancloud服务器保存到数据库中的TABLE_MESSAGE表
+//2.发送：1.更新ui  2.插入到数据库中 3.调用leancloud的sendmessage接口
+
+
+
+//--------------------------------------------------------------------------------------------
 //        NotificationInfo   MessageInfo     SessionInfo
-//        消息来到时的监听处理：AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
-//        LeanCloud.querySession(); 查找用户的所有消息
-//        发送消息：mConversation.sendMessage(message, new AVIMConversationCallback())
 //        添加好友用的是后台的接口
 
 public class MsgServices extends IntentService {

@@ -46,6 +46,7 @@ import com.accuvally.hdtui.activity.home.util.MapsActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.setting.FeedBackActivity;
 import com.accuvally.hdtui.adapter.CommentAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.UILoptions;
@@ -561,6 +562,8 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     // 活动行详情Text界面
     private void setTextAccuvally() {
 
+        share_ly.setVisibility(View.VISIBLE);
+
         if(detailsInfo.GroupChatDisabled){
             tvGroupChat.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.acc_detail_group_disable), null,null);
         }
@@ -669,7 +672,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
 
         if (detailsInfo.StaticMode) {//抢票活动会判断是否展示抢票倒计时等
-            share_ly.setVisibility(View.VISIBLE);
+
             tvRobTicket.setVisibility(View.VISIBLE);
 
             setStatus("倒计时中");
@@ -774,6 +777,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     //由linked优惠码引导进入购票页面
     private void linkedToSelectActivity(){
+        detailsInfo.desc=null;
         Intent intent=new Intent(mContext, SelectTicketActivity.class);
         intent.putExtra("info", detailsInfo);
         intent.putExtra(LinkedMiddleActivity.LinkedActivity_COUPON, accuvallyDetailsActivity.LinkedActivity_COUPON);
@@ -784,6 +788,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     //有了scode，进入抢票
     private void starRobActivity(){
+        detailsInfo.desc=null;
         Intent intent=new Intent(mContext, SelectTicketActivity.class);
         intent.putExtra("info", detailsInfo);
         intent.putExtra(SCODE, scode);
@@ -1283,25 +1288,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                     }
                 }
                 break;
-           /* case R.id.tvContactOrganizer://联系主办方
-                if (Utils.isFastDoubleClick())
-                    return;
-
-                if (!application.checkIsLogin()) {
-                    toActivity(LoginActivityNew.class);
-                    return;
-                }
-
-                if (detailsInfo != null) {
-                    SessionInfo privateSession = SessionTable.queryPrivateSession(detailsInfo.createby, AccountManager.getAccount());
-                    if (privateSession == null) {
-                        requestCreateSession(detailsInfo.createby);
-                    } else {
-                        application.setCurrentSession(privateSession);
-                        ToChatActivity();
-                    }
-                }
-                break;*/
             case R.id.rlToOrganizer:// 主办方小站
                 if (Utils.isFastDoubleClick())
                     return;
@@ -1385,8 +1371,11 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                     }
                 } else {//进入报名，选择票种界面
                     if(!detailsInfo.StaticMode){
+                        detailsInfo.desc=null;
                         startActivity(new Intent(mContext, SelectTicketActivity.class).
                                 putExtra("info", detailsInfo));
+
+
                     }else {//如果是抢票活动
 
                         if(scode!=null){
@@ -1576,6 +1565,17 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         EventBus.getDefault().unregister(this);
         hasGetTheCode=true;//退出界面
         hasGetTheCodeAddress=true;//退出界面
+
+        if(leftWebView!=null){
+            leftWebView.destroy();
+        }
+
+        if(rightWebView!=null){
+            rightWebView.destroy();
+        }
+
+
+
         if(timer!=null){
             timer.cancel();
         }
@@ -1850,7 +1850,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         });
     }
 
-    //    创建与主办方的私人会话
+   /* //    创建与主办方的私人会话
     private void requestCreateSession(final String touid) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("uid", AccountManager.getAccount()));
@@ -1888,7 +1888,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 }
             }
         });
-    }
+    }*/
 
     private void ToChatActivity() {
         Intent intent = new Intent(mContext, ChatActivity.class);
@@ -1931,19 +1931,19 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
     //====================================webview===================================================================
 
     private WebView leftWebView;
-
+    private WebView rightWebView;
     private void setupWebViewRight() {
-        WebView webView=accuvallyDetailsActivity.detailRight.detail_right_webView;
-        if(webView!=null){
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.getSettings().setSupportZoom(true);
-            webView.getSettings().setBuiltInZoomControls(true);// 是否开启缩放
-            webView.getSettings().setDomStorageEnabled(true);// 是否开启Dom存储Api
+        rightWebView=accuvallyDetailsActivity.detailRight.detail_right_webView;
+        if(rightWebView!=null){
+            rightWebView.getSettings().setJavaScriptEnabled(true);
+            rightWebView.getSettings().setSupportZoom(true);
+            rightWebView.getSettings().setBuiltInZoomControls(true);// 是否开启缩放
+            rightWebView.getSettings().setDomStorageEnabled(true);// 是否开启Dom存储Api
 //        content = getIntent().getStringExtra("content");
-            webView.getSettings().setLoadWithOverviewMode(true);
-            webView.getSettings().setUseWideViewPort(true);
-            webView.setWebChromeClient(new WebChromeClient());
-            webView.loadDataWithBaseURL("about:blank", detailsInfo.desc, "text/html", "utf-8", null);
+            rightWebView.getSettings().setLoadWithOverviewMode(true);
+            rightWebView.getSettings().setUseWideViewPort(true);
+            rightWebView.setWebChromeClient(new WebChromeClient());
+            rightWebView.loadDataWithBaseURL("about:blank", detailsInfo.desc, "text/html", "utf-8", null);
         }
     }
 

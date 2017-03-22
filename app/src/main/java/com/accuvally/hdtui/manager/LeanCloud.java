@@ -1,18 +1,11 @@
 package com.accuvally.hdtui.manager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.text.TextUtils;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
-import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.db.DBThreadManager;
-import com.accuvally.hdtui.db.MessageTable;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.model.MessageInfo;
 import com.accuvally.hdtui.model.NotificationInfo;
@@ -20,32 +13,32 @@ import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.alibaba.fastjson.JSON;
-import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMClientEventHandler;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.AVIMMessageManager;
-import com.avos.avoscloud.im.v2.AVIMTypedMessage;
-import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 
-import de.greenrobot.event.EventBus;
+import java.util.List;
 
+import de.greenrobot.event.EventBus;
+//leanCloud登录：1.所做的事：连接leancloud服务器，在登录之后从leancloud服务器查询到会话列表（包括一条会话信息），并插入到本地数据库的TABLE_SESSION表中
+//2.调用时机：在登录，注册，绑定，或者mainactivity（已登录）中，数据库升级中
+//3.代码：AccuApplication.leanCloudLogin（）-->LeanCloud.querySession()+queryMessage();
+
+//主要处理了登录之后查询会话的逻辑
 public class LeanCloud {
 
 //	public static AVIMClient imClient = AVIMClient.getInstance(AccountManager.getAccount());
 
-	public static AVIMClient getIMClient() {
+	/*public static AVIMClient getIMClient() {
 		return AVIMClient.getInstance(AccountManager.getAccount());
-	}
+	}*/
 
-	public void initLeanCloud() {
+	/*public void initLeanCloud() {
 		AVOSCloud.initialize(AccuApplication.getInstance(), Config.ACCUPASS_LEANCLOUD_APP_ID, Config.ACCUPASS_LEANCLOUD_APP_KEY);
 		AVIMClient.setClientEventHandler(new AVIMClientEventHandler() {
 
@@ -66,9 +59,9 @@ public class LeanCloud {
 			}
 		});
 		AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MsgHandler());
-	}
+	}*/
 
-	private class MsgHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
+/*	private class MsgHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
 		@Override
 		public void onMessage(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
@@ -97,9 +90,12 @@ public class LeanCloud {
 		public void onMessageReceipt(AVIMTypedMessage message, AVIMConversation conversation, AVIMClient client) {
 
 		}
-	}
+	}*/
 
-	public static void leanCloudLogin() {
+
+
+
+	public static void leanCloudLogin() {//
 		String userId = AccountManager.getAccount();
 		if (TextUtils.isEmpty(userId)) {
 			return;
@@ -135,7 +131,7 @@ public class LeanCloud {
 						SessionInfo session = new SessionInfo(conversation, true);
 						session.setTitle(conversation.getName());
 						SessionTable.AsyncInsertSession(session);
-						
+
 						queryMessage(conversation, size);
 					}
 				}
@@ -169,7 +165,7 @@ public class LeanCloud {
 		});
 	}
 
-	public static void createConversation(String friendId) {
+	/*public static void createConversation(String friendId) {
 		List<String> clientIds = new ArrayList<String>();
 		clientIds.add(AccountManager.getAccount());
 		clientIds.add(friendId);
@@ -197,6 +193,6 @@ public class LeanCloud {
 
 			}
 		});
-	}
+	}*/
 
 }

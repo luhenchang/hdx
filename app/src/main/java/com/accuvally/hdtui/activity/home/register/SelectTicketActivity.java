@@ -69,11 +69,13 @@ public class SelectTicketActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reg_accuvally);
         scode=getIntent().getStringExtra(DetailLeft.SCODE);
 
         info = (AccuDetailBean) getIntent().getSerializableExtra("info");
+
         initView();
         initData();
 

@@ -301,7 +301,7 @@ public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 		dialog.show();
 	}
 
-	// 每次同一对用户会创建不同会话id，所以不该用这个
+	/*// 每次同一对用户会创建不同会话id，所以不该用这个
 	public void createConversation(final MessageInfo info) {
 		List<String> clientIds = new ArrayList<String>();
 		clientIds.add(AccountManager.getAccount());
@@ -336,7 +336,7 @@ public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 			}
 		});
 	}
-
+*/
 	public Object geneJson(MessageInfo info) {
 		JSONArray array = new JSONArray();
 
@@ -356,40 +356,7 @@ public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 		return array;
 	}
 
-	private void requestCreateSession(final MessageInfo info) {
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("uid", user.getAccount()));
-		params.add(new BasicNameValuePair("touid", info.getUserId()));
-		httpCilents.postA(Url.SOCIAL_CONV, params, new WebServiceCallBack() {
 
-			@Override
-			public void callBack(int code, Object result) {
-				BaseResponse response = JSON.parseObject((String) result, BaseResponse.class);
-				switch (code) {
-				case Config.RESULT_CODE_SUCCESS:
-					if (response.isSuccess() && !TextUtils.isEmpty(response.result)) {
-						SessionInfo sessionInfo = new SessionInfo();
-						sessionInfo.userId = user.getAccount();
-						sessionInfo.setSessionId(response.result);
-
-						sessionInfo.setTime(System.currentTimeMillis());
-						sessionInfo.setTitle(info.getNickName());
-						sessionInfo.setLogoUrl(info.getLogourl());// 对方头像
-						sessionInfo.friendId = info.getUserId();
-						application.setCurrentSession(sessionInfo);
-						SessionTable.insertSession(sessionInfo);
-						EventBus.getDefault().post(new ChangeMessageEventBus());
-
-						ToChatActivity();
-					}
-					break;
-				case Config.RESULT_CODE_ERROR:
-					application.showMsg(result.toString());
-					break;
-				}
-			}
-		});
-	}
 
 	private void ToChatActivity() {
 		Intent intent = new Intent(mContext, ChatActivity.class);

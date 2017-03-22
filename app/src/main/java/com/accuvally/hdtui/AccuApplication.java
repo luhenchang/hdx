@@ -261,6 +261,9 @@ public class AccuApplication extends Application {
 			public void onClientOffline(AVIMClient arg0, int arg1) {
 			}
 		});
+
+//        当客户端收到一条消息的时候，会优先根据消息类型通知当前所有注册的对应类型的普通的 messageHandler,
+//        如果发现当前没有任何注册的普通的 messageHandler，才会去通知 defaultMessageHandler。
 		AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
 		AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MsgHandler());
 	}

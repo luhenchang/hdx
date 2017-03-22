@@ -171,6 +171,13 @@
             android:name=".activity.AccuvallyWebDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+
+        <!-- web活动详情 -->
+        <activity
+            android:name=".activity.AccuvallyDetailsMiddleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <!-- 报名 -->
         <activity
             android:name=".activity.home.register.SelectTicketActivity"

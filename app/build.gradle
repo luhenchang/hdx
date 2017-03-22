@@ -13,8 +13,8 @@ android {
         applicationId "com.accuvally.hdtui"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 55
-        versionName "5.9.4"
+        versionCode 56
+        versionName "5.9.5"
         multiDexEnabled true
     }
 
@@ -90,14 +90,14 @@ android {
 // 友盟多渠道打包
     productFlavors {
         TONGYONG{}
-//        wandoujia {}
-//        yingyongbao{}
-//        xiaomi{}
-//        huawei{}
-//        baidu{}
-//        _360{}
-//        anzhi{}
-//        jinli{}
+        wandoujia {}
+        yingyongbao{}
+        xiaomi{}
+        huawei{}
+        baidu{}
+        _360{}
+        anzhi{}
+        jinli{}
 
 //        kuaiyidian{}
 //        anzhuo{}

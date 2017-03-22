@@ -24,43 +24,7 @@ public class SessionTable {
 			+ " (id INTEGER PRIMARY KEY AUTOINCREMENT,userId,friendId,sessionId,creator,isDBMessage INTEGER,isNotification INTEGER,extend INTEGER,title,content,time INTEGER,logoUrl,unReadNum INTEGER,fromUserId,toUserId,messageId,nickName,sessionType INTEGER,messageType INTEGER,op_type,op_value)";
 	
 	public static Uri uri = Uri.parse("content://accuvally/" + TABLE_SESSION);
-//	private static ContentResolver contentResolver = AccuApplication.getInstance().getContentResolver();
 
-//	private static SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
-	
-//	public static String createTable() {
-//		String createQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSION + " (";
-//
-//		Map<String, String> columns = getColumnMapping();
-//
-//		boolean isAdd = false;
-//		for (String column : columns.keySet()) {
-//			if (isAdd) {
-//				createQuery += ", ";
-//			}
-//			isAdd = true;
-//			createQuery += column + " " + columns.get(column);
-//		}
-//
-//		createQuery += ");";
-//
-//		return createQuery;
-//	}
-//
-//	protected static Map<String, String> getColumnMapping() {
-//		final Map<String, String> map = new LinkedHashMap<String, String>();
-//		map.put("id", "INTEGER PRIMARY KEY AUTOINCREMENT");
-//		map.put("userId", "TEXT");
-//		map.put("sessionId", "TEXT");
-//		map.put("title", "TEXT");
-//		map.put("content", "TEXT");
-//		map.put("logoUrl", "TEXT");
-//
-//		map.put("isNotification", "INTEGER");
-//		map.put("time", "INTEGER");
-//		map.put("isDBMessage", "INTEGER");
-//		return map;
-//	}
 	
 	public static void createTable() {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();

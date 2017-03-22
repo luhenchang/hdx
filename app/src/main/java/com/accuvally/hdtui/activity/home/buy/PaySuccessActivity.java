@@ -169,15 +169,8 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.circle_enter:// 进入圈子
-//			if (info != null) {
-//				if (dbManager.existUserSession(info.getId(), application.getUserInfo().getAccount())) {
-//					application.setCurrentSession(dbManager.querySessionById(info.getId()));
-//					startActivity(new Intent(mContext, ChatActivity.class));
-//				} else {
-//					joinCircle(info.getId());
-//				}
-//			}
-			String sessionId = info.id;
+            joinCircle(info.id);
+			/*String sessionId = info.id;
 			SessionInfo sessionInfo = new SessionInfo();
 			sessionInfo.setSessionId(sessionId);
 			sessionInfo.setTitle(info.title);
@@ -192,7 +185,7 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 			} else {
 				application.sharedUtils.writeBoolean("IsFirstShowCircleGuide", true);
 			}
-			findViewById(R.id.circle_enter_attion).setVisibility(View.GONE);
+			findViewById(R.id.circle_enter_attion).setVisibility(View.GONE);*/
 			break;
 		case R.id.tvShareSina:// sina share
 			shareUtils.shareAfterOauth(SHARE_MEDIA.SINA, 31, 0);
