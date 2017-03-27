@@ -1,10 +1,8 @@
 package com.accuvally.hdtui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
@@ -18,11 +16,9 @@ import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 
 /**
- * Created by Andy Liu on 2017/3/20.
+ * Created by Andy Liu on 2017/3/27.
  */
-@SuppressLint("SetJavaScriptEnabled")
-public class AccuvallyDetailsMiddleActivity extends BaseActivity{
-
+public class WebActivity extends BaseActivity {
 
     private WebView webView;
 
@@ -45,24 +41,30 @@ public class AccuvallyDetailsMiddleActivity extends BaseActivity{
         loadingUrl = getIntent().getStringExtra("loadingUrl");
         webView = (WebView) findViewById(R.id.details_webView);
         lyLoading = (LinearLayout) findViewById(R.id.lyLoading);
-        setTitle("活动详情");
+        if (loadingUrl.indexOf("huodongxing.com/news") != -1){
+            setTitle("专题详情");
+        }
+//        setTitle("活动详情");
         ((LinearLayout)findViewById(R.id.share_ly)).setVisibility(View.GONE);
     }
 
     public void initData() {
         webView.getSettings().setJavaScriptEnabled(true);// 是否开启JAVASCRIPT
-        webView.getSettings().setBuiltInZoomControls(false);// 是否开启缩放
+        webView.getSettings().setBuiltInZoomControls(true);// 是否开启缩放
         webView.getSettings().setDomStorageEnabled(true);// 是否开启Dom存储Api
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
         String userAgent = webView.getSettings().getUserAgentString() + "/HDX-APP";
         webView.getSettings().setUserAgentString(userAgent);
+
         webView.setDownloadListener(new DownloadListener() {
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
                 if (url != null && url.startsWith("http://"))
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
         });
+
         try {
             webView.loadUrl(loadingUrl);
         } catch (Exception e) {
@@ -73,28 +75,23 @@ public class AccuvallyDetailsMiddleActivity extends BaseActivity{
 
     class DetailsWebViewClient extends WebViewClient {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            lyLoading.setVisibility(View.VISIBLE);
-            view.loadUrl(url);
+
+
+            if (url.indexOf("huodongxing.com/event") != -1 || url.indexOf("huodongxing.com/go") != -1) {
+                mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).
+                        putExtra("id", url).putExtra("isHuodong", 0));
+            }else {
+                lyLoading.setVisibility(View.VISIBLE);
+                view.loadUrl(url);
+            }
             return true;
         }
 
-
         public void onPageFinished(WebView view, String url) {
             lyLoading.setVisibility(View.GONE);
-
-            Log.e("ProjectDetailsActivity", " shouldOverrideUrlLoading url： " + url);
-            if (url.indexOf("huodongxing.com/event") != -1 || url.indexOf("huodongxing.com/go") != -1) {
-                mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).putExtra("id", url).putExtra("isHuodong", 0));
-            } else {
-                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
-            }
-
-
-            /*if (!"".equals(injectJs)) {
+            if (injectJs!=null && (!"".equals(injectJs))) {
                 webView.loadUrl("javascript:(function() { " + injectJs + "})();");
-            }*/
-
-
+            }
         }
 
         @Override
@@ -119,6 +116,4 @@ public class AccuvallyDetailsMiddleActivity extends BaseActivity{
         }
         return false;
     }
-
-
 }
