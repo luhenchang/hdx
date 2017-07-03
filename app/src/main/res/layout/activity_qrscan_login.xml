@@ -9,32 +9,7 @@
     <!--
         头部：返回键，textview
     -->
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/back"
-            android:onClick="onReturnClick"
-            android:src="@drawable/back_arrows" />
-
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:text="扫码登录"
-            android:layout_marginRight="45dp"
-            android:gravity="center" />
-    </LinearLayout>
-
-
-
-
-
+    <include layout="@layout/activity_header_new" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -54,6 +29,16 @@
 
         <RelativeLayout android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+
+            <ImageView android:layout_width="wrap_content"
+                       android:src="@drawable/btn_lamp_nor"
+                       android:layout_marginBottom="120dp"
+                       android:id="@+id/lamp"
+                       android:layout_centerHorizontal="true"
+                       android:layout_alignParentBottom="true"
+                       android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/status_view"
                 android:layout_width="wrap_content"
@@ -64,6 +49,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:visibility="gone"
                 android:text="请扫描主办人出示授权登录的二维码\n以便协助验票"
                 android:textColor="@color/status_text"
                 android:textSize="18sp" />

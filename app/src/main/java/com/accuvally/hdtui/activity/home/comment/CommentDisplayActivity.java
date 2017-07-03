@@ -247,6 +247,21 @@ public class CommentDisplayActivity extends BaseActivity implements View.OnClick
                     commentInfo.eventid=jsonObject1.getString("eventid");
                 }
 
+                if(jsonObject1.has("thumbimgs")){//评价图片  缩略图
+                    ArrayList<String> arrayList=new ArrayList<>();
+
+                    String imgString=jsonObject1.getString("thumbimgs");
+                    if((imgString!=null)&&(!imgString.equals("null"))){
+
+                        JSONArray imgJsonArray=new JSONArray(imgString);
+                        for(int m=0;m<imgJsonArray.length();m++){
+                            arrayList.add(imgJsonArray.getString(m));
+                        }
+                    }
+                    commentInfo.thumbimgs =arrayList;
+                }
+
+
                 if(jsonObject1.has("imgs")){//评价图片
                     ArrayList<String> arrayList=new ArrayList<>();
 
@@ -258,8 +273,10 @@ public class CommentDisplayActivity extends BaseActivity implements View.OnClick
                             arrayList.add(imgJsonArray.getString(m));
                         }
                     }
-                    commentInfo.imgs=arrayList;
+                    commentInfo.imgs =arrayList;
                 }
+
+
 
             }else {//若为回复
 

@@ -52,13 +52,20 @@ import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 
+//注册界面，
 public class RegisterActivity extends BaseActivity implements OnClickListener, TextWatcher {
 
+    private EditTextWithDel register_phone;
+    private EditTextWithDel verification_code;
 	private EditTextWithDel register_password;
+
+    private EditTextWithDel register_email;
+    private EditTextWithDel register_real_name;
 	private EditTextWithDel register_nick_name;
+
 	private Button register_submit_botton;
-	private EditTextWithDel register_phone;
-	private EditTextWithDel verification_code;
+
+
 	private TextView acpuire_verification_code;
 	private MyCount mc;
 	private LinearLayout save_ly;
@@ -106,7 +113,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 		verification_code = (EditTextWithDel) findViewById(R.id.verification_code);
 		acpuire_verification_code = (TextView) findViewById(R.id.acpuire_verification_code);
 		register_password = (EditTextWithDel) findViewById(R.id.register_password);
+
+        register_email = (EditTextWithDel) findViewById(R.id.register_email);
+        register_real_name = (EditTextWithDel) findViewById(R.id.register_real_name);
 		register_nick_name = (EditTextWithDel) findViewById(R.id.register_nick_name);
+
 		register_submit_botton = (Button) findViewById(R.id.register_submit_botton);
 		save_ly = (LinearLayout) findViewById(R.id.save_ly);
 		tvLoginAndReg = (TextView) findViewById(R.id.tvLoginAndReg);
@@ -138,10 +149,15 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 		tvLoginAli.setOnClickListener(this);
 		tvLoginWx.setOnClickListener(this);
 		register_password.setLongClickable(false);
+
 		register_phone.addTextChangedListener(this);
 		verification_code.addTextChangedListener(this);
 		register_password.addTextChangedListener(this);
-		register_nick_name.addTextChangedListener(this);
+
+		register_email.addTextChangedListener(this);
+        register_real_name.addTextChangedListener(this);
+        register_nick_name.addTextChangedListener(this);
+
 		findViewById(R.id.ivBack).setOnClickListener(this);
 
 		if ("".equals(register_phone.getText().toString())) {
@@ -167,40 +183,44 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 		params.add(new BasicNameValuePair("deviceid", application.getIMEI()));
 		params.add(new BasicNameValuePair("devicetype", 2 + ""));
 		params.add(new BasicNameValuePair("app", "hdx"));
-		params.add(new BasicNameValuePair("forreg","true"));
-		params.add(new BasicNameValuePair("devicedesc",application.getDeviceDesc()));
-		params.add(new BasicNameValuePair("appversion",application.getAppversion()));
+		params.add(new BasicNameValuePair("forreg", "true"));
+		params.add(new BasicNameValuePair("devicedesc", application.getDeviceDesc()));
+		params.add(new BasicNameValuePair("appversion", application.getAppversion()));
 		
 		showProgress("正在获取验证码");
 		httpCilents.postB(Url.ACCUPASS_SEND_CODE, params, new WebServiceCallBack() {
 
-			@Override
-			public void callBack(int code, Object result) {
-				dismissProgress();
-				switch (code) {
-				case Config.RESULT_CODE_SUCCESS:
-					// edRegCode.setText(result.toString());
-					BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
-					if (info.isSuccess()) {
-						mc = new MyCount(70000, 1000, acpuire_verification_code);
-						mc.start();
-					} else {
-					}
-					application.showMsg(info.getMsg());
-					break;
-				case Config.RESULT_CODE_ERROR:
-					application.showMsg(result.toString());
-					break;
-				}
-			}
-		});
+            @Override
+            public void callBack(int code, Object result) {
+                dismissProgress();
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        // edRegCode.setText(result.toString());
+                        BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
+                        if (info.isSuccess()) {
+                            mc = new MyCount(70000, 1000, acpuire_verification_code);
+                            mc.start();
+                        } else {
+                        }
+                        application.showMsg(info.getMsg());
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        application.showMsg(result.toString());
+                        break;
+                }
+            }
+        });
 	}
 
 	public void register() {
 		final String phone = register_phone.getText().toString().trim();
 		String code = verification_code.getText().toString().trim();
 		final String password = register_password.getText().toString().trim();
+
+        String email = register_email.getText().toString().trim();
+        String real_name = register_real_name.getText().toString().trim();
 		String nick = register_nick_name.getText().toString().trim();
+
 		if (TextUtils.isEmpty(phone)) {
 			application.showMsg("手机号不能为空");
 			return;
@@ -213,19 +233,46 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 			application.showMsg("密码不能为空");
 			return;
 		}
-		// if (TextUtils.isEmpty(nick)) {
-		// application.showMsg("昵称不能为空");
-		// return;
-		// }
-		if (password.length() < 6 || password.length() > 16) {
-			application.showMsg("密码长度在6-16位之间");
-			return;
-		}
+
+        if (password.length() < 6 || password.length() > 16) {
+            application.showMsg("密码长度在6-16位之间");
+            return;
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            application.showMsg("邮箱不能为空");
+            return;
+        }
+
+        if(!CheckTextBox.isEmail(email)){
+            application.showMsg("邮箱格式错误");
+            return;
+        }
+
+        if (TextUtils.isEmpty(real_name)) {
+            application.showMsg("姓名不能为空");
+            return;
+        }
+
+		 if (TextUtils.isEmpty(nick)) {
+		 application.showMsg("昵称不能为空");
+		 return;
+		 }
+
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("phone", phone));
 		params.add(new BasicNameValuePair("password", password));
 		params.add(new BasicNameValuePair("code", code));
-		params.add(new BasicNameValuePair("nick", ""));
+
+		params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("realname", real_name));
+        params.add(new BasicNameValuePair("nick", nick));
+
+
+        params.add(new BasicNameValuePair("country", application.sharedUtils.readString("country")));
+        params.add(new BasicNameValuePair("province", application.sharedUtils.readString("province")));
+        params.add(new BasicNameValuePair("city", application.sharedUtils.readString("cityName")));
+
 		params.add(new BasicNameValuePair("deviceid", application.getIMEI()));
 		params.add(new BasicNameValuePair("devicetype", 2 + ""));
 		params.add(new BasicNameValuePair("app", "hdx"));
@@ -252,21 +299,16 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 						application.sharedUtils.writeString(Config.KEY_ACCUPASS_USER_NAME, user.getId());
 						application.sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, user.getToken());
 						application.setUserInfo(user);
+                        application.leanCloudLogin(user.getAccount());
+                        //退出本界面，退出登录界面(若存在)
+                        EventBus.getDefault().post(new ChangeRegSuccessEventBus(1));
+                        finish();
+//						includePersonal.setVisibility(View.VISIBLE);
+//						includeRegister.setVisibility(View.GONE);
 
-						includePersonal.setVisibility(View.VISIBLE);
-						includeRegister.setVisibility(View.GONE);
-						application.leanCloudLogin(user.getAccount());
 					} else {
 						application.showMsg(req.getMsg());
 					}
-
-					// com.alibaba.fastjson.JSONObject json =
-					// JSON.parseObject(result.toString());
-					// if (json.getBooleanValue("ret")) {
-					// changeLocationDialog("注册新账号", "好滴");
-					// } else {
-					// application.showMsg(json.getString("msg"));
-					// }
 					break;
 				case Config.RESULT_CODE_ERROR:
 					application.showMsg(result.toString());
@@ -467,7 +509,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 		boolean Sign1 = register_phone.getText().length() > 0;
 		boolean Sign2 = verification_code.getText().length() > 0;
 		boolean Sign3 = register_password.getText().length() > 0;
-		// boolean Sign4 = register_nick_name.getText().length() > 0;
+		 boolean Sign4 = register_email.getText().length() > 0;
+        boolean Sign5 = register_real_name.getText().length() > 0;
+        boolean Sign6 = register_nick_name.getText().length() > 0;
 		if ("获取验证码".equals(acpuire_verification_code.getText().toString())) {
 			if (!Sign1) {
 				acpuire_verification_code.setBackgroundResource(R.drawable.selector_wane_gray2);
@@ -479,7 +523,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 				acpuire_verification_code.setEnabled(true);
 			}
 		}
-		if (Sign1 & Sign2 & Sign3) {
+		if (Sign1 & Sign2 & Sign3 &Sign4 &Sign5 &Sign6) {
 			lyRegBg.setBackgroundResource(R.drawable.selector_wane_green);
 			register_submit_botton.setEnabled(true);
 		} else {
@@ -488,35 +532,5 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
 		}
 	}
 
-	public void changeLocationDialog(String tvDialogMistake, String tvDialogRemove) {
-		dialog = new Dialog(mContext, R.style.DefaultDialog);
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.setContentView(R.layout.dialog_collect);
-		((TextView) dialog.findViewById(R.id.title)).setText("亲~");
-		((TextView) dialog.findViewById(R.id.message)).setText("你已经是我们的会员了呢，直接登录吧~");
-		((TextView) dialog.findViewById(R.id.tvDialogMistake)).setText(tvDialogMistake);
-		((TextView) dialog.findViewById(R.id.tvDialogRemove)).setText(tvDialogRemove);
-
-		dialog.findViewById(R.id.tvDialogMistake).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		dialog.findViewById(R.id.tvDialogRemove).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				if (!"".equals(register_phone.getText().toString())) {
-					EventBus.getDefault().post(new ChangeLoginOrRegEventBus(register_phone.getText().toString(), 1));
-				}
-				dialog.dismiss();
-				finish();
-			}
-		});
-		dialog.show();
-	}
 
 }

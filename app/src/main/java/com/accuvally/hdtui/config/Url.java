@@ -220,6 +220,7 @@ public class Url {
     public static final String GET_PREQUERY_TAGS = ACCUPASS_SERVICE_URL2 + "/tag/get_prequery_tags";//获取标签
 
     public static final String TICKET_REFUND = ACCUPASS_SERVICE_URL2 + "/tickets/refund";//退票
+    public static final String resolve_qrcode = ACCUPASS_SERVICE_URL2 + "/Utils/resolve_qrcode";//退票
 
 
 
@@ -345,4 +346,12 @@ public class Url {
     public static final String ACCUPASS_UPALOD_IMG_COMMENT = ACCUPASS_SERVICE_URL2 + "/comment/uploadImg";
 
     public static final String ACCUPASS_GET_COMMENT = ACCUPASS_SERVICE_URL2 +"/comment/cms";
+
+
+    public static final String ACCUPASS_GET_INBOX = ACCUPASS_SERVICE_URL2 +"/user/inbox";
+
+    //用于获取 web 登录临时 token
+    public static final String ACCUPASS_LOGIN_TOKEN = ACCUPASS_SERVICE_URL3 +"/auth/login_token";
+
+
 }

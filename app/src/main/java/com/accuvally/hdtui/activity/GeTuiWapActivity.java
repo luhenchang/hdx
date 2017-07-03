@@ -36,7 +36,7 @@ public class GeTuiWapActivity extends BaseActivity {
 		webView.loadUrl(url);
 	}
 	
-//	public void initWebview() {
+//	public void setWebview() {
 //		webView.getSettings().setJavaScriptEnabled(true);// 是否开启JAVASCRIPT
 //		webView.getSettings().setBuiltInZoomControls(false);// 是否开启缩放
 //		webView.getSettings().setDomStorageEnabled(true);// 是否开启Dom存储Api

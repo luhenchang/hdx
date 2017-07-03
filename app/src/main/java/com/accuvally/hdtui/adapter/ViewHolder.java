@@ -2,6 +2,7 @@ package com.accuvally.hdtui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,13 @@ public class ViewHolder {
 		return this;
 	}
 
+
+    public ViewHolder setViewOncLick(int viewId, View.OnClickListener onClickListener) {
+        View view = getView(viewId);
+        view.setOnClickListener(onClickListener);
+        return this;
+    }
+
 	public ViewHolder setImageResource(int viewId, int drawableId) {
 		ImageView view = getView(viewId);
 		view.setImageResource(drawableId);
@@ -71,5 +79,18 @@ public class ViewHolder {
 		ImageLoader.getInstance().displayImage(url, view, options);
 		return this;
 	}
+
+
+    public ViewHolder setImageUrlWithEmpty(int viewId, String url, DisplayImageOptions options) {
+        ImageView view = getView(viewId);
+        if(TextUtils.isEmpty(url)){
+            view.setVisibility(View.GONE);
+        }else {
+            view.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(url, view, options);
+        }
+
+        return this;
+    }
 
 }

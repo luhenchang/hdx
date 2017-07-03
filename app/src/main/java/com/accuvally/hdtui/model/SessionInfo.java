@@ -1,17 +1,16 @@
 package com.accuvally.hdtui.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.text.TextUtils;
 
-import com.accuvally.hdtui.R.id;
 import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.utils.TimeUtils;
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 会话列表
@@ -20,6 +19,8 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
  * 
  */
 public class SessionInfo implements Serializable {
+
+    public String inboxType="";
 	
 	public String userId = AccountManager.getAccount();// 当前用户id
 	public String friendId;// 一对一聊天对方id

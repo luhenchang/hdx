@@ -7,9 +7,6 @@ package com.google.zxing.client.android;
  */
 public class QRCodeSConfig {
 
-    public final static String PREF_NAME="data";
-
-
     /*
      * true: 由传感器决定屏幕方向，动态改变 SCREEN_ORENTATION 的值
      * false: 用户自定义屏幕方向
@@ -37,6 +34,9 @@ public class QRCodeSConfig {
      *
      */
     public final static int CAMERA_USE = 0;
+
+    public final static String PREF_NAME="data";
+
 
 //    CameraManager设置扫描屏幕的的大小
 //Point point= UIUtils.getScreenMetrics(context);

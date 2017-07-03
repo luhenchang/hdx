@@ -230,7 +230,7 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
 						sessionInfo.setLogoUrl(info.logo);// 对方头像
 						sessionInfo.friendId = info.account;
 						application.setCurrentSession(sessionInfo);
-						SessionTable.insertSession(sessionInfo);
+						SessionTable.insertOrUpdateSession(sessionInfo);
 						EventBus.getDefault().post(new ChangeMessageEventBus());
 
 						ToChatActivity();

@@ -29,6 +29,7 @@ import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.DetailsTicketInfo;
 import com.accuvally.hdtui.model.RegSuccessInfo;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
+import com.accuvally.hdtui.utils.LoginUtil;
 import com.accuvally.hdtui.utils.TimeUtils;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsDialogEventBus;
@@ -122,7 +123,7 @@ public class SelectTicketActivity extends BaseActivity implements OnClickListene
 
                         if (application.checkIsLogin()) {
 
-                            if (application.getUserInfo().isEmailActivated() || application.getUserInfo().isPhoneActivated()) {//第三方登录了，且电话/email不为空
+                            if (LoginUtil.checkInfoComplete(application)) {//第三方登录了，且电话/email不为空
                                 if (!TextUtils.isEmpty(info.form)) {// 表单不为空
                                     Intent intent = new Intent(mContext, SubmitFormActivity.class);
                                     intent.putExtra("info", info);

@@ -14,7 +14,7 @@ import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.activity.GeTuiWapActivity;
 import com.accuvally.hdtui.activity.entry.MainActivityNew;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
-import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.web.ProjectDetailsActivity;
 import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
@@ -73,7 +73,7 @@ public class GetuiPushMessageReceiver extends BroadcastReceiver {
 			break;
 		case PushConsts.GET_CLIENTID://不知道哪里触发的，但是个推初始化之后，就会调用这里，使个推id上传
 			String cid = bundle.getString("clientid");
-			Log.e("GetuiSdkDemo", "onReceive() clientid=" + cid);
+			Log.e("GetuiSdkDemo", "onReceive() clientid:" + cid);
 			// Toast.makeText(context, "onReceive() clientid="+cid,
 			// Toast.LENGTH_LONG).show();
 			updateGeTuiID(context, cid);

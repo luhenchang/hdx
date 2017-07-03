@@ -482,6 +482,8 @@ public class MapsActivity extends BaseActivity implements OnGetGeoCoderResultLis
         application.sharedUtils.writeString("latitude", location.getLatitude() + "");
         application.sharedUtils.writeString("cityName", location.getCity().replace("市", ""));
         application.sharedUtils.writeString("addrStr", location.getAddrStr());
+        application.sharedUtils.writeString("country", location.getCountry());
+
         application.sharedUtils.writeString("province", location.getProvince());
         latitude = Double.parseDouble(application.sharedUtils.readString("latitude"));
         longitude = Double.parseDouble(application.sharedUtils.readString("longitude"));

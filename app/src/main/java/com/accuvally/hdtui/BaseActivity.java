@@ -105,11 +105,11 @@ public class BaseActivity extends FragmentActivity implements SwipeBackActivityB
 		activity_header_progressbar.setVisibility(View.VISIBLE);
 		animationDrawable = (AnimationDrawable) activity_header_progressbar.getBackground();
 		activity_header_progressbar.post(new Runnable() {
-			@Override
-			public void run() {
-				animationDrawable.start();
-			}
-		});
+            @Override
+            public void run() {
+                animationDrawable.start();
+            }
+        });
 	}
 
 	public void stopProgress() {
@@ -118,6 +118,21 @@ public class BaseActivity extends FragmentActivity implements SwipeBackActivityB
 			animationDrawable.stop();
 		}
 	}
+
+
+    public void stopProgressCheckNull() {
+        if(activity_header_progressbar!=null){
+            activity_header_progressbar.setVisibility(View.GONE);
+        }
+
+        if(animationDrawable!=null){
+            if (animationDrawable.isRunning()) {
+                animationDrawable.stop();
+            }
+        }
+    }
+
+
 
 	public void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

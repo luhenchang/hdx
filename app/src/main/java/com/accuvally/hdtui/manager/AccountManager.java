@@ -36,6 +36,11 @@ public class AccountManager {
 	public static String getNick() {
 		return getUserInfo().getNick();
 	}
+
+
+    public static String getPhone() {
+        return getUserInfo().getPhone();
+    }
 	
 	public static void logout() {
 		curUserInfo = null;

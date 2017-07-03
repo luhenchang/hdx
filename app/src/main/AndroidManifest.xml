@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.accuvally.hdtui" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -168,26 +169,24 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- web活动详情 -->
         <activity
-            android:name=".activity.AccuvallyWebDetailsActivity"
+            android:name=".activity.web.AccuvallyWebDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- web活动详情 -->
 
 
         <!-- web活动详情 -->
         <activity
-            android:name=".activity.WebActivity"
+            android:name=".activity.web.WebActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-
         <!-- 报名 -->
         <activity
             android:name=".activity.home.register.SelectTicketActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".activity.HomeTagActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+
         <!-- 活动详情 -->
         <activity
             android:name=".activity.home.AccuvallyDetailsActivity"
@@ -195,7 +194,6 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
 
         <!-- 我的活动行 -->
         <activity
@@ -222,6 +220,11 @@
             android:name=".activity.mine.TicketVolumeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- sao ma -->
+        <activity
+            android:name="com.google.zxing.client.android.CodeLoginActivity"
+            android:screenOrientation="portrait"/>
         <!-- 订单确认 -->
         <activity
             android:name=".activity.home.buy.SureOrderActivity"
@@ -277,11 +280,18 @@
             android:name=".activity.mine.login.LoginActivityNew"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
+        <!--  -->
+        <activity
+            android:name=".activity.mine.MoreServiceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
         <!-- 注册页面 -->
         <activity
             android:name=".activity.mine.login.RegisterActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+            android:windowSoftInputMode="adjustPan" />
         <!-- 找回密码 -->
         <activity
             android:name=".activity.mine.login.FindPasswordActivity"
@@ -289,7 +299,7 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 专题精选详情 -->
         <activity
-            android:name=".activity.home.ProjectDetailsActivity"
+            android:name=".activity.web.ProjectDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -307,10 +317,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 会话列表 -->
-        <activity
-            android:name=".activity.SessionTabActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
         <!-- 通知列表 -->
         <activity
             android:name=".activity.message.NotificationActivity"
@@ -394,10 +400,6 @@
             android:name=".activity.mine.setting.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".activity.CircleSessionActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.GeTuiWapActivity"
             android:screenOrientation="portrait"
@@ -609,26 +611,25 @@
             android:name=".activity.home.comment.CommentDisplayActivity"
             android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name=".activity.home.comment.CommentActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
-
-
         <activity
-                android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
-                android:theme="@style/ImagePickerThemeFullScreen"/>
-
-            <activity
-                android:name="com.lzy.imagepicker.ui.ImagePreviewActivity"
-                android:configChanges="orientation|screenSize"
-                android:theme="@style/ImagePickerThemeFullScreen" />
-
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen" />
         <activity
             android:name=".activity.home.comment.ConsulationActivity"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.message.core.MailActivity"
+            android:label="@string/title_activity_mail" >
         </activity>
     </application>
 

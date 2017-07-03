@@ -1,17 +1,5 @@
 package com.accuvally.hdtui.adapter;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -40,46 +28,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.ImageBrowserActivity;
+import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
-import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.UILoptions;
-import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.db.DBManager;
-import com.accuvally.hdtui.db.SessionTable;
-import com.accuvally.hdtui.manager.AccountManager;
-import com.accuvally.hdtui.model.BaseResponse;
+import com.accuvally.hdtui.db.MessageTable;
 import com.accuvally.hdtui.model.MessageInfo;
-import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.ui.CircleImageView;
 import com.accuvally.hdtui.ui.ClipLoading;
 import com.accuvally.hdtui.ui.EmoteTextView;
 import com.accuvally.hdtui.utils.FileCache;
 import com.accuvally.hdtui.utils.HttpCilents;
-import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.ImageTools;
 import com.accuvally.hdtui.utils.MediaManager;
 import com.accuvally.hdtui.utils.SensorHelper;
 import com.accuvally.hdtui.utils.SystemUtil;
 import com.accuvally.hdtui.utils.ToastUtil;
 import com.accuvally.hdtui.utils.Util;
-import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.ProgressCallback;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import de.greenrobot.event.EventBus;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.math.BigDecimal;
 
 public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 
@@ -327,7 +306,7 @@ public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 					sessionInfo.setLogoUrl(info.getLogourl());// 对方头像
 					sessionInfo.friendId = info.getUserId();
 					application.setCurrentSession(sessionInfo);
-					SessionTable.insertSession(sessionInfo);
+					SessionTable.insertOrUpdateSession(sessionInfo);
 
 					ToChatActivity();
 				} else {
@@ -637,7 +616,7 @@ public class MsgAdapter extends BaseListAdapter<MessageInfo> {
 								@Override
 								public void run() {
 									playRecorder(tv, info);
-									dbManager.updateMsg(info);
+                                    MessageTable.updateMsg(info);
 								}
 							}, 250);
 						}

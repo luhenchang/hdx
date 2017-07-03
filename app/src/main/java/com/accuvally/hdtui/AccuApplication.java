@@ -29,6 +29,8 @@ import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.db.AccuvallySQLiteOpenHelper;
 import com.accuvally.hdtui.db.DBManager;
+import com.accuvally.hdtui.db.MailMessageTable;
+import com.accuvally.hdtui.db.MessageTable;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.db.SystemMessageTable;
 import com.accuvally.hdtui.manager.LeanCloud;
@@ -40,11 +42,14 @@ import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.push.NotifyMessageReceiver;
 import com.accuvally.hdtui.ui.SplashUtils;
 import com.accuvally.hdtui.utils.CacheUtils;
+import com.accuvally.hdtui.utils.HttpMailCountUtil;
+import com.accuvally.hdtui.utils.MailCountUtil;
 import com.accuvally.hdtui.utils.SharedUtils;
 import com.accuvally.hdtui.utils.TimeUtils;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Util;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
+import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -66,6 +71,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Stack;
 
@@ -170,6 +176,7 @@ public class AccuApplication extends Application {
                         if(AccuApplication.this.hasActivity(MainActivityNew.class)){
 //                            Trace.e("registActivityLifeCycle", "再一次从后台到前台");
                             if(SplashUtils.isEnoughtTimeToSplash()){
+                                HttpMailCountUtil.getAllMessageCount("从后台到前台");
                                 Trace.e("registActivityLifeCycle", "isEnoughtTimeToSplash");
                                 String url = sharedUtils.readString("flash_logourl");
                                 if (!TextUtils.isEmpty(url)) {//有闪屏才展示闪屏
@@ -278,12 +285,14 @@ public class AccuApplication extends Application {
 			info.setUnreadNum(SessionTable.querySessionByUnReadNum(conversation.getConversationId()) + 1);
 			
 			SessionInfo session = new SessionInfo(info, conversation, false);
-			SessionTable.insertSession(session);
+			SessionTable.insertOrUpdateSession(session);
+
+
 			if (ChatActivity.isShown && getCurrentSession().getSessionId().equals(info.getTo_id())) {
-				SessionTable.updateSessionByUnReadNum(info.getTo_id());
+				SessionTable.clearSessionUnreadNum(info.getTo_id());
 			} else {
 				if (!sharedUtils.readBoolean(getUserInfo().getAccount() + "_" + message.getConversationId(), false))
-					normalSpecial(accuApplication, session);
+					notifyMessage(accuApplication, session);
 			}
 
 			EventBus.getDefault().post(new ChangeMessageEventBus());
@@ -293,6 +302,8 @@ public class AccuApplication extends Application {
 	/*
 	 * 文本消息 -1 图像消息 -2 音频消息 -3 视频消息 -4 位置消息 -5 文件消息 -6
 	 */
+
+    //1.插入数据库的消息列表，session列表  2.显示下拉通知  3.发出EventBus
 	private class MsgHandler extends AVIMTypedMessageHandler<AVIMTypedMessage> {
 
 		@Override
@@ -300,6 +311,7 @@ public class AccuApplication extends Application {
 			Object isSystem = conversation.getAttribute("sys");
 
 			MessageInfo msg = new MessageInfo(accuApplication, message);
+
 			if (isSystem != null && (Boolean) isSystem) {
 				SystemMessageTable.insertMessage(msg);
 				notifyAddNewFriend(msg.title, msg.newContent);
@@ -314,14 +326,13 @@ public class AccuApplication extends Application {
 				session.setUnReadNum(SessionTable.querySessionByUnReadNum(conversationId) + 1);
 				session.extend = 1;
 				
-				SessionTable.insertSession(session);
+				SessionTable.insertOrUpdateSession(session);
 				
 				EventBus.getDefault().post(new ChangeMessageEventBus());
 				return;
 			}
 
-			DBManager dbManager = new DBManager(accuApplication);
-			dbManager.insertFileMsg(msg);
+            MessageTable.insertFileMsg(msg);
 			NotificationInfo info = JSON.parseObject(msg.getContent(), NotificationInfo.class);
 			info.setMsgId(message.getMessageId());
 			info.setTime(message.getTimestamp());
@@ -330,18 +341,19 @@ public class AccuApplication extends Application {
 			info.setUnreadNum(SessionTable.querySessionByUnReadNum(conversationId) + 1);
 
 			SessionInfo session = new SessionInfo(info, conversation, false);
-			SessionTable.insertSession(session);
+			SessionTable.insertOrUpdateSession(session);
 
+            //如果正在显示当前会话，则把当前会话未读数置为0
 			if (ChatActivity.isShown && getCurrentSession().getSessionId().equals(info.getTo_id())) {
-				SessionTable.updateSessionByUnReadNum(info.getTo_id());
+				SessionTable.clearSessionUnreadNum(info.getTo_id());
 			} else {
+                //如果不是消息免打扰：
 				if (!sharedUtils.readBoolean(getUserInfo().getAccount() + "_" + message.getConversationId(), false)) {
-					normalSpecial(accuApplication, session);
+					notifyMessage(accuApplication, session);
 				}
 			}
 
-			ChangeMessageEventBus messageEvent = new ChangeMessageEventBus(conversationId, msg);
-			EventBus.getDefault().post(messageEvent);
+			EventBus.getDefault().post(new ChangeMessageEventBus(conversationId, msg));
 		}
 
 		@Override
@@ -367,24 +379,32 @@ public class AccuApplication extends Application {
 	 * 
 	 * @param userId
 	 */
-	public void leanCloudLogin(String userId) {
+	public void leanCloudLogin(final String userId) {
+        Trace.e("leanCloudLogin","sharedUtils.readBoolean(Keys.insertAllSession, false):"
+                +sharedUtils.readBoolean(Keys.insertAllSession, false));
 		final AVIMClient imClient = AVIMClient.getInstance(userId);
 		imClient.open(new AVIMClientCallback() {
-			@Override
-			public void done(AVIMClient client, AVIMException e) {
-				if (null != e) {
-					if (ChatActivity.isShown) {
-						showMsg("网络出问题啦，聊天功能暂不可用");
-					}
-					e.printStackTrace();
-				} else {
-					if (!sharedUtils.readBoolean(Keys.insertAllSession, false)) {
-						LeanCloud.querySession();
-					}
-				}
-			}
-		});
+            @Override
+            public void done(AVIMClient client, AVIMException e) {
+                if (null != e) {
+                    if (ChatActivity.isShown) {
+                        showMsg("网络出问题啦，聊天功能暂不可用");
+                    }
+                    e.printStackTrace();
+                } else {
+                    if (!sharedUtils.readBoolean(Keys.insertAllSession, false)) {
+                        LeanCloud.querySession();
+                    }
+                }
+            }
+        });
+
+
+
 	}
+
+
+
 
 	public void initImageLoader(Context context) { // 用默认的,没有动画
 		DisplayImageOptions options = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565)
@@ -503,8 +523,8 @@ public class AccuApplication extends Application {
 			editor.putString("Brief", userInfo.getBrief());
 			editor.putString("City", userInfo.getCity());
 			editor.putString("Country", userInfo.getCountry());
-			editor.putString("Email", userInfo.getEmail());
-			editor.putBoolean("EmailActivated", userInfo.isEmailActivated());
+			editor.putString("Email", userInfo.getEmail());//
+			editor.putBoolean("EmailActivated", userInfo.isEmailActivated());//
 			editor.putInt("FollowEvents", userInfo.getFollowEvents());
 			editor.putInt("FollowOrgs", userInfo.getFollowOrgs());
 			editor.putBoolean("IsEventCreator", userInfo.isIsEventCreator());
@@ -512,15 +532,15 @@ public class AccuApplication extends Application {
 			editor.putString("LogoLarge", userInfo.getLogoLarge());
 			editor.putInt("MyPubEvents", userInfo.getMyPubEvents());
 			editor.putInt("MyRegEvents", userInfo.getMyRegEvents());
-			editor.putString("Nick", userInfo.getNick());
+			editor.putString("Nick", userInfo.getNick());//
 			editor.putString("OpenIdBaidu", userInfo.getOpenIdBaidu());
 			editor.putString("OpenIdQQ", userInfo.getOpenIdQQ());
 			editor.putString("OpenIdRenRen", userInfo.getOpenIdRenRen());
 			editor.putString("OpenIdWeibo", userInfo.getOpenIdWeibo());
-			editor.putString("Phone", userInfo.getPhone());
-			editor.putBoolean("PhoneActivated", userInfo.isPhoneActivated());
+			editor.putString("Phone", userInfo.getPhone());//
+			editor.putBoolean("PhoneActivated", userInfo.isPhoneActivated());//
 			editor.putString("Province", userInfo.getProvince());
-			editor.putString("RealName", userInfo.getRealName());
+			editor.putString("RealName", userInfo.getRealName());//
 			editor.putInt("Gender", userInfo.getGender());
 			editor.putInt("Status", userInfo.getStatus());
 			editor.putBoolean("ThirdLoginSucess", userInfo.isThirdLoginSucess());
@@ -534,17 +554,26 @@ public class AccuApplication extends Application {
 	 * 退出登录
 	 */
 	public void logout() {
+        MobclickAgent.onEvent(this, "logout_count");
+
 		SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_USER_INFO, Context.MODE_PRIVATE);
 		Editor editor = sp.edit();
 		editor.clear();
 		editor.commit();
 		sharedUtils.writeString(Config.KEY_ACCUPASS_USER_NAME, Config.ACCUPASS_ID);
 		sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, Config.ACCUPASS_KEY);
-
 		sharedUtils.writeBoolean(Keys.insertAllSession, false);
+
 		SessionTable.deleteAllUserSession();
-		userInfo = null;
-	}
+        DBManager.deleteSaveBeHavior();
+        MailMessageTable.deleteAllMailMessage();
+
+        MailCountUtil.clearAll(this);
+        userInfo = null;
+
+        EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGOUT));
+
+    }
 
 	/**
 	 * 验证是否登录
@@ -671,7 +700,8 @@ public class AccuApplication extends Application {
 		return beHaviorInfo;
 	}
 
-	private void normalSpecial(Context mContext, SessionInfo sessionInfo) {
+    //显示下拉通知，并且点击通知的时候进入到消息界面
+	private void notifyMessage(Context mContext, SessionInfo sessionInfo) {
 		NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(mContext);
 		// 下面三个参数是必须要设定的
 		notifyBuilder.setSmallIcon(R.drawable.icon);
@@ -717,7 +747,8 @@ public class AccuApplication extends Application {
 //				| Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 		notificationManager.notify(1, notify);
 	}
-	
+
+    //显示下拉通知，并且点击通知的时候进入到消息界面
 	private void notifyAddNewFriend(String title, String content) {
 		NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(accuApplication);
 		notifyBuilder.setSmallIcon(R.drawable.icon);
@@ -728,7 +759,8 @@ public class AccuApplication extends Application {
 		notifyBuilder.setAutoCancel(true);
 		
 		Intent notifyIntent = new Intent(NotifyMessageReceiver.action);
-		PendingIntent pendIntent = PendingIntent.getBroadcast(accuApplication, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendIntent = PendingIntent.getBroadcast(accuApplication, 0, notifyIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		notifyBuilder.setContentIntent(pendIntent);
 		notifyBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

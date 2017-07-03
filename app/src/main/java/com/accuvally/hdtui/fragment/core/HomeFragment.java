@@ -1,26 +1,32 @@
 package com.accuvally.hdtui.fragment.core;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.RobTicketActivity;
 import com.accuvally.hdtui.activity.home.CalenderTypeActivity;
 import com.accuvally.hdtui.activity.home.HomeTypeActivity;
-import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.web.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.adapter.BannerAdapter;
 import com.accuvally.hdtui.adapter.CommonAccuAdapter;
 import com.accuvally.hdtui.config.CityConstant;
@@ -39,6 +45,7 @@ import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.LocationUtils;
 import com.accuvally.hdtui.utils.LocationUtils.LocatinCallBack;
 import com.accuvally.hdtui.utils.NetworkUtils;
+import com.accuvally.hdtui.utils.NotificationsUtils;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeCityEventBus;
@@ -54,6 +61,8 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 
@@ -111,6 +120,99 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		isRunningForeground();
 		return view;
 	}
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        try {
+            checkPopup();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkPopup(){
+        SharedPreferences share = mContext.getSharedPreferences("data", Context.MODE_PRIVATE);
+        long lastTime= share.getLong(Keys.KEY_TEST_POPUP_LASTTIME, 0);
+        Trace.e(TAG,"checkPopup  lastTime:"+lastTime);
+        if(lastTime==0){
+            AccuApplication.getInstance().sharedUtils.
+                    writeLong(Keys.KEY_TEST_POPUP_LASTTIME, System.currentTimeMillis());
+            return;
+        }
+        long current=System.currentTimeMillis();
+        if(current-lastTime>604800000){//达到检测时间  1000*60*60*24*7=604800000
+            if(!NotificationsUtils.isNotificationEnabled(mContext)){
+                AccuApplication.getInstance().sharedUtils.
+                        writeLong(Keys.KEY_TEST_POPUP_LASTTIME, System.currentTimeMillis());//重置时间
+                showPopup();
+            }
+        }
+    }
+
+    private void showPopup(){
+        View root = getActivity().getLayoutInflater().inflate(R.layout.popup_advertise, null);
+
+//        Point point= UIUtils.getScreenMetrics(mContext);
+        // 创建PopupWindow对象
+//        final PopupWindow popup = new PopupWindow(root, (int)((point.x)*0.8), (int)((point.y)*0.55));
+        final PopupWindow popup = new PopupWindow(root, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        popup.setFocusable(true);//yao
+        popup.setOutsideTouchable(false);
+        popup.setTouchable(true);
+//        Trace.e(TAG,"root.getHeight():"+root.getHeight()+",root.getMeasuredHeight():" +root.getMeasuredHeight()+",(point.y)*0.55:"+(point.y)*0.55);
+
+        ImageView toopen_broadcast= (ImageView) root.findViewById(R.id.toopen_broadcast);
+        toopen_broadcast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+//                    Intent manageAppIntent = new Intent();
+//                    manageAppIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                    manageAppIntent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                    startActivity(manageAppIntent);
+                    popup.dismiss();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        root.findViewById(R.id.close_open_broadcast).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        root.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        popup.showAtLocation(getView(), Gravity.CENTER, 0, 0);
+                    }
+                });
+
+            }
+        }, 1000 * 1);
+
+
+
+    }
 
 	public void initView(View view) {
 		
@@ -198,11 +300,25 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 				switch (code) {
 				case Config.RESULT_CODE_SUCCESS:
 					BaseResponse response = JSON.parseObject(result.toString(), BaseResponse.class);
-					if (response.isSuccess()) {
-						application.cacheUtils.put("home", response.result);
-						HomeInfo homeInfo = JSON.parseObject(response.result, HomeInfo.class);
-						setViewData(homeInfo);
-					}
+                    switch (response.code){
+                        case 0:
+                            application.cacheUtils.put("home", response.result);
+                            HomeInfo homeInfo = JSON.parseObject(response.result, HomeInfo.class);
+                            setViewData(homeInfo);
+                            break;
+                        case 45003:
+                            application.logout();
+                            application.showMsg(response.getMsg());
+                            break;
+                        case 45004:
+                            application.logout();
+                            toActivity(LoginActivityNew.class);
+                            application.showMsg(response.getMsg());
+                            break;
+                        default:
+                            application.showMsg(response.getMsg());
+                            break;
+                    }
 					locationUtils.stopListener();
 //                    mListView.setPullLoadEnable(true);
 					break;
@@ -406,6 +522,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 		application.sharedUtils.writeString("cityName", location.getCity().replace("市", ""));
 		application.sharedUtils.writeString("addrStr", location.getAddrStr());
 		application.sharedUtils.writeString("province", location.getProvince());
+        application.sharedUtils.writeString("country", location.getCountry());
 
 		application.sharedUtils.writeBoolean("isLocation", true);
 		EventBus.getDefault().post(new ChangeCityEventBus(application.sharedUtils.readString("cityName")));

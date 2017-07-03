@@ -1,18 +1,18 @@
 package com.google.zxing.client.android;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Handler;
 
+import com.accuvally.hdtui.BaseActivity;
 import com.google.zxing.Result;
 import com.google.zxing.client.android.camera.CameraManager;
 //import com.zxing.camera.CameraManager;
 //import com.zxing.view.ViewfinderView;
 //二维码现在用的是：zxing-android-portrait-master
 
-abstract class CaptureActivity extends Activity{
+abstract class CaptureActivity extends BaseActivity{
 
 
     public abstract Handler getHandler();

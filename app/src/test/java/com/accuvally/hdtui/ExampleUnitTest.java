@@ -4,7 +4,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Test;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +20,26 @@ public class ExampleUnitTest {
 
     @Test
     public void httpTest() throws Exception {
-        String url="https://api.huodongxing.com/v3/utils/qret?qid=b9bbeda85548459f9b134d07bef05258&type=1";
-
-        URL realUrl = new URL(url);
-
-        System.out.println(realUrl.getPath());
-        System.out.println(realUrl.getQuery());
+//        String url="https://api.huodongxing.com/v3/utils/qret?qid=b9bbeda85548459f9b134d07bef05258&type=1";
+//
+//        URL realUrl = new URL(url);
+//
+//        System.out.println(realUrl.getPath());
+//        System.out.println(realUrl.getQuery());
 
        /* HttpCilents httpCilents=new HttpCilents(AccuApplication.getInstance());
         final List<NameValuePair> params2=new ArrayList<NameValuePair>();
 
         httpCilents.postA(url,params2,null);*/
 
+        String s="http://www.huodongxing.com/news/770644596518";
+        int index= s.indexOf("huodongxing.com/news");
 
+        System.out.print(index);
+
+       String S1[]= s.split("huodongxing.com/news/");
+
+        System.out.print(index);
     }
 
     @Test

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.accuvally.hdtui.db.DBManager;
+import com.accuvally.hdtui.db.MessageTable;
 import com.accuvally.hdtui.model.MessageInfo;
 import com.accuvally.hdtui.model.SessionInfo;
 import com.accuvally.hdtui.model.UserInfo;
@@ -100,13 +101,13 @@ public class MsgServices extends IntentService {
 					try {
 						if (arg0 != null && !downLoadFinish) {
 							Log.d("d", "queryMessages----last == null--------  " + (arg0 == null ? ("arg0=" + arg0) : arg0.size()));
-							MessageInfo info = dbManager.bulkinsertMsg(arg0, userId);
+							MessageInfo info = MessageTable.bulkinsertMsg(arg0, userId,MsgServices.this.getBaseContext());
 							// 如果库里已经有这条数据，说明已经全部缓存成功
 							if (info.getInsertCount() < limit) {
 								// 最近的数据拉去完成
 								// 还有以前的数据可能没有拉去下来
-								if(dbManager.queryFirstMsg(info.getSessionId())!= null)
-									queryMsg(conversation, dbManager.queryFirstMsg(info.getSessionId()));
+								if(MessageTable.queryFirstMsg(info.getSessionId())!= null)
+									queryMsg(conversation, MessageTable.queryFirstMsg(info.getSessionId()));
 
 							} else {
 								// 继续拉去最新的数据
@@ -143,7 +144,7 @@ public class MsgServices extends IntentService {
 						Log.d("d", "queryMessages-----last != null--------  " + (arg0 == null ? ("arg0=" + arg0) : arg0.size()));
 						if (arg0 != null && !downLoadFinish) {
 
-							MessageInfo info = dbManager.bulkinsertMsg(arg0, userId);
+							MessageInfo info = MessageTable.bulkinsertMsg(arg0, userId,MsgServices.this.getBaseContext());
 							// 如果库里已经有这条数据，说明已经全部缓存成功
 							if (info.getInsertCount() < limit) {
 								// 数据全部拉取下来

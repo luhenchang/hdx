@@ -1,4 +1,4 @@
-package com.accuvally.hdtui.activity;
+package com.accuvally.hdtui.activity.web;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -40,6 +40,7 @@ public class AccuvallyWebDetailsActivity extends BaseActivity {
 		initData();
 	}
 
+
 	public void initView() {
 		injectJs = getIntent().getStringExtra("injectJs");
 		loadingUrl = getIntent().getStringExtra("loadingUrl");
@@ -68,13 +69,14 @@ public class AccuvallyWebDetailsActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		webView.setWebViewClient(new DetailsWebViewClient());
 	}
 
 	class DetailsWebViewClient extends WebViewClient {
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			lyLoading.setVisibility(View.VISIBLE);
-			view.loadUrl(url);
+                lyLoading.setVisibility(View.VISIBLE);
+                view.loadUrl(url);
 			return true;
 		}
 

@@ -18,18 +18,22 @@ import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivityDeepLink;
 import com.accuvally.hdtui.R;
+import com.accuvally.hdtui.activity.web.WebActivity;
 import com.accuvally.hdtui.activity.UnfinishedActivity;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.home.util.ChooseCityActivity;
 import com.accuvally.hdtui.activity.home.util.SearchActivityNew;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.activity.mine.setting.SettingActivity;
+import com.accuvally.hdtui.db.MailMessageTable;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.fragment.core.HomeFragment;
 import com.accuvally.hdtui.fragment.core.MessageFragment;
 import com.accuvally.hdtui.fragment.core.MineFragment;
 import com.accuvally.hdtui.fragment.core.SelectFragment;
 import com.accuvally.hdtui.ui.calender.ManagerFragmentHelp;
+import com.accuvally.hdtui.utils.HttpMailCountUtil;
+import com.accuvally.hdtui.utils.MailCountUtil;
 import com.accuvally.hdtui.utils.NetworkUtils;
 import com.accuvally.hdtui.utils.PermissionUtil;
 import com.accuvally.hdtui.utils.Trace;
@@ -41,6 +45,7 @@ import com.accuvally.hdtui.utils.eventbus.ChangeMainSelectEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventRedDot;
 import com.accuvally.hdtui.utils.swipebacklayout.SwipeBackLayout;
+import com.google.zxing.client.android.CodeLoginActivity;
 
 import de.greenrobot.event.EventBus;
 
@@ -71,6 +76,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 	private int IS_HOME_TEMP = 0;
 
 	private ImageView ivMainHeaderSearch;
+    private ImageView ivMainHeaderSaoma;
 
 	AnimationDrawable animationDrawable;
 
@@ -97,10 +103,12 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 
 
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        Trace.e("MainActivityNew","****************MainActivityNew start**************");
+        Trace.e("MainActivityNew", "****************MainActivityNew start**************");
         setContentView(R.layout.activity_main_new);
 		application.sharedUtils.writeBoolean("isFirstIn", true);
 		EventBus.getDefault().register(this);
@@ -121,13 +129,18 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		if (application.checkIsLogin()) {
 			application.leanCloudLogin(application.getUserInfo().getAccount());
 		}
-		updateUnreadNum();
+		updateUnreadNum();//初始化activity时的红点变化
 		
 		int tabIndex = getIntent().getIntExtra("tabIndex", 0);
 		selection(tabIndex);
 		
-		ToAccuvallyDetail(getIntent());
-	}
+		ToAccuvallyDetail(getIntent());//welcome跳转
+
+        HttpMailCountUtil.getAllMessageCount("MainActivityNew");
+    }
+
+
+
 
 
     private void requestPermission() {
@@ -140,12 +153,16 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 
 	private void ToAccuvallyDetail(Intent intent) {
 		String id = intent.getStringExtra("id");
-		
+        String returnurl = intent.getStringExtra("returnurl");
+
 		if (!TextUtils.isEmpty(id)) {
 			Intent aIntent = new Intent(this, AccuvallyDetailsActivity.class);
 			aIntent.putExtra("id", id);
 			startActivity(aIntent);
-		}
+		}else if( (!TextUtils.isEmpty(returnurl)) && returnurl.startsWith("http")){
+            startActivity(new Intent(this, WebActivity.class).putExtra("loadingUrl",
+                    returnurl).putExtra("injectJs", ""));
+        }
 	}
 
 	// SDK初始化，第三方程序启动时，都要进行SDK初始化   （个推）
@@ -163,6 +180,8 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		tvMainBottomMessage = (TextView) findViewById(R.id.tvMainBottomMessage);
 		tvMainHeaderCity = (TextView) findViewById(R.id.tvMainHeaderCity);
 		ivMainHeaderSearch = (ImageView) findViewById(R.id.ivMainHeaderSearch);
+        ivMainHeaderSaoma = (ImageView) findViewById(R.id.ivMainHeaderSaoma);
+
 		ivMainHeaderLeft = (ImageView) findViewById(R.id.ivMainHeaderLeft);
 		ivMainHeaderUnfinished = (ImageView) findViewById(R.id.ivMainHeaderUnfinished);
 		ivMainUnReadNum = (ImageView) findViewById(R.id.ivMainUnReadNum);
@@ -180,6 +199,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		tvMainHeaderCity.setOnClickListener(this);
 		ivMainHeaderLeft.setOnClickListener(this);
 		ivMainHeaderSearch.setOnClickListener(this);
+        ivMainHeaderSaoma.setOnClickListener(this);
 		ivMainHeaderUnfinished.setOnClickListener(this);
 		rlMainHeaderMessage.setOnClickListener(this);
 		tvMainMessageUnReadNum.setVisibility(View.GONE);
@@ -226,24 +246,33 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 	}
 
 	public void onEventMainThread(ChangeMessageEventBus eventBus) {
-		updateUnreadNum();
+		updateUnreadNum();//有消息变化的时候
 	}
 	
 	public void onEventMainThread(EventRedDot event) {
-		if (event.isShow) {
+        if(event.check){
+            updateUnreadNum();
+        }else {
+            if (event.isShow) {
+                ivMainUnReadNum.setVisibility(View.VISIBLE);
+            } else {
+                ivMainUnReadNum.setVisibility(View.GONE);
+            }
+        }
+
+	}
+
+	public void updateUnreadNum() {
+        int recommendUnReadNum= MailCountUtil.getUnreadCount(MailMessageTable.recommend);
+        int sysMsgUnReadNum=MailCountUtil.getUnreadCount(MailMessageTable.sysMsg);
+        int newFriendUnReadNum=MailCountUtil.getUnreadCount(MailMessageTable.newFriend);
+		if (SessionTable.hasUnReadMessage() |(recommendUnReadNum>0) |(sysMsgUnReadNum>0) |(newFriendUnReadNum>0)) {
 			ivMainUnReadNum.setVisibility(View.VISIBLE);
 		} else {
 			ivMainUnReadNum.setVisibility(View.GONE);
 		}
 	}
 
-	public void updateUnreadNum() {
-		if (SessionTable.hasUnReadMessage()) {
-			ivMainUnReadNum.setVisibility(View.VISIBLE);
-		} else {
-			ivMainUnReadNum.setVisibility(View.GONE);
-		}
-	}
 
 	public void onEventMainThread(ChangeMainSelectEventBus eventBus) {
 		if (eventBus.getTag() == 1) {
@@ -289,6 +318,11 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 				return;
 			startActivity(new Intent(mContext, SearchActivityNew.class));
 			break;
+            case R.id.ivMainHeaderSaoma:
+                if (Utils.isFastDoubleClick())
+                    return;
+                startActivity(new Intent(mContext, CodeLoginActivity.class));
+                break;
 		case R.id.ivMainHeaderUnfinished://我的票卷
 			if (Utils.isFastDoubleClick())
 				return;
@@ -304,7 +338,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 //			dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_NOTICATION", ""));
 //			List<SessionInfo> list = dbManager.querySession(application.getUserInfo().getAccount(), 1, Integer.MAX_VALUE);
 //			for (int i = 0; i < list.size(); i++) {
-//				dbManager.updateSessionByUnReadNum(list.get(i).getSessionId());
+//				dbManager.clearSessionUnreadNum(list.get(i).getSessionId());
 //			}
 //			tvMainMessageUnReadNum.setVisibility(View.GONE);
 //			if (application.checkIsLogin()) {
@@ -481,6 +515,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		if (index == 0) {
 			IS_HOME_TEMP = 0;
 			ivMainHeaderSearch.setVisibility(View.VISIBLE);
+            ivMainHeaderSaoma.setVisibility(View.VISIBLE);
 			tvMainHeaderCity.setVisibility(View.VISIBLE);
 			ivMainHeaderUnfinished.setVisibility(View.GONE);
 			rlMainHeaderMessage.setVisibility(View.GONE);
@@ -491,6 +526,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		} else if (index == 1) {
 			IS_HOME_TEMP = 1;
 			ivMainHeaderSearch.setVisibility(View.VISIBLE);
+            ivMainHeaderSaoma.setVisibility(View.VISIBLE);
 			tvMainHeaderCity.setVisibility(View.VISIBLE);
 			ivMainHeaderUnfinished.setVisibility(View.GONE);
 			rlMainHeaderMessage.setVisibility(View.GONE);
@@ -501,6 +537,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		} else if (index == 2) {
 			IS_HOME_TEMP = 2;
 			ivMainHeaderSearch.setVisibility(View.GONE);
+            ivMainHeaderSaoma.setVisibility(View.GONE);
 			activity_header_progressbar.setVisibility(View.GONE);
 			tvMainHeaderCity.setVisibility(View.GONE);
 			ivMainHeaderUnfinished.setVisibility(View.GONE);
@@ -512,6 +549,7 @@ public class MainActivityNew extends BaseActivityDeepLink implements OnClickList
 		} else if (index == 3) {
 			IS_HOME_TEMP = 3;
 			ivMainHeaderSearch.setVisibility(View.GONE);
+            ivMainHeaderSaoma.setVisibility(View.GONE);
 			tvMainHeaderCity.setVisibility(View.GONE);
 			ivMainHeaderUnfinished.setVisibility(View.GONE);
 			rlMainHeaderMessage.setVisibility(View.GONE);

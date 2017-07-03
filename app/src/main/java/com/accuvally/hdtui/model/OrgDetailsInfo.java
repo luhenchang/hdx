@@ -11,8 +11,7 @@ public class OrgDetailsInfo {
 	
 	private List<HomeEventInfo> Acts;
 	
-//	public List<CommentInfoWithoutReply> Cmts;
-	
+
 	private OrgInfo Org;
 
 	public List<HomeEventInfo> getActs() {

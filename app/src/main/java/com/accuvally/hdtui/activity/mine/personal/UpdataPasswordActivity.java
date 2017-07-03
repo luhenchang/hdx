@@ -1,16 +1,19 @@
 package com.accuvally.hdtui.activity.mine.personal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
+import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.ui.EditTextWithDel;
 import com.accuvally.hdtui.utils.CheckTextBox;
@@ -32,8 +35,8 @@ import java.util.List;
  */
 public class UpdataPasswordActivity extends BaseActivity implements OnClickListener {
 
-	private EditTextWithDel edPhone, edCodeNumber, edNewPass;
-
+	private EditTextWithDel edCodeNumber, edNewPass;
+    private EditText edPhone;
 	private Button updatePassBtn;
 	private TextView sendCodeTV;
 	private MyCount mc;
@@ -48,7 +51,16 @@ public class UpdataPasswordActivity extends BaseActivity implements OnClickListe
 	public void initView() {
 		setTitle(R.string.personal_update_password_title);
 
-		edPhone = (EditTextWithDel) findViewById(R.id.edPhone);
+		edPhone = (EditText) findViewById(R.id.edPhone);
+
+        String phoneNumber=AccountManager.getPhone();
+        if(!TextUtils.isEmpty(phoneNumber)){
+            edPhone.setText(phoneNumber);
+            if(application.getUserInfo().isPhoneActivated()){
+                edPhone.setEnabled(false);
+            }
+        }
+
 		edCodeNumber = (EditTextWithDel) findViewById(R.id.edCodeNumber);
 		edNewPass = (EditTextWithDel) findViewById(R.id.edNewPass);
 		sendCodeTV = (TextView) findViewById(R.id.sendCodeTV);
@@ -115,7 +127,10 @@ public class UpdataPasswordActivity extends BaseActivity implements OnClickListe
 					BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
 					if (info.isSuccess()) {
 						application.showMsg(info.msg);
-						finish();
+                        application.logout();
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
 					} else {
 						application.showMsg(info.msg);
 					}

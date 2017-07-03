@@ -246,7 +246,7 @@ public class GroupMemberActivity extends BaseActivity {
 						sessionInfo.setLogoUrl(info.Logo);// 对方头像
 						sessionInfo.friendId = info.Account;
 						application.setCurrentSession(sessionInfo);
-						SessionTable.insertSession(sessionInfo);
+						SessionTable.insertOrUpdateSession(sessionInfo);
 						EventBus.getDefault().post(new ChangeMessageEventBus());
 
 						ToChatActivity();

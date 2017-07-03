@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.register.BindPhoneActivity;
 import com.accuvally.hdtui.activity.home.util.ChooseCityActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
@@ -84,6 +86,8 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 	private CircleImageView ivUpLoadHead;
 
 	private FileCache fileCache;
+
+    public static final int UPDATE_PASSWORD = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -170,14 +174,15 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 			tvPhoneActivated.setText("未绑定");
 			rlBindPhone.setClickable(true);
 		}
-		if (application.getUserInfo().isEmailActivated()) {
-			tvEmailActivated.setTextColor(getResources().getColor(R.color.txt_green));
-			tvEmailActivated.setText(application.getUserInfo().getEmail());
-			rlBindEmail.setClickable(false);
-		} else {
-			tvEmailActivated.setText("未绑定");
-			rlBindEmail.setClickable(true);
-		}
+
+        if(!TextUtils.isEmpty(application.getUserInfo().getEmail())){
+            tvEmailActivated.setTextColor(getResources().getColor(R.color.txt_green));
+            tvEmailActivated.setText(application.getUserInfo().getEmail());
+            rlBindEmail.setClickable(false);
+        }else {
+            tvEmailActivated.setText("未设置");
+            rlBindEmail.setClickable(true);
+        }
 	}
 
 	@Override
@@ -202,7 +207,9 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 			if (Utils.isFastDoubleClick())
 				return;
 			if (application.getUserInfo().getLoginType() == -1) {
-				toActivity(UpdataPasswordActivity.class);
+                Intent intent = new Intent(mContext, UpdataPasswordActivity.class);
+                startActivityForResult(intent,UPDATE_PASSWORD);
+
 			} else {
 				application.showMsg("第三方登录账号不允许修改密码");
 			}
@@ -239,8 +246,8 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 			startActivity(new Intent(mContext, BindPhoneActivity.class).putExtra("TAG", 1));
 			break;
 		case R.id.rlBindEmail:// 绑定email
-			// startActivity(new Intent(mContext,
-			// BindPhoneActivity.class).putExtra("TAG", 2));
+//			 startActivity(new Intent(mContext,
+//			 BindPhoneActivity.class).putExtra("TAG", 2));
 			break;
 		case R.id.tvPhotograph:// 拍照
 			photoDialog.dismiss();
@@ -250,9 +257,6 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 		case R.id.tvAlbum:// 相册
 
 			photoDialog.dismiss();
-
-			// PickPhoto.pickPhoto(PersonalActivity.this);
-
 			Intent intent = new Intent();
 			intent.setType("image/*");
 			intent.setAction(Intent.ACTION_PICK);
@@ -369,7 +373,16 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
+
+
+        if(resultCode==Activity.RESULT_OK && requestCode==UPDATE_PASSWORD){
+            toActivity(LoginActivityNew.class);
+            finish();
+            return;
+        }
+
+        //        真心搞不懂这个用来干什么的  sb*****
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
 		if (ssoHandler != null) {
 			ssoHandler.authorizeCallBack(requestCode, resultCode, data);
 		}
@@ -391,9 +404,6 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
 					intent.putExtra("imagePath", path);
 					startActivityForResult(intent, PickPhoto.CROP_PHOTO);
 					cursor.close();
-					// if (path != null) {
-					// setBitmap(path);
-					// }
 				} catch (Exception e) {
 					application.showMsg("请选择相册中的照片");
 				}

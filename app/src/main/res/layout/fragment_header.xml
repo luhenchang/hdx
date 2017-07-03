@@ -65,6 +65,9 @@
             android:textSize="@dimen/little_10" />
     </FrameLayout>
 
+
+
+    <!--设置图标-->
     <ImageView
         android:id="@+id/ivMainHeaderLeft"
         android:layout_width="wrap_content"
@@ -77,6 +80,22 @@
         android:src="@drawable/fragment_header_left_line_bg"
         android:visibility="gone" />
 
+
+    <!--扫码图标gone-->
+    <ImageView
+        android:id="@+id/ivMainHeaderSaoma"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/selector_click_btn"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:src="@drawable/saoma"
+        android:visibility="gone" />
+
+    <!--搜索图标gone-->
     <ImageView
         android:id="@+id/ivMainHeaderSearch"
         android:layout_width="wrap_content"
@@ -90,6 +109,8 @@
         android:src="@drawable/fragment_header_right_search_bg"
         android:visibility="gone" />
 
+
+    <!--日历图标-->
     <ImageView
         android:id="@+id/ivMainHeaderUnfinished"
         android:layout_width="wrap_content"

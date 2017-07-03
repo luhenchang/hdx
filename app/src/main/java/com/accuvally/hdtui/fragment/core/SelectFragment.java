@@ -28,6 +28,7 @@ import com.accuvally.hdtui.model.SelInfo;
 import com.accuvally.hdtui.ui.XListView;
 import com.accuvally.hdtui.ui.XListView.IXListViewListener;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.eventbus.ChangeCityEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeHomeLoaderEventBus;
 import com.alibaba.fastjson.JSON;
@@ -271,7 +272,11 @@ public class SelectFragment extends BaseFragment implements IXListViewListener, 
 			if (listType != null)
 				listType.clear();
 			if (application.cacheUtils.getAsString("selTag") != null) {
-				listType = JSON.parseArray(application.cacheUtils.getAsString("selTag"), String.class);
+                listType.add("全类型");
+                listType.addAll(JSON.parseArray(application.cacheUtils.getAsString("selTag"), String.class));
+//				listType = JSON.parseArray(application.cacheUtils.getAsString("selTag"), String.class);
+                Trace.e("listType",listType.toString());
+
 			} else {
 				String[] type = getResources().getStringArray(R.array.sel_type);
 				for (int i = 0; i < type.length; i++) {

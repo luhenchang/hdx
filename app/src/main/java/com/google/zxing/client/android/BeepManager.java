@@ -27,7 +27,6 @@ import android.util.Log;
 
 import com.accuvally.hdtui.R;
 
-
 import java.io.IOException;
 
 /**

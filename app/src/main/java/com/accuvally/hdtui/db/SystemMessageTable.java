@@ -1,17 +1,18 @@
 package com.accuvally.hdtui.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.model.MessageInfo;
 
+import java.util.ArrayList;
+
+//处理新同伴的表
 public class SystemMessageTable {
+
+    //extend=1 为申请加好友， extend=2为已经同意
 
 	public static final String SYSTEM_MESSAGE = "system_message";
 	public static final String CREATE_SYSTEM_MESSAGE = "CREATE TABLE IF NOT EXISTS "

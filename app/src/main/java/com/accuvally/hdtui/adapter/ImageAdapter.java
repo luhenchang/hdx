@@ -24,7 +24,9 @@ import java.util.ArrayList;
  * Created by Andy Liu on 2017/2/7.
  */
 public class ImageAdapter extends BaseAdapter {
-    ArrayList<String> imageUrls;
+
+    ArrayList<String> thumbimgs;
+    ArrayList<String> imgs;
     private LayoutInflater mInflater;
     private Activity mContext;
 
@@ -32,9 +34,10 @@ public class ImageAdapter extends BaseAdapter {
     ImageSize mImageSize;
     private ImagePicker imagePicker;
 
-    public ImageAdapter(Activity mContext, ArrayList<String> imageUrls) {
+    public ImageAdapter(Activity mContext, ArrayList<String> thumbimgs,ArrayList<String> imgs) {
         this.mContext = mContext;
-        this.imageUrls = imageUrls;
+        this.thumbimgs = thumbimgs;
+        this.imgs = imgs;
         mInflater = LayoutInflater.from(mContext);
         int size = Utils.getImageItemWidth(mContext);
         mImageSize= new ImageSize(size, size);
@@ -44,7 +47,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imageUrls.size();
+        return thumbimgs.size();
     }
 
     @Override
@@ -63,7 +66,6 @@ public class ImageAdapter extends BaseAdapter {
         for (String str:imageUrls){
             ImageItem imageItem=new ImageItem();
             imageItem.path=str;
-//            Trace.e(" getImages  imageItem.path", str);
             imageItems.add(imageItem);
         }
         return imageItems;
@@ -81,7 +83,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
 
-        ImageLoader.getInstance().displayImage(imageUrls.get(position), imageView,mImageSize);
+        ImageLoader.getInstance().displayImage(thumbimgs.get(position), imageView,mImageSize);
 
 //        imagePicker.getImageLoader().displayImage(mContext, imageUrls.get(position), imageView, mImageSize, mImageSize); //显示图片
 
@@ -95,7 +97,7 @@ public class ImageAdapter extends BaseAdapter {
 
 
                 Intent intentPreview = new Intent(mContext, ImagePreviewDelActivity.class);
-                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) getImages(imageUrls));
+                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) getImages(imgs));
                 intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
                 intentPreview.putExtra(ImagePreviewBaseActivity.customImagePreview, true);
                 mContext.startActivity(intentPreview);

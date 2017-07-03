@@ -18,6 +18,7 @@ public class CommentInfo implements Serializable {
     public String eventid;//评价的活动
 
 
+    public ArrayList<String> thumbimgs;//评价上传的图片 0-9张不等
     public ArrayList<String> imgs;//评价上传的图片 0-9张不等
 
     public ArrayList<CommentReplyInfo> replays;//回复的内容 0-n条不等（可回复多次）

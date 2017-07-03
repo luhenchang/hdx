@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#f0f0f0"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/activity_header_new" />
+
+    <ImageView android:layout_width="match_parent"
+               android:background="@drawable/img_more_service"
+               android:layout_height="170dp"/>
+
+    <RelativeLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:background="@color/white"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginTop="5dp"
+                  android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="wrap_content"
+                   android:background="@drawable/more_service_logo"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="10dp"
+                   android:id="@+id/id_more_service_logo"
+                   android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@id/id_more_service_logo"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#222222"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_large"
+                      android:text="活动行管家"
+                      android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#b2b2b2"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_small_small"
+                      android:text="[主办方专属]数据展示、名单管理、活动验票必备工具"
+                      android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content"
+                  android:id="@+id/more_service_host"
+                  android:textColor="@color/txt_green"
+                  android:textSize="@dimen/text_size_middle"
+                  android:text="下载"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginBottom="8dp"
+                  android:layout_marginRight="10dp"
+                  android:background="@drawable/bg_more_service"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#fff0f0f0" />
+
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="wrap_content"
+                   android:background="@drawable/more_service_bbx"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="10dp"
+                   android:id="@+id/id_more_service_bbx"
+                   android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@id/id_more_service_bbx"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#222222"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_large"
+                      android:text="活动百宝箱"
+                      android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#b2b2b2"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_small_small"
+                      android:text="办活动周边服务一站式解决工具"
+                      android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content"
+                  android:id="@+id/more_service_bbx"
+                  android:textColor="@color/txt_green"
+                  android:textSize="@dimen/text_size_middle"
+                  android:text="查看"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginRight="10dp"
+                  android:layout_centerVertical="true"
+                  android:background="@drawable/bg_more_service"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#fff0f0f0" />
+
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="wrap_content"
+                   android:background="@drawable/more_service_maimai"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="10dp"
+                   android:id="@+id/id_more_service_maimai"
+                   android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginLeft="10dp"
+                      android:layout_toRightOf="@id/id_more_service_maimai"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#222222"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_large"
+                      android:text="脉脉"
+                      android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#b2b2b2"
+                      android:layout_marginTop="5dp"
+                      android:textSize="@dimen/text_size_small_small"
+                      android:text="专业的行业交流平台"
+                      android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content"
+                  android:id="@+id/more_service_maimai"
+                  android:textColor="@color/txt_green"
+                  android:textSize="@dimen/text_size_middle"
+                  android:text="查看"
+                  android:layout_alignParentRight="true"
+                  android:layout_centerVertical="true"
+                  android:layout_marginRight="10dp"
+                  android:background="@drawable/bg_more_service"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</LinearLayout>

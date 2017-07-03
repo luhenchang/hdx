@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.accuvally.hdtui.manager.AccountManager;
 import com.accuvally.hdtui.model.SessionInfo;
+import com.accuvally.hdtui.utils.Trace;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class SessionTable {
 	public static Uri uri = Uri.parse("content://accuvally/" + TABLE_SESSION);
 
 	
-	public static void createTable() {
+	/*public static void createTable() {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
 		db.execSQL(CREATE_TABLE_SESSION);
 		db.close();
@@ -36,7 +37,7 @@ public class SessionTable {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
 		db.close();
-	}
+	}*/
 	
 	public static void bulkInsertSession(List<AVIMConversation> list) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
@@ -83,12 +84,14 @@ public class SessionTable {
 
 			@Override
 			public void run() {
-				insertSession(info);
+                Trace.e("AsyncInsertSession","Thread.currentThread().getName():"+Thread.currentThread().getName());
+                Thread.currentThread().getName();
+				insertOrUpdateSession(info);
 			}
 		});
 	}
 
-	public static void insertSession(SessionInfo info) {
+	public static void insertOrUpdateSession(SessionInfo info) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
 		boolean is = isSession(info.getSessionId());
 		
@@ -179,13 +182,13 @@ public class SessionTable {
 	
 	public static boolean updateSession(String sessionId, ContentValues values) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
-		long id = db.update(TABLE_SESSION, values, "userId=? AND sessionId=?", new String[] { AccountManager.getAccount(), sessionId });
+		long id = db.update(TABLE_SESSION, values, "userId=? AND sessionId=?", new String[]{AccountManager.getAccount(), sessionId});
 		return id > 0;
 	}
 
-	public static List<SessionInfo> queryAllSession(String userId) {
+	public static List<SessionInfo> queryUnreadSession(String userId) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
-		String sql = "select * from " + TABLE_SESSION + " where userId=? order by time desc";
+		String sql = "select * from " + TABLE_SESSION + " where userId=? and unReadNum>0 order by time desc";
 		Cursor cursor = db.rawQuery(sql, new String[] { userId });
 		List<SessionInfo> list = new ArrayList<SessionInfo>();
 		while (cursor != null && cursor.moveToNext()) {
@@ -195,6 +198,20 @@ public class SessionTable {
 		cursor.close();
 		return list;
 	}
+
+
+    public static List<SessionInfo> queryReadSession(String userId) {
+        SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
+        String sql = "select * from " + TABLE_SESSION + " where userId=? and unReadNum=0 order by time desc";
+        Cursor cursor = db.rawQuery(sql, new String[] { userId });
+        List<SessionInfo> list = new ArrayList<SessionInfo>();
+        while (cursor != null && cursor.moveToNext()) {
+            SessionInfo sessionInfo = geneSession(cursor);
+            list.add(sessionInfo);
+        }
+        cursor.close();
+        return list;
+    }
 
 	public static List<SessionInfo> queryAllNotification(String userId) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
@@ -280,34 +297,6 @@ public class SessionTable {
 		sessionInfo.extend = cursor.getInt(cursor.getColumnIndex("extend"));
 		return sessionInfo;
 	}
-	
-	/** sessionId 会话是否已经插入了所有消息 **/
-//	public static boolean isDBMessage(String sessionId) {
-//		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
-//		String sql = "select * from " + TABLE_SESSION + " where sessionId=?";
-//		Cursor cursor = db.rawQuery(sql, new String[] { sessionId });
-//		boolean result = false;
-//		if (cursor.moveToNext()) {
-//			result = cursor.getInt(cursor.getColumnIndex("isDBMessage")) == 1;
-//		}
-//		cursor.close();
-//		return result;
-//	}
-	
-	
-	/** 查询所有私聊会话 **/
-//	public ArrayList<SessionInfo> queryPrivateSession() {
-//		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
-//		ArrayList<SessionInfo> list = new ArrayList<SessionInfo>();
-//		String sql = "select * from " + TABLE_SESSION + " where isConv='1' order by time desc";
-//		Cursor cursor = db.rawQuery(sql, null);
-//		while (cursor != null && cursor.moveToNext()) {
-//			SessionInfo sessionInfo = geneSession(cursor);
-//			list.add(sessionInfo);
-//		}
-//		cursor.close();
-//		return list;
-//	}
 
 	/**
 	 * 查询所有未读消息条数
@@ -345,7 +334,7 @@ public class SessionTable {
 	/**
 	 * 修改未读条数，设置为已读
 	 */
-	public static boolean updateSessionByUnReadNum(String sessionId) {
+	public static boolean clearSessionUnreadNum(String sessionId) {
 		SQLiteDatabase db = AccuvallySQLiteOpenHelper.getInstance().getReadableDatabase();
 		try {
 			ContentValues values = new ContentValues();
@@ -395,12 +384,7 @@ public class SessionTable {
 
 		db.update(TABLE_SESSION, values, "userId=? AND extend='1'", new String[] { AccountManager.getAccount()});
 		db.close();
-		
-//		String sql = "select * from " + TABLE_SESSION + " where userId=? AND extend='1'";
-//		Cursor cursor = db.rawQuery(sql, new String[] { AccountManager.getAccount() });
-//		while (cursor.moveToNext()) {
-//			String sessionId = cursor.getString(cursor.getColumnIndex("sessionId"));
-//		}
+
 	}
 	
 }

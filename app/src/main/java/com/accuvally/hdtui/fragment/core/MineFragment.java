@@ -13,14 +13,16 @@ import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.mine.CollectActivity;
 import com.accuvally.hdtui.activity.mine.FriendsActivity;
-import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.MoreServiceActivity;
 import com.accuvally.hdtui.activity.mine.OrgListActivity;
-import com.accuvally.hdtui.activity.mine.personal.PersonalActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
+import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
+import com.accuvally.hdtui.activity.mine.personal.PersonalActivity;
 import com.accuvally.hdtui.config.UILoptions;
 import com.accuvally.hdtui.ui.BadgeView;
 import com.accuvally.hdtui.ui.CircleImageView;
-import com.accuvally.hdtui.utils.LoginUtil;
+import com.accuvally.hdtui.utils.NotificationsUtils;
+import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 
@@ -34,7 +36,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MineFragment extends BaseFragment implements OnClickListener {
 
-	private LinearLayout lyMineTicket, lyMineCollect, lyMineOrg, lyMineCircle;
+	private LinearLayout lyMineTicket, lyMineCollect, lyMineOrg, lyMineCircle,lyMineMore;
 
 	private CircleImageView ivMineLogo;
 
@@ -66,6 +68,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 	public void initView(View view) {
 		lyMineTicket = (LinearLayout) view.findViewById(R.id.lyMineTicket);
 		lyMineCollect = (LinearLayout) view.findViewById(R.id.lyMineCollect);
+        lyMineMore = (LinearLayout) view.findViewById(R.id.lyMineMore);
 		lyMineOrg = (LinearLayout) view.findViewById(R.id.lyMineOrg);
 		lyMineCircle = (LinearLayout) view.findViewById(R.id.lyMineCircle);
 		ivMineLogo = (CircleImageView) view.findViewById(R.id.ivMineLogo);
@@ -73,8 +76,79 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		tvMineSignature = (TextView) view.findViewById(R.id.tvMineSignature);
 		tvMineUnReadNum = (TextView) view.findViewById(R.id.tvMineUnReadNum);
 
+        view.findViewById(R.id.mine_test).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, BindPhoneBeforBuyActivity.class);
+//                startActivity(intent);
+                boolean b=NotificationsUtils.isNotificationEnabled(mContext);
+                application.showMsg("isNotificationEnabled: "+b);
+
+                Trace.e("MineFragment", "isNotificationEnabled: " + b);
+
+//                Intent intent = new Intent(Android.permission.BROADCAST_WAP_PUSH);
+//                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
+
+//                String packageName = mContext.getApplicationContext().getPackageName();
+//                Intent launchIntent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
+//                launchIntent.putExtras(launchIntent);
+//                mContext.startActivity(launchIntent);
+
+
+//                Intent manageAppIntent = new Intent();
+//                manageAppIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                //第二个参数为包名
+//
+//                manageAppIntent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                startActivity(manageAppIntent);
+            }
+        });
+
+        view.findViewById(R.id.mine_test2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                PermissionUtil.checkPermissions(getActivity(), PermissionUtil.needPermissions);
+//                Intent intent = new Intent(Settings.);
+//                mContext.startActivity(intent);
+//                Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
+
+//                MessageFragment.getMessageCount("sys_msg");
+//                MessageFragment.getMessageCount("recommend");
+//                MessageFragment.getMessageCount("new_friend");
+
+//                Intent manageAppsIntent =  new Intent();
+//                manageAppsIntent.setAction("android.intent.action.MAIN");
+//                manageAppsIntent.setClassName("com.android.settings", "com.android.settings.ManageApplications");
+//                startActivity(manageAppsIntent);
+            }
+        });
+
+        view.findViewById(R.id.mine_test3).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+//                mContext.startActivity(intent);
+
+//                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+//                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mContext.startActivity(intent);
+
+//                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+//                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+//                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+//                startActivity(intent);
+            }
+        });
+
 		lyMineTicket.setOnClickListener(this);
 		lyMineCollect.setOnClickListener(this);
+        lyMineMore.setOnClickListener(this);
 		lyMineOrg.setOnClickListener(this);
 		lyMineCircle.setOnClickListener(this);
 		ivMineLogo.setOnClickListener(this);
@@ -164,6 +238,12 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 			else
 				toActivity(LoginActivityNew.class);
 			break;
+
+            case R.id.lyMineMore:// 更多服务
+                if (Utils.isFastDoubleClick())
+                    return;
+                    toActivity(MoreServiceActivity.class);
+                break;
 		case R.id.ivMineLogo:
 			if (Utils.isFastDoubleClick())
 				return;

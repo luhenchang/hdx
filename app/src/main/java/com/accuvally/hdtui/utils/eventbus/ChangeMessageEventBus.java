@@ -1,11 +1,10 @@
 package com.accuvally.hdtui.utils.eventbus;
 
-import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.model.MessageInfo;
 
 
 /***
- * {@link ChatActivity#onEventMainThread(ChangeMessageEventBus)}
+ *
  * 
  * 
  * post
@@ -13,6 +12,10 @@ import com.accuvally.hdtui.model.MessageInfo;
  * 
  * 
  */
+//1.ChatActivity:增加一条聊天记录
+    //2.MainActivityNew:updateUnreadNum
+    //3.NotificationActivity:增加一条session
+    //4.ChangeMessageEventBus:增加一条session
 public class ChangeMessageEventBus {
 	
 	private int msgId;

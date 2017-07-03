@@ -1,13 +1,5 @@
 package com.accuvally.hdtui.activity.message.core;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
@@ -63,6 +55,7 @@ import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.db.DBManager;
+import com.accuvally.hdtui.db.MessageTable;
 import com.accuvally.hdtui.db.SessionTable;
 import com.accuvally.hdtui.model.AnnounceBean;
 import com.accuvally.hdtui.model.AnnounceInfo;
@@ -102,6 +95,14 @@ import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -172,7 +173,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 
 			@Override
 			public void run() {
-				pageIndex = dbManager.queryAllMsgCount(sessionId) / pageSize - 1;
+				pageIndex = MessageTable.queryAllMsgCount(sessionId) / pageSize - 1;
 				loadDate();
 				// 移动到最底部
 				mListView.setSelection(mAdapter.getCount());
@@ -212,9 +213,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 			return;
 		}
 
-		MessageInfo last = dbManager.queryLastMsg(sessionId);
+		MessageInfo last = MessageTable.queryLastMsg(sessionId);
 		if (null != last && userId != null) {
-			ArrayList<MessageInfo> list = dbManager.queryAllMsg(sessionId, pageIndex * pageSize, dbManager.queryAllMsgCount(sessionId));
+			ArrayList<MessageInfo> list = MessageTable.queryAllMsg(sessionId, pageIndex * pageSize, MessageTable.queryAllMsgCount(sessionId));
 			if (list.size() > 0) {
 				mAdapter.setList(list);
 			}
@@ -666,7 +667,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 
 			mListView.smoothScrollToPosition(mAdapter.getCount());
 			// 插入数据库
-			long id = dbManager.insertFileMsg(msg);
+			long id = MessageTable.insertFileMsg(msg);
 			msg.setId(id);
 			final String content = MessageInfo.toContentJSON(application.getUserInfo(), sessionInfo, msg, isPrivateChat);
 			HashMap<String, Object> maps = new HashMap<String, Object>();
@@ -680,7 +681,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 						// 出错了。。。
 						e.printStackTrace();
 						Toast.makeText(ChatActivity.this, "发送失败", Toast.LENGTH_SHORT).show();
-						dbManager.deleteMsg(msg);
+                        MessageTable.deleteMsg(msg);
 						reConnectLeanCloud();
 					} else {
 						MobclickAgent.onEvent(mContext, "groupchat_gallery_count");//友盟记录 群聊图片次数
@@ -725,7 +726,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 			mAdapter.add(msg);
 
 			mListView.smoothScrollToPosition(mAdapter.getCount());
-			long id = dbManager.insertFileMsg(msg);
+			long id = MessageTable.insertFileMsg(msg);
 			msg.setId(id);
 
 			final String content = MessageInfo.toContentJSON(application.getUserInfo(), sessionInfo, msg, isPrivateChat);
@@ -743,7 +744,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 						// 出错了。。。
 						Toast.makeText(ChatActivity.this, "发送失败", Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
-						dbManager.deleteMsg(msg);
+                        MessageTable.deleteMsg(msg);
 						reConnectLeanCloud();
 					} else {
 						final AVFile file = message.getAVFile();
@@ -878,7 +879,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 		mAdapter.add(msg);
 
 		// 插入数据库
-		long id = dbManager.insertFileMsg(msg);
+		long id = MessageTable.insertFileMsg(msg);
 		msg.setId(id);
 
 		// 滚动到最底部
@@ -905,7 +906,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 				if (null != e) {
 					e.printStackTrace();
 					Toast.makeText(ChatActivity.this, "发送失败", Toast.LENGTH_SHORT).show();
-					dbManager.deleteMsg(msg);
+                    MessageTable.deleteMsg(msg);
 					Log.d("e", "sendMessage................" + e.getMessage());
 					reConnectLeanCloud();
 				} else {
@@ -926,7 +927,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, OnIte
 	private void updateMessageByName(AVIMTypedMessage message, MessageInfo msg) {
 		msg.setMessageId(message.getMessageId());
 		msg.setTimestamp(message.getTimestamp());
-		boolean sucess = dbManager.updateMsg(msg);
+		boolean sucess = MessageTable.updateMsg(msg);
 		if (sucess) {
 			SessionInfo info = sessionInfo;
 			info.setNickName(application.getUserInfo().getNick());

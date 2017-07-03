@@ -1,17 +1,8 @@
 package com.accuvally.hdtui.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 
-import com.accuvally.hdtui.db.AnnounceTable;
 import com.accuvally.hdtui.utils.ImageTools;
 import com.accuvally.hdtui.utils.TimeUtils;
 import com.alibaba.fastjson.JSON;
@@ -23,6 +14,14 @@ import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMLocationMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMVideoMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 public class MessageInfo implements Serializable,Comparable<MessageInfo> {
 
@@ -190,9 +189,6 @@ public class MessageInfo implements Serializable,Comparable<MessageInfo> {
 				newContent = info.getMessage();
 				extend = info.extend;
 				message_type = info.getMessage_type();
-//				if (message_type == 16) {
-//					AnnounceTable.insert(info, messageId);
-//				}
 			}
 			
 			Object lenObj = map.get("lengh");// 语音

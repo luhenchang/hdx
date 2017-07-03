@@ -13,8 +13,8 @@ android {
         applicationId "com.accuvally.hdtui"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 56
-        versionName "5.9.5"
+        versionCode 60
+        versionName "5.9.9"
         multiDexEnabled true
     }
 
@@ -44,7 +44,7 @@ android {
             }
 
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            versionNameSuffix "-debug"
+            versionNameSuffix "6666"
 
             zipAlignEnabled false
             shrinkResources false
@@ -89,15 +89,15 @@ android {
 
 // 友盟多渠道打包
     productFlavors {
-        TONGYONG{}
-        wandoujia {}
+//        TONGYONG{}
+//        wandoujia {}
         yingyongbao{}
-        xiaomi{}
-        huawei{}
-        baidu{}
+//        xiaomi{}
+//        huawei{}
+//        baidu{}
         _360{}
-        anzhi{}
-        jinli{}
+//        anzhi{}
+//        jinli{}
 
 //        kuaiyidian{}
 //        anzhuo{}
@@ -145,5 +145,7 @@ dependencies {
 
 
     compile project(':imagepicker')
+
+    compile 'in.srain.cube:ptr-load-more:1.0.6'
 
 }

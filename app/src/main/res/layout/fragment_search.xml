@@ -47,7 +47,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="活动"
+                android:hint="搜索感兴趣的活动"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColorHint="#ababab"

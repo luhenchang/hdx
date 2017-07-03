@@ -13,8 +13,9 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.WebActivity;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
+import com.accuvally.hdtui.activity.web.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.web.WebActivity;
 import com.accuvally.hdtui.db.DBManager;
 import com.accuvally.hdtui.model.BannerInfo;
 import com.accuvally.hdtui.utils.Utils;
@@ -77,13 +78,24 @@ public class BannerAdapter extends PagerAdapter {
                         dbManager.insertSaveBeHavior(application.addBeHavior(100, "", "", "", "", "APP_BANNER", info.getUrl()));
                     }
 //
-
                     if (event_data.indexOf("huodongxing.com/event") != -1 || event_data.indexOf("huodongxing.com/go") != -1) {//原生
                         Intent intent = new Intent(mContext, AccuvallyDetailsActivity.class).putExtra("isHuodong", 0).putExtra("id", event_data);
                         mContext.startActivity(intent);
                     } else {//网页:包括专题 或者其他
-                        Intent intent = new Intent(mContext, WebActivity.class).putExtra("loadingUrl", event_data).putExtra("injectJs", "");
-                        mContext.startActivity(intent);
+                        int index= event_data.indexOf("huodongxing.com/news/");
+                        if( index!= -1){
+                            Intent intent = new Intent(mContext, ProjectDetailsActivity.class);
+                            intent.putExtra("title", "");
+                            String str[]=event_data.split("huodongxing.com/news/");
+                            intent.putExtra("id", str[1]);
+                            mContext.startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(mContext, WebActivity.class).
+                                    putExtra("loadingUrl", event_data).putExtra("injectJs", "");
+                            mContext.startActivity(intent);
+                        }
+
+
                     }
 
                 } else {

@@ -49,79 +49,88 @@ import java.util.regex.Pattern;
 @SuppressLint("HandlerLeak")
 public class HttpCilents {
 
-	private static final String API_VERSION = "v3.5.0";
-	private static final ExecutorService executorService = Executors.newFixedThreadPool(3);
+    private static final String API_VERSION = "v3.5.0";
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 
-	AccuApplication application;
+    AccuApplication application;
 
-	Context context;
+    Context context;
 
-	public HttpCilents(Context context) {
-		this.context = context;
-		application = (AccuApplication) context.getApplicationContext();
-	}
+    public HttpCilents(Context context) {
+        this.context = context;
+        application = (AccuApplication) context.getApplicationContext();
+    }
 
-	public interface WebServiceCallBack {
-		public void callBack(int code, Object result);
-	}
-///http://api.huodongxing.com/v3/search/home_data?city=%E5%85%A8%E5%9B%BD&data=xxx
-	public String HawkGet(String url) throws MalformedURLException {
-		String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
-		String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
-		String baseUrl = "";
-		String str = "";
-		URL realUrl = new URL(url);
-		if (!Url.ISDEBUG) {
-			str = url.split("com")[1];
-		} else {
-			if (url.indexOf("https") != -1)
-				str = url.split(String.valueOf(Url.ACCUPASS_SERVICE_PORT2))[1];
-			else
-				str = url.split(String.valueOf(Url.ACCUPASS_SERVICE_PORT))[1];
-		}
-		boolean bl = str.endsWith("?");
-		if (bl)
-			baseUrl = realUrl.getPath();
-		else {
-			String plus = "";
-			if (realUrl.getQuery() != null) {
-				plus = "?" + realUrl.getQuery();//即?后面的string
-			}
-			baseUrl = realUrl.getPath() + plus;
-		}
-		AuthorizationHeader authorizationHeader = null;
-		try {
-			HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
+    public interface WebServiceCallBack {
+        public void callBack(int code, Object result);
+    }
+    ///http://api.huodongxing.com/v3/search/home_data?city=%E5%85%A8%E5%9B%BD&data=xxx
+    public String HawkGet(String url) throws MalformedURLException {
+        String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+        String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+        String baseUrl = "";
+        String str = "";
+        URL realUrl = new URL(url);
+        if (!Url.ISDEBUG) {
+            str = url.split("com")[1];
+        } else {
+            if (url.indexOf("https") != -1)
+                str = url.split(String.valueOf(Url.ACCUPASS_SERVICE_PORT2))[1];
+            else
+                str = url.split(String.valueOf(Url.ACCUPASS_SERVICE_PORT))[1];
+        }
+        boolean bl = str.endsWith("?");
+        if (bl)
+            baseUrl = realUrl.getPath();
+        else {
+            String plus = "";
+            if (realUrl.getQuery() != null) {
+                plus = "?" + realUrl.getQuery();//即?后面的string
+            }
+            baseUrl = realUrl.getPath() + plus;
+        }
+        AuthorizationHeader authorizationHeader = null;
+        try {
+            //妈蛋，又吭我  留下证据  之前post才坑窝一次
+            /*HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
                     request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST,
-                            url.equals(Url.ACCUPASS_HOME_DETAIL_SECRET + "?") ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
-			authorizationHeader = b.build().createAuthorizationHeader();
-			return authorizationHeader.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+                            url.equals(Url.ACCUPASS_HOME_DETAIL_SECRET + "?") ?
+                                    Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);*/
+            HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
+                    request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST,
+                            url.indexOf("https") != -1 ?
+                                    Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
+            authorizationHeader = b.build().createAuthorizationHeader();
+            return authorizationHeader.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public String  HawkPost(String url) throws MalformedURLException {
-		String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
-		String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
-		Log.i("info", accu_id);
-		Log.i("info", accu_key);
-		AuthorizationHeader authorizationHeader = null;
-		URL realUrl = new URL(url);
-		try {
-			HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).request("POST", realUrl.getPath(), Url.ACCUPASS_SERVICE_HOST, url.indexOf("https") != -1 ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
-			authorizationHeader = b.build().createAuthorizationHeader();
-			return authorizationHeader.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public String  HawkPost(String url) throws MalformedURLException {
+        String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+        String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+//        Log.i("info", accu_id);
+//        Log.i("info", accu_key);
+        AuthorizationHeader authorizationHeader = null;
+        URL realUrl = new URL(url);
+        try {
+            HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
+                    request("POST", realUrl.getPath(), Url.ACCUPASS_SERVICE_HOST,
+                            url.indexOf("https") != -1 ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).
+                    credentials(accu_id, accu_key, Algorithm.SHA_256);
+            authorizationHeader = b.build().createAuthorizationHeader();
+            return authorizationHeader.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
-//带有？查询条件的要用这个签名。
+    //带有？查询条件的要用这个签名。
     public String HawkPost2(String url) throws MalformedURLException {
         String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
         String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
@@ -369,112 +378,112 @@ public class HttpCilents {
 
 
     /***
-	 * post请求
-	 * 
-	 * @param url
-	 * @param params
-	 * @param webServiceCallBack
-	 */
-	public void postA(final String url, final List<NameValuePair> params, final WebServiceCallBack webServiceCallBack) {
+     * post请求
+     *
+     * @param url
+     * @param params
+     * @param webServiceCallBack
+     */
+    public void postA(final String url, final List<NameValuePair> params, final WebServiceCallBack webServiceCallBack) {
 
-		final Handler mHandler = new Handler() {
+        final Handler mHandler = new Handler() {
 
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-				switch (msg.what) {
-				case Config.RESULT_CODE_SUCCESS:
-					try {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        try {
 //						Log.i("webservice", msg.obj.toString());
-						webServiceCallBack.callBack(Config.RESULT_CODE_SUCCESS, (Object) msg.obj);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				case Config.RESULT_CODE_ERROR:
-					try {
-						Log.i("webservice", msg.obj.toString());
-						webServiceCallBack.callBack(Config.RESULT_CODE_ERROR, "网络连接断开，请检查网络");
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				case Config.RESULT_CODE_HAWK401:
-					try {
-						Log.i("webservice", msg.obj.toString());
-						application.hawkOffset = Long.parseLong(msg.obj.toString());
-						postA(url, params, webServiceCallBack);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				default:
-					break;
-				}
-			}
-		};
+                            webServiceCallBack.callBack(Config.RESULT_CODE_SUCCESS, (Object) msg.obj);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            webServiceCallBack.callBack(Config.RESULT_CODE_ERROR, "网络连接断开，请检查网络");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_HAWK401:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            application.hawkOffset = Long.parseLong(msg.obj.toString());
+                            postA(url, params, webServiceCallBack);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
-		executorService.submit(new Runnable() {
-			@Override
-			public void run() {
-				AndroidHttpClient httpClient = AndroidHttpClient.newInstance(buildUserAgent(context));
-				try {
-					HttpPost request = new HttpPost(url);
-					request.addHeader("Authorization", HawkPost(url).toString());
-					request.addHeader("api-version", API_VERSION);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                AndroidHttpClient httpClient = AndroidHttpClient.newInstance(buildUserAgent(context));
+                try {
+                    HttpPost request = new HttpPost(url);
+                    request.addHeader("Authorization", HawkPost(url).toString());
+                    request.addHeader("api-version", API_VERSION);
 //					Log.d("result", printURL(url, params));
-					request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+                    request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 
-					// getConsumer().sign(request);
-					HttpResponse response = httpClient.execute(request);
-					int statusCode = response.getStatusLine().getStatusCode();
-					String content = convertStreamToString(response.getEntity().getContent());
-					if (statusCode == 401 && response.containsHeader("WWW-Authenticate") && response.getFirstHeader("WWW-Authenticate").getValue().contains("tsm=")) {
-						// 时间处理
-						// mHandler.sendMessage(mHandler.obtainMessage(0,
-						// reason));
-						Pattern pattern = Pattern.compile("ts=\"(.*)\", tsm=\"(.*)\"");
-						Matcher matcher = pattern.matcher(response.getFirstHeader("WWW-Authenticate").getValue());
-						if (matcher.find()) {
-							String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
-							String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
-							HawkWwwAuthenticateContext k = HawkWwwAuthenticateContext.tsAndTsm(Long.parseLong(matcher.group(1)), matcher.group(2)).credentials(accu_id, accu_key, Algorithm.SHA_256).build();
-							if (k.isValidTimestampMac(k.getTsm())) {
-								long offset = k.getTs() - (System.currentTimeMillis() / 1000L);
-								if (offset > 0) {
-									if (application.count == 0) {
-										application.count = 1;
-										mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_HAWK401, offset));
-									} else {
-										application.count = 0;
-										if ("".equals(content)) {
-											mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
-										} else {
-											JSONObject res = JSON.parseObject(content);
-											mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, res.getString("Message")));
-										}
-									}
-								}
-							}
-						}
-					} else if (statusCode >= 300) {
-						if ("".equals(content)) {
-							mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
-						} else {
-							mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, content));
-						}
-					} else {
-						mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_SUCCESS, content));
-					}
-				} catch (Exception e) {
-					mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, e.getMessage()));
-					e.printStackTrace();
-				} finally {
-					httpClient.close();
-				}
-			}
-		});
-	}
+                    // getConsumer().sign(request);
+                    HttpResponse response = httpClient.execute(request);
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    String content = convertStreamToString(response.getEntity().getContent());
+                    if (statusCode == 401 && response.containsHeader("WWW-Authenticate") && response.getFirstHeader("WWW-Authenticate").getValue().contains("tsm=")) {
+                        // 时间处理
+                        // mHandler.sendMessage(mHandler.obtainMessage(0,
+                        // reason));
+                        Pattern pattern = Pattern.compile("ts=\"(.*)\", tsm=\"(.*)\"");
+                        Matcher matcher = pattern.matcher(response.getFirstHeader("WWW-Authenticate").getValue());
+                        if (matcher.find()) {
+                            String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+                            String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+                            HawkWwwAuthenticateContext k = HawkWwwAuthenticateContext.tsAndTsm(Long.parseLong(matcher.group(1)), matcher.group(2)).credentials(accu_id, accu_key, Algorithm.SHA_256).build();
+                            if (k.isValidTimestampMac(k.getTsm())) {
+                                long offset = k.getTs() - (System.currentTimeMillis() / 1000L);
+                                if (offset > 0) {
+                                    if (application.count == 0) {
+                                        application.count = 1;
+                                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_HAWK401, offset));
+                                    } else {
+                                        application.count = 0;
+                                        if ("".equals(content)) {
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                                        } else {
+                                            JSONObject res = JSON.parseObject(content);
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, res.getString("Message")));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if (statusCode >= 300) {
+                        if ("".equals(content)) {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                        } else {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, content));
+                        }
+                    } else {
+                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_SUCCESS, content));
+                    }
+                } catch (Exception e) {
+                    mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, e.getMessage()));
+                    e.printStackTrace();
+                } finally {
+                    httpClient.close();
+                }
+            }
+        });
+    }
 
 
     public void setMutiEntity(MultipartEntity mutiEntity) {
@@ -598,189 +607,189 @@ public class HttpCilents {
 
 
 
-	/**
-	 * get请求
-	 * 
-	 * @param url
-	 * @param webServiceCallBack
-	 */
-	public void get(final String url, final WebServiceCallBack webServiceCallBack) {
+    /**
+     * get请求
+     *
+     * @param url
+     * @param webServiceCallBack
+     */
+    public void get(final String url, final WebServiceCallBack webServiceCallBack) {
 
-		final Handler mHandler = new Handler() {
+        final Handler mHandler = new Handler() {
 
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-				switch (msg.what) {
-				case Config.RESULT_CODE_SUCCESS:
-					try {
-						Log.i("webservice", msg.obj.toString());
-						webServiceCallBack.callBack(Config.RESULT_CODE_SUCCESS, (Object) msg.obj);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				case Config.RESULT_CODE_ERROR:
-					try {
-						Log.i("webservice", msg.obj.toString());
-						webServiceCallBack.callBack(Config.RESULT_CODE_ERROR, "网络连接断开，请检查网络");
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				case Config.RESULT_CODE_HAWK401:
-					try {
-						Log.i("webservice", msg.obj.toString());
-						application.hawkOffset = Long.parseLong(msg.obj.toString());
-						get(url, webServiceCallBack);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					break;
-				default:
-					break;
-				}
-			}
-		};
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            webServiceCallBack.callBack(Config.RESULT_CODE_SUCCESS, (Object) msg.obj);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            webServiceCallBack.callBack(Config.RESULT_CODE_ERROR, "网络连接断开，请检查网络");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Config.RESULT_CODE_HAWK401:
+                        try {
+                            Log.i("webservice", msg.obj.toString());
+                            application.hawkOffset = Long.parseLong(msg.obj.toString());
+                            get(url, webServiceCallBack);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
-		executorService.submit(new Runnable() {
-			@Override
-			public void run() {
-				String resUrl = null;
-				if (url.indexOf("applogin") != -1) {
-					try {
-						URL urls = new URL(url);
-						HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
-						conn.getResponseCode();
-						resUrl = conn.getURL().toString();
-						conn.disconnect();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else
-					resUrl = url;
-				AndroidHttpClient httpClient = AndroidHttpClient.newInstance(buildUserAgent(context));
-				String content = null;
-				try {
-					HttpGet request = new HttpGet(resUrl);
-					request.addHeader("Authorization", HawkGet(resUrl).toString());
-					request.addHeader("api-version", API_VERSION);
-					Log.d("result", resUrl);
-					// getConsumer().sign(request);
-					HttpResponse response = httpClient.execute(request);
-					int statusCode = response.getStatusLine().getStatusCode();
-					content = convertStreamToString(response.getEntity().getContent());
-					if (statusCode == 401 && response.containsHeader("WWW-Authenticate") && response.getFirstHeader("WWW-Authenticate").getValue().contains("tsm=")) {
-						// 时间处理
-						// mHandler.sendMessage(mHandler.obtainMessage(0,
-						// reason));
-						Pattern pattern = Pattern.compile("ts=\"(.*)\", tsm=\"(.*)\"");
-						Matcher matcher = pattern.matcher(response.getFirstHeader("WWW-Authenticate").getValue());
-						if (matcher.find()) {
-							String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
-							String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
-							HawkWwwAuthenticateContext k = HawkWwwAuthenticateContext.tsAndTsm(Long.parseLong(matcher.group(1)), matcher.group(2)).credentials(accu_id, accu_key, Algorithm.SHA_256).build();
-							if (k.isValidTimestampMac(k.getTsm())) {
-								long offset = k.getTs() - (System.currentTimeMillis() / 1000L);
-								if (offset > 0) {
-									if (application.count == 0) {
-										application.count = 1;
-										mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_HAWK401, offset));
-									} else {
-										application.count = 0;
-										if ("".equals(content)) {
-											mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
-										} else {
-											JSONObject res = JSON.parseObject(content);
-											mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, res.getString("Message")));
-										}
-									}
-								}
-							}
-						}
-					} else if (statusCode >= 300) {
-						if ("".equals(content)) {
-							mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
-						} else {
-							mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, content));
-						}
-                        
-					} else {
-						mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_SUCCESS, content));
-					}
-				} catch (Exception x) {
-					mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, x.getMessage()));
-					x.printStackTrace();
-				} finally {
-					httpClient.close();
-				}
-			}
-		});
-	}
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                String resUrl = null;
+                if (url.indexOf("applogin") != -1) {
+                    try {
+                        URL urls = new URL(url);
+                        HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
+                        conn.getResponseCode();
+                        resUrl = conn.getURL().toString();
+                        conn.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else
+                    resUrl = url;
+                AndroidHttpClient httpClient = AndroidHttpClient.newInstance(buildUserAgent(context));
+                String content = null;
+                try {
+                    HttpGet request = new HttpGet(resUrl);
+                    request.addHeader("Authorization", HawkGet(resUrl).toString());
+                    request.addHeader("api-version", API_VERSION);
+//                    Log.d("result", resUrl);
+                    // getConsumer().sign(request);
+                    HttpResponse response = httpClient.execute(request);
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    content = convertStreamToString(response.getEntity().getContent());
+                    if (statusCode == 401 && response.containsHeader("WWW-Authenticate") && response.getFirstHeader("WWW-Authenticate").getValue().contains("tsm=")) {
+                        // 时间处理
+                        // mHandler.sendMessage(mHandler.obtainMessage(0,
+                        // reason));
+                        Pattern pattern = Pattern.compile("ts=\"(.*)\", tsm=\"(.*)\"");
+                        Matcher matcher = pattern.matcher(response.getFirstHeader("WWW-Authenticate").getValue());
+                        if (matcher.find()) {
+                            String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+                            String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+                            HawkWwwAuthenticateContext k = HawkWwwAuthenticateContext.tsAndTsm(Long.parseLong(matcher.group(1)), matcher.group(2)).credentials(accu_id, accu_key, Algorithm.SHA_256).build();
+                            if (k.isValidTimestampMac(k.getTsm())) {
+                                long offset = k.getTs() - (System.currentTimeMillis() / 1000L);
+                                if (offset > 0) {
+                                    if (application.count == 0) {
+                                        application.count = 1;
+                                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_HAWK401, offset));
+                                    } else {
+                                        application.count = 0;
+                                        if ("".equals(content)) {
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                                        } else {
+                                            JSONObject res = JSON.parseObject(content);
+                                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, res.getString("Message")));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if (statusCode >= 300) {
+                        if ("".equals(content)) {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, response.getStatusLine().getReasonPhrase()));
+                        } else {
+                            mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, content));
+                        }
 
-	public static String convertStreamToString(InputStream is) {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		StringBuilder sb = new StringBuilder();
+                    } else {
+                        mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_SUCCESS, content));
+                    }
+                } catch (Exception x) {
+                    mHandler.sendMessage(mHandler.obtainMessage(Config.RESULT_CODE_ERROR, x.getMessage()));
+                    x.printStackTrace();
+                } finally {
+                    httpClient.close();
+                }
+            }
+        });
+    }
 
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				if (sb.length() > 0)
-					line = line + "\n";
-				sb.append(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return sb.toString();
-	}
+    public static String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (sb.length() > 0)
+                    line = line + "\n";
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
 
     //机器的唯一标识码
-	public static String buildUserAgent(Context context) {
-		String buildUserAgent = "";
-		try {
-			final PackageManager manager = context.getPackageManager();
-			final PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+    public static String buildUserAgent(Context context) {
+        String buildUserAgent = "";
+        try {
+            final PackageManager manager = context.getPackageManager();
+            final PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
 
-			String appversion = "appversion=" + info.versionName + "(" + info.versionCode + ")(gzip)";
-			String deviceid = " deviceid=" + ((AccuApplication) context.getApplicationContext()).getIMEI();
-			String devicetype = " devicetype=" + android.os.Build.MODEL + "_" + android.os.Build.VERSION.RELEASE;
-			// 正式版本
-			buildUserAgent = "Accupass-Android" + "/" + appversion + deviceid + devicetype;
-			// 测试版本180服务器
-			String buildUserAgent_ACCUPASS_BETA = buildUserAgent + " " + Url.ACCUPASS_BETA;
-			// Log.d("buildUserAgent", buildUserAgent);
-			// return buildUserAgent_ACCUPASS_BETA;
-			return buildUserAgent;
-		} catch (NameNotFoundException e) {
-			return null;
-		}
-	}
+            String appversion = "appversion=" + info.versionName + "(" + info.versionCode + ")(gzip)";
+            String deviceid = " deviceid=" + ((AccuApplication) context.getApplicationContext()).getIMEI();
+            String devicetype = " devicetype=" + android.os.Build.MODEL + "_" + android.os.Build.VERSION.RELEASE;
+            // 正式版本
+            buildUserAgent = "Accupass-Android" + "/" + appversion + deviceid + devicetype;
+            // 测试版本180服务器
+            String buildUserAgent_ACCUPASS_BETA = buildUserAgent + " " + Url.ACCUPASS_BETA;
+            // Log.d("buildUserAgent", buildUserAgent);
+            // return buildUserAgent_ACCUPASS_BETA;
+            return buildUserAgent;
+        } catch (NameNotFoundException e) {
+            return null;
+        }
+    }
 
     //增加头部参数
-	public String printURL(String url, List<NameValuePair> list) {
-		if (list.size() > 0) {
-			StringBuffer buffer = new StringBuffer();
-			buffer.append(url + "?");
-			for (int i = 0; i < list.size(); i++) {
-				NameValuePair pair = list.get(i);
-				if (i != 0) {
-					buffer.append("&");
-				}
-				try {
-					buffer.append(pair.getName() + "=" + URLEncoder.encode(pair.getValue() == null ? "" : pair.getValue(), "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-				}
-			}
-			return buffer.toString();
-		}else{
-			return url;
-		}
-	}
+    public String printURL(String url, List<NameValuePair> list) {
+        if (list.size() > 0) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(url + "?");
+            for (int i = 0; i < list.size(); i++) {
+                NameValuePair pair = list.get(i);
+                if (i != 0) {
+                    buffer.append("&");
+                }
+                try {
+                    buffer.append(pair.getName() + "=" + URLEncoder.encode(pair.getValue() == null ? "" : pair.getValue(), "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                }
+            }
+            return buffer.toString();
+        }else{
+            return url;
+        }
+    }
 }

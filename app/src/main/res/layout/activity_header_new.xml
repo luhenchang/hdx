@@ -28,6 +28,8 @@
             android:layout_centerInParent="true"
             android:singleLine="true"
             android:textColor="@color/txt_gray"
+            android:maxEms="12"
+            android:ellipsize="end"
             android:textSize="@dimen/little_18" />
 
         <ImageView

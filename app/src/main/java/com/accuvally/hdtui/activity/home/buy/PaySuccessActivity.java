@@ -175,7 +175,7 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 			sessionInfo.setSessionId(sessionId);
 			sessionInfo.setTitle(info.title);
 			sessionInfo.setLogoUrl(info.logo);
-			SessionTable.insertSession(sessionInfo);
+			SessionTable.insertOrUpdateSession(sessionInfo);
 			EventBus.getDefault().post(new ChangeMessageEventBus(1));
 			application.setCurrentSession(sessionInfo);
 			startActivity(new Intent(mContext, ChatActivity.class));
@@ -288,7 +288,7 @@ public class PaySuccessActivity extends BaseActivity implements OnClickListener 
 						sessionInfo.setSessionId(sessionId);
 						sessionInfo.setTitle(info.title);
 						sessionInfo.setLogoUrl(info.logo);
-						SessionTable.insertSession(sessionInfo);
+						SessionTable.insertOrUpdateSession(sessionInfo);
 						EventBus.getDefault().post(new ChangeMessageEventBus(1));
 						application.setCurrentSession(sessionInfo);
 						startActivity(new Intent(mContext, ChatActivity.class));

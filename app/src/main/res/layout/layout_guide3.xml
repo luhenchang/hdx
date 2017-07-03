@@ -13,8 +13,8 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="52dp"
         android:background="@drawable/kaiqi"
-        android:text=""
-        android:textColor="#ffffff"
-        android:textSize="16sp"/>
+        android:text="立即体验"
+        android:textColor="#2DBC2E"
+        android:textSize="18sp"/>
 
 </LinearLayout>

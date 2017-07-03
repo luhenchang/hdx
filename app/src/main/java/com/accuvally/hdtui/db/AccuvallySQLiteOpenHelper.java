@@ -6,9 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.config.Config;
-import com.accuvally.hdtui.manager.LeanCloud;
+import com.accuvally.hdtui.utils.MailCountUtil;
+import com.accuvally.hdtui.utils.Trace;
 
 public class AccuvallySQLiteOpenHelper extends SQLiteOpenHelper {
+
+    public static final String TAG="AccuvallySQLiteOpenHelper";
 
 	// 浏览历史
 	public final String TABLE_HISTORICAL = "tb_history";
@@ -24,16 +27,21 @@ public class AccuvallySQLiteOpenHelper extends SQLiteOpenHelper {
 	final String CREATE_TABLE_SEARCH = "CREATE TABLE IF NOT EXISTS " + TABLE_SEARCH
 			+ " (Id INTEGER PRIMARY KEY AUTOINCREMENT,searchName)";
 
-	public final String TABLE_CLASSFY = "tb_classfy";
+    //===================================================================================
 
+    //订阅
+	public final String TABLE_CLASSFY = "tb_classfy";
 	final String CREATE_TABLE_CLASSFY = "CREATE TABLE IF NOT EXISTS " + TABLE_CLASSFY + " (Id INTEGER PRIMARY KEY AUTOINCREMENT,name)";
 
-	public final String TABLE_ACCU_DETAILS = "tb_accu_details";
 
+    //个人信息，id
+	public final String TABLE_ACCU_DETAILS = "tb_accu_details";
 	final String CREATE_TABLE_ACCU_DETAILS = "CREATE TABLE IF NOT EXISTS " + TABLE_ACCU_DETAILS
 			+ " (Id INTEGER PRIMARY KEY AUTOINCREMENT,accuId INTEGER)";
 
-	public final String TABLE_BEHAVIOR = "tb_accu_behavior";
+
+    //记录点击事件，传送到友盟分析
+	public static final String TABLE_BEHAVIOR = "tb_accu_behavior";
 
 	final String CREATE_TABLE_BEHAVIOR = "CREATE TABLE IF NOT EXISTS "
 			+ TABLE_BEHAVIOR
@@ -53,20 +61,9 @@ public class AccuvallySQLiteOpenHelper extends SQLiteOpenHelper {
 	final String CREATE_TABLE_USER_SESSION = "CREATE TABLE IF NOT EXISTS  " + TB_USER_SESSION
 			+ " (id INTEGER PRIMARY KEY AUTOINCREMENT, sessionId TEXT,userId TEXT)";
 
-	// 会话列表
-	public static final String TABLE_SESSION = "tb_session";
-	final String CREATE_TABLE_SESSION = "CREATE TABLE IF NOT EXISTS "
-			+ TABLE_SESSION
-			+ " (id INTEGER PRIMARY KEY AUTOINCREMENT,sessionId,title,content,time INTEGER,logoUrl,unReadNum INTEGER,fromUserId,toUserId,messageId,nickName,sessionType INTEGER,messageType INTEGER,isNotification INTEGER,extend INTEGER,op_type,op_value)";
-
-	// 消息记录
-	public static final String TABLE_MESSAGE = "tb_message";
-	final String CREATE_TABLE_MESSAGE = "CREATE TABLE IF NOT EXISTS "
-			+ TABLE_MESSAGE
-			+ " (id INTEGER PRIMARY KEY AUTOINCREMENT,messageId TEXT,message_type,nickName TEXT,logourl TEXT,content TEXT,msgType TEXT,timestamp INTEGER, receipTimestamp INTEGER,sessionId TEXT,userId TEXT,filePath TEXT,fileUrl TEXT,fileThumbnailUrl TEXT,textStr TEXT,lengh REAL,imgWidth INTEGER,imgHeight INTEGER)";
 
 	public static final String DB_NAME = "accuvally.db";
-	public static final int DB_VERSION = 43;
+	public static final int DB_VERSION = 46;//43
 
 	private static AccuvallySQLiteOpenHelper helper;
 
@@ -95,10 +92,12 @@ public class AccuvallySQLiteOpenHelper extends SQLiteOpenHelper {
 
 		db.execSQL(CREATE_TABLE_USER_SESSION);
 		db.execSQL(CREATE_TABLE_USER);
-		db.execSQL(CREATE_TABLE_MESSAGE);
+
+		db.execSQL(MessageTable.CREATE_TABLE_MESSAGE);
 		db.execSQL(SessionTable.CREATE_TABLE_SESSION);
 		db.execSQL(SystemMessageTable.CREATE_SYSTEM_MESSAGE);
-	}
+        db.execSQL(MailMessageTable.CREATE_MAIL_MESSAGE);
+    }
 
 	public void onDrop(SQLiteDatabase db) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORICAL);
@@ -109,16 +108,63 @@ public class AccuvallySQLiteOpenHelper extends SQLiteOpenHelper {
 
 		db.execSQL("DROP TABLE IF EXISTS " + TB_USER_SESSION);
 		db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGE);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
-		db.execSQL("DROP TABLE IF EXISTS " + SystemMessageTable.SYSTEM_MESSAGE);
+
+//		db.execSQL("DROP TABLE IF EXISTS " + MessageTable.TABLE_MESSAGE);
+//		db.execSQL("DROP TABLE IF EXISTS " + SessionTable.TABLE_SESSION);
+//		db.execSQL("DROP TABLE IF EXISTS " + SystemMessageTable.SYSTEM_MESSAGE);
+
+        db.execSQL("DROP TABLE IF EXISTS " + MailMessageTable.MAIL_MESSAGE);
+
 	}
 
+
+    public void onUp(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORICAL);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SEARCH);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLASSFY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCU_DETAILS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEHAVIOR);
+
+        db.execSQL("DROP TABLE IF EXISTS " + TB_USER_SESSION);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
+
+//		db.execSQL("DROP TABLE IF EXISTS " + MessageTable.TABLE_MESSAGE);
+//		db.execSQL("DROP TABLE IF EXISTS " + SessionTable.TABLE_SESSION);
+//		db.execSQL("DROP TABLE IF EXISTS " + SystemMessageTable.SYSTEM_MESSAGE);
+
+        db.execSQL("DROP TABLE IF EXISTS " + MailMessageTable.MAIL_MESSAGE);
+
+        //============================================================================
+
+        db.execSQL(CREATE_HISTORICAL);
+        db.execSQL(CREATE_TABLE_SEARCH);
+        db.execSQL(CREATE_TABLE_CLASSFY);
+        db.execSQL(CREATE_TABLE_ACCU_DETAILS);
+        db.execSQL(CREATE_TABLE_BEHAVIOR);
+
+        db.execSQL(CREATE_TABLE_USER_SESSION);
+        db.execSQL(CREATE_TABLE_USER);
+
+//        db.execSQL(MessageTable.CREATE_TABLE_MESSAGE);
+//        db.execSQL(SessionTable.CREATE_TABLE_SESSION);
+//        db.execSQL(SystemMessageTable.CREATE_SYSTEM_MESSAGE);
+        db.execSQL(MailMessageTable.CREATE_MAIL_MESSAGE);
+
+    }
+
+    @Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (newVersion > oldVersion) {
-			onDrop(db);
-			onCreate(db);
-			LeanCloud.leanCloudLogin();
+            onUp(db);
+//            AccuApplication.getInstance().sharedUtils.writeBoolean(Keys.insertAllSession, false);
+            MailCountUtil.saveHistoryStatet(MailMessageTable.recommend, false);
+            MailCountUtil.saveHistoryStatet(MailMessageTable.sysMsg,false);
+            MailCountUtil.saveHistoryStatet(MailMessageTable.newFriend, false);
+            Trace.e(TAG, "onUpgrade");
+//            LeanCloud.upgradeDB();
 		}
 	}
+
+
+
 }

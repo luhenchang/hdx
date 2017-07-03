@@ -1,6 +1,8 @@
 <resources>
 
     <string name="app_name">活动行</string>
+    <string name="open_broadcast">活动君提供花式"提醒通知",让你不错过\n任何一个消息提醒和福利通知</string>
+
     <string name="bottom_home_txt">首页</string>
     <string name="bottom_home_category">分类</string>
     <string name="bottom_square_txt">广场</string>
@@ -476,6 +478,7 @@
     <string name="preferences_continuous_scan_interval_title">连续扫描恢复时间(秒)</string>
     <string name="preferences_play_beep_title">声音提示</string>
     <string name="preferences_vibrate_title">震动</string>
+    <string name="title_activity_mail">MailActivity</string>
     <!-- zxing  end -->
 
 </resources>

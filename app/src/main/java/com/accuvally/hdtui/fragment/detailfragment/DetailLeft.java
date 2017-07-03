@@ -46,7 +46,6 @@ import com.accuvally.hdtui.activity.home.util.MapsActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
 import com.accuvally.hdtui.activity.message.user.UserDetailActivity;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
-import com.accuvally.hdtui.activity.mine.setting.FeedBackActivity;
 import com.accuvally.hdtui.adapter.CommentAdapter;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.UILoptions;
@@ -76,7 +75,6 @@ import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
 import com.accuvally.hdtui.utils.eventbus.ChangeAttentionState;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsDialogEventBus;
-import com.accuvally.hdtui.utils.eventbus.ChangeDetailsRegEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangeMessageEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangePaySuccessEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventCollection;
@@ -186,6 +184,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
 
     public static final int loginForComment = 1;
     public static final int submitComment = 2;
+    public static final int completeInfo = 3;
 
     private boolean firstTime=true;//防止个推跳转的时候，相应多次
 
@@ -486,8 +485,18 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             return;
 
 //暂时屏蔽掉
-//        toHistoryComment.setText("历史评价 (" + detailsInfo.commentlistcount + ")");
-//        toHistoryConsultion.setText("活动咨询 ("+detailsInfo.consultlistcount+")");
+
+        if(3<detailsInfo.commentlistcount){
+            toHistoryComment.setText("更多评价 (" + detailsInfo.commentlistcount + ")");
+        }else if(0<detailsInfo.commentlistcount){
+            toHistoryComment.setText("历史评价 (" + detailsInfo.commentlistcount + ")");
+        }
+
+
+        if(detailsInfo.consultlistcount>0){
+            toHistoryConsultion.setText("活动咨询 ("+detailsInfo.consultlistcount+")");
+        }
+
 
         if (detailsInfo.commentlist.isEmpty()) {
             rootView.findViewById(R.id.includeComment).setVisibility(View.GONE);
@@ -497,8 +506,8 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             hsvChildll.removeAllViews();
 
             for (int i = 0; i < detailsInfo.commentlist.size(); i++) {
-                CommentInfo commentInfo=detailsInfo.commentlist.get(i);
-                commentInfo.eventname=detailsInfo.title;
+//                CommentInfo commentInfo=detailsInfo.commentlist.get(i);
+//                commentInfo.eventname=detailsInfo.title;
                 View itemView= CommentAdapter.getView(this.getActivity(), detailsInfo.commentlist.get(i));
                 hsvChildll.addView(itemView);
             }
@@ -1348,6 +1357,13 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                     tvDetailsRegTicket.setBackgroundResource(R.color.gary);
                 }
                 break;
+            case completeInfo:
+                if(resultCode==this.getActivity().RESULT_OK){
+                    if (detailsInfo != null) {
+                        regTicket();//
+                    }
+                }
+                break;
         }
     }
 
@@ -1357,7 +1373,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         // 4.1是否填写表单 4.2是否抢票活动
 
         if (application.checkIsLogin()) {
-            if (application.getUserInfo().isEmailActivated() || application.getUserInfo().isPhoneActivated()) {
+            if (LoginUtil.checkInfoComplete(application)) {
                 if (detailsInfo.ticks.size() == 0) {
                     if (!TextUtils.isEmpty(detailsInfo.form)) {
                         // 表单不为空   填写报名表单
@@ -1531,7 +1547,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 @Override
                 public void onClick(View v) {
                     unRegDialog.dismiss();
-                    startActivity(new Intent(mContext, BindPhoneBeforBuyActivity.class));
+                    startActivityForResult(new Intent(mContext, BindPhoneBeforBuyActivity.class),completeInfo);
                 }
             });
         }
@@ -1547,14 +1563,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         getDetails();
     }
 
-    public void onEventMainThread(ChangeDetailsRegEventBus eventBus) {
-        if (detailsInfo != null) {
-            if (!detailsInfo.StaticMode)// 抢票活动不报名,留在这个页面
-                regTicket();//第三方登录，绑定手机号之后
-        }
-    }
-
-
 
 
     @Override
@@ -1566,14 +1574,29 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
         hasGetTheCode=true;//退出界面
         hasGetTheCodeAddress=true;//退出界面
 
-        if(leftWebView!=null){
+        /*if(leftWebView!=null){
             leftWebView.destroy();
         }
 
         if(rightWebView!=null){
             rightWebView.destroy();
-        }
+        }*/
 
+
+
+        /*if (leftWebView != null) {//解决Receiver not registered: android.widget.ZoomButtonsController
+            leftWebView.getSettings().setBuiltInZoomControls(true);
+            leftWebView.setVisibility(View.GONE);// 把destroy()延后
+            long timeout = ViewConfiguration.getZoomControlsTimeout();
+            System.out.println("time=="+timeout);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    leftWebView.destroy();
+                }
+            }, timeout);
+        }*/
 
 
         if(timer!=null){
@@ -1834,7 +1857,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                             sessionInfo.setLogoUrl(detailsInfo.logo);
                             sessionInfo.setTime(System.currentTimeMillis());
 
-                            SessionTable.insertSession(sessionInfo);
+                            SessionTable.insertOrUpdateSession(sessionInfo);
                             EventBus.getDefault().post(new ChangeMessageEventBus(1));
                             application.setCurrentSession(sessionInfo);
                             startActivity(new Intent(mContext, ChatActivity.class));
@@ -1876,7 +1899,7 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                             sessionInfo.setLogoUrl(detailsInfo.creatorlogo);
                             sessionInfo.friendId = touid;
                             application.setCurrentSession(sessionInfo);
-                            SessionTable.insertSession(sessionInfo);
+                            SessionTable.insertOrUpdateSession(sessionInfo);
                             EventBus.getDefault().post(new ChangeMessageEventBus());
 
                             ToChatActivity();

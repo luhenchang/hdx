@@ -1,10 +1,5 @@
 package com.accuvally.hdtui.activity.entry;
 
-import java.io.File;
-import java.sql.Date;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,24 +18,24 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.accuvally.hdtui.AccuApplication;
-import com.accuvally.hdtui.BuildConfig;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.config.Config;
-import com.accuvally.hdtui.config.Keys;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
-import com.accuvally.hdtui.ui.SplashUtils;
 import com.accuvally.hdtui.utils.ActivityUtils;
 import com.accuvally.hdtui.utils.FileUtils;
 import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.SharedUtils;
-import com.accuvally.hdtui.utils.Trace;
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import org.json.JSONException;
+
+import java.io.File;
 
 /**
  * welcome
@@ -54,15 +49,11 @@ public class WelcomeActivity extends Activity {
 
 	boolean isFirstIn;
 
-	private ImageView ivLogo;
-
 	AccuApplication application;
 
 	private Handler mHandle = new Handler();
 
-	long time;
-
-	protected boolean OpendIndetail;
+//	protected boolean OpendIndetail;
 
     private boolean isAgainSplash=false;//
     public static final String IS_AGAIN_SPLASH="IS_AGAIN_SPLASH";
@@ -155,9 +146,9 @@ public class WelcomeActivity extends Activity {
 	/**
 	 * 相片按相框的比例动态缩放
 	 * @param context 
-	 * @param 要缩放的图片
-	 * @param width 模板宽度
-	 * @param height 模板高度
+	 *  要缩放的图片
+	 *   模板宽度
+	 *  height 模板高度
 	 * @return
 	 */
 	public static Bitmap upImageSize(Context context,Bitmap bmp,int reduceH) {
@@ -228,8 +219,12 @@ public class WelcomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String accuid = sharedUtils.readString("flash_ActivityId");
+                String returnurl = sharedUtils.readString("flash_returnurl");
+                boolean opendindetail = sharedUtils.readBoolean("flash_opendindetail", false);
+
+
 				Log.d("l"," onClick_ActivityId ============="+accuid);
-				if (!TextUtils.isEmpty(accuid) && OpendIndetail) {
+				if (!TextUtils.isEmpty(accuid) && opendindetail) {
 					Intent intent = new Intent();
 					intent.putExtra("id", accuid);
 					intent.putExtra("isHuodong", 0);// 1 活动推 0 活动行
@@ -238,7 +233,16 @@ public class WelcomeActivity extends Activity {
 					mHandle.removeCallbacks(delayMain);
 					mHandle.removeCallbacks(delayGuide);
 					finish();
-				}
+				}else if(!TextUtils.isEmpty(returnurl)){
+                    Intent intent = new Intent();
+                    intent.putExtra("returnurl", returnurl);
+                    intent.setClass(WelcomeActivity.this, MainActivityNew.class);
+                    startActivity(intent);
+                    mHandle.removeCallbacks(delayMain);
+                    mHandle.removeCallbacks(delayGuide);
+                    finish();
+
+                }
 			}
 		});
 
@@ -261,13 +265,24 @@ public class WelcomeActivity extends Activity {
 				switch (code) {
 				case Config.RESULT_CODE_SUCCESS:
 					BaseResponse messageInfo = JSON.parseObject(result.toString(), BaseResponse.class);
-					String logourl = messageInfo.getResult();
+					String resultString = messageInfo.getResult();
+
 					String activityId = "";
+                    String returnurl = "";
+                    String logourl = "";
+                    boolean opendindetail=false;
+
 					try {
-						org.json.JSONObject jbJsonObject = new org.json.JSONObject(logourl);
+						org.json.JSONObject jbJsonObject = new org.json.JSONObject(resultString);
+
 						logourl = jbJsonObject.getString("logo");
 						activityId = jbJsonObject.getString("activityid");
-						OpendIndetail = jbJsonObject.getBoolean("opendindetail");
+                        opendindetail = jbJsonObject.getBoolean("opendindetail");
+
+                        if(jbJsonObject.has("returnurl")){
+                            returnurl=jbJsonObject.getString("returnurl");
+                        }
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -275,6 +290,9 @@ public class WelcomeActivity extends Activity {
 					if (!TextUtils.isEmpty(logourl)) {
 
 						final String flash_ActivityId = activityId;
+                        final String flash_returnurl = returnurl;
+                        final boolean flash_opendindetail = opendindetail;
+
 						Log.d("l"," flash_ActivityId ============="+flash_ActivityId);
 						ImageLoader.getInstance().loadImage(logourl, new ImageLoadingListener() {
 
@@ -291,6 +309,8 @@ public class WelcomeActivity extends Activity {
 							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 								sharedUtils.writeString("flash_logourl", imageUri);
 								sharedUtils.writeString("flash_ActivityId", flash_ActivityId);
+                                sharedUtils.writeString("flash_returnurl", flash_returnurl);
+                                sharedUtils.writeBoolean("flash_opendindetail", flash_opendindetail);
 								Log.d("l", "onLoadingComplete =" + imageUri);
 							}
 
@@ -302,6 +322,9 @@ public class WelcomeActivity extends Activity {
 						// 清空
 						sharedUtils.writeString("flash_logourl", "");
 						sharedUtils.writeString("flash_ActivityId", "");
+                        sharedUtils.writeString("flash_returnurl", "");
+                        sharedUtils.writeBoolean("flash_opendindetail", false);
+
 					}
 					break;
 				case Config.RESULT_CODE_ERROR:

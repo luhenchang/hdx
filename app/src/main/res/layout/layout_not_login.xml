@@ -27,7 +27,7 @@
         android:gravity="center"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:text="快登入活动行\n享受最贴心\n    的活动管理服务喔！"
+        android:text="快登录活动行\n享受最贴心\n    的活动管理服务喔！"
         android:textColor="#353330"
         android:textSize="15sp" />
 

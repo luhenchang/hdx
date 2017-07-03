@@ -1,5 +1,7 @@
 package com.accuvally.hdtui.utils;
 
+import android.text.TextUtils;
+
 import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
@@ -25,6 +27,13 @@ public class LoginUtil {
 
     //1.登录成功的时候会上传tag，  2.在选择tag页面并且已经登录后会上传tag
     public static void setCategory(HttpCilents httpCilents,String tags){
+
+
+        if(tags==null || "".equals(tags)){
+            Trace.e("SET_CATEGORY_TAG","tags is null,so return");
+            return;
+        }
+
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("tags", tags));
         httpCilents.postA(Url.SET_CATEGORY_TAG, params, new HttpCilents.WebServiceCallBack() {
@@ -51,6 +60,13 @@ public class LoginUtil {
         else
             return false;
     }
+
+    public static boolean checkInfoComplete( AccuApplication  application){
+       return application.getUserInfo().isPhoneActivated() &&
+               (!TextUtils.isEmpty(application.getUserInfo().getEmail()))
+               && (!TextUtils.isEmpty(application.getUserInfo().getRealName()));
+    }
+
 
 
     public static void threeLogin(int status, Map<String, Object> info) {

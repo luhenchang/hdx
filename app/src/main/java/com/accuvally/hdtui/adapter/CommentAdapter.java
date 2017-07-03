@@ -137,8 +137,8 @@ public class CommentAdapter extends BaseAdapter {
                 }
             }
 
-            if (commentInfo.imgs != null) {
-                holder.gvComment.setAdapter(new ImageAdapter(mContext, commentInfo.imgs));
+            if (commentInfo.thumbimgs != null) {
+                holder.gvComment.setAdapter(new ImageAdapter(mContext, commentInfo.thumbimgs,commentInfo.imgs));
             }
         }
         return convertView;
@@ -272,8 +272,8 @@ public class CommentAdapter extends BaseAdapter {
             }
 
 
-            if (commentInfo.imgs != null) {
-                holder.gvComment.setAdapter(new ImageAdapter(mContext, commentInfo.imgs));
+            if (commentInfo.thumbimgs != null) {
+                holder.gvComment.setAdapter(new ImageAdapter(mContext, commentInfo.thumbimgs,commentInfo.imgs));
 
             }
 

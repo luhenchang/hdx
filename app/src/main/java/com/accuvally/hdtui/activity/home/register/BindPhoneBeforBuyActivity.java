@@ -1,9 +1,11 @@
 package com.accuvally.hdtui.activity.home.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
@@ -12,14 +14,10 @@ import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.Url;
 import com.accuvally.hdtui.model.BaseResponse;
 import com.accuvally.hdtui.model.UserInfo;
-import com.accuvally.hdtui.ui.EditTextWithDel;
 import com.accuvally.hdtui.utils.CheckTextBox;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.MyCount;
-import com.accuvally.hdtui.utils.Util;
 import com.accuvally.hdtui.utils.Utils;
-import com.accuvally.hdtui.utils.eventbus.ChangeDetailsRegEventBus;
-import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 import com.alibaba.fastjson.JSON;
 
 import org.apache.http.NameValuePair;
@@ -27,8 +25,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * 购票-验证购票人信息：在第三方登录了，但没有注册手机号的时候。可以绑定一个未注册的手机号
@@ -38,31 +34,74 @@ import de.greenrobot.event.EventBus;
  */
 public class BindPhoneBeforBuyActivity extends BaseActivity implements OnClickListener {
 
-	private TextView tvNext;
 
-	private EditTextWithDel edDialogPhone, edCheckNum;
+
+    private EditText register_phone;
+    private EditText verification_code;
+//    private EditText register_password;
+
+    private EditText register_email;
+    private EditText register_real_name;
+
+
 
 	private TextView sendCheckNumTv;
+    private TextView tvNext;
 
 	MyCount mc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_buy_ticket_first);
+		setContentView(R.layout.activity_bindphone_beforbuy);
 		initView();
+
 	}
 
 	public void initView() {
-		setTitle(getResources().getString(R.string.buy_ticket_first_title));
+		setTitle("完善信息");
 
-		tvNext = (TextView) findViewById(R.id.tvFirstNext);
-		edDialogPhone = (EditTextWithDel) findViewById(R.id.edDialogPhone);
-		edCheckNum = (EditTextWithDel) findViewById(R.id.edCheckNum);
-		sendCheckNumTv = (TextView) findViewById(R.id.sendCheckNumTv);
 
-		tvNext.setOnClickListener(this);
-		sendCheckNumTv.setOnClickListener(this);
+		register_phone = (EditText) findViewById(R.id.register_phone);
+		verification_code = (EditText) findViewById(R.id.verification_code);
+
+
+
+        register_email = (EditText) findViewById(R.id.register_email);
+        register_real_name = (EditText) findViewById(R.id.register_real_name);
+
+        sendCheckNumTv = (TextView) findViewById(R.id.sendCheckNumTv);
+        sendCheckNumTv.setOnClickListener(this);
+
+        tvNext = (TextView) findViewById(R.id.tvFirstNext);
+        tvNext.setOnClickListener(this);
+
+
+        if(!TextUtils.isEmpty(application.getUserInfo().getPhone())){//不为空的话把手机号显示出来
+
+            register_phone.setText(application.getUserInfo().getPhone());
+
+            if(application.getUserInfo().isPhoneActivated()){//验证过还要把验证的相关UI隐藏
+                register_phone.setEnabled(false);
+                sendCheckNumTv.setVisibility(View.GONE);
+                findViewById(R.id.ll_verification_code).setVisibility(View.GONE);
+
+            }
+        }
+
+        if(!TextUtils.isEmpty(application.getUserInfo().getEmail())){
+            register_email.setText(application.getUserInfo().getEmail());
+
+            if(application.getUserInfo().isEmailActivated()){
+                register_email.setEnabled(false);
+            }
+        }
+
+        if(!TextUtils.isEmpty(application.getUserInfo().getRealName())){
+            register_real_name.setText(application.getUserInfo().getRealName());
+
+        }
+
 	}
 
 	@Override
@@ -71,20 +110,13 @@ public class BindPhoneBeforBuyActivity extends BaseActivity implements OnClickLi
 		case R.id.tvFirstNext:// 下一步
 			if (Utils.isFastDoubleClick())
 				return;
-			if (TextUtils.isEmpty(edDialogPhone.getText().toString().trim())) {
-				application.showMsg("请输入手机号");
-				return;
-			}
-			if (TextUtils.isEmpty(edCheckNum.getText().toString().trim())) {
-				application.showMsg("请输入验证码");
-				return;
-			}
-			checkLogin(edDialogPhone.getText().toString().trim(), edCheckNum.getText().toString().trim(), "", "", "");
+
+            completeAccount();
 			break;
 		case R.id.sendCheckNumTv://获取验证码
 			if (Utils.isFastDoubleClick())
 				return;
-			sendCode(1, edDialogPhone.getText().toString().trim());
+			sendCode(1, register_phone.getText().toString().trim());
 			break;
 		}
 	}
@@ -117,73 +149,123 @@ public class BindPhoneBeforBuyActivity extends BaseActivity implements OnClickLi
 		showProgress("正在获取验证码");
 		httpCilents.postB(Url.ACCUPASS_SEND_CODE, params, new WebServiceCallBack() {
 
+            @Override
+            public void callBack(int code, Object result) {
+                dismissProgress();
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
+                        if (info.isSuccess()) {
+                            mc = new MyCount(70000, 1000, sendCheckNumTv);
+                            mc.start();
+                            application.showMsg(info.getMsg());
+                        } else {
+                            application.showMsg(info.getMsg());
+                        }
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        application.showMsg(result.toString());
+                        break;
+                }
+            }
+        });
+	}
+
+
+
+
+	// 完善账户信息
+	public void completeAccount() {
+
+        final String phone = register_phone.getText().toString().trim();
+        String code = verification_code.getText().toString().trim();
+
+        final String email = register_email.getText().toString().trim();
+        final String real_name = register_real_name.getText().toString().trim();
+
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        String url="";
+
+        if(!application.getUserInfo().isPhoneActivated()){//手机没验证过
+
+            if (TextUtils.isEmpty(phone)) {
+                application.showMsg("手机号不能为空");
+                return;
+            }
+            if (TextUtils.isEmpty(code)) {
+                application.showMsg("验证码不能为空");
+                return;
+            }
+
+            params.add(new BasicNameValuePair("value", phone));
+            params.add(new BasicNameValuePair("code", code));
+            params.add(new BasicNameValuePair("type", 1 + ""));
+
+            url=Url.ACCUPASS_VALICODE;
+        }else {
+            url=Url.ACCUPASS_UPDATE_USERINFO;
+        }
+
+
+        if(TextUtils.isEmpty(application.getUserInfo().getEmail())){
+            if (TextUtils.isEmpty(email)) {
+                application.showMsg("邮箱不能为空");
+                return;
+            }
+
+            if(!CheckTextBox.isEmail(email)){
+                application.showMsg("邮箱格式错误");
+                return;
+            }
+        }
+
+        if(TextUtils.isEmpty(application.getUserInfo().getRealName())){
+            if (TextUtils.isEmpty(real_name)) {
+                application.showMsg("姓名不能为空");
+                return;
+            }
+        }
+
+        params.add(new BasicNameValuePair("email", email));
+        params.add(new BasicNameValuePair("realname", real_name));
+
+		showProgress("正在完善账户信息");
+
+
+		httpCilents.postA(url, params, new WebServiceCallBack() {
+
 			@Override
 			public void callBack(int code, Object result) {
 				dismissProgress();
 				switch (code) {
 				case Config.RESULT_CODE_SUCCESS:
 					BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
-					if (info.isSuccess()) {
-						mc = new MyCount(70000, 1000, sendCheckNumTv);
-						mc.start();
-						application.showMsg(info.getMsg());
+
+                        if (info.isSuccess()) {
+                            UserInfo user = application.getUserInfo();
+                            application.showMsg("账户信息已完善");
+
+                            user.setPhoneActivated(true);
+                            user.setPhone(phone);
+                            application.sharedUtils.writeString("userName", phone);
+
+                                user.setEmail(email);
+                                user.setRealName(real_name);
+                                application.setUserInfo(user);
+
+
+                            Intent intent = new Intent();
+                            setResult(RESULT_OK, intent);
+                                finish();
+
 					} else {
-						application.showMsg(info.getMsg());
+                            application.showMsg(info.getMsg());
 					}
 					break;
 				case Config.RESULT_CODE_ERROR:
-					application.showMsg(result.toString());
-					break;
-				}
-			}
-		});
-	}
-
-	// 验证账户信息
-	public void checkLogin(final String phone, String code, String nick, String sex, String name) {
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("phone", phone));
-		params.add(new BasicNameValuePair("code", code));
-		params.add(new BasicNameValuePair("password", "123456"));
-		params.add(new BasicNameValuePair("nick", ""));
-		params.add(new BasicNameValuePair("deviceid",application.getIMEI()));
-		params.add(new BasicNameValuePair("devicetype", 2 + ""));
-		params.add(new BasicNameValuePair("app", "hdx"));
-		params.add(new BasicNameValuePair("type", 1 + ""));
-		params.add(new BasicNameValuePair("realname", ""));
-		params.add(new BasicNameValuePair("gender", ""));
-		try {
-			params.add(new BasicNameValuePair("appversion", Util.getVersionName(mContext)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		params.add(new BasicNameValuePair("baiduuid", application.sharedUtils.readString("BaiduUID")));
-		params.add(new BasicNameValuePair("baiduchannelid", application.sharedUtils.readString("baiduchannelid")));
-		showProgress("正在验证账户信息");
-		httpCilents.postA(Url.ACCUPASS_USER_REGISTER, params, new WebServiceCallBack() {
-
-			@Override
-			public void callBack(int code, Object result) {
-				dismissProgress();
-				switch (code) {
-				case Config.RESULT_CODE_SUCCESS:
-					BaseResponse msgInfo = JSON.parseObject(result.toString(), BaseResponse.class);
-					if (msgInfo.isSuccess()) {
-						application.sharedUtils.writeString("userName", phone);
-						UserInfo user = JSON.parseObject(msgInfo.getResult(), UserInfo.class);
-						application.sharedUtils.writeString(Config.KEY_ACCUPASS_USER_NAME, user.getId());
-						application.sharedUtils.writeString(Config.KEY_ACCUPASS_ACCESS_TOKEN, user.getToken());
-						application.setUserInfo(user);
-						application.leanCloudLogin(user.getAccount());
-						EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGIN));
-						EventBus.getDefault().post(new ChangeDetailsRegEventBus(true));//绑定手机号后
-						finish();
-					} else {
-						application.showMsg(msgInfo.getMsg());
-					}
-					break;
-				case Config.RESULT_CODE_ERROR:
-					application.showMsg(result.toString());
+                    application.showMsg(result.toString());
 					break;
 				}
 			}

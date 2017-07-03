@@ -4,7 +4,6 @@ import com.accuvally.hdtui.model.SessionInfo;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Message;
 
 public class DBThreadManager {
 
@@ -25,7 +24,7 @@ public class DBThreadManager {
 
 			@Override
 			public void run() {
-				SessionTable.insertSession(session);
+				SessionTable.insertOrUpdateSession(session);
 			}
 		});
 	}

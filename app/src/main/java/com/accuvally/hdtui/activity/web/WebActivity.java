@@ -1,4 +1,4 @@
-package com.accuvally.hdtui.activity;
+package com.accuvally.hdtui.activity.web;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -16,7 +17,7 @@ import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 
 /**
- * Created by Andy Liu on 2017/3/27.
+ * Created by Andy Liu on 2017/5/18.
  */
 public class WebActivity extends BaseActivity {
 
@@ -24,7 +25,6 @@ public class WebActivity extends BaseActivity {
 
     private String loadingUrl;
 
-    private LinearLayout lyLoading;
 
     private String injectJs;
 
@@ -40,11 +40,7 @@ public class WebActivity extends BaseActivity {
         injectJs = getIntent().getStringExtra("injectJs");
         loadingUrl = getIntent().getStringExtra("loadingUrl");
         webView = (WebView) findViewById(R.id.details_webView);
-        lyLoading = (LinearLayout) findViewById(R.id.lyLoading);
-        if (loadingUrl.indexOf("huodongxing.com/news") != -1){
-            setTitle("专题详情");
-        }
-//        setTitle("活动详情");
+        findViewById(R.id.lyLoading).setVisibility(View.GONE);
         ((LinearLayout)findViewById(R.id.share_ly)).setVisibility(View.GONE);
     }
 
@@ -62,6 +58,7 @@ public class WebActivity extends BaseActivity {
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
                 if (url != null && url.startsWith("http://"))
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//                WebActivity.this.finish();
             }
         });
 
@@ -71,9 +68,20 @@ public class WebActivity extends BaseActivity {
             e.printStackTrace();
         }
         webView.setWebViewClient(new DetailsWebViewClient());
+
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                setTitle(title);
+            }
+        });
     }
 
     class DetailsWebViewClient extends WebViewClient {
+
+
+
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
 
@@ -81,14 +89,13 @@ public class WebActivity extends BaseActivity {
                 mContext.startActivity(new Intent(mContext, AccuvallyDetailsActivity.class).
                         putExtra("id", url).putExtra("isHuodong", 0));
             }else {
-                lyLoading.setVisibility(View.VISIBLE);
                 view.loadUrl(url);
             }
             return true;
         }
 
         public void onPageFinished(WebView view, String url) {
-            lyLoading.setVisibility(View.GONE);
+
             if (injectJs!=null && (!"".equals(injectJs))) {
                 webView.loadUrl("javascript:(function() { " + injectJs + "})();");
             }
@@ -97,7 +104,6 @@ public class WebActivity extends BaseActivity {
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             application.showMsg("网页加载出错,请稍后再试!");
-            lyLoading.setVisibility(View.GONE);
         }
     }
 
@@ -105,6 +111,17 @@ public class WebActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         webView.destroy();
+    }
+
+
+
+
+    public void onBack(View view) {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

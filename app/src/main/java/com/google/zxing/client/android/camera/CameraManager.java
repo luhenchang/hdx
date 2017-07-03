@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.widget.ImageView;
 
+import com.accuvally.hdtui.R;
 import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.client.android.camera.open.OpenCameraInterface;
 
@@ -227,7 +228,7 @@ public final class CameraManager {
         //change by 123 扫描框的位置
 //      int topOffset = (screenResolution.y - height) / 2;
 //        int topOffset = (int) ((screenResolution.y - height) *0.3);
-        int topOffset = (int) ((screenResolution.y - height) *0.15);
+        int topOffset = (int) ((screenResolution.y - height) *0.25);
         framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }
@@ -326,10 +327,10 @@ public final class CameraManager {
         // 判断闪光灯当前状态來修改
         if (Camera.Parameters.FLASH_MODE_OFF.equals(parameters.getFlashMode())) {
             turnOn(parameters);
-//            imageView.setImageResource(R.drawable.btn_lamp_sel);
+            imageView.setImageResource(R.drawable.btn_lamp_sel);
         } else if (Camera.Parameters.FLASH_MODE_TORCH.equals(parameters.getFlashMode())) {
             turnOff(parameters);
-//            imageView.setImageResource(R.drawable.btn_lamp_nor);
+            imageView.setImageResource(R.drawable.btn_lamp_nor);
         }
     }
 

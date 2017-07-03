@@ -11,9 +11,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.accuvally.hdtui.BaseActivity;
 import com.accuvally.hdtui.R;
-import com.accuvally.hdtui.activity.AccuvallyWebDetailsActivity;
+import com.accuvally.hdtui.activity.home.SponsorDetailActivity;
+import com.accuvally.hdtui.activity.web.AccuvallyWebDetailsActivity;
 import com.accuvally.hdtui.activity.mine.FriendsActivity;
-import com.accuvally.hdtui.activity.home.ProjectDetailsActivity;
+import com.accuvally.hdtui.activity.web.ProjectDetailsActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
 import com.accuvally.hdtui.activity.home.AccuvallyDetailsActivity;
 import com.accuvally.hdtui.activity.message.core.ChatActivity;
@@ -128,7 +129,7 @@ public class NotificationActivity extends BaseActivity {
 						session.setSessionId(info.getOp_value());
 						session.setTitle(info.getTitle());
 						session.setLogoUrl(info.getLogoUrl());
-						SessionTable.insertSession(session);
+						SessionTable.insertOrUpdateSession(session);
 					}
 
 					application.setCurrentSession(session);
@@ -136,7 +137,8 @@ public class NotificationActivity extends BaseActivity {
 
 					break;
 				case 4:// 主办方
-					mContext.startActivity(new Intent(mContext, ProjectDetailsActivity.class).putExtra("orgId", info.getOp_value()));
+					mContext.startActivity(new Intent(mContext, SponsorDetailActivity.class)
+                            .putExtra("orgId", info.getOp_value()));
 					break;
 				case 5:// 网页
 					mContext.startActivity(new Intent(mContext, AccuvallyWebDetailsActivity.class).putExtra("loadingUrl",
@@ -154,8 +156,8 @@ public class NotificationActivity extends BaseActivity {
 	}
 
 	public void initDate() {
-//		new MyTask().execute();
-		List<SessionInfo> list = SessionTable.queryAllNotification(AccountManager.getAccount());
+		List<SessionInfo> list = SessionTable.
+                queryAllNotification(AccountManager.getAccount());
 		mAdapter.setList(list);
 	}
 

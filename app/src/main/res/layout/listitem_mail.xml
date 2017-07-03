@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#f8f9fb"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_gravity="center"
+              android:textColor="#ffffff"
+              android:id="@+id/item_mail_time"
+              android:textSize="@dimen/text_size_small"
+              android:text="4月11日 11:20"
+        android:background="@drawable/shape_mail_time"/>
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent">
+            <ImageView android:layout_width="50dp"
+                       android:id="@+id/mail_logo"
+                       android:layout_marginTop="5dp"
+                       android:layout_marginLeft="10dp"
+                       android:background="@drawable/mail_recommend_circle"
+                       android:layout_height="50dp"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="70dp"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+
+            <TextView android:layout_width="wrap_content"
+                      android:textColor="#666666"
+                      android:textSize="@dimen/text_size_small"
+                      android:id="@+id/item_mail_mailtitle"
+                      android:text="官方推荐"
+                      android:layout_height="wrap_content"/>
+            <ImageView android:layout_width="match_parent"
+                  android:background="@drawable/shap_mail_corner_green"
+                  android:id="@+id/item_mail_top_bg"
+                  android:layout_marginTop="5dp"
+                  android:layout_height="5dp"/>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:background="@drawable/shape_mail_bg"
+                          android:id="@+id/item_mail_main_content"
+                          android:layout_height="match_parent">
+                <TextView android:layout_width="match_parent"
+                          android:maxLines="1"
+                          android:textSize="15sp"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginRight="20dp"
+                          android:id="@+id/item_mail_title"
+                          android:layout_marginTop="5dp"
+                          android:textColor="#000000"
+                          android:ellipsize="end"
+                          android:text="官方推荐title"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:textSize="@dimen/text_size_small"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginRight="20dp"
+                          android:layout_marginTop="5dp"
+                          android:textColor="#333333"
+                          android:id="@+id/item_mail_content"
+                          android:text="下班后的你，是想带着一身疲惫回家，还是一束香水百合？"
+                          android:layout_height="wrap_content"/>
+
+                <ImageView android:layout_width="match_parent"
+                           android:layout_marginLeft="20dp"
+                           android:layout_marginRight="20dp"
+                           android:layout_marginTop="5dp"
+                           android:scaleType="centerCrop"
+                           android:id="@+id/item_mail_content_logo"
+                           android:background="@drawable/default_home_image"
+                           android:layout_height="120dp"/>
+
+                <View android:layout_width="match_parent"
+                      android:background="#dddddd"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="0.5px"/>
+
+                <RelativeLayout android:layout_width="match_parent"
+                              android:layout_marginLeft="20dp"
+                              android:layout_marginRight="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="立即查看"
+                              android:textSize="15sp"
+                              android:textColor="#7b7b7b"
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:text=">"
+                              android:textSize="15sp"
+                              android:textColor="#7b7b7b"
+                              android:layout_alignParentRight="true"
+                              android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View android:layout_width="match_parent"
+          android:background="#f8f9fb"
+          android:layout_height="20dp"/>
+
+</LinearLayout>

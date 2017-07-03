@@ -71,6 +71,7 @@ public class AccuvallyDetailsActivity extends BaseActivity {
     }
 
     private void parseIntent() {
+
         homeId = getIntent().getStringExtra("id");
         isHuodong = getIntent().getIntExtra("isHuodong", 0);
         ToCommentActivity = getIntent().getBooleanExtra(GetuiPushMessageReceiver.ToCommentActivity, false);

@@ -27,6 +27,7 @@ import android.view.WindowManager;
 
 import com.google.zxing.client.android.PreferencesActivity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -391,6 +392,22 @@ final class CameraConfigurationManager {
   /*�ı����������ķ���ķ���*/ 
   protected void setDisplayOrientation(Camera camera, int angle) {
       Method downPolymorphic = null;              
-
+      try {       
+          downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });     
+          
+          if (downPolymorphic != null)                   
+              downPolymorphic.invoke(camera, new Object[]{angle});            
+          } 
+          catch (NoSuchMethodException e) {        
+              e.printStackTrace();  
+          } 
+          catch (IllegalArgumentException e) {       
+              e.printStackTrace();  
+          } 
+          catch (IllegalAccessException e) { 
+              e.printStackTrace();    
+          } 
+          catch (InvocationTargetException e) { 
+             e.printStackTrace();    }  
       }
 }

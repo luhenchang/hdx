@@ -24,5 +24,25 @@ public class Keys {
 
 
     public static final String KEY_SPLASH_LASTTIME= "preferences_splash_lasttime";//上一次闪屏时间
+    public static final String KEY_TEST_POPUP_LASTTIME= "preferences_test_popup_lasttime";//上一次检查开启通知时间
+
+
+
+    public static final String KEY_SYSTEM_MSG_UNREAD_NUM= "KEY_SYSTEM_MSG_UNREAD_NUM";//
+    public static final String KEY_RECOMD_UNREAD_NUM= "KEY_RECOMD_UNREAD_NUM";//
+    public static final String KEY_NEW_FRIEND_UNREAD_NUM= "KEY_NEW_FRIEND_UNREAD_NUM";//
+
+
+
+    public static final String KEY_SYSTEM_MSG_TOTAL_NUM= "KEY_SYSTEM_MSG_TOTAL_NUM";//
+    public static final String KEY_RECOMD_TOTAL_NUM= "KEY_RECOMD_TOTAL_NUM";//
+    public static final String KEY_NEW_FRIEND_TOTAL_NUM= "KEY_NEW_FRIEND_TOTAL_NUM";//
+
+
+
+    public static final String KEY_SYSTEM_MSG_HAS_GET_HISTORY= "KEY_SYSTEM_MSG_HAS_GET_HISTORY";//
+    public static final String KEY_RECOMD_HAS_GET_HISTORY= "KEY_RECOMD_HAS_GET_HISTORY";//
+    public static final String KEY_NEW_FRIEND_HAS_GET_HISTORY= "KEY_NEW_FRIEND_HAS_GET_HISTORY";//
+
 
 }

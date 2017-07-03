@@ -21,7 +21,6 @@ import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -215,10 +214,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 							e.printStackTrace();
 							application.showMsg("退出失败");
 						} else {
-							MobclickAgent.onEvent(mContext, "logout_count");
 							application.logout();
-							EventBus.getDefault().post(new ChangeUserStateEventBus(ChangeUserStateEventBus.LOGOUT));
-							dbManager.deleteSaveBeHavior();
 							application.showMsg("退出成功");
 							finish();
 						}

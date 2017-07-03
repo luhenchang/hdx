@@ -118,15 +118,6 @@ public class UpdatePersonalActivity extends BaseActivity implements TextWatcher,
 				tvMaxLength.setText("0");
 			}
 		}
-//		String destStr = "";
-//		for (int i = 0; i < arg0.toString().length(); i++) {
-//			destStr += arg0.toString().charAt(i);
-//			if (getCharacterNum(destStr) > maxNum) {
-//				destStr = destStr.substring(0, destStr.length() - 1);
-//				break;
-//			}
-//		}
-//		arg0.delete(destStr.length(), arg0.toString().length());
 	}
 
 	@Override

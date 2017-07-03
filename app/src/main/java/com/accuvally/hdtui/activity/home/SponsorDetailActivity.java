@@ -130,7 +130,6 @@ public class SponsorDetailActivity extends BaseActivity implements OnClickListen
 //                        Trace.e("从后台传进来的：",orgBean.getId());
 						shareUtils.initConfig(SponsorDetailActivity.this, orgBean.getName(),
                                 orgBean.getDesc(), orgBean.getLogo(), orgBean.getShareUrl());
-						
 						setTabsValue();
 						updateView();
 					}
