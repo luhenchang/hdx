@@ -289,15 +289,16 @@
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
 
-            <View
+         <!--   <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="#e5e5e5" />
+                android:background="#e5e5e5" />-->
 
 
                 <LinearLayout android:orientation="vertical"
                               android:layout_width="0dp"
                               android:layout_weight="1"
+                              android:visibility="gone"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textSize="18sp"

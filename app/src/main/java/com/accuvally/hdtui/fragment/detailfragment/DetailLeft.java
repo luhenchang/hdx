@@ -1095,6 +1095,14 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
             evaluateIntent.putExtra(CommentActivity.ID, detailsInfo.id);
             evaluateIntent.putExtra(CommentActivity.LIKENUM, detailsInfo.ZanUp);
             evaluateIntent.putExtra(CommentActivity.DISLIKENUM, detailsInfo.ZanDown);
+
+
+            if (!"0".equals(detailsInfo.orgid)) {//主办方 orgid!=0,代表有主办方，否则只有主办人？？
+                evaluateIntent.putExtra(CommentActivity.SPONSOR, detailsInfo.orgname);
+            } else {
+                evaluateIntent.putExtra(CommentActivity.SPONSOR, detailsInfo.creator);
+            }
+
             startActivityForResult(evaluateIntent, submitComment);
 
         }
@@ -1221,7 +1229,6 @@ public class DetailLeft extends BaseFragment implements View.OnClickListener, Pu
                 if (Utils.isFastDoubleClick()) {
                     return;
                 }
-
                 detailsInfo.AllowReply=true;
                 evalute();//用于测试
                 break;

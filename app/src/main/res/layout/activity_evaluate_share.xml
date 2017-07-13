@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/comment_share_bg"
+              android:id="@+id/activity_evaluate_share"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <ImageView android:layout_width="wrap_content"
+               android:background="@drawable/selector_comment_share_back"
+               android:id="@+id/comment_share_back"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_height="wrap_content"/>
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:orientation="vertical"
+                      android:id="@+id/comment_share_picture"
+                      android:background="@color/white"
+                      android:layout_height="wrap_content">
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content">
+                <com.accuvally.hdtui.ui.CircleImageView
+                    android:id="@+id/comment_share_logo"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon"
+                    app:border_color="@color/white"
+                    app:border_width="2dp" />
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/comment_share_name"
+                          android:text="nick"
+                          android:layout_marginLeft="10dp"
+                          android:layout_centerVertical="true"
+                          android:layout_toRightOf="@id/comment_share_logo"
+                          android:layout_height="wrap_content"/>
+
+                <RatingBar android:layout_width="wrap_content"
+                           style="@style/myRatingBar"
+                           android:id="@+id/comment_share_rank"
+                           android:layout_centerVertical="true"
+                           android:layout_alignParentRight="true"
+                           android:layout_marginRight="10dp"
+                           android:stepSize="1"
+                           android:max="5"
+                           android:numStars="5"
+                           android:progress="5"
+                           android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_marginTop="10dp"
+                         android:layout_marginLeft="10dp"
+                         android:layout_marginRight="10dp"
+                         android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/comment_activity_share_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/width_42_80"
+                    android:background="@drawable/default_details_image"
+                    android:scaleType="centerCrop" />
+                <TextView android:layout_width="match_parent"
+                          android:background="#80000000"
+                          android:id="@+id/comment_share_title"
+                          android:layout_gravity="bottom"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/text_size_small"
+                          android:maxLines="1"
+                          android:ellipsize="end"
+                          android:paddingLeft="10dp"
+                          android:text="哈哈哈哈哈哈"
+                          android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginLeft="20dp"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="主办方:"
+                          android:textColor="#666666"
+                          android:textSize="@dimen/text_size_small"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="wrap_content"
+                          android:text="主办方"
+                          android:id="@+id/comment_share_sponsor"
+                          android:textColor="#666666"
+                          android:textSize="@dimen/text_size_small"
+                          android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginTop="15dp"
+                  android:layout_marginRight="20dp"
+                  android:background="#e6e6e6"
+                  android:layout_height="1px"/>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="15dp"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_marginLeft="20dp"
+                           android:layout_marginTop="5dp"
+                           android:background="@drawable/text_ping_small"
+                           android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:textColor="#666666"
+                          android:layout_marginLeft="5dp"
+                          android:textSize="@dimen/text_size_small"
+                          android:maxLines="3"
+                          android:id="@+id/comment_share_content"
+                          android:layout_marginRight="20dp"
+                          android:ellipsize="end"
+                          android:text="周末就是下半年啦！弱（zhā）弱（xīn）问一句：年度计划的一半完成了吗？有时你会不会觉得，忙忙碌碌很久，却总离目标差一点？这半年，不管走过多少艰辛的路，先停下来感谢一下在坚持的自己。休息过后再出发，也许会有惊喜！"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <View android:layout_width="match_parent"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginTop="15dp"
+                  android:layout_marginRight="20dp"
+                  android:background="#e6e6e6"
+                  android:layout_height="1px"/>
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_height="wrap_content">
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_centerInParent="true"
+                              android:layout_height="wrap_content">
+
+                    <ImageView android:layout_width="90dp"
+                               android:background="@drawable/comment_share_qrcode"
+
+                               android:layout_height="90dp"/>
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_marginTop="5dp"
+                               android:src="@drawable/comment_watermark"
+                               android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:background="@color/white"
+                      android:layout_gravity="bottom"
+                      android:orientation="vertical"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="match_parent"
+                      android:text="把图片分享给好友"
+                      android:textColor="#666666"
+                      android:gravity="center"
+                      android:layout_marginTop="15dp"
+                      android:textSize="@dimen/text_size_middle"
+                      android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <TextView
+                    android:id="@+id/tvSharewx"
+                    android:layout_marginLeft="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/selector_comment_share_wx_btn"
+                    android:gravity="center"
+                    android:text="@string/dialog_share_wx"
+                    android:textColor="@color/share" />
+
+                <TextView
+                    android:id="@+id/tvSharewxpy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="80dp"
+                    android:drawableTop="@drawable/selector_comment_share_wxpy_btn"
+                    android:gravity="center"
+                    android:text="@string/dialog_share_wx_py"
+                    android:textColor="@color/share" />
+
+
+            </LinearLayout>
+
+            <!-- <LinearLayout android:layout_width="match_parent"
+                           android:orientation="horizontal"
+                           android:layout_height="wrap_content">
+
+                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+             </LinearLayout>-->
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+
+
+
+</LinearLayout>

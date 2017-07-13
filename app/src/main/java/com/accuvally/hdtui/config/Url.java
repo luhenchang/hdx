@@ -94,6 +94,15 @@ public class Url {
 	
 	/** 已关注的主办方列表 **/
 	public static final String ACCUPASS_MYFOLLOW = ACCUPASS_SERVICE_URL2 + "/org/followed";
+
+    /** 我发布的 **/
+    public static final String ACCUPASS_MYPUBLISH = ACCUPASS_SERVICE_URL2 + "/act/mypublished";
+
+    /** 待评价的 **/
+    public static final String ACCUPASS_NEEDTOCOMMENT = ACCUPASS_SERVICE_URL2 + "/act/needtocomment";
+
+
+
 	
 	/** 主办方信息 **/
 	public static final String ACCUPASS_ORGANIZER_DETAILS = ACCUPASS_SERVICE_URL2 + "/org";
@@ -215,6 +224,10 @@ public class Url {
 
 
     public static final String UPLOAD_FILES = ACCUPASS_SERVICE_URL2 + "/upload/files";//上传文件
+
+    public static final String UPLOAD_CHUNK = ACCUPASS_SERVICE_URL2 + "/upload/chunk";//分段上传文件
+
+
 
     public static final String SET_CATEGORY_TAG = ACCUPASS_SERVICE_URL2 + "/user/set_category_tag";//设置标签
     public static final String GET_PREQUERY_TAGS = ACCUPASS_SERVICE_URL2 + "/tag/get_prequery_tags";//获取标签

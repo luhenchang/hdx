@@ -54,23 +54,136 @@
                     android:textSize="@dimen/little_12" />
             </LinearLayout>
 
+            <!--=================================================================================-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#f0f0f0" />
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="horizontal"
+                          android:background="@color/white"
+                          android:layout_height="70dp">
+
+
+                <LinearLayout android:layout_width="0dp"
+                              android:orientation="vertical"
+                              android:background="@drawable/selector_about_btn2"
+                              android:layout_weight="1"
+                              android:id="@+id/lyMineTicket"
+                              android:layout_height="match_parent">
+
+                    <ImageView android:layout_width="wrap_content"
+                               android:src="@drawable/ticket_nor"
+                               android:layout_gravity="center"
+                               android:layout_marginTop="10dp"
+                               android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="wrap_content"
+                              android:textSize="16sp"
+                              android:textColor="#4d4d4d"
+                              android:layout_marginTop="5dp"
+                              android:layout_gravity="center"
+                              android:text="票券"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="#e6e6e6" />
+
+                <LinearLayout android:layout_width="0dp"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:background="@drawable/selector_about_btn2"
+                              android:id="@+id/lyMineCollect"
+                              android:layout_height="match_parent">
+
+                    <ImageView android:layout_width="wrap_content"
+                               android:src="@drawable/collection_nor"
+                               android:layout_gravity="center"
+                               android:layout_marginTop="10dp"
+                               android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="wrap_content"
+                              android:textSize="16sp"
+                              android:textColor="#4d4d4d"
+                              android:layout_marginTop="5dp"
+                              android:layout_gravity="center"
+                              android:text="收藏"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="#e6e6e6" />
+
+
+                <LinearLayout android:layout_width="0dp"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:background="@drawable/selector_about_btn2"
+                              android:id="@+id/lyMineEvaluate"
+                              android:layout_height="match_parent">
+
+
+                    <LinearLayout android:layout_width="wrap_content"
+                                  android:layout_gravity="center"
+                                  android:orientation="horizontal"
+                                  android:layout_marginTop="10dp"
+                                  android:layout_height="wrap_content">
+
+                        <ImageView android:layout_width="wrap_content"
+                                   android:src="@drawable/not_par_nor"
+                                   android:layout_height="wrap_content"/>
+                        <ImageView android:layout_width="wrap_content"
+                                   android:layout_marginLeft="3dp"
+                                   android:id="@+id/mineEvaluateUnread"
+                                   android:visibility="gone"
+                                   android:src="@drawable/tab_setting_icon_message_red_bg"
+                                   android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+
+                    <TextView android:layout_width="wrap_content"
+                              android:textSize="16sp"
+                              android:textColor="#4d4d4d"
+                              android:layout_marginTop="5dp"
+                              android:layout_gravity="center"
+                              android:text="待评价"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#f0f0f0" />
+
+
             <LinearLayout
-                android:id="@+id/lyMineTicket"
+                android:id="@+id/lyMinePublish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_about_btn"
                 android:gravity="center|left"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:padding="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/mine_ticket_left_icon_bg"
+                    android:drawableLeft="@drawable/mine_publish_left_icon_bg"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/details_jiantou_bg"
                     android:gravity="center|left"
-                    android:text="票券"
+                    android:text="我发布的"
                     android:textColor="@color/details_title"
                     android:textSize="@dimen/little_16" />
             </LinearLayout>
@@ -80,31 +193,6 @@
                 android:layout_height="0.1dp"
                 android:background="@drawable/details_icon_line2" />
 
-            <LinearLayout
-                android:id="@+id/lyMineCollect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_about_btn"
-                android:gravity="center|left"
-                android:orientation="horizontal"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/mine_collection_left_icon_bg"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/details_jiantou_bg"
-                    android:gravity="center|left"
-                    android:text="收藏的活动"
-                    android:textColor="@color/details_title"
-                    android:textSize="@dimen/little_16" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@drawable/details_icon_line2" />
 
             <LinearLayout
                 android:id="@+id/lyMineOrg"
@@ -122,7 +210,7 @@
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/details_jiantou_bg"
                     android:gravity="center|left"
-                    android:text="关注主办方"
+                    android:text="我关注的主办方"
                     android:textColor="@color/details_title"
                     android:textSize="@dimen/little_16" />
             </LinearLayout>
@@ -183,6 +271,7 @@
                 android:background="@drawable/selector_about_btn"
                 android:gravity="center|left"
                 android:orientation="horizontal"
+                android:visibility="visible"
                 android:padding="15dp">
 
                 <TextView
@@ -209,7 +298,7 @@
                       android:padding="20dp"
                       android:background="@color/bule"
                       android:id="@+id/mine_test"
-                      android:visibility="gone"
+                      android:visibility="visible"
                       android:layout_height="wrap_content"/>
 
             <TextView android:layout_width="match_parent"

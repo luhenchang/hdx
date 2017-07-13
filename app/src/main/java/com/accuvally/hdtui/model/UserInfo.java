@@ -60,6 +60,26 @@ public class UserInfo implements Serializable{
 
 	private String Token;
 
+
+    public boolean isHasComment() {
+        return hasComment;
+    }
+
+    public void setHasComment(boolean hasComment) {
+        this.hasComment = hasComment;
+    }
+
+    public boolean isHasPublish() {
+        return hasPublish;
+    }
+
+    public void setHasPublish(boolean hasPublish) {
+        this.hasPublish = hasPublish;
+    }
+
+    private boolean hasComment;
+    private  boolean hasPublish;
+
  
 
 	public String getId() {

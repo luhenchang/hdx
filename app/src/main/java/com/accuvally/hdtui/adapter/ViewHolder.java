@@ -49,6 +49,11 @@ public class ViewHolder {
 		return this;
 	}
 
+    public ViewHolder setTextColor(int viewId, int color) {
+        TextView view = getView(viewId);
+        view.setTextColor(color);
+        return this;
+    }
 
     public ViewHolder setViewOncLick(int viewId, View.OnClickListener onClickListener) {
         View view = getView(viewId);

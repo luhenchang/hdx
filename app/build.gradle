@@ -13,8 +13,8 @@ android {
         applicationId "com.accuvally.hdtui"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 60
-        versionName "5.9.9"
+        versionCode 61
+        versionName "5.9.10"
         multiDexEnabled true
     }
 
@@ -95,7 +95,7 @@ android {
 //        xiaomi{}
 //        huawei{}
 //        baidu{}
-        _360{}
+//        _360{}
 //        anzhi{}
 //        jinli{}
 

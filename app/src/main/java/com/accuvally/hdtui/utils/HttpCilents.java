@@ -92,11 +92,7 @@ public class HttpCilents {
         }
         AuthorizationHeader authorizationHeader = null;
         try {
-            //妈蛋，又吭我  留下证据  之前post才坑窝一次
-            /*HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
-                    request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST,
-                            url.equals(Url.ACCUPASS_HOME_DETAIL_SECRET + "?") ?
-                                    Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);*/
+
             HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).
                     request("GET", baseUrl, Url.ACCUPASS_SERVICE_HOST,
                             url.indexOf("https") != -1 ?

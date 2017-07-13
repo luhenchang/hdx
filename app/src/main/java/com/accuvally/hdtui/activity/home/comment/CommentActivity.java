@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.accuvally.hdtui.BaseActivity;
@@ -54,11 +55,15 @@ import java.util.List;
  */
 public class CommentActivity extends BaseActivity implements View.OnClickListener , ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
+    public static final String SPONSOR="EvaluateActivity_SPONSOR";
     public static final String TIME="EvaluateActivity_TIME";
     public static final String LOCATION="EvaluateActivity_LOCATION";
     public static final String TITLE="EvaluateActivity_TITLE";
     public static final String LOGO="EvaluateActivity_LOGO";
     public static final String ID="EvaluateActivity_ID";
+    public static final String START_RANK="EvaluateActivity_START_RANK";
+    public static final String CONTENT="EvaluateActivity_CONTENT";
+
     public static final String LIKENUM="EvaluateActivity_LIKENUM";
     public static final String DISLIKENUM="EvaluateActivity_DISLIKENUM";
 
@@ -83,13 +88,19 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private TextView submitTextView;
 
     private boolean share=false;//是否分享
-    private int likeState=0;//0没选，1喜欢，2不喜欢
+//    private int likeState=0;//0没选，1喜欢，2不喜欢
 
     private String id;//活动 id
 
     private boolean uploading=false;
 
 
+
+    String title;
+    String logo;
+    String sponsor;
+    int startRank=5;
+    String content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +118,10 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         if(intent!=null){
             id = getIntent().getStringExtra(ID);
 
-            String logo=intent.getStringExtra(LOGO);
+            logo=intent.getStringExtra(LOGO);
             application.mImageLoader.displayImage(logo, evaluateLogo);
 
-            String title=intent.getStringExtra(TITLE);
+            title=intent.getStringExtra(TITLE);
             String time=intent.getStringExtra(TIME);
             String location=intent.getStringExtra(LOCATION);
 
@@ -121,7 +132,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
             likeNum=intent.getIntExtra(LIKENUM, 0);
             dislikeNum=intent.getIntExtra(LIKENUM,0);
-
+            sponsor=intent.getStringExtra(SPONSOR);
         }
     }
 
@@ -145,6 +156,14 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         submitTextView= (TextView) findViewById(R.id.evaluate_submit);
         submitTextView.setOnClickListener(this);
 
+        RatingBar ratingBar= (RatingBar) findViewById(R.id.comment_rank);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                startRank= (int) rating;
+            }
+        });
+
     }
 
 
@@ -152,14 +171,16 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void uploadComment() {
-        String content = edCommContent.getText().toString().trim();
-        if (TextUtils.isEmpty(content) &&(selImageList.size() == 0) &&(likeState==0)) {
+        content = edCommContent.getText().toString().trim();
+//        if (TextUtils.isEmpty(content) &&(selImageList.size() == 0) ) {
+            if (TextUtils.isEmpty(content)) {
             application.showMsg("请输入评论内容");
             uploading=false;
             return;
         }
 
-        if(content.trim()=="" &&(selImageList.size() == 0) &&(likeState==0) ){//" " 这种也要限制
+//        if(content.trim()=="" &&(selImageList.size() == 0)  ){//" " 这种也要限制
+            if(content.trim().equals("")){//" " 这种也要限制
             application.showMsg("请输入评论内容");
             uploading=false;
             return;
@@ -176,7 +197,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         params.add(new BasicNameValuePair("type", "0"));
         params.add(new BasicNameValuePair("comment", content));
         params.add(new BasicNameValuePair("eventtype", "0"));
-        params.add(new BasicNameValuePair("ZanStatus", likeState + ""));
+        params.add(new BasicNameValuePair("ZanStatus", startRank + ""));
         params.add(new BasicNameValuePair("ReplyType", "1"));//回复类型（1=活动评价，2=活动咨询）
 
 //            Trace.e(TAG, "id:" + id);
@@ -200,10 +221,15 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                             }
 
                             application.showMsg("评价成功");
-                            Intent intent = new Intent();
-                            intent.putExtra(LIKE_STATE, likeState);
-                            setResult(RESULT_OK, intent);
-                            finish();
+                            if(share){
+                                startCommentShareActivity();
+                                finish();
+                            }else {
+                                Intent intent = new Intent();
+                                intent.putExtra(LIKE_STATE, 0);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            }
                         } else {
                             application.showMsg(info.getMsg());
                         }
@@ -221,11 +247,23 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+    private void startCommentShareActivity(){
+        Intent evaluateIntent = new Intent(mContext, CommentShareActivity.class);
+        evaluateIntent.putExtra(CommentActivity.TITLE, title);
+        evaluateIntent.putExtra(CommentActivity.LOGO, logo);
+        evaluateIntent.putExtra(CommentActivity.SPONSOR, sponsor);
+        evaluateIntent.putExtra(CommentActivity.START_RANK,startRank);
+        evaluateIntent.putExtra(CommentActivity.CONTENT,content);
+
+//        evaluateIntent.putExtra(CommentActivity.LIKENUM, detailsInfo.ZanUp);
+//        evaluateIntent.putExtra(CommentActivity.DISLIKENUM, detailsInfo.ZanDown);
+        startActivity(evaluateIntent);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.evaluate_like://第二次按喜欢时表示取消选择
+           /* case R.id.evaluate_like://第二次按喜欢时表示取消选择
                 if(likeState==1){
                     likeState=0;
                     likeButton.setBackgroundResource(R.drawable.like_nor_2x);
@@ -248,7 +286,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     likeButton.setBackgroundResource(R.drawable.like_nor_2x);
                     dislikeButton.setBackgroundResource(R.drawable.dislike_sel_2x);
                 }
-                break;
+                break;*/
             case R.id.evaluate_share:
                 if(shareButton.isChecked()){
                     shareButton.setBackgroundResource(R.drawable.share_selected_3x);
@@ -259,6 +297,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.evaluate_submit:
+                //暂时屏蔽
                 if(!uploading){
                     uploading=true;
                     uploadComment();
@@ -380,6 +419,9 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+
+
     }
 
     @Override

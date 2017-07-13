@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/selector_click_btn"
+              android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/ivItemPublishImg"
+            android:layout_width="102dp"
+            android:layout_height="80dp"
+            android:background="@drawable/default_home_image"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvItemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="relaxed 周末"
+                android:textColor="@color/txt_gray"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_time_nor"
+                    android:gravity="center|left"/>
+
+                <TextView
+                    android:id="@+id/tvItemTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:drawablePadding="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="时间"
+                    android:textColor="#989898"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp" >
+
+                    <TextView android:layout_width="wrap_content"
+                              android:text="报名数:"
+                              android:textColor="#989898"
+                              android:textSize="12sp"
+                              android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="wrap_content"
+                              android:id="@+id/item_publish_reg"
+                              android:text="0"
+                              android:layout_marginLeft="5dp"
+                              android:textColor="#84C554"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <TextView android:layout_width="wrap_content"
+                          android:id="@+id/item_publish_status"
+                          android:textColor="#0cbe06"
+                          android:textSize="@dimen/text_size_middle"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="5dp"
+                          android:text="进行中"
+                          android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#f0f0f0" />
+
+</LinearLayout>

@@ -1,30 +1,49 @@
 package com.accuvally.hdtui.fragment.core;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.accuvally.hdtui.AccuApplication;
 import com.accuvally.hdtui.BaseFragment;
 import com.accuvally.hdtui.R;
 import com.accuvally.hdtui.activity.mine.CollectActivity;
 import com.accuvally.hdtui.activity.mine.FriendsActivity;
 import com.accuvally.hdtui.activity.mine.MoreServiceActivity;
 import com.accuvally.hdtui.activity.mine.OrgListActivity;
+import com.accuvally.hdtui.activity.mine.PublishActivity;
 import com.accuvally.hdtui.activity.mine.TicketTabActivity;
+import com.accuvally.hdtui.activity.mine.WaitForEvaluateActivity;
 import com.accuvally.hdtui.activity.mine.login.LoginActivityNew;
 import com.accuvally.hdtui.activity.mine.personal.PersonalActivity;
+import com.accuvally.hdtui.config.Config;
 import com.accuvally.hdtui.config.UILoptions;
+import com.accuvally.hdtui.config.Url;
+import com.accuvally.hdtui.model.BaseResponse;
+import com.accuvally.hdtui.model.UserInfo;
 import com.accuvally.hdtui.ui.BadgeView;
 import com.accuvally.hdtui.ui.CircleImageView;
-import com.accuvally.hdtui.utils.NotificationsUtils;
+import com.accuvally.hdtui.utils.HttpCilents;
+import com.accuvally.hdtui.utils.PickPhoto;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
+import com.accuvally.hdtui.utils.chunk.UploadChunkUtil;
 import com.accuvally.hdtui.utils.eventbus.ChangeUserStateEventBus;
+import com.alibaba.fastjson.JSON;
+
+import org.apache.http.NameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -37,12 +56,14 @@ import de.greenrobot.event.EventBus;
 public class MineFragment extends BaseFragment implements OnClickListener {
 
 	private LinearLayout lyMineTicket, lyMineCollect, lyMineOrg, lyMineCircle,lyMineMore;
+    private LinearLayout  lyMinePublish,lyMineEvaluate;
 
 	private CircleImageView ivMineLogo;
 
 	private TextView tvMineNickName, tvMineSignature;
 
 	private TextView tvMineUnReadNum;
+    private ImageView mineEvaluateUnread;
 
 	BadgeView unread;
 
@@ -51,7 +72,39 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            String path = null;
+            switch (requestCode) {
+
+                case PickPhoto.PICK_PHOTO://从相册中选择
+                    try {
+                        Cursor cursor = mContext.getContentResolver().query(data.getData(), null, null, null, null);
+                        cursor.moveToFirst();
+                        path= cursor.getString(1);
+                        Trace.e("TAG","相册中原图片路径："+cursor.getString(1));
+                        cursor.close();
+                        if (path != null) {
+                            UploadChunkUtil uploadChunkUtil=new UploadChunkUtil();
+                            uploadChunkUtil.chunkAndUpload(path);
+//                            uploadChunkUtil.uploadChunk2(AccuApplication.getInstance(), new HttpCilents(mContext),path,"fileName");
+                        }
+                    } catch (Exception e) {
+                        application.showMsg("请选择相册中的照片");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_mine, container, false);
 		EventBus.getDefault().register(this);
@@ -59,14 +112,57 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		return rootView;
 	}
 
-	@Override
+
+    @Override
 	public void onResume() {
 		super.onResume();
 		initUserDetails();
+        if(application.checkIsLogin()){
+            getUserInfo(AccuApplication.getInstance());
+        }
 	}
+
+
+    public  void getUserInfo(final AccuApplication application) {
+        HttpCilents httpCilents=new HttpCilents(application);
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+//        showProgress("正在获取用户资料");
+        httpCilents.get(httpCilents.printURL(Url.ACCUPASS_USER_INFO, params), new HttpCilents.WebServiceCallBack() {
+
+            @Override
+            public void callBack(int code, Object result) {
+                switch (code) {
+                    case Config.RESULT_CODE_SUCCESS:
+                        BaseResponse info = JSON.parseObject(result.toString(), BaseResponse.class);
+                        if (info.isSuccess()) {
+                            UserInfo userInfo = JSON.parseObject(info.getResult(), UserInfo.class);
+                            application.setUserInfo(userInfo);
+
+                            if(userInfo.isHasComment()){//有待评价的
+                                mineEvaluateUnread.setVisibility(View.VISIBLE);
+                            }
+
+                            if(userInfo.isHasPublish()){//有发布的
+                                lyMinePublish.setVisibility(View.VISIBLE);
+                            }
+
+                        } else {
+                            application.showMsg(info.getMsg());
+                        }
+                        break;
+                    case Config.RESULT_CODE_ERROR:
+                        application.showMsg(result.toString());
+                        break;
+                }
+            }
+        });
+    }
 
 	public void initView(View view) {
 		lyMineTicket = (LinearLayout) view.findViewById(R.id.lyMineTicket);
+        lyMinePublish = (LinearLayout) view.findViewById(R.id.lyMinePublish);
+        lyMineEvaluate= (LinearLayout) view.findViewById(R.id.lyMineEvaluate);
+
 		lyMineCollect = (LinearLayout) view.findViewById(R.id.lyMineCollect);
         lyMineMore = (LinearLayout) view.findViewById(R.id.lyMineMore);
 		lyMineOrg = (LinearLayout) view.findViewById(R.id.lyMineOrg);
@@ -76,15 +172,29 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		tvMineSignature = (TextView) view.findViewById(R.id.tvMineSignature);
 		tvMineUnReadNum = (TextView) view.findViewById(R.id.tvMineUnReadNum);
 
+        mineEvaluateUnread = (ImageView) view.findViewById(R.id.mineEvaluateUnread);
+
         view.findViewById(R.id.mine_test).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+//              /*  Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("**/*//*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                startActivityForResult(intent,1);*/
+
+                Intent intent2 = new Intent();
+                intent2.setType("image/*");
+                intent2.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intent2, PickPhoto.PICK_PHOTO);
+
 //                Intent intent = new Intent(mContext, BindPhoneBeforBuyActivity.class);
 //                startActivity(intent);
-                boolean b=NotificationsUtils.isNotificationEnabled(mContext);
-                application.showMsg("isNotificationEnabled: "+b);
-
-                Trace.e("MineFragment", "isNotificationEnabled: " + b);
+//                boolean b=NotificationsUtils.isNotificationEnabled(mContext);
+//                application.showMsg("isNotificationEnabled: "+b);
+//
+//                Trace.e("MineFragment", "isNotificationEnabled: " + b);
 
 //                Intent intent = new Intent(Android.permission.BROADCAST_WAP_PUSH);
 //                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
@@ -109,6 +219,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
         view.findViewById(R.id.mine_test2).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                PermissionUtil.checkPermissions(getActivity(), PermissionUtil.needPermissions);
 //                Intent intent = new Intent(Settings.);
 //                mContext.startActivity(intent);
@@ -147,6 +258,8 @@ public class MineFragment extends BaseFragment implements OnClickListener {
         });
 
 		lyMineTicket.setOnClickListener(this);
+        lyMineEvaluate.setOnClickListener(this);
+        lyMinePublish.setOnClickListener(this);
 		lyMineCollect.setOnClickListener(this);
         lyMineMore.setOnClickListener(this);
 		lyMineOrg.setOnClickListener(this);
@@ -196,6 +309,10 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		}
 	}
 
+
+
+
+
 	public void onEventMainThread(ChangeUserStateEventBus eventBus) {
 		initUserDetails();
 	}
@@ -211,6 +328,22 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 			else
 				toActivity(LoginActivityNew.class);
 			break;
+            case R.id.lyMinePublish:// 我发布的
+                if (Utils.isFastDoubleClick())
+                    return;
+                if (application.checkIsLogin())
+                    toActivity(PublishActivity.class);
+                else
+                    toActivity(LoginActivityNew.class);
+                break;
+            case R.id.lyMineEvaluate:// 待评价的
+                if (Utils.isFastDoubleClick())
+                    return;
+                if (application.checkIsLogin())
+                    toActivity(WaitForEvaluateActivity.class);
+                else
+                    toActivity(LoginActivityNew.class);
+                break;
 		case R.id.lyMineTicket:// 票券
 			if (Utils.isFastDoubleClick())
 				return;

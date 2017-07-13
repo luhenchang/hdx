@@ -63,6 +63,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 				}
 			});
 		}
+
+
+
 		return viewHolder.getConvertView();
 	}
 
