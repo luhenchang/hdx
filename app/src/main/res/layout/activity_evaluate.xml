@@ -297,8 +297,7 @@
                 android:id="@+id/evaluate_share"
                 android:layout_centerVertical="true"
                   android:visibility="visible"
-
-                  android:layout_marginLeft="30dp"
+                  android:layout_marginLeft="15dp"
                 android:layout_height="60px"/>
 
         <TextView android:layout_width="wrap_content"
@@ -314,24 +313,22 @@
 
 
 
-        <LinearLayout android:layout_width="280px"
+        <RelativeLayout android:layout_width="340px"
                       android:background="#61b754"
                       android:id="@+id/evaluate_submit_ly"
-
                       android:layout_alignParentRight="true"
                       android:layout_height="match_parent">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textColor="@color/white"
-
                       android:id="@+id/evaluate_submit"
                       android:layout_gravity="center"
-                      android:layout_marginLeft="30dp"
                       android:text="提交评价"
+                      android:layout_centerInParent="true"
                       android:textSize="15sp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
 </RelativeLayout>
 

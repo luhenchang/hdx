@@ -153,6 +153,11 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         dislikeButton.setOnClickListener(this);
         shareButton= (CheckBox) findViewById(R.id.evaluate_share);
         shareButton.setOnClickListener(this);
+
+
+        shareButton.setBackgroundResource(R.drawable.share_selected_3x);
+        share=true;
+        shareButton.setChecked(true);
         submitTextView= (TextView) findViewById(R.id.evaluate_submit);
         submitTextView.setOnClickListener(this);
 

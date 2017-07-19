@@ -3,7 +3,7 @@
     <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/myratingstar</item>
         <item name="android:minHeight">15dip</item>
-        <item name="android:maxHeight">20dip</item>
+        <item name="android:maxHeight">25dip</item>
     </style>
 
 

@@ -14,7 +14,6 @@ import com.avos.avoscloud.SignUpCallback;
 
 import org.junit.Test;
 
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +32,11 @@ public class MyTest1 {
     @Test
     public void test() throws Exception{
 
+try {
+    Thread.sleep(1000);
+}catch (Exception e){
+
+}
 
             String url1 = "http://www.xx.com";
             String url2 = "w.xx.com";

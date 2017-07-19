@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
@@ -57,24 +56,35 @@ import com.accuvally.hdtui.model.ItemInfo;
 import com.accuvally.hdtui.model.KeyValueInfo;
 import com.accuvally.hdtui.model.RegSuccessInfo;
 import com.accuvally.hdtui.ui.CustomerScrollView;
+import com.accuvally.hdtui.utils.AndroidHttpClient;
 import com.accuvally.hdtui.utils.DialogUtils;
 import com.accuvally.hdtui.utils.FileCache;
+import com.accuvally.hdtui.utils.HttpCilents;
 import com.accuvally.hdtui.utils.HttpCilents.WebServiceCallBack;
 import com.accuvally.hdtui.utils.ImageBig;
-import com.accuvally.hdtui.utils.PickPhoto;
 import com.accuvally.hdtui.utils.TimeUtils;
 import com.accuvally.hdtui.utils.Trace;
 import com.accuvally.hdtui.utils.Utils;
+import com.accuvally.hdtui.utils.chunk.ChunkInfo;
+import com.accuvally.hdtui.utils.chunk.CustomFileBody;
+import com.accuvally.hdtui.utils.chunk.FileInfo;
+import com.accuvally.hdtui.utils.chunk.UploadChunkUtil;
 import com.accuvally.hdtui.utils.eventbus.ChangeDetailsDialogEventBus;
 import com.accuvally.hdtui.utils.eventbus.ChangePaySuccessEventBus;
 import com.accuvally.hdtui.utils.eventbus.EventEnroll;
 import com.accuvally.hdtui.utils.eventbus.EventRobSuccess;
+import com.accuvally.hdtui.utils.hawkj2.Algorithm;
+import com.accuvally.hdtui.utils.hawkj2.AuthorizationHeader;
+import com.accuvally.hdtui.utils.hawkj2.HawkContext;
+import com.accuvally.hdtui.utils.hawkj2.util.StringUtils;
 import com.accuvally.hdtui.utils.timepicker.JudgeDate;
 import com.accuvally.hdtui.utils.timepicker.ScreenInfo;
 import com.accuvally.hdtui.utils.timepicker.WheelMain;
 import com.alibaba.fastjson.JSON;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -82,11 +92,14 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +134,10 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
 	private CustomerScrollView buyTicketScrollview;
 
     private String scode;//抢票s码
+
+
+    public final static int getPicture=1;
+    public final static int getFile=2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -696,20 +713,25 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
 
                 break;
 
-            case R.id.tvPhotograph:// 拍照
+            case R.id.tvPhotograph:// 图片
                 photoDialog.dismiss();
-                OUTPUTFILEPATH = fileCache.getImageCacheDir().getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
+               /* OUTPUTFILEPATH = fileCache.getImageCacheDir().getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(OUTPUTFILEPATH)));
-                Trace.e(TAG,OUTPUTFILEPATH);
-                startActivityForResult(intent, PickPhoto.TAKE_PHOTO);
+                Trace.e(TAG, OUTPUTFILEPATH);
+                startActivityForResult(intent, PickPhoto.TAKE_PHOTO);*/
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intent, getPicture);
                 break;
-            case R.id.tvAlbum:// 相册
+            case R.id.tvAlbum:// 文件
                 photoDialog.dismiss();
                 Intent intent2 = new Intent();
-                intent2.setType("image/*");
+                intent2.setType("file/*");
                 intent2.setAction(Intent.ACTION_PICK);
-                startActivityForResult(intent2, PickPhoto.PICK_PHOTO);
+                startActivityForResult(intent2, getFile);
                 break;
             case R.id.file_form_add://上传文件
                 shwoPictureSelctDialog();
@@ -1096,7 +1118,6 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
             e.printStackTrace();
         }
 
-
         httpCilents.postFile(Url.UPLOAD_FILES, new WebServiceCallBack() {
             @Override
             public void callBack(int code, Object result) {
@@ -1112,14 +1133,14 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
                         }
                         dismissUpLoadingDialog();
                         //删除上传的压缩文件
-                        deleteCacheFile(filePath);
+//                        deleteCacheFile(filePath);
 
                         break;
                     case Config.RESULT_CODE_ERROR:
-                        application.showMsg("图片上传失败，请检查网络");
+                        application.showMsg("上传失败，请检查网络");
                         dismissUpLoadingDialog();
                         //删除上传的压缩文件
-                        deleteCacheFile(filePath);
+//                        deleteCacheFile(filePath);
                         break;
                 }
             }
@@ -1133,8 +1154,32 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
         ll_file_form_display.setVisibility(View.VISIBLE);
         String paths[]=path.split("/");
         if(paths.length>0){
-            file_form_fileName.setText(paths[paths.length-1]);
+            file_form_fileName.setText(paths[paths.length - 1]);
         }
+    }
+
+
+
+    HashSet<String> stringHashSet;
+    private boolean checkSuffix(String path){
+
+        String  lastSuffix="";
+
+        String paths[]=path.split("\\.");
+        if(paths.length>0){
+            lastSuffix= "."+paths[paths.length - 1];
+            System.out.println("lastSuffix:"+lastSuffix);
+        }
+
+        if(stringHashSet==null){
+            stringHashSet=new HashSet<>();
+            for(String str:suffix){
+                stringHashSet.add(str);
+            }
+        }
+
+        return stringHashSet.contains(lastSuffix);
+
     }
 
     @Override
@@ -1144,32 +1189,234 @@ public class SubmitFormActivity extends BaseActivity implements OnClickListener 
         if (resultCode == Activity.RESULT_OK) {
             String path = null;
             switch (requestCode) {
-                case PickPhoto.TAKE_PHOTO://拍照返回
-                    path = ImageBig.scalePicture(mContext, OUTPUTFILEPATH, 600, 600);
+                case getPicture://从图片中选择
+
+                   /* try{
+                        Uri uri = data.getData();
+                        path=uri.getPath();
+                        Log.e(TAG, "getPicture ------->" + path);
+
+                        if (path != null) {
+                            chunkAndUpload(path, uploadFileName);
+                        }
+                    }catch (Exception e){
+                        application.showMsg("选择图片失败，请重新选择");
+                    }*/
+
+
+                    try {
+                        Cursor cursor = mContext.getContentResolver().query(data.getData(), null, null, null, null);
+                        cursor.moveToFirst();
+                        path=cursor.getString(1);
+
+
+//                        path = ImageBig.scalePicture(mContext, cursor.getString(1), 800, 800);
+//                        Trace.e(TAG,"相册中原图片路径："+cursor.getString(1));
+//                        Trace.e(TAG,"相册中压缩的图片路径："+path);
+//                        cursor.close();
+                        Log.e(TAG, "getPicture ------->" + path);
+                        if (path != null) {
+                            if(checkSuffix(path)){
+                                chunkAndUpload(path, uploadFileName);
+                            }else {
+                                application.showMsg("文件后缀名不对，请重新选择");
+                            }
+
+                        }
+                    } catch (Exception e) {
+                        application.showMsg("选择相册失败，请重新选择");
+                    }
+
+
+                   /* path = ImageBig.scalePicture(mContext, OUTPUTFILEPATH, 600, 600);
                     Trace.e(TAG,"拍照后原图片路径："+OUTPUTFILEPATH);
                     Trace.e(TAG,"拍照后压缩的图片路径："+path);
                     if (path != null) {
                         uploadPicture(path, uploadFileName);
-                    }
+                    }*/
                     break;
-                case PickPhoto.PICK_PHOTO://从相册中选择
+                case getFile://从文件中选择
                     try {
-                        Cursor cursor = mContext.getContentResolver().query(data.getData(), null, null, null, null);
-                        cursor.moveToFirst();
-                        path = ImageBig.scalePicture(mContext, cursor.getString(1), 800, 800);
+                        Uri uri2 = data.getData();
+                        path= uri2.getPath();
+                        Log.e(TAG, "getFile ------->" + path);
+
+                        if (path != null) {
+                            if(checkSuffix(path)){
+                                chunkAndUpload(path, uploadFileName);
+                            }else {
+                                application.showMsg("文件后缀名不对，请重新选择");
+                            }
+                        }
+                       /* path = ImageBig.scalePicture(mContext, cursor.getString(1), 800, 800);
                         Trace.e(TAG,"相册中原图片路径："+cursor.getString(1));
                         Trace.e(TAG,"相册中压缩的图片路径："+path);
                         cursor.close();
                         if (path != null) {
                             uploadPicture(path, uploadFileName);
-                        }
+                        }*/
                     } catch (Exception e) {
-                        application.showMsg("请选择相册中的照片");
+                        application.showMsg("选择文件失败，请重新选择");
                     }
                     break;
                 default:
                     break;
             }
         }
+    }
+
+
+
+
+    //================================================================================
+    public void chunkAndUpload(String path,String fileName){
+        showUpLoadingDialog();
+
+        File file=new File(path);
+        FileInfo fileInfo=new FileInfo();
+        fileInfo.setFilePath(path);
+        fileInfo.setFileLength(file.length());
+        fileInfo.setFileName(file.getName());
+        long fileLength=fileInfo.getFileLength();
+        int chunks=(int)(fileLength/ ChunkInfo.chunkLength+(fileLength%ChunkInfo.chunkLength>0?1:0));
+
+        String  lastSuffix=null;
+
+        String paths[]=path.split("\\.");
+        if(paths.length>0){
+            lastSuffix= paths[paths.length - 1];
+            Trace.e(TAG,"lastSuffix:"+lastSuffix);
+        }
+
+
+        ArrayList<ChunkInfo> chunkInfos=new ArrayList<>();
+
+        for (int i=0;i<chunks;i++) {//当前分片值从1开始
+            ChunkInfo chunkInfo = new ChunkInfo();
+//            chunkInfo.setChunkName(fileInfo.getFileName()+".part_"+(i+1)+"."+chunks);//filename.jpg.part_2.10
+            chunkInfo.setChunkName(fileName+"."+lastSuffix+".part_"+(i+1)+"."+chunks);//filename.jpg.part_2.10
+
+            chunkInfo.setChunk(i);
+            chunkInfo.setChunks(chunks);
+            chunkInfo.setFileLength(fileLength);
+            chunkInfo.setFilePath(fileInfo.getFilePath());
+            chunkInfos.add(chunkInfo);
+            Trace.e("要提交的 chunks", chunkInfo.toString());
+        }
+
+        uploadChunks(path,Url.UPLOAD_CHUNK, chunkInfos,fileName);
+
+    }
+
+    //===================================================================================
+    public String  HawkPost(String url,AccuApplication application) throws MalformedURLException {
+        String accu_id = application.sharedUtils.readString(Config.KEY_ACCUPASS_USER_NAME);
+        String accu_key = application.sharedUtils.readString(Config.KEY_ACCUPASS_ACCESS_TOKEN);
+        Log.i("info", accu_id);
+        Log.i("info", accu_key);
+        AuthorizationHeader authorizationHeader = null;
+        URL realUrl = new URL(url);
+        try {
+            HawkContext.HawkContextBuilder_C b = HawkContext.offset(application.hawkOffset).request("POST", realUrl.getPath(), Url.ACCUPASS_SERVICE_HOST, url.indexOf("https") != -1 ? Url.ACCUPASS_SERVICE_PORT2 : Url.ACCUPASS_SERVICE_PORT).credentials(accu_id, accu_key, Algorithm.SHA_256);
+            authorizationHeader = b.build().createAuthorizationHeader();
+            return authorizationHeader.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    String[] suffix={ ".jpg", ".jpeg", ".png", ".gif", ".bmp",
+            ".txt", ".doc", ".docx", "xls", ".xlsx", ".ppt",
+            ".pptx", ".pdf", ".rar", ".zip", ".7z" };
+
+
+    boolean hasUpload=false;
+    void uploadChunks(final String path,final String url,final ArrayList<ChunkInfo> chunkInfos,final String fileName){
+        final AccuApplication accuApplication=AccuApplication.getInstance();
+        hasUpload=false;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                int time=0;
+                final int MAXTIME=3*chunkInfos.size();
+
+                while ((chunkInfos.size()!=0) &&(time<MAXTIME)){
+                    hasUpload=true;
+                    time++;
+                    AndroidHttpClient httpClient = AndroidHttpClient.newInstance(HttpCilents.buildUserAgent(accuApplication));
+                    ChunkInfo chunkInfo=null;
+                    try {
+//                        ImageItem imageItem=chunkInfos.get(0);
+                        chunkInfo=chunkInfos.get(0);
+
+                        HttpPost request = new HttpPost(url);
+                        request.addHeader("Authorization", HawkPost(url,accuApplication).toString());
+                        request.addHeader("api-version", "v3.5.0");
+
+
+                        MultipartEntity mutiEntity = new MultipartEntity();
+                        mutiEntity.addPart("f", new StringBody("form_attach", Charset.forName("utf-8")));
+                        mutiEntity.addPart("n", new StringBody(fileName, Charset.forName("utf-8")));
+                        mutiEntity.addPart("file", new CustomFileBody(chunkInfo));
+                        mutiEntity.addPart("fsize", new StringBody(chunkInfo.getFileLength()+"", Charset.forName("utf-8")));
+
+                        request.setEntity(mutiEntity);
+
+                        // getConsumer().sign(request);
+                        HttpResponse response = httpClient.execute(request);
+                        int statusCode = response.getStatusLine().getStatusCode();
+                        String content = HttpCilents.convertStreamToString(response.getEntity().getContent());
+                        Trace.e("TAG","statusCode:"+statusCode+"  content:"+content);
+                        if(statusCode==200){
+
+                            try {
+                                BaseResponse info = JSON.parseObject(content, BaseResponse.class);
+                                if (info.isSuccess()) {
+                                    chunkInfos.remove(0);//图片提交成功，
+                                    Trace.e("提交成功的 chunks", chunkInfo.toString());
+                                    if(!TextUtils.isEmpty(info.getResult())){
+                                        fileSerialNumber=info.getResult();
+                                        Trace.e(TAG,"fileSerialNumber:"+fileSerialNumber);
+                                    }
+                                }
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                        }else {
+                            Trace.e("提交失败的 chunks", chunkInfo.toString());
+                        }
+
+                    } catch (Exception e) {
+                        Trace.e("提交失败的 e  chunks", chunkInfo.toString()+"    "+e.getMessage());
+                        e.printStackTrace();
+                    } finally {
+                        httpClient.close();
+                    }
+
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissUpLoadingDialog();
+                        if(hasUpload &&  chunkInfos.size()==0){
+                            setUploadSuccess(path);
+
+                        }else {
+                            application.showMsg("上传失败，请重试");
+                        }
+
+                    }
+                });
+
+                Trace.e("TAG","chunks上传线程退出");
+            }
+        }).start();
     }
 }

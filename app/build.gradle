@@ -95,7 +95,7 @@ android {
 //        xiaomi{}
 //        huawei{}
 //        baidu{}
-//        _360{}
+        _360{}
 //        anzhi{}
 //        jinli{}
 

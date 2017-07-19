@@ -52,6 +52,7 @@ public class UploadChunkUtil {
             chunkInfo.setChunkName(fileInfo.getFileName()+".part_"+(i+1)+"."+chunks);//filename.jpg.part_2.10
             chunkInfo.setChunk(i);
             chunkInfo.setChunks(chunks);
+            chunkInfo.setFileLength(fileLength);
             chunkInfo.setFilePath(fileInfo.getFilePath());
             chunkInfos.add(chunkInfo);
             Trace.e("要提交的 chunks", chunkInfo.toString());
@@ -115,6 +116,7 @@ public class UploadChunkUtil {
                         mutiEntity.addPart("f", new StringBody("form_attach", Charset.forName("utf-8")));
                         mutiEntity.addPart("n", new StringBody(chunkInfo.getChunkName(), Charset.forName("utf-8")));
                         mutiEntity.addPart("file", new CustomFileBody(chunkInfo));
+                        mutiEntity.addPart("fsize", new StringBody(chunkInfo.getFileLength()+"", Charset.forName("utf-8")));
 
 //                        File file = new File(chunkInfo.getFilePath());
 //                        mutiEntity.addPart("file", new FileBody(file));
@@ -150,16 +152,12 @@ public class UploadChunkUtil {
                     } finally {
                         httpClient.close();
                     }
+
                 }
                 Trace.e("TAG","chunks上传线程退出");
             }
         }).start();
     }
-
-
-
-
-
 
 
 }

@@ -14,7 +14,7 @@
             android:background="@drawable/selector_click_btn"
             android:padding="15dp"
             android:gravity="center"
-            android:text="拍摄"
+            android:text="图片"
             android:textColor="@color/txt_gray"
             android:textSize="@dimen/little_16" />
 
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:background="@drawable/selector_click_btn"
             android:padding="15dp"
-            android:text="相册"
+            android:text="文件"
             android:textColor="@color/txt_gray"
             android:textSize="@dimen/little_16" />
 
